@@ -10,7 +10,7 @@ public class Board {
     public Board(){
         board = new Figure[8][8];
 
-        for(int team = 0; team < 1; team++){
+        for(int team = 0; team <= 1; team++){
             //create Pawns
             for(int i = 0; i < 8; i++) board[i][2+team*7] = new Pawn(i, 2+team*7, team);
             //create King
