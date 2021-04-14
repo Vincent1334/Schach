@@ -8,9 +8,7 @@ public class King extends Figure {
     int team;
 
     public King(int posX, int posY, int team) {
-        this.posX = posX;
-        this.posY = posY;
-        this.team = team;
+        super(posX, posY, team);
     }
 
     /**
@@ -21,12 +19,7 @@ public class King extends Figure {
      * @return whether move was successful
      */
     public boolean makeMove(int newX, int newY, Board board) {
-
-        if (newX == posX+1 || newX == posX-1 || newY == posY+1 || newY == posY-1 ) {
-            board.setFigure(newX, newY, this);
-            return true;
-        }
-        return false;
+        // TODO
     }
 
 }

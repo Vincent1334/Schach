@@ -1,4 +1,17 @@
 package chess.model;
 
-public class Figure {
+public abstract class Figure {
+
+    boolean alreadyMoved;
+    int posX;
+    int posY;
+    int team;
+
+    public Figure(int posX, int posY, int team) {
+        this.posX = posX;
+        this.posY = posY;
+        this.team = team;
+    }
+
+    public abstract boolean makeMove(int newX, int newY, Board board);
 }
