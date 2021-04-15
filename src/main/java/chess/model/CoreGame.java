@@ -6,9 +6,11 @@ public class CoreGame {
 
     private Board board;
     private int activePlayer = 0;
+    private int gameMode = 0;
 
-    public CoreGame(){
+    public CoreGame(int gameMode){
         board = new Board();
+        this.gameMode = gameMode;
 
     }
 
