@@ -18,10 +18,28 @@ public class King extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
-    public boolean makeMove(int newX, int newY, Board board) {
-
-        if (newX == posX+1 || newX == posX-1 || newY == posY+1 || newY == posY-1 ) {
-            board.setFigure(newX, newY, this);
+    public boolean validMove(int newX, int newY, Board board) {
+        // black castle queenside (left)
+        if (!alreadyMoved && newX == posX-2 && !board.getFigure(0,posY).isAlreadyMoved()) {
+            board.setFigure(newX+1,newY,board.getFigure(0,posY));
+            return true;
+        }
+        // black castle kingside (right)
+        if (!alreadyMoved && newX == posX+2 && !board.getFigure(0,posY).isAlreadyMoved()) {
+            board.setFigure(newX-1,newY,board.getFigure(0,posY));
+            return true;
+        }
+        // white castle kingside (left)
+        if (!alreadyMoved && newX == posX+2 && !board.getFigure(7,posY).isAlreadyMoved()) {
+            board.setFigure(newX-1,newY,board.getFigure(7,posY));
+            return true;
+        }
+        // white castle queenside (right)
+        if (!alreadyMoved && newX == posX+2 && !board.getFigure(7,posY).isAlreadyMoved()) {
+            board.setFigure(newX-1,newY,board.getFigure(7,posY));
+            return true;
+        }
+        if (newX == posX+1 || newX == posX-1 || newY == posY+1 || newY == posY-1) {
             return true;
         }
         return false;

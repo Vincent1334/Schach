@@ -18,7 +18,7 @@ public class Pawn extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
-    public boolean makeMove(int newX, int newY, Board board) {
+    public boolean validMove(int newX, int newY, Board board) {
         // TODO
     }
 

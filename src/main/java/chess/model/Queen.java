@@ -14,7 +14,7 @@ public class Queen extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
-    public boolean makeMove(int newX, int newY, Board board) {
+    public boolean validMove(int newX, int newY, Board board) {
         if(super.posX == newX || super.posY == newY || super.posX - newX == super.posY - newY){
             //moving the Queen to new position
             board.getBoard()[newX][newY]=this;

@@ -19,13 +19,8 @@ public class Rook extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
-    public boolean makeMove(int newX, int newY, Board board) {
-
-        if (newX == posX || newY == posY) {
-            board.setFigure(newX, newY, this);
-            return true;
-        }
-        return false;
+    public boolean validMove(int newX, int newY, Board board) {
+        return newX == posX || newY == posY;
     }
 
     @Override

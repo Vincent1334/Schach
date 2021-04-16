@@ -29,7 +29,21 @@ public class CoreGame {
         //Check whether the player wants to play his own figure
         if(move.size() == 4 && board.getFigure(move.get(0), move.get(1)).getTeam() == activePlayer){
             //Check if move is possible
-            if(board.getFigure(move.get(0), move.get(1)).makeMove(move.get(2), move.get(3), board)){
+
+            Figure actualFigure = board.getFigure(move.get(0), move.get(1));
+            Figure targetFigure = board.getFigure(move.get(2), move.get(3));
+
+            if(actualFigure.validMove(move.get(2), move.get(3), board)){
+                // check if new field is empty
+                if (targetFigure instanceof None) {
+                    board.setFigure(move.get(2), move.get(3), actualFigure);
+                }
+                // check if figure standing on the target field is of opposite color
+                if (targetFigure.getTeam() == actualFigure.team) {
+                    // TODO: geschlagene Figur entfernen und auf Liste setzen
+                    board.setFigure(move.get(2), move.get(3), actualFigure);
+                }
+
                 //Switch active player
                 if(activePlayer == 0) activePlayer = 1;
                 else activePlayer = 0;

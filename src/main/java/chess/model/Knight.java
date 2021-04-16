@@ -14,7 +14,7 @@ public class Knight extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
-    public boolean makeMove(int newX, int newY, Board board) {
+    public boolean validMove(int newX, int newY, Board board) {
         if(super.posX + 1 == newX && super.posY + 2 == newY || super.posX + 1 == newX && super.posY - 2 == newY
                 ||posX - 1 == newX && super.posY + 2 == newY|| super.posX - 1 == newX && super.posY - 2 == newY
                 || posX + 2 == newX && super.posY + 1 == newY|| super.posX + 2 == newX && super.posY - 1 == newY

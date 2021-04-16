@@ -13,10 +13,15 @@ public abstract class Figure {
         this.team = team;
     }
 
-    public abstract boolean makeMove(int newX, int newY, Board board);
+    public abstract boolean validMove(int newX, int newY, Board board);
 
     public int getTeam(){
         return this.team;
     }
     public abstract String getSymbol();
+
+    public boolean isAlreadyMoved() {
+        return alreadyMoved;
+    }
+
 }

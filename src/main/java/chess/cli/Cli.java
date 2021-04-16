@@ -59,7 +59,7 @@ public class Cli {
         do{
             clearWindow();
             drawBoard();
-            System.out.print();
+            System.out.print("");
         }while(true);
     }
 
@@ -74,7 +74,7 @@ public class Cli {
             }
             System.out.print("\n");
         }
-        System.out.println(" a b c d e f g h");
+        System.out.println("  a b c d e f g h");
     }
 
     /**

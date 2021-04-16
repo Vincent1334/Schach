@@ -9,12 +9,13 @@ public class None extends Figure {
 
     public None(int posX, int posY, int team) {
         // TODO
+        super(posX, posY, team);
     }
 
     /**
      *
      */
-    public boolean makeMove(int newX, int newY, Board board) {
+    public boolean validMove(int newX, int newY, Board board) {
         // TODO
     }
 
