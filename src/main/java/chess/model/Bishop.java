@@ -19,7 +19,31 @@ public class Bishop extends Figure {
      * @return whether move was successful
      */
     public boolean validMove(int newX, int newY, Board board) {
-        // TODO
+        //Is the new position on the board?
+        if(newX<9 && newX>0 && newY<9 && newY>0){
+            //Is a Figure of the own team on the new position?
+            if(board.getFigure(newX,newY).getTeam() != board.getFigure(posX,posY).getTeam()){
+                //Is the new position on a diagonal from the old position
+                for (int i=-8; i<9; i++){
+                    if((newX==posX+i && newY==posY+i)
+                            || (newX==posX-i && newY==posY+i)
+                            || (newX==posX+i && newY==posY-i)){
+                        //is between the old position and the new position a figure
+                        for (int j=1; j < Math.abs(posX-newX); j++){
+                            if( !(board.getFigure(posX+j,posY+j) instanceof None)) {
+                                return false;
+                            }
+                        }
+                        // sets new position
+                        posX = newX;
+                        posY = newY;
+                        return true;
+                    }
+                }
+            }
+
+        }
+        return false;
     }
 
     @Override
