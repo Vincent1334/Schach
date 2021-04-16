@@ -27,41 +27,45 @@ public class CoreGame {
     public boolean chessMove(String in){
         //translate user input to position
         ArrayList<Integer> move = parse(in);
-        //Check whether the player wants to play his own figure
-        Integer posX = move.get(0);
-        Integer posY = move.get(1);
-        if(move.size() == 4 && board.getFigure(posX, posY).getTeam() == activePlayer){
-            
-            Integer newX = move.get(2);
-            Integer newY = move.get(3);
-            Figure actualFigure = board.getFigure(posX, posY);
-            Figure targetFigure = board.getFigure(newX, newY);
+        //check valid move
+        if(move.size() == 4){
+            Integer posX = move.get(0);
+            Integer posY = move.get(1);
+            if(board.getFigure(posX, posY).getTeam() == activePlayer){
 
-            //Check if move is possible
-            if(actualFigure.validMove(newX, newY, board)){
+                Integer newX = move.get(2);
+                Integer newY = move.get(3);
+                Figure actualFigure = board.getFigure(posX, posY);
+                Figure targetFigure = board.getFigure(newX, newY);
 
-                // check if new field is empty and makeMove
-                if (targetFigure instanceof None) {
-                    // set figure
-                    board.setFigure(newX, newY, actualFigure);
-                    // remove old figure
-                    board.setFigure(posX, posY, targetFigure);
+                //Check if move is possible
+                if(actualFigure.validMove(newX, newY, board)){
+
+                    // check if new field is empty and makeMove
+                    if (targetFigure instanceof None) {
+                        // set figure
+                        board.setFigure(newX, newY, actualFigure);
+                        // remove old figure
+                        board.setFigure(posX, posY, targetFigure);
+                    }
+                    // check if figure standing on the target field is of opposite color, makeMove and add targetFigure to beatenFigures
+                    if (targetFigure.getTeam() == actualFigure.team) {
+                        beatenFigures.add(targetFigure);
+                        // set figure
+                        board.setFigure(newX, newY, actualFigure);
+                        // remove old figure
+                        board.setFigure(posX, posY, new None(posX, posY,1));
+                    }
+
+                    //Switch active player
+                    if(activePlayer == 0) activePlayer = 1;
+                    else activePlayer = 0;
+                    return true;
                 }
-                // check if figure standing on the target field is of opposite color, makeMove and add targetFigure to beatenFigures
-                if (targetFigure.getTeam() == actualFigure.team) {
-                    beatenFigures.add(targetFigure);
-                    // set figure
-                    board.setFigure(newX, newY, actualFigure);
-                    // remove old figure
-                    board.setFigure(posX, posY, new None(posX, posY,1));
-                }
-
-                //Switch active player
-                if(activePlayer == 0) activePlayer = 1;
-                else activePlayer = 0;
-                return true;
             }
         }
+        //Check whether the player wants to play his own figure
+
         //User command fails
         return false;
     }
