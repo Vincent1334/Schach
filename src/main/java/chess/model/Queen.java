@@ -2,10 +2,6 @@ package chess.model;
 
 public class Queen extends Figure {
 
-    boolean alreadyMoved;
-    int posX;
-    int posY;
-    int team;
 
     public Queen(int posX, int posY, int team) {
         super(posX, posY, team);
@@ -19,11 +15,11 @@ public class Queen extends Figure {
      * @return whether move was successful
      */
     public boolean makeMove(int newX, int newY, Board board) {
-        if(posX == newX || posY == newY || posX - newX == posY - newY){
+        if(super.posX == newX || super.posY == newY || super.posX - newX == super.posY - newY){
             //moving the Queen to new position
             board.getBoard()[newX][newY]=this;
             //deleting the old Queen
-            board.getBoard()[posX][posY]=new None(posX, posY, super.getTeam());
+            board.getBoard()[super.posX][super.posY]=new None(super.posX, super.posY, super.getTeam());
             return true;
         }
         return false;
