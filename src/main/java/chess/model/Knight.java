@@ -2,11 +2,6 @@ package chess.model;
 
 public class Knight extends Figure {
 
-    boolean alreadyMoved;
-    int posX;
-    int posY;
-    int team;
-
     public Knight(int posX, int posY, int team) {
         super(posX, posY, team);
     }

@@ -2,11 +2,6 @@ package chess.model;
 
 public class Bishop extends Figure {
 
-    boolean alreadyMoved;
-    int posX;
-    int posY;
-    int team;
-
     public Bishop(int posX, int posY, int team) {
         super(posX, posY, team);
     }

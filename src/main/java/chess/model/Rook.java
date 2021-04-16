@@ -2,11 +2,6 @@ package chess.model;
 
 public class Rook extends Figure {
 
-    boolean alreadyMoved;
-    int posX;
-    int posY;
-    int team;
-
     public Rook(int posX, int posY, int team) {
         super(posX, posY, team);
     }

@@ -2,11 +2,6 @@ package chess.model;
 
 public class Pawn extends Figure {
 
-    boolean alreadyMoved;
-    int posX;
-    int posY;
-    int team;
-
     public Pawn(int posX, int posY, int team) {
         super(posX, posY, team);
     }
@@ -19,6 +14,7 @@ public class Pawn extends Figure {
      * @return whether move was successful
      */
     public boolean validMove(int newX, int newY, Board board) {
+        return false;
         // TODO
     }
 

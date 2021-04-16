@@ -2,11 +2,6 @@ package chess.model;
 
 public class King extends Figure {
 
-    boolean alreadyMoved;
-    int posX;
-    int posY;
-    int team;
-
     public King(int posX, int posY, int team) {
         super(posX, posY, team);
     }
