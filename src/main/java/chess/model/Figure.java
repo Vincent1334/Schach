@@ -2,10 +2,10 @@ package chess.model;
 
 public abstract class Figure {
 
-    private boolean alreadyMoved;
-    private int posX;
-    private int posY;
-    private int team;
+    boolean alreadyMoved;
+    int posX;
+    int posY;
+    int team;
 
     public Figure(int posX, int posY, int team) {
         this.posX = posX;
@@ -15,7 +15,9 @@ public abstract class Figure {
 
     public abstract boolean makeMove(int newX, int newY, Board board);
 
-    public int getTeam(){
-        return team;
+    public int getTeam() {
+        return this.team;
     }
+
+    public abstract String getSymbol();
 }

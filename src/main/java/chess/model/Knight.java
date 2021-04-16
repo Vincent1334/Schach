@@ -22,5 +22,10 @@ public class Knight extends Figure {
         // TODO
     }
 
+    @Override
+    public String getSymbol() {
+        return team == 0 ? "U+2658" : "U+265E";
+    }
+
 }
 

@@ -18,4 +18,9 @@ public class None extends Figure {
         // TODO
     }
 
+    @Override
+    public String getSymbol() {
+        return " ";
+    }
+
 }

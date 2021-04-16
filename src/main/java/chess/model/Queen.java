@@ -22,5 +22,10 @@ public class Queen extends Figure {
         // TODO
     }
 
+    @Override
+    public String getSymbol() {
+        return team == 0 ? "U+2655" : "U+265B";
+    }
+
 }
 

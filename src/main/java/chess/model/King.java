@@ -19,7 +19,17 @@ public class King extends Figure {
      * @return whether move was successful
      */
     public boolean makeMove(int newX, int newY, Board board) {
-        // TODO
+
+        if (newX == posX+1 || newX == posX-1 || newY == posY+1 || newY == posY-1 ) {
+            board.setFigure(newX, newY, this);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String getSymbol() {
+        return team == 0 ? "U+2654" : "U+265A";
     }
 
 }

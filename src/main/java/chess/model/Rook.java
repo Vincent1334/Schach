@@ -13,16 +13,24 @@ public class Rook extends Figure {
 
     /**
      * Proofs if the move is a valid move for Rook and makes move if it is
-     * @param newX new input x-position for Rook
-     * @param newY new input y-position for Rook
+     *
+     * @param newX  new input x-position for Rook
+     * @param newY  new input y-position for Rook
      * @param board actual state of chessboard
      * @return whether move was successful
      */
     public boolean makeMove(int newX, int newY, Board board) {
 
-        if (newX == posX+1 || newX == posX-1 || newY == posY+1 || newY == posY-1 ) {
+        if (newX == posX || newY == posY) {
             board.setFigure(newX, newY, this);
             return true;
         }
         return false;
     }
+
+    @Override
+    public String getSymbol() {
+        return team == 0 ? "U+2656" : "U+265C";
+    }
+
+}

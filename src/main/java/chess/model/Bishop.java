@@ -22,4 +22,9 @@ public class Bishop extends Figure {
         // TODO
     }
 
+    @Override
+    public String getSymbol() {
+        return team == 0 ? "U+2657" : "U+265D";
+    }
+
 }
