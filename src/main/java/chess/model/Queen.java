@@ -20,18 +20,9 @@ public class Queen extends Figure {
      * @return whether move was successful
      */
     public boolean validMove(int newX, int newY, Board board) {
-        //checks if the new position is on the board
-        if (newX < 9 && newX > 0 && newY < 9 && newY > 0) {
-            //Is a Figure of the own team on the new position?
-            if(board.getFigure(newX,newY).getTeam() != board.getFigure(posX,posY).getTeam()) {
-                if (posX == newX || posY == newY || posX - newX == posY - newY) {
-                    //moving the Queen to new position
-                    board.getBoard()[newX][newY] = this;
-                    //deleting the old Queen
-                    board.getBoard()[posX][posY] = new None(posX, posY, getTeam());
-                    return true;
-                }
-            }
+
+        if (posX == newX || posY == newY || posX - newX == posY - newY) {
+            return true;
         }
         return false;
     }

@@ -2,6 +2,10 @@ package chess.model;
 
 public class Knight extends Figure {
 
+    boolean alreadyMoved;
+    int posX;
+    int posY;
+    int team;
 
     public Knight(int posX, int posY, int team) {
         super(posX, posY, team);
@@ -15,14 +19,10 @@ public class Knight extends Figure {
      * @return whether move was successful
      */
     public boolean validMove(int newX, int newY, Board board) {
-        if(super.posX + 1 == newX && super.posY + 2 == newY || super.posX + 1 == newX && super.posY - 2 == newY
-                ||posX - 1 == newX && super.posY + 2 == newY|| super.posX - 1 == newX && super.posY - 2 == newY
-                || posX + 2 == newX && super.posY + 1 == newY|| super.posX + 2 == newX && super.posY - 1 == newY
-                || posX - 2 == newX && super.posY + 1 == newY|| super.posX - 2 == newX && super.posY - 1 == newY){
-            //moving the Knight to new position
-            board.getBoard()[newX][newY]=this;
-            //deleting the old Knight
-            board.getBoard()[super.posX][super.posY]=new None(super.posX, super.posY,super.getTeam());
+        if(posX + 1 == newX && posY + 2 == newY || posX + 1 == newX && posY - 2 == newY
+                ||posX - 1 == newX && posY + 2 == newY|| posX - 1 == newX && posY - 2 == newY
+                || posX + 2 == newX && posY + 1 == newY|| posX + 2 == newX && posY - 1 == newY
+                || posX - 2 == newX && posY + 1 == newY|| posX - 2 == newX && posY - 1 == newY){
             return true;
         }
         return false;
