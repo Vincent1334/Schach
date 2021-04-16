@@ -19,7 +19,17 @@ public class Knight extends Figure {
      * @return whether move was successful
      */
     public boolean makeMove(int newX, int newY, Board board) {
-        // TODO
+        if(posX + 1 == newX && posY + 2 == newY || posX + 1 == newX && posY - 2 == newY
+                ||posX - 1 == newX && posY + 2 == newY|| posX - 1 == newX && posY - 2 == newY
+                || posX + 2 == newX && posY + 1 == newY|| posX + 2 == newX && posY - 1 == newY
+                || posX - 2 == newX && posY + 1 == newY|| posX - 2 == newX && posY - 1 == newY){
+            //moving the Knight to new position
+            board.getBoard()[newX][newY]=this;
+            //deleting the old Knight
+            board.getBoard()[posX][posY]=new None(posX, posY,super.getTeam());
+            return true;
+        }
+        return false;
     }
 
     @Override
