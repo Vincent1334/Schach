@@ -29,9 +29,36 @@ public class Bishop extends Figure {
                             || (newX==posX-i && newY==posY+i)
                             || (newX==posX+i && newY==posY-i)){
                         //is between the old position and the new position a figure
-                        for (int j=1; j < Math.abs(posX-newX); j++){
-                            if( !(board.getFigure(posX+j,posY+j) instanceof None)) {
-                                return false;
+                        //new position on the upper right
+                        if(posX-newX < 0 && posY-newY < 0){
+                            for (int j=1; j < Math.abs(posX-newX); j++){
+                                if( !(board.getFigure(posX+j,posY+j) instanceof None)) {
+                                    return false;
+                                }
+                            }
+                        }
+                        //new position on the upper left
+                        if(posX-newX > 0 && posY-newY < 0){
+                            for (int j=1; j < Math.abs(posX-newX); j++){
+                                if( !(board.getFigure(posX-j,posY+j) instanceof None)) {
+                                    return false;
+                                }
+                            }
+                        }
+                        //new position on the bottom right
+                        if(posX-newX < 0 && posY-newY > 0) {
+                            for (int j = 1; j < Math.abs(posX - newX); j++) {
+                                if (!(board.getFigure(posX + j, posY - j) instanceof None)) {
+                                    return false;
+                                }
+                            }
+                        }
+                        //new position on the bottom left
+                        if(posX-newX > 0 && posY-newY > 0) {
+                            for (int j = 1; j < Math.abs(posX - newX); j++) {
+                                if (!(board.getFigure(posX - j, posY - j) instanceof None)) {
+                                    return false;
+                                }
                             }
                         }
                         // sets new position
@@ -45,6 +72,7 @@ public class Bishop extends Figure {
         }
         return false;
     }
+
 
     @Override
     public String getSymbol() {
