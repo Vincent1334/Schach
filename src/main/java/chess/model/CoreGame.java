@@ -7,6 +7,7 @@ public class CoreGame {
     private Board board;
     private int activePlayer = 0;
     private int gameMode = 0;
+    private ArrayList<Figure> beatenFigures = new ArrayList<>();
 
     public CoreGame(int gameMode){
         board = new Board();
@@ -28,20 +29,27 @@ public class CoreGame {
         ArrayList<Integer> move = parse(in);
         //Check whether the player wants to play his own figure
         if(move.size() == 4 && board.getFigure(move.get(0), move.get(1)).getTeam() == activePlayer){
-            //Check if move is possible
 
             Figure actualFigure = board.getFigure(move.get(0), move.get(1));
             Figure targetFigure = board.getFigure(move.get(2), move.get(3));
 
+            //Check if move is possible
             if(actualFigure.validMove(move.get(2), move.get(3), board)){
-                // check if new field is empty
+
+                // check if new field is empty and makeMove
                 if (targetFigure instanceof None) {
+                    // set figure
                     board.setFigure(move.get(2), move.get(3), actualFigure);
+                    // remove old figure
+                    board.setFigure(move.get(0), move.get(1), new None(move.get(0), move.get(1),1));
                 }
-                // check if figure standing on the target field is of opposite color
+                // check if figure standing on the target field is of opposite color, makeMove and add targetFigure to beatenFigures
                 if (targetFigure.getTeam() == actualFigure.team) {
-                    // TODO: geschlagene Figur entfernen und auf Liste setzen
+                    beatenFigures.add(targetFigure);
+                    // set figure
                     board.setFigure(move.get(2), move.get(3), actualFigure);
+                    // remove old figure
+                    board.setFigure(move.get(0), move.get(1), new None(move.get(0), move.get(1),1));
                 }
 
                 //Switch active player
