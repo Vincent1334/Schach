@@ -8,7 +8,6 @@ public class None extends Figure {
     int team;
 
     public None(int posX, int posY, int team) {
-        // TODO
         super(posX, posY, team);
     }
 
@@ -16,7 +15,7 @@ public class None extends Figure {
      *
      */
     public boolean validMove(int newX, int newY, Board board) {
-        // TODO
+        return false;
     }
 
     @Override
