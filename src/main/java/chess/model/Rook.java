@@ -19,8 +19,8 @@ public class Rook extends Figure {
     }
 
     @Override
-    public String getSymbol() {
-        return team == 0 ? "U+2656" : "U+265C";
+    public char getSymbol() {
+        return team == 0 ? '\u2656' : '\u265C';
     }
 
 }

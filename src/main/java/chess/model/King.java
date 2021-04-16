@@ -46,8 +46,8 @@ public class King extends Figure {
     }
 
     @Override
-    public String getSymbol() {
-        return team == 0 ? "U+2654" : "U+265A";
+    public char getSymbol() {
+        return team == 0 ? '\u2654' : '\u265A';
     }
 
 }

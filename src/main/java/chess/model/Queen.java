@@ -21,8 +21,8 @@ public class Queen extends Figure {
         return false;
     }
     @Override
-    public String getSymbol() {
-        return team == 0 ? "U+2658" : "U+265E";
+    public char getSymbol() {
+        return team == 0 ? '\u2658' : '\u265E';
     }
 
 }

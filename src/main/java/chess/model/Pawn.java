@@ -19,8 +19,8 @@ public class Pawn extends Figure {
     }
 
     @Override
-    public String getSymbol() {
-        return team == 0 ? "U+2659" : "U+265F";
+    public char getSymbol() {
+        return team == 0 ? '\u2659' : '\u265F';
     }
 
 }

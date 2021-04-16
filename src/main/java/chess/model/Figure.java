@@ -18,7 +18,7 @@ public abstract class Figure {
     public int getTeam(){
         return this.team;
     }
-    public abstract String getSymbol();
+    public abstract char getSymbol();
 
     public boolean isAlreadyMoved() {
         return alreadyMoved;

@@ -2,6 +2,7 @@ package chess.cli;
 
 import chess.model.CoreGame;
 
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class Cli {
 
     static Scanner scan;
+    static PrintWriter printWriter;
     static CoreGame coreGame;
 
     /**
@@ -19,6 +21,7 @@ public class Cli {
      */
     public static void main(String[] args) {
         scan = new Scanner(System.in);
+        printWriter = new PrintWriter(System.out, true);
         init();
         enterGame();
     }
@@ -70,7 +73,7 @@ public class Cli {
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
                 System.out.print(8-y);
-                System.out.print(coreGame.getBoard().getFigure(x, y).getSymbol() + " ");
+                printWriter.print(coreGame.getBoard().getFigure(x, y).getSymbol());
             }
             System.out.print("\n");
         }
