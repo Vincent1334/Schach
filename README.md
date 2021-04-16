@@ -3,17 +3,17 @@
 ## Board.java
 ### Grundlegende Funktion
 Die Klasse Board kümmert sich um das eigentliche Spielfeld. Das Spielfeld besteht hier
-aus einem 2D-Array vom Typ Figure. Jedes Element dieses Arrays räpresentiert ein Feld auf dem Brett.
-In jedes Feld kann eine eigeneständige Figur gespeichert werden. Wichtig anzumerken ist,
-dass sich die Board-klasse nicht um die Richtigkeit der Figuren nach den Schachregeln kümmert,
-sondern alleine fürs abspeichern zuständig ist.
+aus einem 2D-Array vom Typ Figure. Jedes Element dieses Arrays repräsentiert ein Feld auf dem Brett.
+In jedes Feld kann eine eigenständige Figur gespeichert werden. Wichtig anzumerken ist,
+dass sich die Board-klasse nicht um die Richtigkeit der Spielzüge der Figuren nach den Schachregeln kümmert,
+sondern lediglich für das Abspeichern zuständig ist.
 
 ![Bildtext](documentation/images/default_chessBoard.jpg "Standart Schachaufstellung")
 >Standart Schachaufstellung
 
 ### Konstruktor
-Der Konstruktor erzeugt zu beginn ein leeres Schachbrett. Anschließend werden für beide Teams
-die jeweiligen Schachfiguren nach der standart Aufstellung auf dem Board platziert.
+Der Konstruktor erzeugt zu Beginn ein leeres Schachbrett. Anschließend werden für beide Teams
+die jeweiligen Schachfiguren der Standard-Aufstellung entsprechend auf dem Board platziert.
 
 # Maven
 
