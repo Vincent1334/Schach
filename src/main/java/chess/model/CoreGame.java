@@ -56,6 +56,13 @@ public class CoreGame {
                         // remove old figure
                         board.setFigure(posX, posY, new None(posX, posY,2));
                     }
+                    // check if move is en passant
+                    if(actualFigure instanceof Pawn){
+                        if(((Pawn) actualFigure).isEnPassant()){
+                            beatenFigures.add(board.getFigure(newX,posY));
+                            board.setFigure(newX,posY,new None(newX, posY,2));
+                        }
+                    }
 
                     //Switch active player
                     if(activePlayer == 0) activePlayer = 1;

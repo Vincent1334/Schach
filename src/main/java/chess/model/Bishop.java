@@ -53,6 +53,8 @@ public class Bishop extends Figure {
                                 }
                             }
                         }
+                        posX=newX;
+                        posY=newY;
                         return true;
                     }
                 }
