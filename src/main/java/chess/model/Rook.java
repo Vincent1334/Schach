@@ -15,7 +15,23 @@ public class Rook extends Figure {
      * @return whether move was successful
      */
     public boolean validMove(int newX, int newY, Board board) {
-        return newX == posX || newY == posY;
+        // is a figure between the old position and the new position?
+        if (newY == posY) {
+            for (int j = 1; j < Math.abs(posX - newX); j++) {
+                if (!(board.getFigure(posX + j, posY) instanceof None)) {
+                    return false;
+                }
+            }
+        }
+        if (newX == posX) {
+            for (int j = 1; j < Math.abs(posY - newY); j++) {
+                if (!(board.getFigure(posX + j, posY) instanceof None)) {
+                    return false;
+                }
+            }
+        }
+        alreadyMoved = true;
+        return true;
     }
 
     @Override
