@@ -14,8 +14,32 @@ public class Pawn extends Figure {
      * @return whether move was successful
      */
     public boolean validMove(int newX, int newY, Board board) {
+        if(team==0 && posX==newX && posY+1==newY
+            || team==1 && posX==newX && posY-1==newY){
+            //normal move
+            alreadyMoved = true;
+            return true;
+        }
+        if(team==0 && posX+1==newX && posY+1==newY && board.getFigure(newX,newY).getTeam()==1
+                || team==1 && posX-1==newX && posY-1==newY && board.getFigure(newX,newY).getTeam()==0){
+            //normal attack
+            alreadyMoved = true;
+            return true;
+        }
+        if(team==0 && posX==newX && posY+2==newY && !alreadyMoved
+                || team==1 && posX==newX && posY-2==newY && !alreadyMoved){
+            //first move
+            alreadyMoved = true;
+            return true;
+        }
+        if(team==0 && posX+1==newX && posY+1==newY && posY==5 && board.getFigure(newX,5).getTeam()==1
+                || team==1 && posX-1==newX && posY-1==newY && posY==2 && board.getFigure(newX,2).getTeam()==0){
+            //attack en passant
+            board.setFigure(newX,posY,new None(newX, posY,1));
+            alreadyMoved = true;
+            return true;
+        }
         return false;
-        // TODO
     }
 
     @Override
