@@ -54,7 +54,7 @@ public class CoreGame {
                         // set figure
                         board.setFigure(newX, newY, actualFigure);
                         // remove old figure
-                        board.setFigure(posX, posY, new None(posX, posY,1));
+                        board.setFigure(posX, posY, new None(posX, posY,2));
                     }
 
                     //Switch active player

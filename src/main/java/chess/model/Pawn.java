@@ -14,30 +14,25 @@ public class Pawn extends Figure {
      * @return whether move was successful
      */
     public boolean validMove(int newX, int newY, Board board) {
-        if(team==0 && posX==newX && posY+1==newY
-            || team==1 && posX==newX && posY-1==newY){
+        if(((team==0  && posY+1==newY) || (team==1 && posY-1==newY)) && posX==newX){
             //normal move
             alreadyMoved = true;
             return true;
         }
-        if(team==0 && posX+1==newX && posY+1==newY && board.getFigure(newX,newY).getTeam()==1
-                || team==1 && posX-1==newX && posY-1==newY && board.getFigure(newX,newY).getTeam()==0){
+        if(((team==0 && posY+1==newY) || (team==1 && posY-1==newY)) && (posX+1==newX || posX-1==newX)){
             //normal attack
             alreadyMoved = true;
             return true;
         }
-        if(team==0 && posX==newX && posY+2==newY && !alreadyMoved
-                || team==1 && posX==newX && posY-2==newY && !alreadyMoved){
+        if(((team==0 && posY+2==newY) || (team==1 && posY-2==newY)) && (posX==newX && !alreadyMoved)){
             //first move
             alreadyMoved = true;
             return true;
         }
-        if(team==0 && posX+1==newX && posY+1==newY && posY==5
-                && board.getFigure(newX,5).getTeam()==1 && board.getFigure(newX,5) instanceof Pawn
-                || team==1 && posX-1==newX && posY-1==newY && posY==2
-                && board.getFigure(newX,2).getTeam()==0 && board.getFigure(newX,2) instanceof Pawn){
+        if(((team==0  && posY+1==newY && posY==5) || (team==1 && posY-1==newY && posY==2))
+            && ((posX+1==newX || posX-1==newX) && board.getFigure(newX,posY).getTeam()==0 && board.getFigure(newX,posY) instanceof Pawn)){
             //attack en passant
-            board.setFigure(newX,posY,new None(newX, posY,1));
+            board.setFigure(newX,posY,new None(newX, posY,2));
             alreadyMoved = true;
             return true;
         }
