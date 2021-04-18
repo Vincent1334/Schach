@@ -22,7 +22,7 @@ public class Board {
             //create Bishop
             for(int i = 0; i <= 1; i++) board[2+i*3][team*7] = new Bishop(2+i*3, team*7, team);
             //create Knight
-            for(int i = 0; i <= 1; i++) board[1+i*5][team*7] = new Knight(2+i*5, team*7, team);
+            for(int i = 0; i <= 1; i++) board[1+i*5][team*7] = new Knight(1+i*5, team*7, team);
             //create None
             for(int y = 2; y < 6; y++){
                 for(int x = 0; x < 8; x++){

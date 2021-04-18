@@ -64,13 +64,11 @@ public class Cli {
             drawBoard();
             System.out.print("Please enter a valid move: ");
             String input = scan.next();
-            clearWindow();
-            drawBoard();
             System.out.println("Check the input and wait for the opponent...");
             if(!coreGame.chessMove(input)){
                 try{
                     printWriter.println("Invalid input. Try again!");
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                 }catch(Exception x){}
             }
         }while(true);

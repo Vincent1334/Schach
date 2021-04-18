@@ -21,6 +21,10 @@ public class CoreGame {
 
     /**
      * Checks valid move and passes move order to figure
+     * move.get(0) == PosX
+     * move.get(1) == PosY
+     * move.get(2) == newPosX
+     * move.get(3) == newPosY
      * @param in User input
      * @return true if valid move
      */
@@ -29,38 +33,35 @@ public class CoreGame {
         ArrayList<Integer> move = parse(in);
         //check valid move
         if(move.size() == 4){
-            Integer posX = move.get(0);
-            Integer posY = move.get(1);
-            if(board.getFigure(posX, posY).getTeam() == activePlayer){
+            if(board.getFigure(move.get(0), move.get(1)).getTeam() == activePlayer){
 
-                Integer newX = move.get(2);
-                Integer newY = move.get(3);
-                Figure actualFigure = board.getFigure(posX, posY);
-                Figure targetFigure = board.getFigure(newX, newY);
+                Figure actualFigure = board.getFigure(move.get(0), move.get(1));
+                Figure targetFigure = board.getFigure(move.get(2), move.get(3));
 
                 //Check if move is possible
-                if(actualFigure.validMove(newX, newY, board)){
+                if(actualFigure.validMove(move.get(2), move.get(3), board)){
+
 
                     // check if new field is empty and makeMove
                     if (targetFigure instanceof None) {
                         // set figure
-                        board.setFigure(newX, newY, actualFigure);
+                        board.setFigure(move.get(2), move.get(3), actualFigure);
                         // remove old figure
-                        board.setFigure(posX, posY, targetFigure);
+                        board.setFigure(move.get(0), move.get(1), targetFigure);
                     }
                         // check if figure standing on the target field is of opposite color, makeMove and add targetFigure to beatenFigures
                     else if (targetFigure.getTeam() != actualFigure.team) {
                         beatenFigures.add(targetFigure);
                         // set figure
-                        board.setFigure(newX, newY, actualFigure);
+                        board.setFigure(move.get(2), move.get(3), actualFigure);
                         // remove old figure
-                        board.setFigure(posX, posY, new None(posX, posY,2));
+                        board.setFigure(move.get(1), move.get(2), new None(move.get(0), move.get(1),2));
                     }
                     // check if move is en passant
                     if(actualFigure instanceof Pawn){
                         if(((Pawn) actualFigure).isEnPassant()){
-                            beatenFigures.add(board.getFigure(newX,posY));
-                            board.setFigure(newX,posY,new None(newX, posY,2));
+                            beatenFigures.add(board.getFigure(move.get(0),move.get(1)));
+                            board.setFigure(move.get(2),move.get(1),new None(move.get(2), move.get(1),2));
                         }
                     }
 
