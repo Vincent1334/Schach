@@ -32,8 +32,10 @@ public class Pawn extends Figure {
             alreadyMoved = true;
             return true;
         }
-        if(team==0 && posX+1==newX && posY+1==newY && posY==5 && board.getFigure(newX,5).getTeam()==1
-                || team==1 && posX-1==newX && posY-1==newY && posY==2 && board.getFigure(newX,2).getTeam()==0){
+        if(team==0 && posX+1==newX && posY+1==newY && posY==5
+                && board.getFigure(newX,5).getTeam()==1 && board.getFigure(newX,5) instanceof Pawn
+                || team==1 && posX-1==newX && posY-1==newY && posY==2
+                && board.getFigure(newX,2).getTeam()==0 && board.getFigure(newX,2) instanceof Pawn){
             //attack en passant
             board.setFigure(newX,posY,new None(newX, posY,1));
             alreadyMoved = true;
