@@ -48,8 +48,8 @@ public class CoreGame {
                         // remove old figure
                         board.setFigure(posX, posY, targetFigure);
                     }
-                    // check if figure standing on the target field is of opposite color, makeMove and add targetFigure to beatenFigures
-                    if (targetFigure.getTeam() != actualFigure.team) {
+                        // check if figure standing on the target field is of opposite color, makeMove and add targetFigure to beatenFigures
+                    else if (targetFigure.getTeam() != actualFigure.team) {
                         beatenFigures.add(targetFigure);
                         // set figure
                         board.setFigure(newX, newY, actualFigure);
