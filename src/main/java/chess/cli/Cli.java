@@ -62,7 +62,17 @@ public class Cli {
         do{
             clearWindow();
             drawBoard();
-            System.out.print("");
+            System.out.print("Please enter a valid move: ");
+            String input = scan.next();
+            clearWindow();
+            drawBoard();
+            System.out.println("Check the input and wait for the opponent...");
+            if(!coreGame.chessMove(input)){
+                try{
+                    printWriter.println("Invalid input. Try again!");
+                    Thread.sleep(500);
+                }catch(Exception x){}
+            }
         }while(true);
     }
 
@@ -71,13 +81,14 @@ public class Cli {
      */
     public static void drawBoard(){
         for(int y = 0; y < 8; y++){
+            printWriter.print(8-y + " ");
             for(int x = 0; x < 8; x++){
-                System.out.print(8-y);
-                printWriter.print(coreGame.getBoard().getFigure(x, y).getSymbol());
+                printWriter.print(coreGame.getBoard().getFigure(x, 7-y).getSymbol()+ " ");
             }
-            System.out.print("\n");
+            printWriter.println("");
         }
-        System.out.println("  a b c d e f g h");
+        printWriter.println("  a b c d e f g h");
+        printWriter.println("");
     }
 
     /**

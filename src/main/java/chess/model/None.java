@@ -15,7 +15,7 @@ public class None extends Figure {
 
     @Override
     public char getSymbol() {
-        return ' ';
+        return '\u0020';
     }
 
 }

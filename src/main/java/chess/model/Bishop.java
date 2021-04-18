@@ -62,7 +62,7 @@ public class Bishop extends Figure {
 
     @Override
     public char getSymbol() {
-        return team == 0 ? '\u2657' : '\u265D';
+        return team == 0 ? '\u265D' : '\u2657';
     }
 
 }

@@ -95,7 +95,7 @@ public class Queen extends Figure {
     }
     @Override
     public char getSymbol() {
-        return team == 0 ? '\u2658' : '\u265E';
+        return team == 0 ?  '\u265B' : '\u2655';
     }
 
 }
