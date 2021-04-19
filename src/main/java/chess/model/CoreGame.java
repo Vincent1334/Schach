@@ -1,6 +1,8 @@
 package chess.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CoreGame {
 
@@ -30,38 +32,37 @@ public class CoreGame {
      */
     public boolean chessMove(String in){
         //translate user input to position
-        ArrayList<Integer> move = parse(in);
+        Map<String, Integer> move = parse(in);
         //check valid move
         if(move.size() == 4){
-            if(board.getFigure(move.get(0), move.get(1)).getTeam() == activePlayer){
+            if(board.getFigure(move.get("posX"), move.get("posY")).getTeam() == activePlayer){
 
-                Figure actualFigure = board.getFigure(move.get(0), move.get(1));
-                Figure targetFigure = board.getFigure(move.get(2), move.get(3));
+                Figure actualFigure = board.getFigure(move.get("posX"), move.get("posY"));
+                Figure targetFigure = board.getFigure(move.get("newX"), move.get("newY"));
 
                 //Check if move is possible
-                if(actualFigure.validMove(move.get(2), move.get(3), board)){
-
+                if(actualFigure.validMove(move.get("newX"), move.get("newY"), board)){
 
                     // check if new field is empty and makeMove
                     if (targetFigure instanceof None) {
                         // set figure
-                        board.setFigure(move.get(2), move.get(3), actualFigure);
+                        board.setFigure(move.get("newX"), move.get("newY"), actualFigure);
                         // remove old figure
-                        board.setFigure(move.get(0), move.get(1), targetFigure);
+                        board.setFigure(move.get("posX"), move.get("posY"), targetFigure);
                     }
                         // check if figure standing on the target field is of opposite color, makeMove and add targetFigure to beatenFigures
                     else if (targetFigure.getTeam() != actualFigure.team) {
                         beatenFigures.add(targetFigure);
                         // set figure
-                        board.setFigure(move.get(2), move.get(3), actualFigure);
+                        board.setFigure(move.get("newX"), move.get("newY"), actualFigure);
                         // remove old figure
-                        board.setFigure(move.get(1), move.get(2), new None(move.get(0), move.get(1),2));
+                        board.setFigure(move.get("posX"), move.get("posY"), new None(move.get("posX"), move.get("posY"),2));
                     }
                     // check if move is en passant
                     if(actualFigure instanceof Pawn){
                         if(((Pawn) actualFigure).isEnPassant()){
-                            beatenFigures.add(board.getFigure(move.get(0),move.get(1)));
-                            board.setFigure(move.get(2),move.get(1),new None(move.get(2), move.get(1),2));
+                            beatenFigures.add(board.getFigure(move.get("posX"),move.get("posY")));
+                            board.setFigure(move.get("newX"), move.get("posY"), new None(move.get("newX"), move.get("posY"), 2));
                         }
                     }
 
@@ -83,19 +84,20 @@ public class CoreGame {
      * @param input User input
      * @return Move coordinates
      */
-    public ArrayList<Integer> parse(String input){
-        ArrayList<Integer> pos = new ArrayList<Integer>();
+    public Map<String, Integer> parse(String input){
+        Map<String, Integer> pos = new HashMap<String, Integer>();
         //"a3-b4" max. 5 chars
         if(input.length() == 5 && input.charAt(2) == 45){
             //split "a3-b4" to "a3" and "b4"
             String[] result = input.split("-");
             if(result.length == 2){
+                String[] typ = {"pos", "new"};
                 for(int i = 0; i < 2; i++){
                     String[] xyPosition = result[i].split("");
                     //convert letters to numbers with ASCII code
-                    if(xyPosition[0].charAt(0) >= 97 && xyPosition[0].charAt(0) <= 104) pos.add((int) xyPosition[0].charAt(0)-97);
+                    if(xyPosition[0].charAt(0) >= 97 && xyPosition[0].charAt(0) <= 104) pos.put(typ[i] + "X", (int) xyPosition[0].charAt(0)-97);
                     //convert numbers to numbers
-                    if(xyPosition[1].charAt(0) >= 49 && xyPosition[1].charAt(0) <= 56) pos.add(Integer.parseInt(xyPosition[1])-1);
+                    if(xyPosition[1].charAt(0) >= 49 && xyPosition[1].charAt(0) <= 56) pos.put(typ[i] + "Y", Integer.parseInt(xyPosition[1])-1);
                 }
             }
         }
