@@ -11,6 +11,9 @@ public class CoreGame {
     private int gameMode = 0;
     private ArrayList<Figure> beatenFigures = new ArrayList<>();
 
+    //Chess Events
+    boolean enPassant = false;
+
     public CoreGame(int gameMode){
         board = new Board();
         this.gameMode = gameMode;
@@ -50,7 +53,7 @@ public class CoreGame {
                         // remove old figure
                         board.setFigure(move.get("posX"), move.get("posY"), targetFigure);
                     }
-                        // check if figure standing on the target field is of opposite color, makeMove and add targetFigure to beatenFigures
+                    // check if figure standing on the target field is of opposite color, makeMove and add targetFigure to beatenFigures
                     else if (targetFigure.getTeam() != actualFigure.team) {
                         beatenFigures.add(targetFigure);
                         // set figure
@@ -59,12 +62,9 @@ public class CoreGame {
                         board.setFigure(move.get("posX"), move.get("posY"), new None(move.get("posX"), move.get("posY"),2));
                     }
                     // check if move is en passant
-                    if(actualFigure instanceof Pawn){
-                        if(((Pawn) actualFigure).isEnPassant()){
-                            beatenFigures.add(board.getFigure(move.get("posX"),move.get("posY")));
-                            board.setFigure(move.get("newX"), move.get("posY"), new None(move.get("newX"), move.get("posY"), 2));
-                        }
-                    }
+                    updateEnPassant(actualFigure);
+                    // check if player is castling
+                    checkCastling();
 
                     //Switch active player
                     if(activePlayer == 0) activePlayer = 1;
@@ -77,6 +77,20 @@ public class CoreGame {
 
         //User command fails
         return false;
+    }
+
+    public void updateEnPassant(Figure actualFigure){
+        if(actualFigure instanceof Pawn){
+            for(int y = 0; y < 8; y++){
+                for(int x = 0; x < 8; x++){
+                    if(board.getFigure(x, y) instanceof Pawn && board.getFigure(x, y) != actualFigure) ((Pawn) board.getFigure(x, y)).clearEnPassant();
+                }
+            }
+        }
+    }
+
+    public void checkCastling(){
+
     }
 
     /**
