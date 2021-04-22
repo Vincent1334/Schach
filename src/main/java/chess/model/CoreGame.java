@@ -39,13 +39,6 @@ public class CoreGame {
         //check valid move
         if(move.size() == 4){
             if(board.getFigure(move.get("posX"), move.get("posY")).getTeam() == activePlayer){
-                //checkValidDefaultMove
-                if(checkValidDefaultMove(move)){
-                    performDefaultMove(move);
-                    switchPlayer();
-                    checkChessMate(activePlayer);
-                    return true;
-                }
                 //check EnPassant
                 if(checkEnPassant(move.get("posX"), move.get("posY"),move.get("newX"),move.get("newY"))){
                     performEnPassantMove(move.get("posX"), move.get("posY"),move.get("newX"),move.get("newY"));
@@ -67,6 +60,22 @@ public class CoreGame {
                     checkChessMate(activePlayer);
                     return true;
                 }
+                //checkValidDefaultMove
+                if(checkValidDefaultMove(move)){
+                    performDefaultMove(move);
+                    switchPlayer();
+                    checkChessMate(activePlayer);
+                    return true;
+                }
+            }
+        }
+        if(move.size() == 5) {
+            //check Pawn conversion
+            if(checkPawnConversion()){
+                performPawnConversion(move);
+                switchPlayer();
+                checkChessMate(activePlayer);
+                return true;
             }
         }
         //User command fails
@@ -79,24 +88,24 @@ public class CoreGame {
 
     /**
      * checks whether a standard move is valid or not
-     * @param move Move information
-     * @return  Wether is possible or not
+     * @param move actual move
+     * @return  Whether move is possible or not
      */
     public boolean checkValidDefaultMove(Map <String, Integer> move){
         if(board.getFigure(move.get("posX"), move.get("posY")).validMove(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board)){
             //create a tmpBoard with the new untested figure position
             Board tmpBoard = board;
-            //perform the Figure move an a temporary board. IMPORTANT this move is untested an can be illegal
+            //perform the Figure move an a temporary board. IMPORTANT this move is untested and can be illegal
             tmpBoard.setFigure(move.get("posX"), move.get("posY"), new None());
             tmpBoard.setFigure(move.get("newX"), move.get("newY"), board.getFigure(move.get("posX"), move.get("posY")));
-            if(!checkChess(tmpBoard, board.getFigure(move.get("posX"), move.get("posY")).getTeam())) return true;
+            if(!threatenKing(tmpBoard, board.getFigure(move.get("posX"), move.get("posY")).getTeam())) return true;
         }
         return false;
     }
 
     /**
      * makes a standard move on the board.
-     * @param move Figure position
+     * @param move actual move
      */
     public void performDefaultMove(Map<String, Integer> move){
         if(!(board.getFigure(move.get("newX"), move.get("newY")) instanceof None)) beatenFigures.add(board.getFigure(move.get("newX"), move.get("newY")));
@@ -178,6 +187,13 @@ public class CoreGame {
      */
     public void performPawnConversion(Map<String, Integer> move){
         //TODO: finish method
+        if(move.size() == 5) {
+
+        }
+        // Standard: Umwandlung in Dame
+        else {
+
+        }
     }
 
     /**
@@ -185,12 +201,12 @@ public class CoreGame {
      */
 
     /**
-     * Check if the king is in chess
-     * @param tmpBoard A Temporary Board for unchecked figure positions.
+     * Check if the king is in check
+     * @param tmpBoard A temporary Board for unchecked figure positions.
      * @param team The team ID of the checked King
-     * @return Whether the king is in chess or not
+     * @return Whether the king is in check or not
      */
-    public boolean checkChess(Board tmpBoard, int team){
+    public boolean threatenKing(Board tmpBoard, int team){
         //create local Variables
         int kingX = 0;
         int kingY = 0;
@@ -204,7 +220,7 @@ public class CoreGame {
                 }
             }
         }
-        //Check if all enemy figures can do a valid move to King Position
+        //Check if any enemy figure can do a valid move to King Position
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
                 if(tmpBoard.getFigure(x, y).getTeam() != team){
@@ -236,6 +252,8 @@ public class CoreGame {
     public void switchPlayer(){
         if(activePlayer == 0) activePlayer = 1;
         else activePlayer = 0;
+
+        // activePlayer = activePlayer == 0 ? 1 : 0;
     }
 
 

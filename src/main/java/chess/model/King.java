@@ -24,7 +24,6 @@ public class King extends Figure {
         // black castle queenside (left)
         if (!alreadyMoved && newX == posX-2 && !board.getFigure(0,posY).isAlreadyMoved()) {
             board.setFigure(newX+1,newY,board.getFigure(0,posY));
-            // TODO: wir erzeugen bei jedem Zug neue None-Figuren...
             board.setFigure(0,0,new None());
             alreadyMoved = true;
             return true;
