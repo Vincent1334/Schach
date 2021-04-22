@@ -42,24 +42,40 @@ public class CoreGame {
                 //checkValidDefaultMove
                 if(checkValidDefaultMove(move)){
                     performDefaultMove(move);
+                    switchPlayer();
+                    checkChessMate(activePlayer);
                     return true;
                 }
-
-
-
-
-
-                    //Switch active player
-                    if(activePlayer == 0) activePlayer = 1;
-                    else activePlayer = 0;
+                //check EnPassant
+                if(checkEnPassant()){
+                    performEnPassantMove(move);
+                    switchPlayer();
+                    checkChessMate(activePlayer);
+                    return true;
+                }
+                //check Castling
+                if(checkCastling()){
+                    performCastlingMove(move);
+                    switchPlayer();
+                    checkChessMate(activePlayer);
+                    return true;
+                }
+                //check Pawn conversion
+                if(checkPawnConversion()){
+                    performPawnConversion(move);
+                    switchPlayer();
+                    checkChessMate(activePlayer);
                     return true;
                 }
             }
-        //Check whether the player wants to play his own figure
-
+        }
         //User command fails
         return false;
     }
+
+    /**
+     * <------DefaultMove----------------------------------------------------------------------------------------------->
+     */
 
     /**
      * checks whether a standard move is valid or not
@@ -67,7 +83,7 @@ public class CoreGame {
      * @return  Wether is possible or not
      */
     public boolean checkValidDefaultMove(Map <String, Integer> move){
-        if(board.getFigure(move.get("posX"), move.get("posY")).validMove(move, board)){
+        if(board.getFigure(move.get("posX"), move.get("posY")).validMove(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board)){
             //create a tmpBoard with the new untested figure position
             Board tmpBoard = board;
             //perform the Figure move an a temporary board. IMPORTANT this move is untested an can be illegal
@@ -77,6 +93,79 @@ public class CoreGame {
         }
         return false;
     }
+
+    /**
+     * makes a standard move on the board.
+     * @param move Figure position
+     */
+    public void performDefaultMove(Map<String, Integer> move){
+        if(!(board.getFigure(move.get("newX"), move.get("newY")) instanceof None)) beatenFigures.add(board.getFigure(move.get("newX"), move.get("newY")));
+        board.setFigure(move.get("newX"), move.get("newY"), board.getFigure(move.get("posX"), move.get("posY")));
+        board.setFigure(move.get("posX"), move.get("posY"), new None());
+    }
+
+    /**
+     * <------EnPassant------------------------------------------------------------------------------------------------->
+     */
+
+    /**
+     * check valid enPassant move
+     * @return Whether the move is valid or not
+     */
+    public boolean checkEnPassant(){
+        //TODO: Finish enPassant
+        return false;
+    }
+
+    /**
+     * makes a enPassant move on the board.
+     * @param move Figure position
+     */
+    public void performEnPassantMove(Map <String, Integer> move){
+        //TODO: finish method
+    }
+
+    /**
+     * <------Castling-------------------------------------------------------------------------------------------------->
+     */
+
+    /**
+     * check possible castling
+     * @return W
+     */
+    public boolean checkCastling(){
+        //TODO: finish method
+        return false;
+    }
+
+    public void performCastlingMove(Map <String, Integer> move){
+        //TODO: finish method
+    }
+
+    /**
+     * <------Pawn-conversion------------------------------------------------------------------------------------------->
+     */
+
+    /**
+     * check possible pawn conversion
+     * @return Whether the move is valid or not
+     */
+    public boolean checkPawnConversion(){
+        //TODO: finish method
+        return false;
+    }
+
+    /**
+     * makes a pawn conversion move on the board.
+     * @param move Figure position
+     */
+    public void performPawnConversion(Map<String, Integer> move){
+        //TODO: finish method
+    }
+
+    /**
+     * <------Default-commands------------------------------------------------------------------------------------------>
+     */
 
     /**
      * Check if the king is in chess
@@ -107,7 +196,7 @@ public class CoreGame {
                     tmpMove.put("posY", y);
                     tmpMove.put("newX", kingX);
                     tmpMove.put("newY", kingY);
-                    if(tmpBoard.getFigure(x, y).validMove(tmpMove, tmpBoard)) return true;
+                    if(tmpBoard.getFigure(x, y).validMove(tmpMove.get("posX"), tmpMove.get("posY"), tmpMove.get("newX"), tmpMove.get("newY"), tmpBoard)) return true;
                 }
             }
         }
@@ -115,28 +204,28 @@ public class CoreGame {
     }
 
     /**
-     * makes a standard move on the board.
-     * @param move Figure position
+     * Check chessMate
+     * @param team Target king
+     * @return
      */
-    public void performDefaultMove(Map<String, Integer> move){
-        if(!(board.getFigure(move.get("newX"), move.get("newY")) instanceof None)) beatenFigures.add(board.getFigure(move.get("newX"), move.get("newY")));
-        board.setFigure(move.get("newX"), move.get("newY"), board.getFigure(move.get("posX"), move.get("posY")));
-        board.setFigure(move.get("posX"), move.get("posY"), new None());
+    public boolean checkChessMate(int team){
+        //TODO: Finish method
+        return false;
     }
 
-    public void updateEnPassant(Figure actualFigure){
-        if(actualFigure instanceof Pawn){
-            for(int y = 0; y < 8; y++){
-                for(int x = 0; x < 8; x++){
-                    if(board.getFigure(x, y) instanceof Pawn && board.getFigure(x, y) != actualFigure) ((Pawn) board.getFigure(x, y)).clearEnPassant();
-                }
-            }
-        }
+    /**
+     * switch active player
+     */
+    public void switchPlayer(){
+        if(activePlayer == 0) activePlayer = 1;
+        else activePlayer = 0;
     }
 
-    public void checkCastling(){
 
-    }
+
+/**
+ * <------System-components--------------------------------------------------------------------------------------------->
+ */
 
     /**
      * Converts user input into coordinates. e.g. a3 == x: 0 y: 2
