@@ -51,22 +51,22 @@ public class CoreGame {
                     return true;
                 }
                 //check Castling
-                if(checkCastling(int posX, int posY, int newX, int newY)){
-                    performCastlingMove(int posX, int posY, int newX, int newY);
+                if(checkCastling(posX, posY, newX, newY)){
+                    performCastlingMove(posX, posY, newX, newY);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
                 }
                 //check Pawn conversion
-                if(checkPawnConversion(int posX, int posY, int newX, int newY)){
-                    performPawnConversion(int posX, int posY, int newX, int newY);
+                if(checkPawnConversion(posX, posY, newX, newY)){
+                    performPawnConversion(posX, posY, newX, newY);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
                 }
                 //checkValidDefaultMove
-                if(checkValidDefaultMove(int posX, int posY, int newX, int newY)){
-                    performDefaultMove(int posX, int posY, int newX, int newY);
+                if(checkValidDefaultMove(posX, posY, newX, newY)){
+                    performDefaultMove(posX, posY, newX, newY);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
@@ -84,7 +84,7 @@ public class CoreGame {
 
     /**
      * checks whether a standard move is valid or not
-     * @param move actual move
+     * @param posX, posY, newX, newY
      * @return  Whether move is possible or not
      */
     public boolean checkValidDefaultMove(int posX, int posY, int newX, int newY){
@@ -107,20 +107,20 @@ public class CoreGame {
 
     /**
      * makes a standard move on the board.
-     * @param move actual move
+     * @param posX, posY, newX, newY
      */
     public void performDefaultMove(int posX, int posY, int newX, int newY){
 
-        Figure actualFigure = board.getFigure(move.get("posX"), move.get("posY"));
-        Figure targetFigure = board.getFigure(move.get("newX"), move.get("newY"));
+        Figure actualFigure = board.getFigure(posX, posY);
+        Figure targetFigure = board.getFigure(newX, newY);
 
         if(!(targetFigure instanceof None)) {
             beatenFigures.add(targetFigure);
         }
 
         actualFigure.setAlreadyMoved(true);
-        board.setFigure(move.get("newX"), move.get("newY"), actualFigure);
-        board.setFigure(move.get("posX"), move.get("posY"), targetFigure);
+        board.setFigure(newX, newY, actualFigure);
+        board.setFigure(posX, posY, targetFigure);
     }
 
     /**
@@ -168,7 +168,7 @@ public class CoreGame {
     /**
      * check possible castling
      * @return W
-     * @param move
+     * @param posX, posY, newX, newY
      */
     public boolean checkCastling(int posX, int posY, int newX, int newY){
         //TODO: finish method
