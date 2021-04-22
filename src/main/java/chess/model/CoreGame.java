@@ -40,31 +40,7 @@ public class CoreGame {
         if(move.size() == 4){
             if(board.getFigure(move.get("posX"), move.get("posY")).getTeam() == activePlayer){
 
-                Figure actualFigure = board.getFigure(move.get("posX"), move.get("posY"));
-                Figure targetFigure = board.getFigure(move.get("newX"), move.get("newY"));
 
-                //Check if move is possible
-                if(actualFigure.validMove(move.get("newX"), move.get("newY"), board)){
-
-                    // check if new field is empty and makeMove
-                    if (targetFigure instanceof None) {
-                        // set figure
-                        board.setFigure(move.get("newX"), move.get("newY"), actualFigure);
-                        // remove old figure
-                        board.setFigure(move.get("posX"), move.get("posY"), targetFigure);
-                    }
-                    // check if figure standing on the target field is of opposite color, makeMove and add targetFigure to beatenFigures
-                    else if (targetFigure.getTeam() != actualFigure.team) {
-                        beatenFigures.add(targetFigure);
-                        // set figure
-                        board.setFigure(move.get("newX"), move.get("newY"), actualFigure);
-                        // remove old figure
-                        board.setFigure(move.get("posX"), move.get("posY"), new None(move.get("posX"), move.get("posY"),2));
-                    }
-                    // check if move is en passant
-                    updateEnPassant(actualFigure);
-                    // check if player is castling
-                    checkCastling();
 
                     //Switch active player
                     if(activePlayer == 0) activePlayer = 1;
@@ -72,10 +48,62 @@ public class CoreGame {
                     return true;
                 }
             }
-        }
         //Check whether the player wants to play his own figure
 
         //User command fails
+        return false;
+    }
+
+    /**
+     * checks whether a standard move is valid or not
+     * @param move Move information
+     * @return  Wether is possible or not
+     */
+    public boolean checkValidDefaultMove(Map <String, Integer> move){
+        if(board.getFigure(move.get("posX"), move.get("posY")).validMove(move, board)){
+            //create a tmpBoard with the new untested figure position
+            Board tmpBoard = board;
+            //perform the Figure move an a temporary board. IMPORTANT this move is untested an can be illegal
+            tmpBoard.setFigure(move.get("posX"), move.get("posY"), new None());
+            tmpBoard.setFigure(move.get("newX"), move.get("newY"), board.getFigure(move.get("posX"), move.get("posY")));
+            if(!checkChess(tmpBoard, board.getFigure(move.get("posX"), move.get("posY")).getTeam())) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check if the king is in chess
+     * @param tmpBoard A Temporary Board for unchecked figure positions.
+     * @param team The team ID of the checked King
+     * @return Whether the king is in chess or not
+     */
+    public boolean checkChess(Board tmpBoard, int team){
+        //create local Variables
+        int kingX = 0;
+        int kingY = 0;
+        //Searching target King position
+        for(int y = 0; y < 8; y++){
+            for(int x = 0; x < 8; x++){
+                if(tmpBoard.getFigure(x, y) instanceof King && tmpBoard.getFigure(x, y).getTeam() == team){
+                    kingX = x;
+                    kingY = y;
+                    break;
+                }
+            }
+        }
+        //Check if all enemy figures can do a valid move to King Position
+        for(int y = 0; y < 8; y++){
+            for(int x = 0; x < 8; x++){
+                if(tmpBoard.getFigure(x, y).getTeam() != team){
+                    Map<String, Integer> tmpMove = new HashMap<String, Integer>();
+                    tmpMove.put("posX", x);
+                    tmpMove.put("posY", y);
+                    tmpMove.put("newX", kingX);
+                    tmpMove.put("newY", kingY);
+                    if(tmpBoard.getFigure(x, y).validMove(tmpMove, tmpBoard)) return true;
+                }
+            }
+        }
         return false;
     }
 
