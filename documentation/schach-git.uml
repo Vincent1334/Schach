@@ -1,67 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>C:/Users/Sophia/Documents/Uni Lübeck/Semester 4/SWEng Praktikum/schach-git</OriginalElement>
+  <OriginalElement />
   <nodes>
-    <node x="923.0" y="384.0">chess.Main</node>
-    <node x="0.0" y="261.0">chess.model.Rook</node>
-    <node x="500.0" y="261.0">chess.model.None</node>
-    <node x="1500.0" y="261.0">chess.model.King</node>
-    <node x="750.0" y="0.0">chess.model.Figure</node>
-    <node x="1000.0" y="261.0">chess.model.Knight</node>
-    <node x="0.0" y="384.0">chess.cli.Cli</node>
-    <node x="728.0" y="384.0">chess.gui.Gui</node>
-    <node x="750.0" y="261.0">chess.model.Queen</node>
-    <node x="1250.0" y="261.0">chess.model.Pawn</node>
-    <node x="212.0" y="384.0">chess.model.CoreGame</node>
-    <node x="250.0" y="261.0">chess.model.Bishop</node>
-    <node x="479.0" y="384.0">chess.model.Board</node>
+    <node x="715.0" y="924.0">chess.Main</node>
+    <node x="0.0" y="757.0">chess.model.Rook</node>
+    <node x="1605.0" y="768.5">chess.model.None</node>
+    <node x="963.0" y="497.0">chess.model.Figure</node>
+    <node x="1284.0" y="768.5">chess.model.Knight</node>
+    <node x="321.0" y="768.5">chess.model.King</node>
+    <node x="0.0" y="924.0">chess.cli.Cli</node>
+    <node x="506.0" y="924.0">chess.gui.Gui</node>
+    <node x="1926.0" y="768.5">chess.model.Queen</node>
+    <node x="963.0" y="735.0">chess.model.Pawn</node>
+    <node x="125.4071661237785" y="136.80781758957656">chess.model.CoreGame</node>
+    <node x="642.0" y="768.5">chess.model.Bishop</node>
+    <node x="231.0" y="924.0">chess.model.Board</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="chess.model.Rook" target="chess.model.Figure" relationship="GENERALIZATION">
-      <point x="0.0" y="-39.0" />
-      <point x="115.0" y="236.0" />
-      <point x="865.0" y="236.0" />
-      <point x="0.0" y="105.5" />
-    </edge>
     <edge source="chess.model.Pawn" target="chess.model.Figure" relationship="GENERALIZATION">
-      <point x="0.0" y="-39.0" />
-      <point x="1365.0" y="236.0" />
-      <point x="865.0" y="236.0" />
-      <point x="0.0" y="105.5" />
+      <point x="0.0" y="-72.0" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="chess.model.Rook" target="chess.model.Figure" relationship="GENERALIZATION">
+      <point x="0.0" y="-50.0" />
+      <point x="150.5" y="710.0" />
+      <point x="1113.5" y="710.0" />
+      <point x="0.0" y="94.0" />
     </edge>
     <edge source="chess.model.King" target="chess.model.Figure" relationship="GENERALIZATION">
-      <point x="0.0" y="-39.0" />
-      <point x="1615.0" y="236.0" />
-      <point x="865.0" y="236.0" />
-      <point x="0.0" y="105.5" />
+      <point x="0.0" y="-38.5" />
+      <point x="471.5" y="710.0" />
+      <point x="1113.5" y="710.0" />
+      <point x="0.0" y="94.0" />
     </edge>
     <edge source="chess.model.None" target="chess.model.Figure" relationship="GENERALIZATION">
-      <point x="0.0" y="-39.0" />
-      <point x="615.0" y="236.0" />
-      <point x="865.0" y="236.0" />
-      <point x="0.0" y="105.5" />
+      <point x="0.0" y="-38.5" />
+      <point x="1755.5" y="710.0" />
+      <point x="1113.5" y="710.0" />
+      <point x="0.0" y="94.0" />
     </edge>
     <edge source="chess.model.Queen" target="chess.model.Figure" relationship="GENERALIZATION">
-      <point x="0.0" y="-39.0" />
-      <point x="0.0" y="105.5" />
+      <point x="0.0" y="-38.5" />
+      <point x="2076.5" y="710.0" />
+      <point x="1113.5" y="710.0" />
+      <point x="0.0" y="94.0" />
     </edge>
     <edge source="chess.model.Knight" target="chess.model.Figure" relationship="GENERALIZATION">
-      <point x="0.0" y="-39.0" />
-      <point x="1115.0" y="236.0" />
-      <point x="865.0" y="236.0" />
-      <point x="0.0" y="105.5" />
+      <point x="0.0" y="-38.5" />
+      <point x="1434.5" y="710.0" />
+      <point x="1113.5" y="710.0" />
+      <point x="0.0" y="94.0" />
     </edge>
     <edge source="chess.model.Bishop" target="chess.model.Figure" relationship="GENERALIZATION">
-      <point x="0.0" y="-39.0" />
-      <point x="365.0" y="236.0" />
-      <point x="865.0" y="236.0" />
-      <point x="0.0" y="105.5" />
+      <point x="0.0" y="-38.5" />
+      <point x="792.5" y="710.0" />
+      <point x="1113.5" y="710.0" />
+      <point x="0.0" y="94.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="0.7017142857142857" showDependencies="false" x="865.0" y="297.5" />
-  <SelectedNodes />
+  <settings layout="Hierarchic" zoom="0.559692351970052" showDependencies="false" x="970.595556884304" y="651.6215387812563" />
+  <SelectedNodes>
+    <node>chess.model.CoreGame</node>
+  </SelectedNodes>
   <Categories>
     <Category>Fields</Category>
     <Category>Inner Classes</Category>
