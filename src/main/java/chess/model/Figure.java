@@ -1,19 +1,29 @@
 package chess.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class Figure {
 
     boolean alreadyMoved;
-    int posX;
-    int posY;
     int team;
 
-    public Figure(int posX, int posY, int team) {
-        this.posX = posX;
-        this.posY = posY;
+    /**
+     * Constructor for default figures
+     * @param team
+     */
+    public Figure(int team) {
         this.team = team;
     }
 
-    public abstract boolean validMove(int newX, int newY, Board board);
+    /**
+     * Constructor for None Figures
+     */
+    public Figure(){
+
+    }
+
+    public abstract boolean validMove(Map<String, Integer> move, Board board);
 
     public int getTeam(){
         return this.team;

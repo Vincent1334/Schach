@@ -9,7 +9,7 @@ public class CoreGame {
     private Board board;
     private int activePlayer = 0;
     private int gameMode = 0;
-    private ArrayList<Figure> beatenFigures = new ArrayList<>();
+    private ArrayList<Figure> beatenFigures = new ArrayList<Figure>();
 
     //Chess Events
     boolean enPassant = false;
@@ -39,6 +39,13 @@ public class CoreGame {
         //check valid move
         if(move.size() == 4){
             if(board.getFigure(move.get("posX"), move.get("posY")).getTeam() == activePlayer){
+                //checkValidDefaultMove
+                if(checkValidDefaultMove(move)){
+                    performDefaultMove(move);
+                    return true;
+                }
+
+
 
 
 
@@ -105,6 +112,16 @@ public class CoreGame {
             }
         }
         return false;
+    }
+
+    /**
+     * makes a standard move on the board.
+     * @param move Figure position
+     */
+    public void performDefaultMove(Map<String, Integer> move){
+        if(!(board.getFigure(move.get("newX"), move.get("newY")) instanceof None)) beatenFigures.add(board.getFigure(move.get("newX"), move.get("newY")));
+        board.setFigure(move.get("newX"), move.get("newY"), board.getFigure(move.get("posX"), move.get("posY")));
+        board.setFigure(move.get("posX"), move.get("posY"), new None());
     }
 
     public void updateEnPassant(Figure actualFigure){
