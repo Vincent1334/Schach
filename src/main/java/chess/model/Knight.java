@@ -2,8 +2,8 @@ package chess.model;
 
 public class Knight extends Figure {
 
-    public Knight(int posX, int posY, int team) {
-        super(posX, posY, team);
+    public Knight(int team) {
+        super(team);
     }
 
     /**
@@ -13,7 +13,7 @@ public class Knight extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
-    public boolean validMove(int newX, int newY, Board board) {
+    public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
         if((posX + 1 == newX && posY + 2 == newY) || (posX + 1 == newX && posY - 2 == newY)
                 || (posX - 1 == newX && posY + 2 == newY) || (posX - 1 == newX && posY - 2 == newY)
                 || (posX + 2 == newX && posY + 1 == newY) || (posX + 2 == newX && posY - 1 == newY)

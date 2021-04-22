@@ -2,9 +2,11 @@ package chess.model;
 
 public class Rook extends Figure {
 
-    public Rook(int posX, int posY, int team) {
-        super(posX, posY, team);
+    public Rook(int team) {
+        super(team);
     }
+
+    boolean alreadyMoved;
 
     /**
      * Proofs if the move is a valid move for Rook and makes move if it is
@@ -14,7 +16,7 @@ public class Rook extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
-    public boolean validMove(int newX, int newY, Board board) {
+    public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
         // is a figure between the old position and the new position?
         if (newY == posY) {
             for (int j = 1; j < Math.abs(posX - newX); j++) {

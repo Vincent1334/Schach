@@ -26,8 +26,8 @@ public class CoreGame {
 
     /**
      * Checks valid move and passes move order to figure
-     * move.get(0) == PosX
-     * move.get(1) == PosY
+     * move.get(0) == posX
+     * move.get(1) == posY
      * move.get(2) == newPosX
      * move.get(3) == newPosY
      * @param in User input

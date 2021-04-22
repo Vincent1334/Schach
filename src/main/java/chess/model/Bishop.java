@@ -2,8 +2,8 @@ package chess.model;
 
 public class Bishop extends Figure {
 
-    public Bishop(int posX, int posY, int team) {
-        super(posX, posY, team);
+    public Bishop(int team) {
+        super(team);
     }
 
     /**
@@ -13,7 +13,7 @@ public class Bishop extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
-    public boolean validMove(int newX, int newY, Board board) {
+    public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
 
                 //Is the new position on a diagonal from the old position
                 for (int i=-8; i<9; i++) {

@@ -2,8 +2,8 @@ package chess.model;
 
 public class Queen extends Figure {
 
-    public Queen(int posX, int posY, int team) {
-        super(posX, posY, team);
+    public Queen(int team) {
+        super(team);
     }
 
     /**
@@ -13,7 +13,7 @@ public class Queen extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
-    public boolean validMove(int newX, int newY, Board board) {
+    public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
 
         //Is the new position valid
         for (int i=-8; i<9; i++) {

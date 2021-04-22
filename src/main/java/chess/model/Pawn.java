@@ -1,12 +1,12 @@
 package chess.model;
 
 public class Pawn extends Figure {
-    public Pawn(int posX, int posY, int team) {
-        super(posX, posY, team);
+    public Pawn(int team) {
+        super(team);
     }
 
+    boolean alreadyMoved = false;
     boolean enPassant = false;
-    int enPosY = 0;
 
     /**
      * getter for enPassant
@@ -15,12 +15,6 @@ public class Pawn extends Figure {
     public boolean isEnPassant() {
         return enPassant;
     }
-    public void clearEnPassant(){
-        enPassant = false;
-    }
-    public int getEnPassant(){
-        return enPosY;
-    }
     /**
      * Proofs if the move is a valid move for Pawn and makes move if it is
      * @param newX new input x-position for Pawn
@@ -28,13 +22,13 @@ public class Pawn extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
-    public boolean validMove(int newX, int newY, Board board) {
+    public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
         enPassant = false;
         if(((team==0  && posY+1==newY) || (team==1 && posY-1==newY)) && posX==newX){
             //normal move
             alreadyMoved = true;
             posX=newX;
-           posY=newY;
+            posY=newY;
             return true;
         }
         if((team==0 && posY+1==newY && board.getFigure(newX,newY).getTeam()==1)
@@ -54,7 +48,7 @@ public class Pawn extends Figure {
             return true;
         }
         if(((team==0  && posY+1==newY && posY==5) || (team==1 && posY-1==newY && posY==2))
-            && ((posX+1==newX || posX-1==newX) && board.getFigure(newX,posY).getTeam()==0 && board.getFigure(newX,posY) instanceof Pawn)){
+                && ((posX+1==newX || posX-1==newX) && board.getFigure(newX,posY).getTeam()==0 && board.getFigure(newX,posY) instanceof Pawn)){
             //attack en passant
             enPassant = true;
             alreadyMoved = true;

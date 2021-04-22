@@ -5,7 +5,7 @@ import java.util.Map;
 
 public abstract class Figure {
 
-    boolean alreadyMoved;
+    boolean alreadyMoved = false;
     int team;
 
     /**
@@ -19,11 +19,9 @@ public abstract class Figure {
     /**
      * Constructor for None Figures
      */
-    public Figure(){
+    public Figure(){}
 
-    }
-
-    public abstract boolean validMove(Map<String, Integer> move, Board board);
+    public abstract boolean validMove(int posX, int posY, int newX, int newY, Board board);
 
     public int getTeam(){
         return this.team;

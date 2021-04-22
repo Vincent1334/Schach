@@ -9,7 +9,7 @@ public class None extends Figure {
     /**
      *
      */
-    public boolean validMove(int newX, int newY, Board board) {
+    public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
         return false;
     }
 
