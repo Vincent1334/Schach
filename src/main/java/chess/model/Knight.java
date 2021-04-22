@@ -7,7 +7,9 @@ public class Knight extends Figure {
     }
 
     /**
-     * Proofs if the move is a valid move for Knight and makes move if it is
+     * Proofs if the move is a valid move for Knight
+     * @param posX actual x-position for Knight
+     * @param posY actual y-position for Knight
      * @param newX new input x-position for Knight
      * @param newY new input y-position for Knight
      * @param board actual state of chessboard

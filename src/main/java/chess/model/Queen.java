@@ -7,7 +7,9 @@ public class Queen extends Figure {
     }
 
     /**
-     * Proofs if the move is a valid move for Queen and makes move if it is
+     * Proofs if the move is a valid move for Queen
+     * @param posX actual x-position for Queen
+     * @param posY actual y-position for Queen
      * @param newX new input x-position for Queen
      * @param newY new input y-position for Queen
      * @param board actual state of chessboard

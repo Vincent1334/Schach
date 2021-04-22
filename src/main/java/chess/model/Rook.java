@@ -9,10 +9,11 @@ public class Rook extends Figure {
     boolean alreadyMoved;
 
     /**
-     * Proofs if the move is a valid move for Rook and makes move if it is
-     *
-     * @param newX  new input x-position for Rook
-     * @param newY  new input y-position for Rook
+     * Proofs if the move is a valid move for Rook
+     * @param posX actual x-position for Rook
+     * @param posY actual y-position for Rook
+     * @param newX new input x-position for Rook
+     * @param newY new input y-position for Rook
      * @param board actual state of chessboard
      * @return whether move was successful
      */

@@ -16,7 +16,9 @@ public class Pawn extends Figure {
         return enPassant;
     }
     /**
-     * Proofs if the move is a valid move for Pawn and makes move if it is
+     * Proofs if the move is a valid move for Pawn
+     * @param posX actual x-position for Pawn
+     * @param posY actual y-position for Pawn
      * @param newX new input x-position for Pawn
      * @param newY new input y-position for Pawn
      * @param board actual state of chessboard

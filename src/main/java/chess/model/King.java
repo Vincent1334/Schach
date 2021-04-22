@@ -7,7 +7,9 @@ public class King extends Figure {
     }
 
     /**
-     * Proofs if the move is a valid move for King and makes move if it is
+     * Proofs if the move is a valid move for King
+     * @param posX actual x-position for King
+     * @param posY actual y-position for King
      * @param newX new input x-position for King
      * @param newY new input y-position for King
      * @param board actual state of chessboard

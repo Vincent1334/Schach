@@ -7,7 +7,9 @@ public class Bishop extends Figure {
     }
 
     /**
-     * Proofs if the move is a valid move for Bishop and makes move if it is
+     * Proofs if the move is a valid move for Bishop
+     * @param posX actual x-position for Bishop
+     * @param posY actual y-position for Bishop
      * @param newX new input x-position for Bishop
      * @param newY new input y-position for Bishop
      * @param board actual state of chessboard
