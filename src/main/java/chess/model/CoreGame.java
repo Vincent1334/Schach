@@ -47,8 +47,8 @@ public class CoreGame {
                     return true;
                 }
                 //check EnPassant
-                if(checkEnPassant()){
-                    performEnPassantMove(move);
+                if(checkEnPassant(move.get("posX"), move.get("posY"),move.get("newX"),move.get("newY"))){
+                    performEnPassantMove(move.get("posX"), move.get("posY"),move.get("newX"),move.get("newY"));
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
@@ -110,19 +110,36 @@ public class CoreGame {
 
     /**
      * check valid enPassant move
+     * @param posX actual x-position for Pawn
+     * @param posY actual y-position for Pawn
+     * @param newX new input x-position for Pawn
+     * @param newY new input y-position for Pawn
      * @return Whether the move is valid or not
      */
-    public boolean checkEnPassant(){
-        //TODO: Finish enPassant
+    public boolean checkEnPassant(int posX,int posY, int newX, int newY){
+        if((board.getFigure(newX,posY) instanceof Pawn) && (board.getFigure(posX,posY) instanceof Pawn)
+            && (board.getFigure(newX,posY).getTeam() != board.getFigure(posX,posY).getTeam())
+            && (Math.abs(posX - newX) == 1)
+            && ((board.getFigure(posX,posY).getTeam() == 0 && newY-posY == 1)
+                ||(board.getFigure(posX,posY).getTeam() == 1 && newY-posY == -1))){
+            if(((Pawn) board.getFigure(newX,posY)).isEnPassant()){
+                return true;
+            }
+        }
         return false;
     }
 
     /**
      * makes a enPassant move on the board.
-     * @param move Figure position
+     * @param posX actual x-position for Pawn
+     * @param posY actual y-position for Pawn
+     * @param newX new input x-position for Pawn
+     * @param newY new input y-position for Pawn
      */
-    public void performEnPassantMove(Map <String, Integer> move){
-        //TODO: finish method
+    public void performEnPassantMove(int posX,int posY, int newX, int newY){
+        beatenFigures.add(board.getFigure(newX,posY));
+        board.setFigure(newX,posY,new None());
+        board.setFigure(newX,newY,board.getFigure(posX,posY));
     }
 
     /**
