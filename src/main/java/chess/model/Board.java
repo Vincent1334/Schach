@@ -51,4 +51,23 @@ public class Board {
     public void setFigure(int x, int y, Figure figure) {
         board[x][y] = figure;
     }
+
+    /**
+     * Get the position of the target king
+     * @param team
+     * @return position of target king
+     */
+    public int[] getKing(int team){
+        //Searching target King position
+        for(int y = 0; y < 8; y++){
+            for(int x = 0; x < 8; x++){
+                if(board[x][y] instanceof King && board[x][y].getTeam() == team){
+                    int[] pos = {x, y};
+                    return pos;
+                }
+            }
+        }
+        int[] pos = {0, 0};
+        return pos;
+    }
 }

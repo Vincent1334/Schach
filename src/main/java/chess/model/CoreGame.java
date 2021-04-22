@@ -207,19 +207,8 @@ public class CoreGame {
      * @return Whether the king is in check or not
      */
     public boolean threatenKing(Board tmpBoard, int team){
-        //create local Variables
-        int kingX = 0;
-        int kingY = 0;
         //Searching target King position
-        for(int y = 0; y < 8; y++){
-            for(int x = 0; x < 8; x++){
-                if(tmpBoard.getFigure(x, y) instanceof King && tmpBoard.getFigure(x, y).getTeam() == team){
-                    kingX = x;
-                    kingY = y;
-                    break;
-                }
-            }
-        }
+        int[] kingPos = tmpBoard.getKing(team);
         //Check if any enemy figure can do a valid move to King Position
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
@@ -227,8 +216,8 @@ public class CoreGame {
                     Map<String, Integer> tmpMove = new HashMap<String, Integer>();
                     tmpMove.put("posX", x);
                     tmpMove.put("posY", y);
-                    tmpMove.put("newX", kingX);
-                    tmpMove.put("newY", kingY);
+                    tmpMove.put("newX", kingPos[0]);
+                    tmpMove.put("newY", kingPos[1]);
                     if(tmpBoard.getFigure(x, y).validMove(tmpMove.get("posX"), tmpMove.get("posY"), tmpMove.get("newX"), tmpMove.get("newY"), tmpBoard)) return true;
                 }
             }
