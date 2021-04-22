@@ -21,34 +21,6 @@ public class King extends Figure {
             alreadyMoved = true;
             return true;
         }
-        // black castle queenside (left)
-        if (!alreadyMoved && newX == posX-2 && !board.getFigure(0,posY).isAlreadyMoved()) {
-            board.setFigure(newX+1,newY,board.getFigure(0,posY));
-            board.setFigure(0,0,new None());
-            alreadyMoved = true;
-            return true;
-        }
-        // black castle kingside (right)
-        if (!alreadyMoved && newX == posX+2 && !board.getFigure(0,posY).isAlreadyMoved()) {
-            board.setFigure(newX-1,newY,board.getFigure(0,posY));
-            board.setFigure(7,0,new None());
-            alreadyMoved = true;
-            return true;
-        }
-        // white castle kingside (left)
-        if (!alreadyMoved && newX == posX+2 && !board.getFigure(7,posY).isAlreadyMoved()) {
-            board.setFigure(newX-1,newY,board.getFigure(7,posY));
-            board.setFigure(0,7,new None());
-            alreadyMoved = true;
-            return true;
-        }
-        // white castle queenside (right)
-        if (!alreadyMoved && newX == posX+2 && !board.getFigure(7,posY).isAlreadyMoved()) {
-            board.setFigure(newX-1,newY,board.getFigure(7,posY));
-            board.setFigure(7,7,new None());
-            alreadyMoved = true;
-            return true;
-        }
         return false;
     }
 

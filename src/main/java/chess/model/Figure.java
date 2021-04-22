@@ -32,4 +32,7 @@ public abstract class Figure {
         return alreadyMoved;
     }
 
+    public void setAlreadyMoved(boolean alreadyMoved) {
+        this.alreadyMoved = alreadyMoved;
+    }
 }
