@@ -29,19 +29,16 @@ public class Pawn extends Figure {
 
         if(((team==0  && posY+1==newY) || (team==1 && posY-1==newY)) && posX==newX){
             //normal move
-            alreadyMoved = true;
             return true;
         }
         if((team==0 && posY+1==newY && board.getFigure(newX,newY).getTeam()==1)
                 ||(team==1 && posY-1==newY && board.getFigure(newX,newY).getTeam()==0)
                 && (posX+1==newX||posX-1==newX)){
             //normal attack
-            alreadyMoved = true;
             return true;
         }
         if(((team==0 && posY+2==newY) || (team==1 && posY-2==newY)) && (posX==newX && !alreadyMoved)){
             //first move
-            alreadyMoved = true;
             enPassant = true;
             return true;
         }

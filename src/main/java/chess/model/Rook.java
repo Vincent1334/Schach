@@ -25,6 +25,7 @@ public class Rook extends Figure {
                     return false;
                 }
             }
+            return true;
         }
         if (newX == posX) {
             for (int j = 1; j < Math.abs(posY - newY); j++) {
@@ -32,9 +33,9 @@ public class Rook extends Figure {
                     return false;
                 }
             }
+            return true;
         }
-        alreadyMoved = true;
-        return true;
+    return false;
     }
 
     @Override

@@ -42,10 +42,10 @@ public class CoreGame {
             Integer posY = move.get("posY");
             Integer newX = move.get("newX");
             Integer newY = move.get("newY");
-            if(board.getFigure(move.get("posX"), move.get("posY")).getTeam() == activePlayer){
+            if(board.getFigure(posX, posY).getTeam() == activePlayer){
                 //check EnPassant
-                if(checkEnPassant(move.get("posX"), move.get("posY"),move.get("newX"),move.get("newY"))){
-                    performEnPassantMove(move.get("posX"), move.get("posY"),move.get("newX"),move.get("newY"));
+                if(checkEnPassant(posX, posY,newX,newY)){
+                    performEnPassantMove(posX, posY,newX,newY);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
@@ -58,8 +58,8 @@ public class CoreGame {
                     return true;
                 }
                 //check Pawn conversion
-                if(checkPawnConversion(posX, posY, newX, newY)){
-                    performPawnConversion(posX, posY, newX, newY);
+                if(checkPawnConversion(move)){
+                    performPawnConversion(move);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
@@ -94,11 +94,16 @@ public class CoreGame {
 
         if(actualFigure.validMove(posX, posY, newX, newY, board)){
             //create a tmpBoard with the new untested figure position
+//            Board tmpBoard = new Board();
             Board tmpBoard = board;
             //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
             tmpBoard.setFigure(posX, posY, new None());
             tmpBoard.setFigure(newX, newY, actualFigure);
-            if(!threatenKing(tmpBoard, actualFigure.getTeam()) && targetFigure.getTeam() != actualFigure.getTeam()) {
+            //TODO: mit tmpBoard.setFigure ändern wir das Originalboard, da tmpBoard nur eine Referenz ist und keine richtige Kopie
+
+            //TODO: überprüfen, dass figur auf zielfeld nicht gleich eigener spielfarbe entspricht -> neue Farbe für None einführen
+
+            if(!threatenKing(tmpBoard, actualFigure.getTeam())) {
                 return true;
             }
         }
@@ -171,16 +176,13 @@ public class CoreGame {
      * @param posX, posY, newX, newY
      */
     public boolean checkCastling(int posX, int posY, int newX, int newY){
-        //TODO: finish method
+        //TODO: alle Felder dazwischen dürfen nicht bedroht werden
 
         Figure actualFigure = board.getFigure(posX, posY);
 
         // castle left
         if (actualFigure instanceof King && newX == posX-2 && !actualFigure.isAlreadyMoved() && !board.getFigure(0,posY).isAlreadyMoved()) {
             for (int j = 2; j < posX; j++) {                              // check, whether all field between are empty
-                /*board.setFigure(newX+1,newY,board.getFigure(0,posY));   // move rook (right beside king)
-                board.setFigure(0,0,new None());                          // remove rook from original position
-                actualFigure.setAlreadyMoved(true);*/
                 if (!(board.getFigure(j, posY) instanceof None)) {
                     return false;
                 }
@@ -201,7 +203,6 @@ public class CoreGame {
     }
 
     public void performCastlingMove(int posX, int posY, int newX, int newY){
-        //TODO: finish method
 
         Figure actualFigure = board.getFigure(posX, posY);
 
@@ -241,6 +242,7 @@ public class CoreGame {
 
     /**
      * check possible pawn conversion
+     * @param move the actual move
      * @return Whether the move is valid or not
      */
     public boolean checkPawnConversion(Map<String, Integer> move){
@@ -269,7 +271,7 @@ public class CoreGame {
 
     /**
      * Check if the king is in check
-     * @param tmpBoard A temporary Board for unchecked figure positions.
+     * @param tmpBoard A temporary board for unchecked figure positions.
      * @param team The team ID of the checked King
      * @return Whether the king is in check or not
      */
@@ -296,7 +298,9 @@ public class CoreGame {
                     tmpMove.put("posY", y);
                     tmpMove.put("newX", kingX);
                     tmpMove.put("newY", kingY);
-                    if(tmpBoard.getFigure(x, y).validMove(tmpMove.get("posX"), tmpMove.get("posY"), tmpMove.get("newX"), tmpMove.get("newY"), tmpBoard)) return true;
+                    if(tmpBoard.getFigure(x, y).validMove(tmpMove.get("posX"), tmpMove.get("posY"), tmpMove.get("newX"), tmpMove.get("newY"), tmpBoard)) {
+                        return true;
+                    }
                 }
             }
         }
@@ -345,9 +349,13 @@ public class CoreGame {
                 for(int i = 0; i < 2; i++){
                     String[] xyPosition = result[i].split("");
                     //convert letters to numbers with ASCII code
-                    if(xyPosition[0].charAt(0) >= 97 && xyPosition[0].charAt(0) <= 104) pos.put(typ[i] + "X", (int) xyPosition[0].charAt(0)-97);
+                    if(xyPosition[0].charAt(0) >= 97 && xyPosition[0].charAt(0) <= 104) {
+                        pos.put(typ[i] + "X", (int) xyPosition[0].charAt(0)-97);
+                    }
                     //convert numbers to numbers
-                    if(xyPosition[1].charAt(0) >= 49 && xyPosition[1].charAt(0) <= 56) pos.put(typ[i] + "Y", Integer.parseInt(xyPosition[1])-1);
+                    if(xyPosition[1].charAt(0) >= 49 && xyPosition[1].charAt(0) <= 56) {
+                        pos.put(typ[i] + "Y", Integer.parseInt(xyPosition[1])-1);
+                    }
                 }
             }
         }
