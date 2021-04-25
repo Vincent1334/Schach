@@ -179,14 +179,14 @@ public class CoreGame {
      * @return W
      */
     public boolean checkCastling(int posX, int posY, int newX, int newY) {
-        //TODO: alle Felder dazwischen dürfen nicht bedroht werden
 
         Figure actualFigure = board.getFigure(posX, posY);
 
         // castle left
         if (actualFigure instanceof King && newX == posX - 2 && !actualFigure.isAlreadyMoved() && !board.getFigure(0, posY).isAlreadyMoved()) {
-            for (int j = 2; j < posX; j++) {                              // check, whether all field between are empty
-                if (!(board.getFigure(j, posY) instanceof None)) {
+            // check, whether all field between are empty and are not threatened
+            for (int j = 2; j < posX; j++) {
+                if (!(board.getFigure(j, posY) instanceof None) || isThreatened(board, 2,j,posY)) {
                     return false;
                 }
             }
@@ -194,8 +194,9 @@ public class CoreGame {
         }
         // castle right
         if (actualFigure instanceof King && !actualFigure.isAlreadyMoved() && newX == posX + 2 && !board.getFigure(7, posY).isAlreadyMoved()) {
-            for (int j = posX + 1; j < 8; j++) {                                      // check, whether all field between are empty
-                if (!(board.getFigure(j, posY) instanceof None)) {
+            // check, whether all field between are empty and are not threatened
+            for (int j = posX + 1; j < 7; j++) {
+                if (!(board.getFigure(j, posY) instanceof None) || isThreatened(board, actualFigure.getTeam(),j,posY)) {
                     return false;
                 }
             }
@@ -208,6 +209,7 @@ public class CoreGame {
     public void performCastlingMove(int posX, int posY, int newX, int newY) {
 
         Figure actualFigure = board.getFigure(posX, posY);
+        Figure targetFigure = board.getFigure(newX, newY);
 
         // black castle queenside (top left)
         if (newX == posX - 2 && actualFigure.getTeam() == 1) {
@@ -234,8 +236,8 @@ public class CoreGame {
             board.setFigure(7, 0, new None());                        // replace field where rook was standing
         }
 
-        // move king
-        board.setFigure(newX, newY, actualFigure);
+        board.setFigure(newX, newY, actualFigure);          // move king
+        board.setFigure(posX, posY, targetFigure);          // replace field where king was standing
         actualFigure.setAlreadyMoved(true);
     }
 
@@ -314,6 +316,34 @@ public class CoreGame {
     }
 
     /**
+     * Checks if the figure is threatened by the other team
+     * @param board actual board
+     * @param team team of the figure you want to check
+     * @param targetPosX x-position of the figure you want to check
+     * @param targetPosY y-position of the figure you want to check
+     * @return whether the figure is threatened by the other team
+     */
+    public boolean isThreatened(Board board, int team, int targetPosX, int targetPosY) {
+        //Check if any enemy figure can do a valid move to King Position
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                Board tmpBoard = board.copyBoard();
+                if (tmpBoard.getFigure(x, y).getTeam() != team) {
+                    Map<String, Integer> tmpMove = new HashMap<String, Integer>();
+                    tmpMove.put("posX", x);
+                    tmpMove.put("posY", y);
+                    tmpMove.put("newX", targetPosX);
+                    tmpMove.put("newY", targetPosY);
+                    if (tmpBoard.getFigure(x, y).validMove(tmpMove.get("posX"), tmpMove.get("posY"), tmpMove.get("newX"), tmpMove.get("newY"), tmpBoard)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Check chessMate
      *
      * @param team Target king
@@ -345,23 +375,23 @@ public class CoreGame {
      * @param input User input
      * @return Move coordinates
      */
-    public Map<String, Integer> parse(String input){
+    public Map<String, Integer> parse(String input) {
         Map<String, Integer> pos = new HashMap<String, Integer>();
         //"a3-b4" or "a3-b4Q"
-        if((input.length() == 5 || input.length() == 6) && input.charAt(2) == 45){
+        if ((input.length() == 5 || input.length() == 6) && input.charAt(2) == 45) {
             //split "a3-b4Q" to "a3" and "b4Q"
             String[] result = input.split("-");
-            if(result.length == 2){
+            if (result.length == 2) {
                 String[] typ = {"pos", "new"};
-                for(int i = 0; i < 2; i++){
+                for (int i = 0; i < 2; i++) {
                     String[] xyPosition = result[i].split("");
                     //convert letters to numbers with ASCII code
-                    if(xyPosition[0].charAt(0) >= 97 && xyPosition[0].charAt(0) <= 104) {
-                        pos.put(typ[i] + "X", (int) xyPosition[0].charAt(0)-97);
+                    if (xyPosition[0].charAt(0) >= 97 && xyPosition[0].charAt(0) <= 104) {
+                        pos.put(typ[i] + "X", (int) xyPosition[0].charAt(0) - 97);
                     }
                     //convert numbers to numbers
-                    if(xyPosition[1].charAt(0) >= 49 && xyPosition[1].charAt(0) <= 56) {
-                        pos.put(typ[i] + "Y", Integer.parseInt(xyPosition[1])-1);
+                    if (xyPosition[1].charAt(0) >= 49 && xyPosition[1].charAt(0) <= 56) {
+                        pos.put(typ[i] + "Y", Integer.parseInt(xyPosition[1]) - 1);
                     }
                 }
             }

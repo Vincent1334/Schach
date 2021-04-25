@@ -8,17 +8,19 @@ public class King extends Figure {
 
     /**
      * Proofs if the move is a valid move for King
-     * @param posX actual x-position for King
-     * @param posY actual y-position for King
-     * @param newX new input x-position for King
-     * @param newY new input y-position for King
+     *
+     * @param posX  actual x-position for King
+     * @param posY  actual y-position for King
+     * @param newX  new input x-position for King
+     * @param newY  new input y-position for King
      * @param board actual state of chessboard
      * @return whether move was successful
      */
     public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
         // normal move
-        if (newX == posX+1 || newX == posX-1 || newY == posY+1 || newY == posY-1) {
-            alreadyMoved = true;
+        if ((newX == posX + 1 || newX == posX - 1 || newX == posX)
+                && (newY == posY + 1 || newY == posY - 1 || newY == posY)
+                && (newX == posX && newY == posY)) {
             return true;
         }
         return false;
@@ -26,7 +28,7 @@ public class King extends Figure {
 
     @Override
     public char getSymbol() {
-        return team == 0 ?  '\u265A' : '\u2654';
+        return team == 0 ? '\u265A' : '\u2654';
     }
 
 }
