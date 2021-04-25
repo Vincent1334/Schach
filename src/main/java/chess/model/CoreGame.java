@@ -340,9 +340,9 @@ public class CoreGame {
      */
     public Map<String, Integer> parse(String input){
         Map<String, Integer> pos = new HashMap<String, Integer>();
-        //"a3-b4" max. 5 chars
-        if(input.length() == 5 && input.charAt(2) == 45){
-            //split "a3-b4" to "a3" and "b4"
+        //"a3-b4" or "a3-b4Q"
+        if((input.length() == 5 || input.length() == 6) && input.charAt(2) == 45){
+            //split "a3-b4Q" to "a3" and "b4Q"
             String[] result = input.split("-");
             if(result.length == 2){
                 String[] typ = {"pos", "new"};
@@ -357,6 +357,18 @@ public class CoreGame {
                         pos.put(typ[i] + "Y", Integer.parseInt(xyPosition[1])-1);
                     }
                 }
+            }
+            //split "a7-a8Q" to "a7" and "a8" and "Q" (corresponds to 0)
+            if (input.matches("^[a-h][27]-[a-h][18][Q]$")) {
+                pos.put("convertPawnTo", 0);
+            }
+            //split "a7-a8N" to "a7" and "a8" and "N" (corresponds to 1)
+            if (input.matches("^[a-h][27]-[a-h][18][N]$")) {
+                pos.put("convertPawnTo", 1);
+            }
+            //split "a7-a8B" to "a7" and "a8" and "B" (corresponds to 2)
+            if (input.matches("^[a-h][27]-[a-h][18][B]$")) {
+                pos.put("convertPawnTo", 2);
             }
         }
         //if pos is less than 4 then invalid entry
