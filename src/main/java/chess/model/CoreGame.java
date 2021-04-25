@@ -17,7 +17,6 @@ public class CoreGame {
     public CoreGame(int gameMode) {
         board = new Board();
         this.gameMode = gameMode;
-
     }
 
     public Board getBoard() {
@@ -31,12 +30,13 @@ public class CoreGame {
      * move.get(2) == newPosX
      * move.get(3) == newPosY
      *
-     * @param in User input
+     * @param move parsed move the user gave in
      * @return true if valid move
      */
-    public boolean chessMove(String in) {
+    public boolean chessMove(Map<String, Integer> move) {
         //translate user input to position
-        Map<String, Integer> move = parse(in);
+//        Map<String, Integer> move = parse(in);
+
         //check valid move
         if (move.size() >= 4) {
             Integer posX = move.get("posX");
@@ -45,29 +45,29 @@ public class CoreGame {
             Integer newY = move.get("newY");
             if (board.getFigure(posX, posY).getTeam() == activePlayer) {
                 //check EnPassant
-                if (checkEnPassant(posX, posY, newX, newY)) {
-                    performEnPassantMove(posX, posY, newX, newY);
+                if (checkEnPassant(posX, posY, newX, newY, board)) {
+                    performEnPassantMove(posX, posY, newX, newY, board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
                 }
                 //check Castling
-                if (checkCastling(posX, posY, newX, newY)) {
-                    performCastlingMove(posX, posY, newX, newY);
+                if (checkCastling(posX, posY, newX, newY, board)) {
+                    performCastlingMove(posX, posY, newX, newY, board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
                 }
                 //check Pawn conversion
-                if (checkPawnConversion(move)) {
-                    performPawnConversion(posX, posY, newX, newY, move);
+                if (checkPawnConversion(move, board)) {
+                    performPawnConversion(posX, posY, newX, newY, move, board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
                 }
                 //checkValidDefaultMove
-                if (checkValidDefaultMove(posX, posY, newX, newY)) {
-                    performDefaultMove(posX, posY, newX, newY);
+                if (checkValidDefaultMove(posX, posY, newX, newY, board)) {
+                    performDefaultMove(posX, posY, newX, newY, board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
@@ -87,22 +87,22 @@ public class CoreGame {
      * checks whether a standard move is valid or not
      *
      * @param posX, posY, newX, newY
+     * @param board
      * @return Whether move is possible or not
      */
-    public boolean checkValidDefaultMove(int posX, int posY, int newX, int newY) {
+    public boolean checkValidDefaultMove(int posX, int posY, int newX, int newY, Board board) {
 
         Figure actualFigure = board.getFigure(posX, posY);
         Figure targetFigure = board.getFigure(newX, newY);
 
         if (actualFigure.validMove(posX, posY, newX, newY, board)) {
             //create a tmpBoard with the new untested figure position
-//            Board tmpBoard = new Board();
             Board tmpBoard = board.copyBoard();
             //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
             tmpBoard.setFigure(posX, posY, new None());
             tmpBoard.setFigure(newX, newY, actualFigure);
 
-            if (!threatenKing(tmpBoard, actualFigure.getTeam()) && actualFigure.getTeam() != targetFigure.getTeam()) {
+            if (!kingInCheck(tmpBoard, actualFigure.getTeam()) && actualFigure.getTeam() != targetFigure.getTeam()) {
                 return true;
             }
         }
@@ -113,8 +113,9 @@ public class CoreGame {
      * makes a standard move on the board.
      *
      * @param posX, posY, newX, newY
+     * @param board
      */
-    public void performDefaultMove(int posX, int posY, int newX, int newY) {
+    public void performDefaultMove(int posX, int posY, int newX, int newY, Board board) {
 
         Figure actualFigure = board.getFigure(posX, posY);
         Figure targetFigure = board.getFigure(newX, newY);
@@ -135,13 +136,14 @@ public class CoreGame {
     /**
      * check valid enPassant move
      *
-     * @param posX actual x-position for Pawn
-     * @param posY actual y-position for Pawn
-     * @param newX new input x-position for Pawn
-     * @param newY new input y-position for Pawn
+     * @param posX  actual x-position for Pawn
+     * @param posY  actual y-position for Pawn
+     * @param newX  new input x-position for Pawn
+     * @param newY  new input y-position for Pawn
+     * @param board
      * @return Whether the move is valid or not
      */
-    public boolean checkEnPassant(int posX, int posY, int newX, int newY) {
+    public boolean checkEnPassant(int posX, int posY, int newX, int newY, Board board) {
         if ((board.getFigure(newX, posY) instanceof Pawn) && (board.getFigure(posX, posY) instanceof Pawn)
                 && (board.getFigure(newX, posY).getTeam() != board.getFigure(posX, posY).getTeam())
                 && (Math.abs(posX - newX) == 1)
@@ -157,12 +159,13 @@ public class CoreGame {
     /**
      * makes a enPassant move on the board.
      *
-     * @param posX actual x-position for Pawn
-     * @param posY actual y-position for Pawn
-     * @param newX new input x-position for Pawn
-     * @param newY new input y-position for Pawn
+     * @param posX  actual x-position for Pawn
+     * @param posY  actual y-position for Pawn
+     * @param newX  new input x-position for Pawn
+     * @param newY  new input y-position for Pawn
+     * @param board
      */
-    public void performEnPassantMove(int posX, int posY, int newX, int newY) {
+    public void performEnPassantMove(int posX, int posY, int newX, int newY, Board board) {
         beatenFigures.add(board.getFigure(newX, posY));
         board.setFigure(newX, posY, new None());
         board.setFigure(newX, newY, board.getFigure(posX, posY));
@@ -176,9 +179,10 @@ public class CoreGame {
      * check possible castling
      *
      * @param posX, posY, newX, newY
+     * @param board
      * @return W
      */
-    public boolean checkCastling(int posX, int posY, int newX, int newY) {
+    public boolean checkCastling(int posX, int posY, int newX, int newY, Board board) {
 
         Figure actualFigure = board.getFigure(posX, posY);
 
@@ -206,7 +210,7 @@ public class CoreGame {
         return false;
     }
 
-    public void performCastlingMove(int posX, int posY, int newX, int newY) {
+    public void performCastlingMove(int posX, int posY, int newX, int newY, Board board) {
 
         Figure actualFigure = board.getFigure(posX, posY);
         Figure targetFigure = board.getFigure(newX, newY);
@@ -251,7 +255,7 @@ public class CoreGame {
      * @param move the actual move
      * @return Whether the move is valid or not
      */
-    public boolean checkPawnConversion(Map<String, Integer> move) {
+    public boolean checkPawnConversion(Map<String, Integer> move, Board board) {
         //TODO: finish method
         return false;
     }
@@ -261,7 +265,7 @@ public class CoreGame {
      *
      * @param move Figure position
      */
-    public void performPawnConversion(int posX, int posY, int newX, int newY, Map<String, Integer> move) {
+    public void performPawnConversion(int posX, int posY, int newX, int newY, Map<String, Integer> move, Board board) {
         Figure actualFigure = board.getFigure(posX, posY);
         //TODO: finish method
         //convert white pawn
@@ -311,46 +315,98 @@ public class CoreGame {
     /**
      * Check if the king is in check
      *
-     * @param tmpBoard A temporary board for unchecked figure positions.
-     * @param team     The team ID of the checked King
+     * @param board A board for unchecked figure positions.
+     * @param team  The team ID of the checked King
      * @return Whether the king is in check or not
      */
-    public boolean threatenKing(Board tmpBoard, int team) {
+    public boolean kingInCheck(Board board, int team) {
         //create local Variables
         int kingX = 0;
         int kingY = 0;
         //Searching target King position
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (tmpBoard.getFigure(x, y) instanceof King && tmpBoard.getFigure(x, y).getTeam() == team) {
+                if (board.getFigure(x, y) instanceof King && board.getFigure(x, y).getTeam() == team) {
                     kingX = x;
                     kingY = y;
                     break;
                 }
             }
         }
-        //Check if any enemy figure can do a valid move to King Position
+        return isThreatened(board, team, kingX, kingY);
+        /*//Check if any enemy figure can do a valid move to King Position
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (tmpBoard.getFigure(x, y).getTeam() != team) {
+                if (board.getFigure(x, y).getTeam() != team) {
                     Map<String, Integer> tmpMove = new HashMap<String, Integer>();
                     tmpMove.put("posX", x);
                     tmpMove.put("posY", y);
                     tmpMove.put("newX", kingX);
                     tmpMove.put("newY", kingY);
-                    if (tmpBoard.getFigure(x, y).validMove(tmpMove.get("posX"), tmpMove.get("posY"), tmpMove.get("newX"), tmpMove.get("newY"), tmpBoard)) {
+                    if (board.getFigure(x, y).validMove(tmpMove.get("posX"), tmpMove.get("posY"), tmpMove.get("newX"), tmpMove.get("newY"), board)) {
                         return true;
                     }
                 }
             }
         }
-        return false;
+        return false;*/
     }
 
     /**
+     * Check chessMate
+     *
+     * @param team Target king
+     * @return
+     */
+    public boolean checkChessMate(int team) {
+        boolean possibleSolution = false;
+        Board tmpBoard = new Board();
+
+        // test all possible moves and check whether your king is still in check
+        for (int y = 0; y < 8; y++) {                                                   // for all your own figures on the board
+            for (int x = 0; x < 8; x++) {
+                Figure actualFigure = board.getFigure(x, y);
+                if (actualFigure.getTeam() == team) {
+                    tmpBoard = board.copyBoard();                                       // create a temporary board
+
+                    for (int newX = 0; newX < 8; newX++) {                              // and test all possible moves to every possible targetField
+                        for (int newY = 0; newY < 8; newY++) {
+
+                            if (checkEnPassant(x, y, newX, newY, tmpBoard)) {           // check EnPassant and eventually perform it on the temporary board
+                                performEnPassantMove(x, y, newX, newY, tmpBoard);
+                            }
+                            if (checkCastling(x, y, newX, newY, tmpBoard)) {            // check Castling and eventually perform it on the temporary board
+                                performCastlingMove(x, y, newX, newY, tmpBoard);
+                            }
+                            Map<String, Integer> tmpMove = new HashMap<String, Integer>();
+                            tmpMove.put("posX", x);
+                            tmpMove.put("posY", y);
+                            tmpMove.put("newX", newX);
+                            tmpMove.put("newY", newY);
+                            if (checkPawnConversion(tmpMove, tmpBoard)) {               // check Pawn conversion and eventually perform it on the temporary board
+                                performPawnConversion(x,y,newX,newY,tmpMove,tmpBoard);
+                            }
+                            if (checkValidDefaultMove(x, y, newX, newY, tmpBoard)) {    // checkValidDefaultMove and eventually perform it on the temporary board
+                                performDefaultMove(x, y, newX, newY, tmpBoard);
+                            }
+
+                            if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
+                                possibleSolution = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return possibleSolution;
+    }
+
+
+    /**
      * Checks if the figure is threatened by the other team
-     * @param board actual board
-     * @param team team of the figure you want to check
+     *
+     * @param board      actual board
+     * @param team       team of the figure you want to check
      * @param targetPosX x-position of the figure you want to check
      * @param targetPosY y-position of the figure you want to check
      * @return whether the figure is threatened by the other team
@@ -375,16 +431,6 @@ public class CoreGame {
         return false;
     }
 
-    /**
-     * Check chessMate
-     *
-     * @param team Target king
-     * @return
-     */
-    public boolean checkChessMate(int team) {
-        //TODO: Finish method
-        return false;
-    }
 
     /**
      * switch active player
@@ -407,7 +453,7 @@ public class CoreGame {
      * @param input User input
      * @return Move coordinates
      */
-    public Map<String, Integer> parse(String input) {
+    /*public Map<String, Integer> parse(String input) {
         Map<String, Integer> pos = new HashMap<String, Integer>();
         //"a3-b4" or "a3-b4Q"
         if ((input.length() == 5 || input.length() == 6) && input.charAt(2) == 45) {
@@ -442,5 +488,5 @@ public class CoreGame {
         }
         //if pos is less than 4 then invalid entry
         return pos;
-    }
+    }*/
 }

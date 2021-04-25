@@ -3,6 +3,8 @@ package chess.cli;
 import chess.model.CoreGame;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -65,7 +67,7 @@ public class Cli {
             System.out.print("Please enter a valid move: ");
             String input = scan.next();
             System.out.println("Check the input and wait for the opponent...");
-            if(!coreGame.chessMove(input)){
+            if(!coreGame.chessMove(parse(input))){
                 try{
                     printWriter.println("Invalid input. Try again!");
                     Thread.sleep(1000);
@@ -95,5 +97,48 @@ public class Cli {
     public static void clearWindow(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    /**
+     * Converts user input into coordinates. e.g. a3 == x: 0 y: 2
+     *
+     * @param input User input
+     * @return Move coordinates
+     */
+    public static Map<String, Integer> parse(String input) {
+        Map<String, Integer> pos = new HashMap<String, Integer>();
+        //"a3-b4" or "a3-b4Q"
+        if ((input.length() == 5 || input.length() == 6) && input.charAt(2) == 45) {
+            //split "a3-b4Q" to "a3" and "b4Q"
+            String[] result = input.split("-");
+            if (result.length == 2) {
+                String[] typ = {"pos", "new"};
+                for (int i = 0; i < 2; i++) {
+                    String[] xyPosition = result[i].split("");
+                    //convert letters to numbers with ASCII code
+                    if (xyPosition[0].charAt(0) >= 97 && xyPosition[0].charAt(0) <= 104) {
+                        pos.put(typ[i] + "X", (int) xyPosition[0].charAt(0) - 97);
+                    }
+                    //convert numbers to numbers
+                    if (xyPosition[1].charAt(0) >= 49 && xyPosition[1].charAt(0) <= 56) {
+                        pos.put(typ[i] + "Y", Integer.parseInt(xyPosition[1]) - 1);
+                    }
+                }
+            }
+            //split "a7-a8Q" to "a7" and "a8" and "Q" (corresponds to 0)
+            if (input.matches("^[a-h][27]-[a-h][18][Q]$")) {
+                pos.put("convertPawnTo", 0);
+            }
+            //split "a7-a8N" to "a7" and "a8" and "N" (corresponds to 1)
+            if (input.matches("^[a-h][27]-[a-h][18][N]$")) {
+                pos.put("convertPawnTo", 1);
+            }
+            //split "a7-a8B" to "a7" and "a8" and "B" (corresponds to 2)
+            if (input.matches("^[a-h][27]-[a-h][18][B]$")) {
+                pos.put("convertPawnTo", 2);
+            }
+        }
+        //if pos is less than 4 then invalid entry
+        return pos;
     }
 }
