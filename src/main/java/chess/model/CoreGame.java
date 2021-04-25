@@ -102,9 +102,7 @@ public class CoreGame {
             tmpBoard.setFigure(posX, posY, new None());
             tmpBoard.setFigure(newX, newY, actualFigure);
 
-            //TODO: überprüfen, dass figur auf zielfeld nicht gleich eigener spielfarbe entspricht -> neue Farbe für None einführen
-
-            if (!threatenKing(tmpBoard, actualFigure.getTeam())) {
+            if (!threatenKing(tmpBoard, actualFigure.getTeam()) && actualFigure.getTeam() != targetFigure.getTeam()) {
                 return true;
             }
         }
