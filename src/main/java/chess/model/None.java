@@ -3,7 +3,7 @@ package chess.model;
 public class None extends Figure {
 
     public None() {
-
+        super(2);
     }
 
     /**

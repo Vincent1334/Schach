@@ -97,11 +97,10 @@ public class CoreGame {
         if (actualFigure.validMove(posX, posY, newX, newY, board)) {
             //create a tmpBoard with the new untested figure position
 //            Board tmpBoard = new Board();
-            Board tmpBoard = board;
+            Board tmpBoard = board.copyBoard();
             //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
             tmpBoard.setFigure(posX, posY, new None());
             tmpBoard.setFigure(newX, newY, actualFigure);
-            //TODO: mit tmpBoard.setFigure ändern wir das Originalboard, da tmpBoard nur eine Referenz ist und keine richtige Kopie
 
             //TODO: überprüfen, dass figur auf zielfeld nicht gleich eigener spielfarbe entspricht -> neue Farbe für None einführen
 

@@ -12,38 +12,55 @@ public class Board {
 
         for (int team = 0; team <= 1; team++) {
             //create Pawns
-            for(int i = 0; i < 8; i++) board[i][1+team*5] = new Pawn(team);
+            for (int i = 0; i < 8; i++) {
+                board[i][1 + team * 5] = new Pawn(team);
+            }
             //create King
-            board[4][team*7] = new King(team);
+            board[4][team * 7] = new King(team);
+
             //create Queen
-            board[3][team*7] = new Queen(team);
+            board[3][team * 7] = new Queen(team);
+
             //create Rook
-            for(int i = 0; i <= 1; i++) board[i*7][team*7] = new Rook(team);
+            for (int i = 0; i <= 1; i++) {
+                board[i * 7][team * 7] = new Rook(team);
+            }
             //create Bishop
-            for(int i = 0; i <= 1; i++) board[2+i*3][team*7] = new Bishop(team);
+            for (int i = 0; i <= 1; i++) {
+                board[2 + i * 3][team * 7] = new Bishop(team);
+            }
             //create Knight
-            for(int i = 0; i <= 1; i++) board[1+i*5][team*7] = new Knight(team);
-            //create None
-            for(int y = 2; y < 6; y++){
-                for(int x = 0; x < 8; x++){
-                    board[x][y] = new None();
-                }
+            for (int i = 0; i <= 1; i++) {
+                board[1 + i * 5][team * 7] = new Knight(team);
+            }
+        }
+        //create None
+        for (int y = 2; y < 6; y++) {
+            for (int x = 0; x < 8; x++) {
+                board[x][y] = new None();
             }
         }
     }
 
     /**
-     * @return The complete chess board
+     * copies actual board
+     *
+     * @return copy of the actual board
      */
+    public Board copyBoard() {
+        Board copy = new Board();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                copy.setFigure(i, j, this.getFigure(i, j));
+            }
+        }
+        return copy;
+    }
+
     public Figure[][] getBoard() {
         return board;
     }
 
-    /**
-     * @param x The x position of the figure you are looking for
-     * @param y The y position of the figure you are looking for
-     * @return The wanted figure
-     */
     public Figure getFigure(int x, int y) {
         return board[x][y];
     }
@@ -54,14 +71,15 @@ public class Board {
 
     /**
      * Get the position of the target king
+     *
      * @param team
-     * @return position of target king
+     * @return position of target king, {0,0} if there is no king found
      */
-    public int[] getKing(int team){
+    public int[] getKing(int team) {
         //Searching target King position
-        for(int y = 0; y < 8; y++){
-            for(int x = 0; x < 8; x++){
-                if(board[x][y] instanceof King && board[x][y].getTeam() == team){
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if (board[x][y] instanceof King && board[x][y].getTeam() == team) {
                     int[] pos = {x, y};
                     return pos;
                 }
