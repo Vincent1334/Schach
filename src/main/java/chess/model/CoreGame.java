@@ -60,7 +60,7 @@ public class CoreGame {
                 }
                 //check Pawn conversion
                 if (checkPawnConversion(move)) {
-                    performPawnConversion(move);
+                    performPawnConversion(posX, posY, newX, newY, move);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
@@ -261,16 +261,48 @@ public class CoreGame {
      *
      * @param move Figure position
      */
-    public void performPawnConversion(Map<String, Integer> move) {
+    public void performPawnConversion(int posX, int posY, int newX, int newY, Map<String, Integer> move) {
+        Figure actualFigure = board.getFigure(posX, posY);
         //TODO: finish method
-        if (move.size() == 5) {
-
+        //convert white pawn
+        if (newY == 8 && actualFigure instanceof Pawn && actualFigure.getTeam() == 0) {
+            //to knight
+            switch (move.get("convertPawnTo")) {
+                case 1: {
+                    board.setFigure(newX, newY, new Knight(0));
+                    break;
+                }
+                case 2: {
+                    board.setFigure(newX, newY, new Bishop(0));
+                    break;
+                }
+                default: {
+                    board.setFigure(newX, newY, new Queen(0));
+                    break;
+                }
+            }
         }
-        // Standard: Umwandlung in Dame
-        else {
 
+
+            //convert black pawn
+        if (newY == 1 && actualFigure instanceof Pawn && actualFigure.getTeam() == 1) {
+            switch (move.get("convertPawnTo")) {
+                case 1: {
+                    board.setFigure(newX, newY, new Knight(1));
+                    break;
+                }
+                case 2: {
+                    board.setFigure(newX, newY, new Bishop(1));
+                    break;
+                }
+                default: {
+                    board.setFigure(newX, newY, new Queen(1));
+                    break;
+                }
+            }
         }
     }
+
 
     /**
      * <------Default-commands------------------------------------------------------------------------------------------>
