@@ -252,11 +252,15 @@ public class CoreGame {
     /**
      * check possible pawn conversion
      *
-     * @param move the actual move
+     * @param posX, posY, newX, newY
      * @return Whether the move is valid or not
      */
-    public boolean checkPawnConversion(Map<String, Integer> move, Board board) {
-        //TODO: finish method
+    public boolean checkPawnConversion(int posX, int posY, int newX, int newY) {
+        Figure actualFigure = board.getFigure(posX, posY);
+
+        if(newY == 8 || newY == 1 && actualFigure instanceof Pawn) {
+            return true;
+        }
         return false;
     }
 
@@ -264,10 +268,11 @@ public class CoreGame {
      * makes a pawn conversion move on the board.
      *
      * @param move Figure position
+     * @param posX, posY, newX, newY
      */
-    public void performPawnConversion(int posX, int posY, int newX, int newY, Map<String, Integer> move, Board board) {
+    public void performPawnConversion (int posX, int posY, int newX, int newY, Map<String, Integer> move, Board board) {
         Figure actualFigure = board.getFigure(posX, posY);
-        //TODO: finish method
+
         //convert white pawn
         if (newY == 8 && actualFigure instanceof Pawn && actualFigure.getTeam() == 0) {
             //to knight
@@ -286,7 +291,6 @@ public class CoreGame {
                 }
             }
         }
-
 
             //convert black pawn
         if (newY == 1 && actualFigure instanceof Pawn && actualFigure.getTeam() == 1) {
