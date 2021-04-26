@@ -59,7 +59,7 @@ public class CoreGame {
                     return true;
                 }
                 //check Pawn conversion
-                if (checkPawnConversion(move, board)) {
+                if (checkPawnConversion(posX, posY, newX, newY, board)) {
                     performPawnConversion(posX, posY, newX, newY, move, board);
                     switchPlayer();
                     checkChessMate(activePlayer);
@@ -255,7 +255,7 @@ public class CoreGame {
      * @param posX, posY, newX, newY
      * @return Whether the move is valid or not
      */
-    public boolean checkPawnConversion(int posX, int posY, int newX, int newY) {
+    public boolean checkPawnConversion(int posX, int posY, int newX, int newY, Board board) {
         Figure actualFigure = board.getFigure(posX, posY);
 
         if(newY == 8 || newY == 1 && actualFigure instanceof Pawn) {
@@ -360,7 +360,7 @@ public class CoreGame {
      * Check chessMate
      *
      * @param team Target king
-     * @return
+     * @return whether king of "team"-color is in checkmate
      */
     public boolean checkChessMate(int team) {
         boolean possibleSolution = false;
@@ -387,7 +387,7 @@ public class CoreGame {
                             tmpMove.put("posY", y);
                             tmpMove.put("newX", newX);
                             tmpMove.put("newY", newY);
-                            if (checkPawnConversion(tmpMove, tmpBoard)) {               // check Pawn conversion and eventually perform it on the temporary board
+                            if (checkPawnConversion(x,y,newX,newY,tmpBoard)) {               // check Pawn conversion and eventually perform it on the temporary board
                                 performPawnConversion(x,y,newX,newY,tmpMove,tmpBoard);
                             }
                             if (checkValidDefaultMove(x, y, newX, newY, tmpBoard)) {    // checkValidDefaultMove and eventually perform it on the temporary board
@@ -402,7 +402,7 @@ public class CoreGame {
                 }
             }
         }
-        return possibleSolution;
+        return !possibleSolution;
     }
 
 
