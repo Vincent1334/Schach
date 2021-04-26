@@ -6,8 +6,6 @@ public class Rook extends Figure {
         super(team);
     }
 
-    boolean alreadyMoved;
-
     /**
      * Proofs if the move is a valid move for Rook
      * @param posX actual x-position for Rook

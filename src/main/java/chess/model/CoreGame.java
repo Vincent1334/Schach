@@ -53,8 +53,18 @@ public class CoreGame {
                     return true;
                 }
                 //check Castling
-                if (checkCastling(posX, posY, newX, newY, board)) {
-                    performCastlingMove(posX, posY, newX, newY, board);
+                if (checkCastling(posX, posY, newX, newY, board) == 1) {
+                    performCastlingMoveLeft(posX, posY, newX, newY, board);
+                    board.getFigure(0, posY).setAlreadyMoved(true);
+                    board.getFigure(posX, posY).setAlreadyMoved(true);
+                    switchPlayer();
+                    checkChessMate(activePlayer);
+                    return true;
+                }
+                if (checkCastling(posX, posY, newX, newY, board) == 2) {
+                    performCastlingMoveRight(posX, posY, newX, newY, board);
+                    board.getFigure(7, posY).setAlreadyMoved(true);
+                    board.getFigure(posX, posY).setAlreadyMoved(true);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
@@ -69,6 +79,7 @@ public class CoreGame {
                 //checkValidDefaultMove
                 if (checkValidDefaultMove(posX, posY, newX, newY, board)) {
                     performDefaultMove(posX, posY, newX, newY, board);
+                    board.getFigure(posX, posY).setAlreadyMoved(true);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
@@ -125,7 +136,6 @@ public class CoreGame {
             beatenFigures.add(targetFigure);
         }
 
-        actualFigure.setAlreadyMoved(true);
         board.setFigure(newX, newY, actualFigure);
         board.setFigure(posX, posY, targetFigure);
     }
@@ -183,67 +193,56 @@ public class CoreGame {
      * @param board
      * @return W
      */
-    public boolean checkCastling(int posX, int posY, int newX, int newY, Board board) {
+    public int checkCastling(int posX, int posY, int newX, int newY, Board board) {
 
         Figure actualFigure = board.getFigure(posX, posY);
 
         // castle left
-        if (actualFigure instanceof King && newX == posX - 2 && !actualFigure.isAlreadyMoved() && !board.getFigure(0, posY).isAlreadyMoved()) {
+        if (actualFigure instanceof King && !actualFigure.isAlreadyMoved() && newX == posX - 2 && !(board.getFigure(0, posY).isAlreadyMoved())) {
             // check, whether all field between are empty and are not threatened
             for (int j = 2; j < posX; j++) {
                 if (!(board.getFigure(j, posY) instanceof None) || isThreatened(board, 2, j, posY)) {
-                    return false;
+                    return 0;
                 }
             }
-            return true;
+            return 1;
         }
         // castle right
-        if (actualFigure instanceof King && !actualFigure.isAlreadyMoved() && newX == posX + 2 && !board.getFigure(7, posY).isAlreadyMoved()) {
+        if (actualFigure instanceof King && !actualFigure.isAlreadyMoved() && newX == posX + 2 && !(board.getFigure(7, posY).isAlreadyMoved())) {
             // check, whether all field between are empty and are not threatened
             for (int j = posX + 1; j < 7; j++) {
                 if (!(board.getFigure(j, posY) instanceof None) || isThreatened(board, actualFigure.getTeam(), j, posY)) {
-                    return false;
+                    return 0;
                 }
             }
-            return true;
+            return 2;
         }
 
-        return false;
+        return 0;
     }
 
-    public void performCastlingMove(int posX, int posY, int newX, int newY, Board board) {
+    public void performCastlingMoveLeft(int posX, int posY, int newX, int newY, Board board) {
 
         Figure actualFigure = board.getFigure(posX, posY);
         Figure targetFigure = board.getFigure(newX, newY);
 
-        // black castle queenside (top left)
-        if (newX == posX - 2 && actualFigure.getTeam() == 1) {
-            board.getFigure(0, posY).setAlreadyMoved(true);
-            board.setFigure(newX + 1, newY, board.getFigure(0, posY));   // move rook
-            board.setFigure(0, 0, new None());                        // replace field where rook was standing
-        }
-        // black castle kingside (top right)
-        if (newX == posX + 2 && actualFigure.getTeam() == 1) {
-            board.getFigure(7, posY).setAlreadyMoved(true);
-            board.setFigure(newX - 1, newY, board.getFigure(7, posY));   // move rook
-            board.setFigure(7, 0, new None());                        // replace field where rook was standing
-        }
-        // white castle kingside (bottom left)
-        if (newX == posX - 2 && actualFigure.getTeam() == 0) {
-            board.getFigure(0, posY).setAlreadyMoved(true);
-            board.setFigure(newX + 1, newY, board.getFigure(0, posY));   // move rook
-            board.setFigure(0, 0, new None());                        // replace field where rook was standing
-        }
-        // white castle queenside (bottom right)
-        if (newX == posX + 2 && actualFigure.getTeam() == 0) {
-            board.getFigure(7, posY).setAlreadyMoved(true);
-            board.setFigure(newX - 1, newY, board.getFigure(7, posY));   // move rook
-            board.setFigure(7, 0, new None());                        // replace field where rook was standing
-        }
+        board.setFigure(newX + 1, newY, board.getFigure(0, posY));    // move rook
+        board.setFigure(0, newY, new None());                            // replace field where rook was standing
 
-        board.setFigure(newX, newY, actualFigure);          // move king
-        board.setFigure(posX, posY, targetFigure);          // replace field where king was standing
-        actualFigure.setAlreadyMoved(true);
+        board.setFigure(newX, newY, actualFigure);                          // move king
+        board.setFigure(posX, posY, targetFigure);                          // replace field where king was standing
+    }
+
+    public void performCastlingMoveRight(int posX, int posY, int newX, int newY, Board board) {
+
+        Figure actualFigure = board.getFigure(posX, posY);
+        Figure targetFigure = board.getFigure(newX, newY);
+
+        board.setFigure(newX - 1, newY, board.getFigure(7, posY));      // move rook
+        board.setFigure(7, 0, new None());                              // replace field where rook was standing
+
+        board.setFigure(newX, newY, actualFigure);                            // move king
+        board.setFigure(posX, posY, targetFigure);                            // replace field where king was standing
     }
 
     /**
@@ -351,15 +350,27 @@ public class CoreGame {
 
                             if (checkEnPassant(x, y, newX, newY, tmpBoard)) {           // check EnPassant and eventually perform it on the temporary board
                                 performEnPassantMove(x, y, newX, newY, tmpBoard);
+                                if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
+                                    possibleSolution = true;
+                                }
                             }
-                            if (checkCastling(x, y, newX, newY, tmpBoard)) {            // check Castling and eventually perform it on the temporary board
-                                performCastlingMove(x, y, newX, newY, tmpBoard);
+                            if (checkCastling(x, y, newX, newY, tmpBoard)==1) {            // check Castling and eventually perform it on the temporary board
+                                performCastlingMoveLeft(x, y, newX, newY, tmpBoard);
+                                if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
+                                    possibleSolution = true;
+                                }
+                            }
+                            if (checkCastling(x, y, newX, newY, tmpBoard)==2) {            // check Castling and eventually perform it on the temporary board
+                                performCastlingMoveRight(x, y, newX, newY, tmpBoard);
+                                if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
+                                    possibleSolution = true;
+                                }
                             }
                             if (checkValidDefaultMove(x, y, newX, newY, tmpBoard)) {    // checkValidDefaultMove and eventually perform it on the temporary board
                                 performDefaultMove(x, y, newX, newY, tmpBoard);
-                            }
-                            if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
-                                possibleSolution = true;
+                                if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
+                                    possibleSolution = true;
+                                }
                             }
                         }
                     }
