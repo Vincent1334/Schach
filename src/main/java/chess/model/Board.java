@@ -49,38 +49,27 @@ public class Board {
      */
     public Board copyBoard() {
         Board copy = new Board();
-        copy.setBoard(this.getBoard());
-       // for (int i = 0; i < 8; i++) {
-        //    for (int j = 0; j < 8; j++) {
-        //        copy.setFigure(i, j, this.getFigure(i, j));
-        //    }
-       // }
+//        copy.setBoard(this.getBoard());
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                copy.setFigure(i, j, this.getFigure(i, j));
+            }
+        }
         return copy;
     }
 
-    public void setBoard(Figure[][] board){
+    /*public void setBoard(Figure[][] board){
         this.board = board;
+    }*/
+
+    public Figure[][] getBoard() {
+        return board;
     }
 
-    public Figure[][] getBoard(){
-        return this.board;
-    }
-
-    /**
-     * Returns target Figure
-     * @param x x Position
-     * @param y y Position
-     * @return Figure
-     */
     public Figure getFigure(int x, int y) {
         return board[x][y];
     }
 
-    /**
-     * edit target Figure
-     * @param x x Position
-     * @param y y Position
-     */
     public void setFigure(int x, int y, Figure figure) {
         board[x][y] = figure;
     }

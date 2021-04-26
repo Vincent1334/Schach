@@ -39,31 +39,36 @@ public class CoreGame {
 
         //check valid move
         if (move.size() >= 4) {
-            if (board.getFigure(move.get("posX"), move.get("posY")).getTeam() == activePlayer) {
+            Integer posX = move.get("posX");
+            Integer posY = move.get("posY");
+            Integer newX = move.get("newX");
+            Integer newY = move.get("newY");
+            Integer pawnConversion = move.get("pawnConversion");
+            if (board.getFigure(posX, posY).getTeam() == activePlayer) {
                 //check EnPassant
-                if (checkEnPassant(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board)) {
-                    performEnPassantMove(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board);
+                if (checkEnPassant(posX, posY, newX, newY, board)) {
+                    performEnPassantMove(posX, posY, newX, newY, board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
                 }
                 //check Castling
-                if (checkCastling(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board)) {
-                    performCastlingMove(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board);
+                if (checkCastling(posX, posY, newX, newY, board)) {
+                    performCastlingMove(posX, posY, newX, newY, board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
                 }
                 //check Pawn conversion
-                if (checkPawnConversion(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board)) {
-                    performPawnConversion(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), move.get("pawnConversion"), board);
+                if (checkPawnConversion(posX, posY, newX, newY, board)) {
+                    performPawnConversion(posX, posY, newX, newY, pawnConversion, board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
                 }
                 //checkValidDefaultMove
-                if (checkValidDefaultMove(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board)) {
-                    performDefaultMove(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board);
+                if (checkValidDefaultMove(posX, posY, newX, newY, board)) {
+                    performDefaultMove(posX, posY, newX, newY, board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
@@ -327,7 +332,7 @@ public class CoreGame {
      * Check chessMate
      *
      * @param team Target king
-     * @return
+     * @return whether king of "team"-color is in checkmate
      */
     public boolean checkChessMate(int team) {
         boolean possibleSolution = false;
@@ -360,7 +365,7 @@ public class CoreGame {
                 }
             }
         }
-        return possibleSolution;
+        return !possibleSolution;
     }
 
 
