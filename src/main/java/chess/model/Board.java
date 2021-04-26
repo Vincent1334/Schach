@@ -50,9 +50,9 @@ public class Board {
     public Board copyBoard() {
         Board copy = new Board();
 //        copy.setBoard(this.getBoard());
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                copy.setFigure(i, j, this.getFigure(i, j));
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                copy.setFigure(x, y, this.getFigure(x, y));
             }
         }
         return copy;

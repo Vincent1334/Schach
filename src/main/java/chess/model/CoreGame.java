@@ -43,7 +43,7 @@ public class CoreGame {
             Integer posY = move.get("posY");
             Integer newX = move.get("newX");
             Integer newY = move.get("newY");
-            Integer pawnConversion = move.get("pawnConversion");
+            Integer pawnConversion = move.get("convertPawnTo");
             if (board.getFigure(posX, posY).getTeam() == activePlayer) {
                 //check EnPassant
                 if (checkEnPassant(posX, posY, newX, newY, board)) {
@@ -191,7 +191,7 @@ public class CoreGame {
         if (actualFigure instanceof King && newX == posX - 2 && !actualFigure.isAlreadyMoved() && !board.getFigure(0, posY).isAlreadyMoved()) {
             // check, whether all field between are empty and are not threatened
             for (int j = 2; j < posX; j++) {
-                if (!(board.getFigure(j, posY) instanceof None) || isThreatened(board, 2,j,posY)) {
+                if (!(board.getFigure(j, posY) instanceof None) || isThreatened(board, 2, j, posY)) {
                     return false;
                 }
             }
@@ -201,7 +201,7 @@ public class CoreGame {
         if (actualFigure instanceof King && !actualFigure.isAlreadyMoved() && newX == posX + 2 && !board.getFigure(7, posY).isAlreadyMoved()) {
             // check, whether all field between are empty and are not threatened
             for (int j = posX + 1; j < 7; j++) {
-                if (!(board.getFigure(j, posY) instanceof None) || isThreatened(board, actualFigure.getTeam(),j,posY)) {
+                if (!(board.getFigure(j, posY) instanceof None) || isThreatened(board, actualFigure.getTeam(), j, posY)) {
                     return false;
                 }
             }
@@ -259,7 +259,7 @@ public class CoreGame {
     public boolean checkPawnConversion(int posX, int posY, int newX, int newY, Board board) {
         Figure actualFigure = board.getFigure(posX, posY);
 
-        if(newY == 8 || newY == 1 && actualFigure instanceof Pawn) {
+        if (newY == 7 || newY == 0 && actualFigure instanceof Pawn) {
             return true;
         }
         return false;
@@ -270,11 +270,11 @@ public class CoreGame {
      *
      * @param posX, posY, newX, newY, figureID
      */
-    public void performPawnConversion (int posX, int posY, int newX, int newY, int figureID, Board board) {
+    public void performPawnConversion(int posX, int posY, int newX, int newY, int figureID, Board board) {
         Figure actualFigure = board.getFigure(posX, posY);
 
         //convert white pawn
-        if (newY == 8 && actualFigure instanceof Pawn && actualFigure.getTeam() == 0) {
+        if (newY == 7 && actualFigure instanceof Pawn && actualFigure.getTeam() == 0) {
             //to knight
             switch (figureID) {
                 case 1: {
@@ -292,8 +292,8 @@ public class CoreGame {
             }
         }
 
-            //convert black pawn
-        if (newY == 1 && actualFigure instanceof Pawn && actualFigure.getTeam() == 1) {
+        //convert black pawn
+        if (newY == 0 && actualFigure instanceof Pawn && actualFigure.getTeam() == 1) {
             switch (figureID) {
                 case 1: {
                     board.setFigure(newX, newY, new Knight(1));
@@ -309,6 +309,8 @@ public class CoreGame {
                 }
             }
         }
+        board.getFigure(newX, newY).setAlreadyMoved(true);
+        board.setFigure(posX, posY, new None());
     }
 
 
@@ -336,14 +338,13 @@ public class CoreGame {
      */
     public boolean checkChessMate(int team) {
         boolean possibleSolution = false;
-        Board tmpBoard = new Board();
 
         // test all possible moves and check whether your king is still in check
         for (int y = 0; y < 8; y++) {                                                   // for all your own figures on the board
             for (int x = 0; x < 8; x++) {
                 Figure actualFigure = board.getFigure(x, y);
                 if (actualFigure.getTeam() == team) {
-                    tmpBoard = board.copyBoard();                                       // create a temporary board
+                    Board tmpBoard = board.copyBoard();                                 // create a temporary board
 
                     for (int newX = 0; newX < 8; newX++) {                              // and test all possible moves to every possible targetField
                         for (int newY = 0; newY < 8; newY++) {
@@ -383,15 +384,8 @@ public class CoreGame {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 Board tmpBoard = board.copyBoard();
-                if (tmpBoard.getFigure(x, y).getTeam() != team) {
-                    Map<String, Integer> tmpMove = new HashMap<String, Integer>();
-                    tmpMove.put("posX", x);
-                    tmpMove.put("posY", y);
-                    tmpMove.put("newX", targetPosX);
-                    tmpMove.put("newY", targetPosY);
-                    if (tmpBoard.getFigure(x, y).validMove(tmpMove.get("posX"), tmpMove.get("posY"), tmpMove.get("newX"), tmpMove.get("newY"), tmpBoard)) {
-                        return true;
-                    }
+                if (tmpBoard.getFigure(x, y).getTeam() != team && tmpBoard.getFigure(x, y).validMove(x, y, targetPosX, targetPosY, tmpBoard)) {
+                    return true;
                 }
             }
         }
