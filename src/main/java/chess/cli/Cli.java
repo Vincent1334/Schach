@@ -125,10 +125,6 @@ public class Cli {
                     }
                 }
             }
-            //split "a7-a8Q" to "a7" and "a8" and "Q" (corresponds to 0)
-            if (input.matches("^[a-h][27]-[a-h][18][Q]$")) {
-                pos.put("convertPawnTo", 0);
-            }
             //split "a7-a8N" to "a7" and "a8" and "N" (corresponds to 1)
             if (input.matches("^[a-h][27]-[a-h][18][N]$")) {
                 pos.put("convertPawnTo", 1);
@@ -136,6 +132,9 @@ public class Cli {
             //split "a7-a8B" to "a7" and "a8" and "B" (corresponds to 2)
             if (input.matches("^[a-h][27]-[a-h][18][B]$")) {
                 pos.put("convertPawnTo", 2);
+            }
+            else {
+                pos.put("convertPawnTo", 0);
             }
         }
         //if pos is less than 4 then invalid entry

@@ -198,17 +198,17 @@ public class CoreGame {
         Figure actualFigure = board.getFigure(posX, posY);
 
         // castle left
-        if (actualFigure instanceof King && !actualFigure.isAlreadyMoved() && newX == posX - 2 && !(board.getFigure(0, posY).isAlreadyMoved())) {
+        if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved()) && newX == posX - 2 && !(board.getFigure(0, posY).isAlreadyMoved())) {
             // check, whether all field between are empty and are not threatened
-            for (int j = 2; j < posX; j++) {
-                if (!(board.getFigure(j, posY) instanceof None) || isThreatened(board, 2, j, posY)) {
+            for (int j = 1; j < posX; j++) {
+                if (!(board.getFigure(j, posY) instanceof None) || isThreatened(board, actualFigure.getTeam(), j, posY)) {
                     return 0;
                 }
             }
             return 1;
         }
         // castle right
-        if (actualFigure instanceof King && !actualFigure.isAlreadyMoved() && newX == posX + 2 && !(board.getFigure(7, posY).isAlreadyMoved())) {
+        if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved()) && newX == posX + 2 && !(board.getFigure(7, posY).isAlreadyMoved())) {
             // check, whether all field between are empty and are not threatened
             for (int j = posX + 1; j < 7; j++) {
                 if (!(board.getFigure(j, posY) instanceof None) || isThreatened(board, actualFigure.getTeam(), j, posY)) {
@@ -239,7 +239,7 @@ public class CoreGame {
         Figure targetFigure = board.getFigure(newX, newY);
 
         board.setFigure(newX - 1, newY, board.getFigure(7, posY));      // move rook
-        board.setFigure(7, 0, new None());                              // replace field where rook was standing
+        board.setFigure(7, newY, new None());                              // replace field where rook was standing
 
         board.setFigure(newX, newY, actualFigure);                            // move king
         board.setFigure(posX, posY, targetFigure);                            // replace field where king was standing
