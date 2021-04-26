@@ -39,35 +39,31 @@ public class CoreGame {
 
         //check valid move
         if (move.size() >= 4) {
-            Integer posX = move.get("posX");
-            Integer posY = move.get("posY");
-            Integer newX = move.get("newX");
-            Integer newY = move.get("newY");
-            if (board.getFigure(posX, posY).getTeam() == activePlayer) {
+            if (board.getFigure(move.get("posX"), move.get("posY")).getTeam() == activePlayer) {
                 //check EnPassant
-                if (checkEnPassant(posX, posY, newX, newY, board)) {
-                    performEnPassantMove(posX, posY, newX, newY, board);
+                if (checkEnPassant(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board)) {
+                    performEnPassantMove(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
                 }
                 //check Castling
-                if (checkCastling(posX, posY, newX, newY, board)) {
-                    performCastlingMove(posX, posY, newX, newY, board);
+                if (checkCastling(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board)) {
+                    performCastlingMove(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
                 }
                 //check Pawn conversion
-                if (checkPawnConversion(move, board)) {
-                    performPawnConversion(posX, posY, newX, newY, move, board);
+                if (checkPawnConversion(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board)) {
+                    performPawnConversion(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), move.get("pawnConversion"), board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
                 }
                 //checkValidDefaultMove
-                if (checkValidDefaultMove(posX, posY, newX, newY, board)) {
-                    performDefaultMove(posX, posY, newX, newY, board);
+                if (checkValidDefaultMove(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board)) {
+                    performDefaultMove(move.get("posX"), move.get("posY"), move.get("newX"), move.get("newY"), board);
                     switchPlayer();
                     checkChessMate(activePlayer);
                     return true;
@@ -255,7 +251,7 @@ public class CoreGame {
      * @param posX, posY, newX, newY
      * @return Whether the move is valid or not
      */
-    public boolean checkPawnConversion(int posX, int posY, int newX, int newY) {
+    public boolean checkPawnConversion(int posX, int posY, int newX, int newY, Board board) {
         Figure actualFigure = board.getFigure(posX, posY);
 
         if(newY == 8 || newY == 1 && actualFigure instanceof Pawn) {
@@ -267,16 +263,15 @@ public class CoreGame {
     /**
      * makes a pawn conversion move on the board.
      *
-     * @param move Figure position
-     * @param posX, posY, newX, newY
+     * @param posX, posY, newX, newY, figureID
      */
-    public void performPawnConversion (int posX, int posY, int newX, int newY, Map<String, Integer> move, Board board) {
+    public void performPawnConversion (int posX, int posY, int newX, int newY, int figureID, Board board) {
         Figure actualFigure = board.getFigure(posX, posY);
 
         //convert white pawn
         if (newY == 8 && actualFigure instanceof Pawn && actualFigure.getTeam() == 0) {
             //to knight
-            switch (move.get("convertPawnTo")) {
+            switch (figureID) {
                 case 1: {
                     board.setFigure(newX, newY, new Knight(0));
                     break;
@@ -294,7 +289,7 @@ public class CoreGame {
 
             //convert black pawn
         if (newY == 1 && actualFigure instanceof Pawn && actualFigure.getTeam() == 1) {
-            switch (move.get("convertPawnTo")) {
+            switch (figureID) {
                 case 1: {
                     board.setFigure(newX, newY, new Knight(1));
                     break;
@@ -324,36 +319,8 @@ public class CoreGame {
      * @return Whether the king is in check or not
      */
     public boolean kingInCheck(Board board, int team) {
-        //create local Variables
-        int kingX = 0;
-        int kingY = 0;
-        //Searching target King position
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                if (board.getFigure(x, y) instanceof King && board.getFigure(x, y).getTeam() == team) {
-                    kingX = x;
-                    kingY = y;
-                    break;
-                }
-            }
-        }
-        return isThreatened(board, team, kingX, kingY);
-        /*//Check if any enemy figure can do a valid move to King Position
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                if (board.getFigure(x, y).getTeam() != team) {
-                    Map<String, Integer> tmpMove = new HashMap<String, Integer>();
-                    tmpMove.put("posX", x);
-                    tmpMove.put("posY", y);
-                    tmpMove.put("newX", kingX);
-                    tmpMove.put("newY", kingY);
-                    if (board.getFigure(x, y).validMove(tmpMove.get("posX"), tmpMove.get("posY"), tmpMove.get("newX"), tmpMove.get("newY"), board)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;*/
+        int[] kingPos = board.getKing(team);
+        return isThreatened(board, team, kingPos[0], kingPos[1]);
     }
 
     /**
@@ -382,18 +349,9 @@ public class CoreGame {
                             if (checkCastling(x, y, newX, newY, tmpBoard)) {            // check Castling and eventually perform it on the temporary board
                                 performCastlingMove(x, y, newX, newY, tmpBoard);
                             }
-                            Map<String, Integer> tmpMove = new HashMap<String, Integer>();
-                            tmpMove.put("posX", x);
-                            tmpMove.put("posY", y);
-                            tmpMove.put("newX", newX);
-                            tmpMove.put("newY", newY);
-                            if (checkPawnConversion(tmpMove, tmpBoard)) {               // check Pawn conversion and eventually perform it on the temporary board
-                                performPawnConversion(x,y,newX,newY,tmpMove,tmpBoard);
-                            }
                             if (checkValidDefaultMove(x, y, newX, newY, tmpBoard)) {    // checkValidDefaultMove and eventually perform it on the temporary board
                                 performDefaultMove(x, y, newX, newY, tmpBoard);
                             }
-
                             if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
                                 possibleSolution = true;
                             }
@@ -416,7 +374,7 @@ public class CoreGame {
      * @return whether the figure is threatened by the other team
      */
     public boolean isThreatened(Board board, int team, int targetPosX, int targetPosY) {
-        //Check if any enemy figure can do a valid move to King Position
+        //Check if any enemy figure can do a valid move to target Position
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 Board tmpBoard = board.copyBoard();
@@ -440,10 +398,7 @@ public class CoreGame {
      * switch active player
      */
     public void switchPlayer() {
-        if (activePlayer == 0) activePlayer = 1;
-        else activePlayer = 0;
-
-        // activePlayer = activePlayer == 0 ? 1 : 0;
+        activePlayer = activePlayer == 0 ? 1 : 0;
     }
 
 
@@ -451,46 +406,5 @@ public class CoreGame {
  * <------System-components--------------------------------------------------------------------------------------------->
  */
 
-    /**
-     * Converts user input into coordinates. e.g. a3 == x: 0 y: 2
-     *
-     * @param input User input
-     * @return Move coordinates
-     */
-    /*public Map<String, Integer> parse(String input) {
-        Map<String, Integer> pos = new HashMap<String, Integer>();
-        //"a3-b4" or "a3-b4Q"
-        if ((input.length() == 5 || input.length() == 6) && input.charAt(2) == 45) {
-            //split "a3-b4Q" to "a3" and "b4Q"
-            String[] result = input.split("-");
-            if (result.length == 2) {
-                String[] typ = {"pos", "new"};
-                for (int i = 0; i < 2; i++) {
-                    String[] xyPosition = result[i].split("");
-                    //convert letters to numbers with ASCII code
-                    if (xyPosition[0].charAt(0) >= 97 && xyPosition[0].charAt(0) <= 104) {
-                        pos.put(typ[i] + "X", (int) xyPosition[0].charAt(0) - 97);
-                    }
-                    //convert numbers to numbers
-                    if (xyPosition[1].charAt(0) >= 49 && xyPosition[1].charAt(0) <= 56) {
-                        pos.put(typ[i] + "Y", Integer.parseInt(xyPosition[1]) - 1);
-                    }
-                }
-            }
-            //split "a7-a8Q" to "a7" and "a8" and "Q" (corresponds to 0)
-            if (input.matches("^[a-h][27]-[a-h][18][Q]$")) {
-                pos.put("convertPawnTo", 0);
-            }
-            //split "a7-a8N" to "a7" and "a8" and "N" (corresponds to 1)
-            if (input.matches("^[a-h][27]-[a-h][18][N]$")) {
-                pos.put("convertPawnTo", 1);
-            }
-            //split "a7-a8B" to "a7" and "a8" and "B" (corresponds to 2)
-            if (input.matches("^[a-h][27]-[a-h][18][B]$")) {
-                pos.put("convertPawnTo", 2);
-            }
-        }
-        //if pos is less than 4 then invalid entry
-        return pos;
-    }*/
+
 }
