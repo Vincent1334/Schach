@@ -50,6 +50,7 @@ public class CoreGame {
                     performEnPassantMove(posX, posY, newX, newY, board);
                     switchPlayer();
                     checkChessMate(activePlayer);
+                    System.out.println("EnPassant");
                     return true;
                 }
                 //check Castling
@@ -59,6 +60,7 @@ public class CoreGame {
                     board.getFigure(posX, posY).setAlreadyMoved(true);
                     switchPlayer();
                     checkChessMate(activePlayer);
+                    System.out.println("Castling left");
                     return true;
                 }
                 if (checkCastling(posX, posY, newX, newY, board) == 2) {
@@ -67,6 +69,7 @@ public class CoreGame {
                     board.getFigure(posX, posY).setAlreadyMoved(true);
                     switchPlayer();
                     checkChessMate(activePlayer);
+                    System.out.println("Castling right");
                     return true;
                 }
                 //check Pawn conversion
@@ -74,6 +77,7 @@ public class CoreGame {
                     performPawnConversion(posX, posY, newX, newY, pawnConversion, board);
                     switchPlayer();
                     checkChessMate(activePlayer);
+                    System.out.println("PawnConversion");
                     return true;
                 }
                 //checkValidDefaultMove
@@ -82,6 +86,7 @@ public class CoreGame {
                     board.getFigure(posX, posY).setAlreadyMoved(true);
                     switchPlayer();
                     checkChessMate(activePlayer);
+                    System.out.println("Default move");
                     return true;
                 }
             }
