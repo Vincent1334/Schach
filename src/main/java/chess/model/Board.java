@@ -49,18 +49,13 @@ public class Board {
      */
     public Board copyBoard() {
         Board copy = new Board();
-//        copy.setBoard(this.getBoard());
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                copy.setFigure(x, y, this.getFigure(x, y));
-            }
-        }
+        copy.setBoard(this.getBoard());
         return copy;
     }
 
-    /*public void setBoard(Figure[][] board){
+    public void setBoard(Figure[][] board){
         this.board = board;
-    }*/
+    }
 
     public Figure[][] getBoard() {
         return board;
