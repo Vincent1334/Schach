@@ -142,7 +142,7 @@ public class CoreGame {
         }
 
         board.setFigure(newX, newY, actualFigure);
-        board.setFigure(posX, posY, targetFigure);
+        board.setFigure(posX, posY, new None());
     }
 
     /**
