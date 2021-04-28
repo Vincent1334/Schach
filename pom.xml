@@ -110,7 +110,7 @@
                     <!-- The main class, fully qualified name -->
                     <mainClass>chess/chess.Main</mainClass>
                     <!-- Make command line arguments setable with -Dargs="" -->
-                    <commandlineArgs>${args}</commandlineArgs>
+                    <commandlineArgs>{args}</commandlineArgs>
                 </configuration>
             </plugin>
         </plugins>

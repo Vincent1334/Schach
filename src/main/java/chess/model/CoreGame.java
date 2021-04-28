@@ -39,16 +39,19 @@ public class CoreGame {
 
         //check valid move
         if (move.size() >= 4) {
+
             Integer posX = move.get("posX");
             Integer posY = move.get("posY");
             Integer newX = move.get("newX");
             Integer newY = move.get("newY");
             Integer pawnConversion = move.get("convertPawnTo");
+
             if (board.getFigure(posX, posY).getTeam() == activePlayer) {
                 //check EnPassant
                 if (checkEnPassant(posX, posY, newX, newY, board)) {
                     performEnPassantMove(posX, posY, newX, newY, board);
                     switchPlayer();
+                    resetEnPassant(newX, newY);
                     checkChessMate(activePlayer);
                     System.out.println("EnPassant");
                     return true;
@@ -56,18 +59,17 @@ public class CoreGame {
                 //check Castling
                 if (checkCastling(posX, posY, newX, newY, board) == 1) {
                     performCastlingMoveLeft(posX, posY, newX, newY, board);
-                    board.getFigure(0, posY).setAlreadyMoved(true);
-                    board.getFigure(posX, posY).setAlreadyMoved(true);
                     switchPlayer();
+                    resetEnPassant(newX, newY);
                     checkChessMate(activePlayer);
                     System.out.println("Castling left");
                     return true;
                 }
                 if (checkCastling(posX, posY, newX, newY, board) == 2) {
                     performCastlingMoveRight(posX, posY, newX, newY, board);
-                    board.getFigure(7, posY).setAlreadyMoved(true);
-                    board.getFigure(posX, posY).setAlreadyMoved(true);
+
                     switchPlayer();
+                    resetEnPassant(newX, newY);
                     checkChessMate(activePlayer);
                     System.out.println("Castling right");
                     return true;
@@ -76,6 +78,7 @@ public class CoreGame {
                 if (checkPawnConversion(posX, posY, newX, newY, board)) {
                     performPawnConversion(posX, posY, newX, newY, pawnConversion, board);
                     switchPlayer();
+                    resetEnPassant(newX, newY);
                     checkChessMate(activePlayer);
                     System.out.println("PawnConversion");
                     return true;
@@ -83,8 +86,8 @@ public class CoreGame {
                 //checkValidDefaultMove
                 if (checkValidDefaultMove(posX, posY, newX, newY, board)) {
                     performDefaultMove(posX, posY, newX, newY, board);
-                    board.getFigure(posX, posY).setAlreadyMoved(true);
                     switchPlayer();
+                    resetEnPassant(newX, newY);
                     checkChessMate(activePlayer);
                     System.out.println("Default move");
                     return true;
@@ -141,8 +144,12 @@ public class CoreGame {
             beatenFigures.add(targetFigure);
         }
 
+        //Update Board
         board.setFigure(newX, newY, actualFigure);
         board.setFigure(posX, posY, new None());
+
+        //Set Figure to AlreadyMoved
+        board.getFigure(newX, newY).setAlreadyMoved(true);
     }
 
     /**
@@ -185,6 +192,7 @@ public class CoreGame {
         beatenFigures.add(board.getFigure(newX, posY));
         board.setFigure(newX, posY, new None());
         board.setFigure(newX, newY, board.getFigure(posX, posY));
+        board.setFigure(posX, posY, new None());
     }
 
     /**
@@ -236,6 +244,9 @@ public class CoreGame {
 
         board.setFigure(newX, newY, actualFigure);                          // move king
         board.setFigure(posX, posY, targetFigure);                          // replace field where king was standing
+
+        board.getFigure(0, posY).setAlreadyMoved(true);                 //Update AlreadyMoved
+        board.getFigure(posX, posY).setAlreadyMoved(true);                 //Update AlreadyMoved
     }
 
     public void performCastlingMoveRight(int posX, int posY, int newX, int newY, Board board) {
@@ -248,6 +259,9 @@ public class CoreGame {
 
         board.setFigure(newX, newY, actualFigure);                            // move king
         board.setFigure(posX, posY, targetFigure);                            // replace field where king was standing
+
+        board.getFigure(7, posY).setAlreadyMoved(true);                    //Update AlreadyMoved
+        board.getFigure(posX, posY).setAlreadyMoved(true);                    //Update AlreadyMoved
     }
 
     /**
@@ -263,9 +277,15 @@ public class CoreGame {
     public boolean checkPawnConversion(int posX, int posY, int newX, int newY, Board board) {
         Figure actualFigure = board.getFigure(posX, posY);
 
-        if (newY == 7 || newY == 0 && actualFigure instanceof Pawn) {
-            return true;
+        //Check
+        if(actualFigure instanceof Pawn){
+            if(actualFigure.validMove(posX, posY, newX, newY, board)){
+                if((newY == 7 && actualFigure.getTeam() == 0) || (newY == 0 && actualFigure.getTeam() == 1)){
+                    return true;
+                }
+            }
         }
+
         return false;
     }
 
@@ -313,6 +333,7 @@ public class CoreGame {
                 }
             }
         }
+
         board.getFigure(newX, newY).setAlreadyMoved(true);
         board.setFigure(posX, posY, new None());
     }
@@ -409,6 +430,13 @@ public class CoreGame {
     }
 
 
+
+
+
+/**
+ * <------System-components--------------------------------------------------------------------------------------------->
+ */
+
     /**
      * switch active player
      */
@@ -416,10 +444,18 @@ public class CoreGame {
         activePlayer = activePlayer == 0 ? 1 : 0;
     }
 
-
-/**
- * <------System-components--------------------------------------------------------------------------------------------->
- */
-
-
+    /**
+     *  reset EnPassant
+     */
+    public void resetEnPassant(int newX, int newY){
+        for(int y = 0; y < 8; y++){
+            for(int x = 0; x < 8; x++){
+                if(x != newX && y != newY){
+                    if(board.getFigure(x, y) instanceof Pawn){
+                        ((Pawn) board.getFigure(x, y)).resetEnPassant();
+                    }
+                }
+            }
+        }
+    }
 }
