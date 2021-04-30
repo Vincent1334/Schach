@@ -1,7 +1,6 @@
 package chess.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CoreGame {
@@ -9,7 +8,8 @@ public class CoreGame {
     private Board board;
     private int activePlayer = 0;
     private int gameMode = 0;
-    private ArrayList<Figure> beatenFigures = new ArrayList<Figure>();
+    private ArrayList<Figure> beatenFigures = new ArrayList<>();
+    private ArrayList<String> moveHistory = new ArrayList<>();
 
     //Chess Events
     boolean enPassant = false;
@@ -23,15 +23,15 @@ public class CoreGame {
         return board;
     }
 
+    public ArrayList<Figure> getBeatenFigures() {
+        return this.beatenFigures;
+    }
+
     /**
-     * Checks valid move and passes move order to figure
-     * move.get(0) == posX
-     * move.get(1) == posY
-     * move.get(2) == newPosX
-     * move.get(3) == newPosY
+     * Checks if the move is valid and executes move
      *
      * @param move parsed move the user gave in
-     * @return true if valid move
+     * @return whether the chessMove is valid according to the chess rules
      */
     public boolean chessMove(Map<String, Integer> move) {
         //translate user input to position
@@ -50,47 +50,63 @@ public class CoreGame {
                 //check EnPassant
                 if (checkEnPassant(posX, posY, newX, newY, board)) {
                     performEnPassantMove(posX, posY, newX, newY, board);
+                    System.out.println("EnPassant");
+                    System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
+                    moveHistory.add(posX + posY + "-" + newX + newY + pawnConversion);
                     switchPlayer();
                     resetEnPassant(newX, newY);
-                    checkChessMate(activePlayer);
-                    System.out.println("EnPassant");
+                    checkChessMate(activePlayer);       // TODO: Spiel beenden
                     return true;
                 }
                 //check Castling
                 if (checkCastling(posX, posY, newX, newY, board) == 1) {
                     performCastlingMoveLeft(posX, posY, newX, newY, board);
+                    board.getFigure(0, posY).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
+                    board.getFigure(posX, posY).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
+                    System.out.println("Castling left");
+                    System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
+                    moveHistory.add(posX + posY + "-" + newX + newY + pawnConversion);
                     switchPlayer();
                     resetEnPassant(newX, newY);
                     checkChessMate(activePlayer);
-                    System.out.println("Castling left");
                     return true;
                 }
                 if (checkCastling(posX, posY, newX, newY, board) == 2) {
                     performCastlingMoveRight(posX, posY, newX, newY, board);
-
+                    board.getFigure(7, posY).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
+                    board.getFigure(posX, posY).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
+                    System.out.println("Castling right");
+                    System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
+                    moveHistory.add(posX + posY + "-" + newX + newY + pawnConversion);
                     switchPlayer();
                     resetEnPassant(newX, newY);
                     checkChessMate(activePlayer);
-                    System.out.println("Castling right");
                     return true;
                 }
                 //check Pawn conversion
                 if (checkPawnConversion(posX, posY, newX, newY, board)) {
                     performPawnConversion(posX, posY, newX, newY, pawnConversion, board);
+                    board.getFigure(posX, posY).setAlreadyMoved(true);          // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
+                    System.out.println("PawnConversion");
+                    System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
+                    moveHistory.add(posX + posY + "-" + newX + newY + pawnConversion);
                     switchPlayer();
                     resetEnPassant(newX, newY);
                     checkChessMate(activePlayer);
-                    System.out.println("PawnConversion");
                     return true;
                 }
                 //checkValidDefaultMove
                 if (checkValidDefaultMove(posX, posY, newX, newY, board)) {
                     performDefaultMove(posX, posY, newX, newY, board);
+                    System.out.println("Default move");
+                    System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
+                    moveHistory.add(posX + posY + "-" + newX + newY + pawnConversion);
                     switchPlayer();
                     resetEnPassant(newX, newY);
                     checkChessMate(activePlayer);
-                    System.out.println("Default move");
                     return true;
+                } else {
+                    System.out.println("!Move not allowed");
                 }
             }
         }
@@ -106,9 +122,12 @@ public class CoreGame {
     /**
      * checks whether a standard move is valid or not
      *
-     * @param posX, posY, newX, newY
-     * @param board
-     * @return Whether move is possible or not
+     * @param posX  current x-position of the figure you want to move
+     * @param posY  current y-position of the figure you want to move
+     * @param newX  target x-position of the figure you want to move
+     * @param newY  target y-position of the figure you want to move
+     * @param board the current chessboard
+     * @return whether normal move is possible
      */
     public boolean checkValidDefaultMove(int posX, int posY, int newX, int newY, Board board) {
 
@@ -122,18 +141,19 @@ public class CoreGame {
             tmpBoard.setFigure(posX, posY, new None());
             tmpBoard.setFigure(newX, newY, actualFigure);
 
-            if (!kingInCheck(tmpBoard, actualFigure.getTeam()) && actualFigure.getTeam() != targetFigure.getTeam()) {
-                return true;
-            }
+            return !kingInCheck(tmpBoard, actualFigure.getTeam()) && actualFigure.getTeam() != targetFigure.getTeam();
         }
         return false;
     }
 
     /**
-     * makes a standard move on the board.
+     * executes a standard move on the board
      *
-     * @param posX, posY, newX, newY
-     * @param board
+     * @param posX  current x-position of the figure you want to move
+     * @param posY  current y-position of the figure you want to move
+     * @param newX  target x-position of the figure you want to move
+     * @param newY  target y-position of the figure you want to move
+     * @param board the current chessboard
      */
     public void performDefaultMove(int posX, int posY, int newX, int newY, Board board) {
 
@@ -149,7 +169,7 @@ public class CoreGame {
         board.setFigure(posX, posY, new None());
 
         //Set Figure to AlreadyMoved
-        board.getFigure(newX, newY).setAlreadyMoved(true);
+        //board.getFigure(newX, newY).setAlreadyMoved(true);        kann hier nicht aufgerufen werden, da sonst Fehler bei schachMattPrüfung (siehe ChessMove())
     }
 
     /**
@@ -157,14 +177,14 @@ public class CoreGame {
      */
 
     /**
-     * check valid enPassant move
+     * checks valid enPassant move
      *
-     * @param posX  actual x-position for Pawn
-     * @param posY  actual y-position for Pawn
-     * @param newX  new input x-position for Pawn
-     * @param newY  new input y-position for Pawn
-     * @param board
-     * @return Whether the move is valid or not
+     * @param posX  current x-position of the figure you want to move
+     * @param posY  current y-position of the figure you want to move
+     * @param newX  target x-position of the figure you want to move
+     * @param newY  target y-position of the figure you want to move
+     * @param board the current chessboard
+     * @return Whether enPassant is possible
      */
     public boolean checkEnPassant(int posX, int posY, int newX, int newY, Board board) {
         if ((board.getFigure(newX, posY) instanceof Pawn) && (board.getFigure(posX, posY) instanceof Pawn)
@@ -172,21 +192,19 @@ public class CoreGame {
                 && (Math.abs(posX - newX) == 1)
                 && ((board.getFigure(posX, posY).getTeam() == 0 && newY - posY == 1)
                 || (board.getFigure(posX, posY).getTeam() == 1 && newY - posY == -1))) {
-            if (((Pawn) board.getFigure(newX, posY)).isEnPassant()) {
-                return true;
-            }
+            return ((Pawn) board.getFigure(newX, posY)).isEnPassant();
         }
         return false;
     }
 
     /**
-     * makes a enPassant move on the board.
+     * executes an enPassant move on the board
      *
-     * @param posX  actual x-position for Pawn
-     * @param posY  actual y-position for Pawn
-     * @param newX  new input x-position for Pawn
-     * @param newY  new input y-position for Pawn
-     * @param board
+     * @param posX  current x-position of the figure you want to move
+     * @param posY  current y-position of the figure you want to move
+     * @param newX  target x-position of the figure you want to move
+     * @param newY  target y-position of the figure you want to move
+     * @param board the current chessboard
      */
     public void performEnPassantMove(int posX, int posY, int newX, int newY, Board board) {
         beatenFigures.add(board.getFigure(newX, posY));
@@ -200,11 +218,14 @@ public class CoreGame {
      */
 
     /**
-     * check possible castling
+     * checks valid castling move
      *
-     * @param posX, posY, newX, newY
-     * @param board
-     * @return W
+     * @param posX  current x-position of the figure you want to move
+     * @param posY  current y-position of the figure you want to move
+     * @param newX  target x-position of the figure you want to move
+     * @param newY  target y-position of the figure you want to move
+     * @param board the current chessboard
+     * @return 0 if castling is not possible, 1 if a queenside castling is possible, 2 if a kingside castling is possible
      */
     public int checkCastling(int posX, int posY, int newX, int newY, Board board) {
 
@@ -230,10 +251,18 @@ public class CoreGame {
             }
             return 2;
         }
-
         return 0;
     }
 
+    /**
+     * executes a queenside (left) castling move on the board
+     *
+     * @param posX  current x-position of the figure you want to move
+     * @param posY  current y-position of the figure you want to move
+     * @param newX  target x-position of the figure you want to move
+     * @param newY  target y-position of the figure you want to move
+     * @param board the current chessboard
+     */
     public void performCastlingMoveLeft(int posX, int posY, int newX, int newY, Board board) {
 
         Figure actualFigure = board.getFigure(posX, posY);
@@ -245,10 +274,20 @@ public class CoreGame {
         board.setFigure(newX, newY, actualFigure);                          // move king
         board.setFigure(posX, posY, targetFigure);                          // replace field where king was standing
 
-        board.getFigure(0, posY).setAlreadyMoved(true);                 //Update AlreadyMoved
-        board.getFigure(posX, posY).setAlreadyMoved(true);                 //Update AlreadyMoved
+        // kann hier nicht aufgerufen werden, da sonst Fehler bei schachMattPrüfung (siehe ChessMove())
+        // board.getFigure(0, posY).setAlreadyMoved(true);                  //Update AlreadyMoved
+        // board.getFigure(posX, posY).setAlreadyMoved(true);               //Update AlreadyMoved
     }
 
+    /**
+     * executes a kingside (right) castling move on the board
+     *
+     * @param posX  current x-position of the figure you want to move
+     * @param posY  current y-position of the figure you want to move
+     * @param newX  target x-position of the figure you want to move
+     * @param newY  target y-position of the figure you want to move
+     * @param board the current chessboard
+     */
     public void performCastlingMoveRight(int posX, int posY, int newX, int newY, Board board) {
 
         Figure actualFigure = board.getFigure(posX, posY);
@@ -260,8 +299,9 @@ public class CoreGame {
         board.setFigure(newX, newY, actualFigure);                            // move king
         board.setFigure(posX, posY, targetFigure);                            // replace field where king was standing
 
-        board.getFigure(7, posY).setAlreadyMoved(true);                    //Update AlreadyMoved
-        board.getFigure(posX, posY).setAlreadyMoved(true);                    //Update AlreadyMoved
+        // kann hier nicht aufgerufen werden, da sonst Fehler bei schachMattPrüfung (siehe ChessMove())
+        // board.getFigure(7, posY).setAlreadyMoved(true);                    //Update AlreadyMoved
+        // board.getFigure(posX, posY).setAlreadyMoved(true);                 //Update AlreadyMoved
     }
 
     /**
@@ -269,30 +309,36 @@ public class CoreGame {
      */
 
     /**
-     * check possible pawn conversion
+     * checks valid pawn conversion
      *
-     * @param posX, posY, newX, newY
-     * @return Whether the move is valid or not
+     * @param posX  current x-position of the figure you want to move
+     * @param posY  current y-position of the figure you want to move
+     * @param newX  target x-position of the figure you want to move
+     * @param newY  target y-position of the figure you want to move
+     * @param board the current chessboard
+     * @return Whether a pawn conversion is possible
      */
     public boolean checkPawnConversion(int posX, int posY, int newX, int newY, Board board) {
         Figure actualFigure = board.getFigure(posX, posY);
 
         //Check
-        if(actualFigure instanceof Pawn){
-            if(actualFigure.validMove(posX, posY, newX, newY, board)){
-                if((newY == 7 && actualFigure.getTeam() == 0) || (newY == 0 && actualFigure.getTeam() == 1)){
-                    return true;
-                }
+        if (actualFigure instanceof Pawn) {
+            if (actualFigure.validMove(posX, posY, newX, newY, board)) {
+                return (newY == 7 && actualFigure.getTeam() == 0) || (newY == 0 && actualFigure.getTeam() == 1);
             }
         }
-
         return false;
     }
 
     /**
-     * makes a pawn conversion move on the board.
+     * executes a pawn conversion on the board
      *
-     * @param posX, posY, newX, newY, figureID
+     * @param posX     current x-position of the figure you want to move
+     * @param posY     current y-position of the figure you want to move
+     * @param newX     target x-position of the figure you want to move
+     * @param newY     target y-position of the figure you want to move
+     * @param figureID the number of the figure you want the pawn to convert to (0 for queen, 1 for knight, 2 for bishop)
+     * @param board    the current chessboard
      */
     public void performPawnConversion(int posX, int posY, int newX, int newY, int figureID, Board board) {
         Figure actualFigure = board.getFigure(posX, posY);
@@ -344,22 +390,26 @@ public class CoreGame {
      */
 
     /**
-     * Check if the king is in check
+     * Checks whether the king is in check
      *
-     * @param board A board for unchecked figure positions.
-     * @param team  The team ID of the checked King
+     * @param board the current chessboard
+     * @param team  The team ID of the target King
      * @return Whether the king is in check or not
      */
     public boolean kingInCheck(Board board, int team) {
         int[] kingPos = board.getKing(team);
-        return isThreatened(board, team, kingPos[0], kingPos[1]);
+        if (isThreatened(board, team, kingPos[0], kingPos[1])) {
+            System.out.println("You are in check");
+            return true;
+        }
+        return false;
     }
 
     /**
      * Check chessMate
      *
-     * @param team Target king
-     * @return whether king of "team"-color is in checkmate
+     * @param team the team of the target king
+     * @return whether the king of "team"-color is in checkmate
      */
     public boolean checkChessMate(int team) {
         boolean possibleSolution = false;
@@ -380,13 +430,13 @@ public class CoreGame {
                                     possibleSolution = true;
                                 }
                             }
-                            if (checkCastling(x, y, newX, newY, tmpBoard)==1) {            // check Castling and eventually perform it on the temporary board
+                            if (checkCastling(x, y, newX, newY, tmpBoard) == 1) {            // check Castling and eventually perform it on the temporary board
                                 performCastlingMoveLeft(x, y, newX, newY, tmpBoard);
                                 if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
                                     possibleSolution = true;
                                 }
                             }
-                            if (checkCastling(x, y, newX, newY, tmpBoard)==2) {            // check Castling and eventually perform it on the temporary board
+                            if (checkCastling(x, y, newX, newY, tmpBoard) == 2) {            // check Castling and eventually perform it on the temporary board
                                 performCastlingMoveRight(x, y, newX, newY, tmpBoard);
                                 if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
                                     possibleSolution = true;
@@ -403,6 +453,9 @@ public class CoreGame {
                 }
             }
         }
+        if (!possibleSolution) {
+            System.out.println("You are checkmate");
+        }
         return !possibleSolution;
     }
 
@@ -410,7 +463,7 @@ public class CoreGame {
     /**
      * Checks if the figure is threatened by the other team
      *
-     * @param board      actual board
+     * @param board      current chessboard
      * @param team       team of the figure you want to check
      * @param targetPosX x-position of the figure you want to check
      * @param targetPosY y-position of the figure you want to check
@@ -430,9 +483,6 @@ public class CoreGame {
     }
 
 
-
-
-
 /**
  * <------System-components--------------------------------------------------------------------------------------------->
  */
@@ -445,13 +495,13 @@ public class CoreGame {
     }
 
     /**
-     *  reset EnPassant
+     * reset EnPassant
      */
-    public void resetEnPassant(int newX, int newY){
-        for(int y = 0; y < 8; y++){
-            for(int x = 0; x < 8; x++){
-                if(x != newX && y != newY){
-                    if(board.getFigure(x, y) instanceof Pawn){
+    public void resetEnPassant(int newX, int newY) {
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if (x != newX && y != newY) {
+                    if (board.getFigure(x, y) instanceof Pawn) {
                         ((Pawn) board.getFigure(x, y)).resetEnPassant();
                     }
                 }

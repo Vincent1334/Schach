@@ -69,7 +69,7 @@ public class Cli {
             System.out.println("Check the input and wait for the opponent...");
             if(!coreGame.chessMove(parse(input))){
                 try{
-                    printWriter.println("Invalid input. Try again!");
+                    // printWriter.println("Invalid input. Try again!");
                     Thread.sleep(1000);
                 }catch(Exception x){}
             }
@@ -136,6 +136,11 @@ public class Cli {
             else {
                 pos.put("convertPawnTo", 0);
             }
+        } else if (input.equals("beaten")) {
+            System.out.println(coreGame.getBeatenFigures());
+        }
+        else {
+            System.out.println("!Invalid move");
         }
         //if pos is less than 4 then invalid entry
         return pos;

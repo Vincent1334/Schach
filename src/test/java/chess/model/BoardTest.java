@@ -12,7 +12,9 @@ public class BoardTest {
         Figure[][] setup = new Figure[8][8];
 
         //Build default setup white
-        for(int i = 0; i < 8; i++) setup[i][1] = new Pawn(0);
+        for(int i = 0; i < 8; i++) {
+            setup[i][1] = new Pawn(0);
+        }
         setup[0][0] = new Rook(0);
         setup[7][0] = new Rook(0);
         setup[1][0] = new Knight(0);
@@ -23,7 +25,9 @@ public class BoardTest {
         setup[4][0] = new King(0);
 
         //Build default setup black
-        for(int i = 0; i < 8; i++) setup[i][6] = new Pawn(1);
+        for(int i = 0; i < 8; i++) {
+            setup[i][6] = new Pawn(1);
+        }
         setup[0][7] = new Rook(1);
         setup[7][7] = new Rook(1);
         setup[1][7] = new Knight(1);
