@@ -70,7 +70,7 @@ public class Cli {
             if(!coreGame.chessMove(parse(input))){
                 try{
                     // printWriter.println("Invalid input. Try again!");
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                 }catch(Exception x){}
             }
         }while(true);
