@@ -3,6 +3,7 @@ package chess.cli;
 import chess.model.CoreGame;
 
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -24,35 +25,37 @@ public class Cli {
     public static void main(String[] args) {
         scan = new Scanner(System.in);
         printWriter = new PrintWriter(System.out, true);
-        init();
+        init(args);
         enterGame();
     }
 
     /**
      * User interface to initial the Gamemode
      */
-    public static void init(){
-        do{
-            clearWindow();
-            System.out.println(" ██████╗██╗  ██╗███████╗███████╗███████╗");
-            System.out.println("██╔════╝██║  ██║██╔════╝██╔════╝██╔════╝");
-            System.out.println("██║     ███████║█████╗  ███████╗███████╗");
-            System.out.println("██║     ██╔══██║██╔══╝  ╚════██║╚════██║");
-            System.out.println("╚██████╗██║  ██║███████╗███████║███████║");
-            System.out.println(" ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝");
-            System.out.println("");
-            System.out.println("Please enter the game mode");
-            System.out.println("1. Start a local game against a friend");
-            System.out.println("2. Start a local game against the computer");
-            System.out.println("3. Start a network game");
-            System.out.print("Your entry: ");
+    public static void init(String[] args){
+        if(!Arrays.asList(args).contains("--simple")){
+            do{
+                System.out.println(" ██████╗██╗  ██╗███████╗███████╗███████╗");
+                System.out.println("██╔════╝██║  ██║██╔════╝██╔════╝██╔════╝");
+                System.out.println("██║     ███████║█████╗  ███████╗███████╗");
+                System.out.println("██║     ██╔══██║██╔══╝  ╚════██║╚════██║");
+                System.out.println("╚██████╗██║  ██║███████╗███████║███████║");
+                System.out.println(" ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝");
+                System.out.println("");
+                System.out.println("Please enter the game mode");
+                System.out.println("1. Start a local game against a friend");
+                System.out.println("2. Start a local game against the computer");
+                System.out.println("3. Start a network game");
+                System.out.print("Your entry: ");
 
-            String input = scan.next();
-            if(input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 51){
-                coreGame = new CoreGame(input.charAt(0)-48);
-                break;
-            }
-        }while(true);
+                String input = scan.next();
+                if(input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 51){
+                    coreGame = new CoreGame(input.charAt(0)-48);
+                    break;
+                }
+            }while(true);
+            //Enter simpleMode
+        }else coreGame = new CoreGame(1);
     }
 
     /**
@@ -62,17 +65,19 @@ public class Cli {
      */
     public static void enterGame(){
         do{
-            clearWindow();
             drawBoard();
-            System.out.print("Please enter a valid move: ");
             String input = scan.next();
-            System.out.println("Check the input and wait for the opponent...");
-            if(!coreGame.chessMove(parse(input))){
-                try{
-                    // printWriter.println("Invalid input. Try again!");
-                    Thread.sleep(2000);
-                }catch(Exception x){}
+
+            //check Commands
+            if(input.equals("beaten")){
+                System.out.println("Beaten figures:");
+                for(int i = 0; i < coreGame.getBeatenFigures().size(); i++) System.out.println(coreGame.getBeatenFigures().get(i));
+                continue;
             }
+
+            //Check invalid syntax
+            if(parse(input).size() == 0) continue;
+            else coreGame.chessMove(parse((input)));
         }while(true);
     }
 
@@ -92,12 +97,8 @@ public class Cli {
     }
 
     /**
-     * Clear the commandline Window
+     * <--System------------------------------------------------------------------------------------------------------->
      */
-    public static void clearWindow(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
 
     /**
      * Converts user input into coordinates. e.g. a3 == x: 0 y: 2
@@ -125,24 +126,35 @@ public class Cli {
                     }
                 }
             }
-            //split "a7-a8N" to "a7" and "a8" and "N" (corresponds to 1)
-            if (input.matches("^[a-h][27]-[a-h][18][N]$")) {
+            //split "a7-a8N" to "a7" and "a8" and "P" (Pawn)
+            if (input.matches("^[a-h][27]-[a-h][18][P]$")) {
                 pos.put("convertPawnTo", 1);
             }
-            //split "a7-a8B" to "a7" and "a8" and "B" (corresponds to 2)
-            if (input.matches("^[a-h][27]-[a-h][18][B]$")) {
+            //split "a7-a8B" to "a7" and "a8" and "R" (Rook)
+            if (input.matches("^[a-h][27]-[a-h][18][R]$")) {
                 pos.put("convertPawnTo", 2);
             }
-            else {
-                pos.put("convertPawnTo", 0);
+            //split "a7-a8B" to "a7" and "a8" and "N" (Knight)
+            if (input.matches("^[a-h][27]-[a-h][18][N]$")) {
+                pos.put("convertPawnTo", 3);
             }
-        } else if (input.equals("beaten")) {
-            System.out.println(coreGame.getBeatenFigures());
-        }
-        else {
+            //split "a7-a8B" to "a7" and "a8" and "B" (Bishop)
+            if (input.matches("^[a-h][27]-[a-h][18][B]$")) {
+                pos.put("convertPawnTo", 4);
+            }
+            //split "a7-a8B" to "a7" and "a8" and "Q" (Queen)
+            if (input.matches("^[a-h][27]-[a-h][18][Q]$")) {
+                pos.put("convertPawnTo", 5);
+            }
+            else {
+                //Default conversion is Queen
+                pos.put("convertPawnTo", 5);
+            }
+        } else {
+            //if pos is less than 5 then invalid entry
             System.out.println("!Invalid move");
+
         }
-        //if pos is less than 5 then invalid entry
         return pos;
     }
 }
