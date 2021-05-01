@@ -25,6 +25,27 @@ Die Anleitung beinhaltet einen einfachen Einstieg für die Verwendung unseres Pr
 [Klassen-Diagramm](documentation/uml-class-diagramm.png)
 [UML-Diagramm](documentation/schach-git.png)
 
+## Statische Werte
+
+Interne verteilung der Teams:
+
+| Team | ID |
+| ---      |  ------  |
+| Weiß     | 0        |
+| Schwarz  | 1        |
+| None     | 2        |
+
+Interne Verteilung der Figuren
+
+| Figuren | ID |
+| ---       |  ------  |
+| Bauer     | 1        |
+| Turm      | 2        |
+| Springer  | 3        |
+| Läufer    | 4        |
+| Dame      | 5        |
+| König     | 6        |
+
 
 # Maven
 
