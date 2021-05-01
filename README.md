@@ -6,7 +6,7 @@ Dokumentation überblick
 
 ## Vorgehensplan
 
-Der Vorgehensplan beinhaltet aktuelle ToDos und einen überblick der geplanten Features.
+Der Vorgehensplan beinhaltet aktuelle ToDos und einen Überblick der geplanten Features.
 
 [Vorgehensplan](documentation/Vorgehensplan.pdf)
 
@@ -18,16 +18,20 @@ Die Anleitung beinhaltet einen einfachen Einstieg für die Verwendung unseres Pr
 
 ## StoryCards
 
+Alle erstellten StoryCards zu unserem Projekt
+
 [Storycards](documentation/Story%20Cards)
 
 ## Diagramme
 
+Erstellte Diagramme wie z.B. UML und Anwendungs-Fall werden hier aufgelistet
+
 [Klassen-Diagramm](documentation/uml-class-diagramm.png)
 [UML-Diagramm](documentation/schach-git.png)
 
-## Statische Werte
+## Statische Variabeln
 
-Interne verteilung der Teams:
+Identifikation der Teams.
 
 | Team | ID |
 | ---      |  ------  |
@@ -35,7 +39,7 @@ Interne verteilung der Teams:
 | Schwarz  | 1        |
 | None     | 2        |
 
-Interne Verteilung der Figuren
+Identifikation der Figuren.
 
 | Figuren | ID |
 | ---       |  ------  |
@@ -46,6 +50,7 @@ Interne Verteilung der Figuren
 | Dame      | 5        |
 | König     | 6        |
 
+Diese festen Zuordnungen werden von einigen teilen des Programms verwendet, um Figuren und Spieler einordnen zu können.
 
 # Maven
 

@@ -142,7 +142,7 @@ public class Cli {
         else {
             System.out.println("!Invalid move");
         }
-        //if pos is less than 4 then invalid entry
+        //if pos is less than 5 then invalid entry
         return pos;
     }
 }
