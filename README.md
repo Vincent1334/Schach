@@ -16,9 +16,14 @@ Die Anleitung beinhaltet einen einfachen Einstieg für die Verwendung unseres Pr
 
 [Spielanleitung](documentation/Anleitung.pdf)
 
-##StoryCards
+## StoryCards
 
 [Storycards](documentation/Story%20Cards)
+
+## Diagramme
+
+[Klassen-Diagramm](documentation/uml-class-diagramm.png)
+[UML-Diagramm](documentation/schach-git.png)
 
 
 # Maven
