@@ -310,16 +310,23 @@ public class CoreGame {
 
         //convert white pawn
         if (newY == 7 && actualFigure instanceof Pawn && actualFigure.getTeam() == 0) {
-            //to knight
+
             switch (figureID) {
-                case 1: {
+                //to knight
+                case 3: {
                     board.setFigure(newX, newY, new Knight(0));
                     break;
                 }
-                case 2: {
+                //to bishop
+                case 4: {
                     board.setFigure(newX, newY, new Bishop(0));
                     break;
                 }
+                //to rook
+                case 2: {
+                    board.setFigure(newX, newY, new Rook(0));
+                }
+                //to queen
                 default: {
                     board.setFigure(newX, newY, new Queen(0));
                     break;
@@ -330,14 +337,21 @@ public class CoreGame {
         //convert black pawn
         if (newY == 0 && actualFigure instanceof Pawn && actualFigure.getTeam() == 1) {
             switch (figureID) {
-                case 1: {
+                //to knight
+                case 3: {
                     board.setFigure(newX, newY, new Knight(1));
                     break;
                 }
-                case 2: {
+                //to bishop
+                case 4: {
                     board.setFigure(newX, newY, new Bishop(1));
                     break;
                 }
+                //to rook
+                case 2: {
+                    board.setFigure(newX, newY, new Rook(1));
+                }
+                //to queen
                 default: {
                     board.setFigure(newX, newY, new Queen(1));
                     break;
