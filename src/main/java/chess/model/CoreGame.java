@@ -38,11 +38,7 @@ public class CoreGame {
             if (checkEnPassant(posX, posY, newX, newY, board)) {
                 performEnPassantMove(posX, posY, newX, newY, board);
                 System.out.println("EnPassant");
-                System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
-                moveHistory.add(posX + posY + "-" + newX + newY + pawnConversion);
-                switchPlayer();
-                resetEnPassant(newX, newY);
-                checkChessMate(activePlayer);       // TODO: Spiel beenden
+                updateChanges(posX, posY, newX, newY, pawnConversion);
                 return true;
             }
             //check Castling
@@ -51,11 +47,7 @@ public class CoreGame {
                 board.getFigure(0, posY).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
                 board.getFigure(posX, posY).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
                 System.out.println("Castling left");
-                System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
-                moveHistory.add(posX + posY + "-" + newX + newY + pawnConversion);
-                switchPlayer();
-                resetEnPassant(newX, newY);
-                checkChessMate(activePlayer);
+                updateChanges(posX, posY, newX, newY, pawnConversion);
                 return true;
             }
             if (checkCastling(posX, posY, newX, newY, board) == 2) {
@@ -63,11 +55,7 @@ public class CoreGame {
                 board.getFigure(7, posY).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
                 board.getFigure(posX, posY).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
                 System.out.println("Castling right");
-                System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
-                moveHistory.add(posX + posY + "-" + newX + newY + pawnConversion);
-                switchPlayer();
-                resetEnPassant(newX, newY);
-                checkChessMate(activePlayer);
+                updateChanges(posX, posY, newX, newY, pawnConversion);
                 return true;
             }
             //check Pawn conversion
@@ -75,22 +63,14 @@ public class CoreGame {
                 performPawnConversion(posX, posY, newX, newY, pawnConversion, board);
                 board.getFigure(posX, posY).setAlreadyMoved(true);          // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
                 System.out.println("PawnConversion");
-                System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
-                moveHistory.add(posX + posY + "-" + newX + newY + pawnConversion);
-                switchPlayer();
-                resetEnPassant(newX, newY);
-                checkChessMate(activePlayer);
+                updateChanges(posX, posY, newX, newY, pawnConversion);
                 return true;
             }
             //checkValidDefaultMove
             if (checkValidDefaultMove(posX, posY, newX, newY, board)) {
                 performDefaultMove(posX, posY, newX, newY, board);
                 System.out.println("Default move");
-                System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
-                moveHistory.add(posX + posY + "-" + newX + newY + pawnConversion);
-                switchPlayer();
-                resetEnPassant(newX, newY);
-                checkChessMate(activePlayer);
+                updateChanges(posX, posY, newX, newY, pawnConversion);
                 return true;
             }
         }
@@ -507,5 +487,21 @@ public class CoreGame {
                 }
             }
         }
+    }
+
+    /**
+     * Does the standard tasks after each move.
+     * @param posX
+     * @param posY
+     * @param newX
+     * @param newY
+     * @param pawnConversion
+     */
+    private void updateChanges(int posX, int posY, int newX, int newY, int pawnConversion){
+        System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
+        moveHistory.add(posX + posY + "-" + newX + newY + pawnConversion);
+        switchPlayer();
+        resetEnPassant(newX, newY);
+        checkChessMate(activePlayer); //TODO: beende Spiel
     }
 }
