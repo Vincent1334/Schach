@@ -126,33 +126,29 @@ public class Cli {
                     }
                 }
             }
-            //split "a7-a8N" to "a7" and "a8" and "P" (Pawn)
-            if (input.matches("^[a-h][27]-[a-h][18][P]$")) {
-                pos.put("convertPawnTo", 1);
-            }
-            //split "a7-a8B" to "a7" and "a8" and "R" (Rook)
-            if (input.matches("^[a-h][27]-[a-h][18][R]$")) {
-                pos.put("convertPawnTo", 2);
-            }
-            //split "a7-a8B" to "a7" and "a8" and "N" (Knight)
-            if (input.matches("^[a-h][27]-[a-h][18][N]$")) {
-                pos.put("convertPawnTo", 3);
-            }
-            //split "a7-a8B" to "a7" and "a8" and "B" (Bishop)
-            if (input.matches("^[a-h][27]-[a-h][18][B]$")) {
-                pos.put("convertPawnTo", 4);
-            }
-            //split "a7-a8B" to "a7" and "a8" and "Q" (Queen)
-            if (input.matches("^[a-h][27]-[a-h][18][Q]$")) {
-                pos.put("convertPawnTo", 5);
-            }
             //Add Queen as default
             pos.put("convertPawnTo", 5);
+
+            //Cehck correct pawn conversion
+            if(input.length() == 6){
+                //split "a7-a8N" to "a7" and "a8" and "P" (Pawn)
+                if (input.matches("^[a-h][27]-[a-h][18][P]$")) {
+                    pos.put("convertPawnTo", 1);
+                }else if (input.matches("^[a-h][27]-[a-h][18][R]$")) {
+                    pos.put("convertPawnTo", 2);
+                }else if (input.matches("^[a-h][27]-[a-h][18][N]$")) {
+                    pos.put("convertPawnTo", 3);
+                }else if (input.matches("^[a-h][27]-[a-h][18][B]$")) {
+                    pos.put("convertPawnTo", 4);
+                }else pos.clear();
+            }
         } else {
             //if pos is less than 5 then invalid entry
             System.out.println("!Invalid move");
 
         }
+        //Clear invalid entries
+        if(pos.size() != 5) pos.clear();
         return pos;
     }
 }

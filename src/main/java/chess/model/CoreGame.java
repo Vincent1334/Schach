@@ -8,7 +8,7 @@ public class CoreGame {
     private Board board;
     private int activePlayer = 0;
     private int gameMode = 0;
-    private ArrayList<Figure> beatenFiguress = new ArrayList<>();
+    private ArrayList<Figure> beatenFigures = new ArrayList<>();
     private ArrayList<String> moveHistory = new ArrayList<>();
 
     //Chess Events
