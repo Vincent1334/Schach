@@ -47,6 +47,9 @@ public class Pawn extends Figure {
         this.enPassant = false;
     }
 
+    //only for Testing
+    public void setEnPassant(boolean enPassant){this.enPassant = enPassant;}
+
     @Override
     public char getSymbol() {
         return team == 0 ? '\u265F' : '\u2659';
