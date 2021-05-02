@@ -71,7 +71,7 @@ public class Cli {
             //check Commands
             if(input.equals("beaten")){
                 System.out.println("Beaten figures:");
-                for(int i = 0; i < coreGame.getBeatenFigures().size(); i++) System.out.println(coreGame.getBeatenFigures().get(i));
+                for(int i = 0; i < coreGame.getBeatenFigures().size(); i++) System.out.println(coreGame.getBeatenFigures().get(i).getTitle());
                 continue;
             }
 
@@ -146,10 +146,8 @@ public class Cli {
             if (input.matches("^[a-h][27]-[a-h][18][Q]$")) {
                 pos.put("convertPawnTo", 5);
             }
-            else {
-                //Default conversion is Queen
-                pos.put("convertPawnTo", 5);
-            }
+            //Add Queen as default
+            pos.put("convertPawnTo", 5);
         } else {
             //if pos is less than 5 then invalid entry
             System.out.println("!Invalid move");

@@ -27,20 +27,17 @@ public class Pawn extends Figure {
 
         if(((team==0  && posY+1==newY) || (team==1 && posY-1==newY)) && posX==newX){
             //normal move
-            System.out.println("normal move");
             return true;
         }
         if((team==0 && posY+1==newY && board.getFigure(newX,newY).getTeam()==1)
                 ||(team==1 && posY-1==newY && board.getFigure(newX,newY).getTeam()==0)
                 && (posX+1==newX||posX-1==newX)){
             //normal attack
-            System.out.println("normal attack");
             return true;
         }
         if(((team==0 && posY+2==newY) || (team==1 && posY-2==newY)) && (posX==newX && !alreadyMoved)){
             //first move
             enPassant = true;
-            System.out.println("firstMove");
             return true;
         }
         return false;
@@ -53,6 +50,11 @@ public class Pawn extends Figure {
     @Override
     public char getSymbol() {
         return team == 0 ? '\u265F' : '\u2659';
+    }
+
+    @Override
+    public String getTitle(){
+        return "Pawn";
     }
 
 

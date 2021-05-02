@@ -27,4 +27,9 @@ public class King extends Figure {
         return team == 0 ? '\u265A' : '\u2654';
     }
 
+    @Override
+    public String getTitle(){
+        return "King";
+    }
+
 }

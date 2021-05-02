@@ -18,4 +18,9 @@ public class None extends Figure {
         return '\u0020';
     }
 
+    @Override
+    public String getTitle(){
+        return "None";
+    }
+
 }

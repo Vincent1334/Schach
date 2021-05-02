@@ -100,5 +100,10 @@ public class Queen extends Figure {
         return team == 0 ?  '\u265B' : '\u2655';
     }
 
+    @Override
+    public String getTitle(){
+        return "Queen";
+    }
+
 }
 
