@@ -80,7 +80,7 @@ public class CoreGame {
         return false;
     }
 
-    /**
+    /*
      * <------DefaultMove----------------------------------------------------------------------------------------------->
      */
 
@@ -137,7 +137,7 @@ public class CoreGame {
         //board.getFigure(newX, newY).setAlreadyMoved(true);        kann hier nicht aufgerufen werden, da sonst Fehler bei schachMattPrüfung (siehe ChessMove())
     }
 
-    /**
+    /*
      * <------EnPassant------------------------------------------------------------------------------------------------->
      */
 
@@ -178,7 +178,7 @@ public class CoreGame {
         board.setFigure(posX, posY, new None());
     }
 
-    /**
+    /*
      * <------Castling-------------------------------------------------------------------------------------------------->
      */
 
@@ -269,7 +269,7 @@ public class CoreGame {
         // board.getFigure(posX, posY).setAlreadyMoved(true);                 //Update AlreadyMoved
     }
 
-    /**
+    /*
      * <------Pawn-conversion------------------------------------------------------------------------------------------->
      */
 
@@ -364,7 +364,7 @@ public class CoreGame {
     }
 
 
-    /**
+    /*
      * <------Default-commands------------------------------------------------------------------------------------------>
      */
 
@@ -477,7 +477,7 @@ public class CoreGame {
         return this.beatenFigures;
     }
 
-/**
+/*
  * <------System-components--------------------------------------------------------------------------------------------->
  */
 
@@ -505,11 +505,12 @@ public class CoreGame {
 
     /**
      * Does the standard tasks after each move.
-     * @param posX
-     * @param posY
-     * @param newX
-     * @param newY
-     * @param pawnConversion
+     * (Prints the done move out and adds it to the history, switches the actual player and proofs if the game is finished)
+     * @param posX actual x Position
+     * @param posY actual y Position
+     * @param newX new x Position
+     * @param newY new y Position
+     * @param pawnConversion figure in which the pawn converts
      */
     private void updateChanges(int posX, int posY, int newX, int newY, int pawnConversion){
         System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");

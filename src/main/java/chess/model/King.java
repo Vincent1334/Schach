@@ -18,12 +18,8 @@ public class King extends Figure {
      */
     public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
         // normal move
-        if ((newX == posX + 1 || newX == posX - 1 || newX == posX)
-                && (newY == posY + 1 || newY == posY - 1 || newY == posY)
-                && (newX == posX && newY == posY)) {
-            return true;
-        }
-        return false;
+        return (newX == posX + 1 || newX == posX - 1 || newX == posX)
+                && (newY == posY + 1 || newY == posY - 1 || newY == posY);
     }
 
     @Override

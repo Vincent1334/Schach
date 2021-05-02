@@ -34,7 +34,7 @@ public class Pawn extends Figure {
                 ||(team==1 && posY-1==newY && board.getFigure(newX,newY).getTeam()==0)
                 && (posX+1==newX||posX-1==newX)){
             //normal attack
-            System.out.println("normal atack");
+            System.out.println("normal attack");
             return true;
         }
         if(((team==0 && posY+2==newY) || (team==1 && posY-2==newY)) && (posX==newX && !alreadyMoved)){

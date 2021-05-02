@@ -16,13 +16,10 @@ public class Knight extends Figure {
      * @return whether move was successful
      */
     public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
-        if((posX + 1 == newX && posY + 2 == newY) || (posX + 1 == newX && posY - 2 == newY)
+        return (posX + 1 == newX && posY + 2 == newY) || (posX + 1 == newX && posY - 2 == newY)
                 || (posX - 1 == newX && posY + 2 == newY) || (posX - 1 == newX && posY - 2 == newY)
                 || (posX + 2 == newX && posY + 1 == newY) || (posX + 2 == newX && posY - 1 == newY)
-                || (posX - 2 == newX && posY + 1 == newY) || (posX - 2 == newX && posY - 1 == newY)){
-            return true;
-        }
-        return false;
+                || (posX - 2 == newX && posY + 1 == newY) || (posX - 2 == newX && posY - 1 == newY);
     }
 
     @Override

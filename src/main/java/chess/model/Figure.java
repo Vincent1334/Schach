@@ -1,8 +1,5 @@
 package chess.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public abstract class Figure {
 
     boolean alreadyMoved = false;
@@ -10,7 +7,7 @@ public abstract class Figure {
 
     /**
      * Constructor for default figures
-     * @param team
+     * @param team of the figure (0=white, 1=black, 2=none)
      */
     public Figure(int team) {
         this.team = team;
