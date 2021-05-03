@@ -27,6 +27,7 @@ public class Cli {
         printWriter = new PrintWriter(System.out, true);
         init(args);
         enterGame();
+        endGame();
     }
 
     /**
@@ -77,8 +78,14 @@ public class Cli {
 
             //Check invalid syntax
             if(parse(input).size() == 0) continue;
-            else coreGame.chessMove(parse((input)));
+            //Make move and check checkMate
+            else if(coreGame.chessMove(parse((input)))) break;
         }while(true);
+    }
+
+    public static void endGame(){
+        //TODO: endGame
+        System.out.println("Game ends");
     }
 
     /**

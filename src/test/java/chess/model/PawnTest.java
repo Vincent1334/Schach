@@ -79,7 +79,6 @@ public class PawnTest {
         if(board.getFigure(0,3) instanceof Pawn){
             ((Pawn)board.getFigure(0,3)).setEnPassant(true);
         }
-
         //assertTrue(game.checkEnPassant(1,3,0,2,board),"!black pawn can't make an en passant move!");
 
 

@@ -28,10 +28,7 @@ public class Knight extends Figure {
         return team == 0 ?  '\u265E' : '\u2658';
     }
 
-    @Override
-    public String getTitle(){
-        return "Knight";
-    }
+
 
 }
 

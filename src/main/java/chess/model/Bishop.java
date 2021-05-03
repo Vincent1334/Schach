@@ -67,9 +67,4 @@ public class Bishop extends Figure {
         return team == 0 ? '\u265D' : '\u2657';
     }
 
-    @Override
-    public String getTitle(){
-        return "Bishop";
-    }
-
 }

@@ -55,10 +55,5 @@ public class Pawn extends Figure {
         return team == 0 ? '\u265F' : '\u2659';
     }
 
-    @Override
-    public String getTitle(){
-        return "Pawn";
-    }
-
 
 }

@@ -25,8 +25,6 @@ public abstract class Figure {
     }
     public abstract char getSymbol();
 
-    public abstract String getTitle();
-
     public boolean isAlreadyMoved() {
         return alreadyMoved;
     }
