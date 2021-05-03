@@ -286,7 +286,6 @@ public class CoreGame {
     private boolean checkPawnConversion(int posX, int posY, int newX, int newY, Board board) {
         Figure actualFigure = board.getFigure(posX, posY);
 
-        //Check
         if (actualFigure instanceof Pawn) {
             if (actualFigure.validMove(posX, posY, newX, newY, board)) {
                 return (newY == 7 && actualFigure.getTeam() == 0) || (newY == 0 && actualFigure.getTeam() == 1);

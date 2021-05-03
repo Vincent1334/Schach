@@ -129,7 +129,7 @@ public class Cli {
             //Add Queen as default
             pos.put("convertPawnTo", 5);
 
-            //Cehck correct pawn conversion
+            //Check correct pawn conversion
             if(input.length() == 6){
                 //split "a7-a8N" to "a7" and "a8" and "P" (Pawn)
                 if (input.matches("^[a-h][27]-[a-h][18][P]$")) {

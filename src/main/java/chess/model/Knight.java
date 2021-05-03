@@ -2,6 +2,7 @@ package chess.model;
 
 public class Knight extends Figure {
 
+
     public Knight(int team) {
         super(team);
     }
