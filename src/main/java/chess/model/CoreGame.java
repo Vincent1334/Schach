@@ -513,9 +513,26 @@ public class CoreGame {
      * @param pawnConversion figure in which the pawn converts
      */
     private void updateChanges(int posX, int posY, int newX, int newY, int pawnConversion, Figure actualFigure, Figure targetFigure){
-        System.out.println("![" + posX + posY + "-" + newX + newY + pawnConversion + "]");
+        System.out.println("![" + Character.toString(posX+97) + (posY+1) + "-" + Character.toString(newX+97) + (newY+1) + getPawnLetter(pawnConversion) + "]");
         switchPlayer();
         resetEnPassant(newX, newY);
         moveHistory.add(""); //TODO:
+    }
+
+    /**
+     * Return Figure Letter
+     * @param pawnConversion
+     * @return
+     */
+    public String getPawnLetter(int pawnConversion){
+        switch(pawnConversion){
+            case 1: return "P";
+            case 2: return "R";
+            case 3: return "N";
+            case 4: return "B";
+            case 5: return "";
+            case 6: return "K";
+        }
+        return "";
     }
 }
