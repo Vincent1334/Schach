@@ -1,6 +1,6 @@
 # Schach
 
-Dokumentation überblick
+Dokumentation Überblick
 
 [[_TOC_]]
 
@@ -24,14 +24,15 @@ Alle erstellten StoryCards zu unserem Projekt
 
 ## Diagramme
 
-Erstellte Diagramme wie z.B. UML und Anwendungs-Fall werden hier aufgelistet
+Erstellte Diagramme wie UML- und Anwendungsfalldiagramm werden hier aufgelistet
 
-[Klassen-Diagramm](documentation/uml-class-diagramm.png)
-[UML-Diagramm](documentation/schach-git.png)
+[UML-Klassen-Diagramm 1](documentation/uml-class-diagramm.png)
+
+[UML-Klassen-Diagramm 2](documentation/uml-class-diagramm 2.png)
 
 ## Statische Variabeln
 
-Identifikation der Teams.
+Identifikation der Teams:
 
 | Team | ID |
 | ---      |  ------  |
@@ -39,7 +40,7 @@ Identifikation der Teams.
 | Schwarz  | 1        |
 | None     | 2        |
 
-Identifikation der Figuren.
+Identifikation der Figuren:
 
 | Figuren | ID |
 | ---       |  ------  |
