@@ -12,7 +12,7 @@ public class None extends Figure {
      */
 
     @Override
-    public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
+    public boolean validMove(Position actualPos, Position targetPos, Board board) {
         return false;
     }
 

@@ -24,16 +24,19 @@ public class Pawn extends Figure {
     }
     /**
      * Proofs if the move is a valid move for Pawn
-     * @param posX actual x-position for Pawn
-     * @param posY actual y-position for Pawn
-     * @param newX new input x-position for Pawn
-     * @param newY new input y-position for Pawn
+     * @param actualPos actual position for Pawn
+     * @param targetPos new input position for Pawn
      * @param board actual state of chessboard
      * @return whether move was successful
      */
 
     @Override
-    public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
+    public boolean validMove(Position actualPos, Position targetPos, Board board) {
+
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+        int newY = targetPos.getPosY();
 
         if(((team==0  && posY+1==newY) || (team==1 && posY-1==newY)) && posX==newX){
             //normal move

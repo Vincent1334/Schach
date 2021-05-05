@@ -16,16 +16,20 @@ public class Rook extends Figure {
 
     /**
      * Proofs if the move is a valid move for Rook
-     * @param posX actual x-position for Rook
-     * @param posY actual y-position for Rook
-     * @param newX new input x-position for Rook
-     * @param newY new input y-position for Rook
+     * @param actualPos actual position for Rook
+     * @param targetPos new input position for Rook
      * @param board actual state of chessboard
      * @return whether move was successful
      */
 
     @Override
-    public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
+    public boolean validMove(Position actualPos, Position targetPos, Board board) {
+
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+        int newY = targetPos.getPosY();
+
         // is a figure between the old position and the new position?
         // move right
         if (newY == posY && newX > posX) {

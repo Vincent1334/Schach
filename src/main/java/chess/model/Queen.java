@@ -17,17 +17,20 @@ public class Queen extends Figure {
 
     /**
      * Proofs if the move is a valid move for Queen
-     * @param posX actual x-position for Queen
-     * @param posY actual y-position for Queen
-     * @param newX new input x-position for Queen
-     * @param newY new input y-position for Queen
+     * @param actualPos actual position for Queen
+     * @param targetPos new input position for Queen
      * @param board actual state of chessboard
      * @return whether move was successful
      */
 
 
     @Override
-    public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
+    public boolean validMove(Position actualPos, Position targetPos, Board board) {
+
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+        int newY = targetPos.getPosY();
 
         //Is the new position valid
         for (int i=-8; i<9; i++) {

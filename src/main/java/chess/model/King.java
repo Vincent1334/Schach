@@ -17,16 +17,20 @@ public class King extends Figure {
     /**
      * Proofs if the move is a valid move for King
      *
-     * @param posX  actual x-position for King
-     * @param posY  actual y-position for King
-     * @param newX  new input x-position for King
-     * @param newY  new input y-position for King
+     * @param actualPos actual position for King
+     * @param targetPos new input position for King
      * @param board actual state of chessboard
      * @return whether move was successful
      */
 
     @Override
-    public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
+    public boolean validMove(Position actualPos, Position targetPos, Board board) {
+
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+        int newY = targetPos.getPosY();
+
         // normal move
         return (newX == posX + 1 || newX == posX - 1 || newX == posX)
                 && (newY == posY + 1 || newY == posY - 1 || newY == posY)

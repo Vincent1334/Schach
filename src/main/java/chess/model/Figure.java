@@ -18,7 +18,7 @@ public abstract class Figure {
      */
     public Figure(){}
 
-    public abstract boolean validMove(int posX, int posY, int newX, int newY, Board board);
+    public abstract boolean validMove(Position actualPos, Position targetPos, Board board);
 
     public int getTeam(){
         return this.team;
