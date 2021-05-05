@@ -1,5 +1,13 @@
 package chess.model;
 
+/**
+ * This class contains the information about the knights valid movements
+ *
+ * @author Lydia Engelhardt, Sofia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-05
+ *
+ */
+
 public class Knight extends Figure {
 
 
@@ -16,6 +24,7 @@ public class Knight extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
+
     @Override
     public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
         return (posX + 1 == newX && posY + 2 == newY) || (posX + 1 == newX && posY - 2 == newY)

@@ -40,19 +40,19 @@ public class QueenTest {
         board.setFigure(0, 0, whiteQueen);
         board.setFigure(5, 0, blackQueen);
         assertTrue(whiteQueen.validMove(0, 0, 5, 0, board), "!white queen can't beat opposing figure horizontally");
-        assertTrue(blackQueen.validMove(5, 0, 0, 0, board), "! black queen can't beat opposing figure horizontally");
+        assertTrue(blackQueen.validMove(5, 0, 0, 0, board), "!black queen can't beat opposing figure horizontally");
 
         //beating an opposing figure vertically
         board.setFigure(0, 0, whiteQueen);
         board.setFigure(0, 5, blackQueen);
         assertTrue(whiteQueen.validMove(0, 0, 0, 5, board), "!white queen can't beat opposing figure vertically");
-        assertTrue(blackQueen.validMove(0, 5, 0, 0, board), "! black queen can't beat opposing figure vertically");
+        assertTrue(blackQueen.validMove(0, 5, 0, 0, board), "!black queen can't beat opposing figure vertically");
 
         //beating an opposing figure diagonally
         board.setFigure(0, 0, whiteQueen);
         board.setFigure(5, 5, blackQueen);
         assertTrue(whiteQueen.validMove(0, 0, 5, 5, board), "!white queen can't beat opposing figure diagonally");
-        assertTrue(blackQueen.validMove(5, 5, 0, 0, board), "! black queen can't beat opposing figure diagonally");
+        assertTrue(blackQueen.validMove(5, 5, 0, 0, board), "!black queen can't beat opposing figure diagonally");
 
         //beating a figure from the same team horizontally
         board.setFigure(0, 0, whiteQueen);
@@ -61,7 +61,7 @@ public class QueenTest {
 
         board.setFigure(0, 0, blackQueen);
         board.setFigure(5, 0, blackQueen);
-        assertTrue(blackQueen.validMove(0, 0, 5, 0, board), "! black queen can beat figure from the same team horizontally");
+        assertTrue(blackQueen.validMove(0, 0, 5, 0, board), "!black queen can beat figure from the same team horizontally");
 
         //beating a figure from the same team vertical
         board.setFigure(0, 0, whiteQueen);
@@ -70,7 +70,7 @@ public class QueenTest {
 
         board.setFigure(0, 0, blackQueen);
         board.setFigure(0, 5, blackQueen);
-        assertTrue(blackQueen.validMove(0, 0, 0, 5, board), "! black queen can beat figure from the same team vertically");
+        assertTrue(blackQueen.validMove(0, 0, 0, 5, board), "!black queen can beat figure from the same team vertically");
 
         //beating a figure from the same team diagonal
         board.setFigure(0, 0, whiteQueen);
@@ -79,7 +79,7 @@ public class QueenTest {
 
         board.setFigure(0, 0, blackQueen);
         board.setFigure(5, 5, blackQueen);
-        assertTrue(blackQueen.validMove(0, 0, 5, 5, board), "! black queen can beat figure from the same team diagonally");
+        assertTrue(blackQueen.validMove(0, 0, 5, 5, board), "!black queen can beat figure from the same team diagonally");
     }
 
 }

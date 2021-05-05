@@ -1,5 +1,13 @@
 package chess.model;
 
+/**
+ * This class contains the information about the pawns valid movements
+ *
+ * @author Lydia Engelhardt, Sofia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-05
+ *
+ */
+
 public class Pawn extends Figure {
     public Pawn(int team) {
         super(team);
@@ -23,6 +31,7 @@ public class Pawn extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
+
     @Override
     public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
 
