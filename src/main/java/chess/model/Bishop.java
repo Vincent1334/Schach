@@ -15,6 +15,7 @@ public class Bishop extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
+    @Override
     public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
 
                 //Is the new position on a diagonal from the old position

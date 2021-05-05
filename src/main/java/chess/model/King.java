@@ -16,6 +16,7 @@ public class King extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
+    @Override
     public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
         // normal move
         return (newX == posX + 1 || newX == posX - 1 || newX == posX)

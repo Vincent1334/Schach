@@ -23,6 +23,7 @@ public class Pawn extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
+    @Override
     public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
 
         if(((team==0  && posY+1==newY) || (team==1 && posY-1==newY)) && posX==newX){
