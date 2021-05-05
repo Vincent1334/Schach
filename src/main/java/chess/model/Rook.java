@@ -1,5 +1,13 @@
 package chess.model;
 
+/**
+ * This class contains the information about the rooks valid movements
+ *
+ * @author Lydia Engelhardt, Sofia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-05
+ *
+ */
+
 public class Rook extends Figure {
 
     public Rook(int team) {
@@ -15,6 +23,8 @@ public class Rook extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
+
+    @Override
     public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
         // is a figure between the old position and the new position?
         // move right

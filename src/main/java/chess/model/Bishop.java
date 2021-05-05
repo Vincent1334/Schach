@@ -1,5 +1,13 @@
 package chess.model;
 
+/**
+ * This class contains the information about the bishops valid movements
+ *
+ * @author Lydia Engelhardt, Sofia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-05
+ *
+ */
+
 public class Bishop extends Figure {
 
     public Bishop(int team) {
@@ -15,6 +23,8 @@ public class Bishop extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
+
+    @Override
     public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
 
                 //Is the new position on a diagonal from the old position

@@ -1,10 +1,19 @@
 package chess.model;
 
+/**
+ * This class contains the information about the queens valid movements
+ *
+ * @author Lydia Engelhardt, Sofia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-05
+ *
+ */
+
 public class Queen extends Figure {
 
     public Queen(int team) {
         super(team);
     }
+
 
     /**
      * Proofs if the move is a valid move for Queen
@@ -15,6 +24,9 @@ public class Queen extends Figure {
      * @param board actual state of chessboard
      * @return whether move was successful
      */
+
+
+    @Override
     public boolean validMove(int posX, int posY, int newX, int newY, Board board) {
 
         //Is the new position valid
@@ -99,8 +111,5 @@ public class Queen extends Figure {
     public char getSymbol() {
         return team == 0 ?  '\u265B' : '\u2655';
     }
-
-
-
 }
 
