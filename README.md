@@ -26,9 +26,9 @@ Alle erstellten StoryCards zu unserem Projekt
 
 Erstellte Diagramme wie UML- und Anwendungsfalldiagramm werden hier aufgelistet
 
-[UML-Klassen-Diagramm 1](documentation/uml-class-diagramm.png)
+[aktuelles UML-Klassen-Diagramm](documentation/uml-class-diagramm 2.png)
 
-[UML-Klassen-Diagramm 2](documentation/uml-class-diagramm 2.png)
+[aktuelles Use-Case-Diagramm](documentation/sketches/Use-Case%20v2.0.pdf)
 
 ## Statische Variabeln
 
