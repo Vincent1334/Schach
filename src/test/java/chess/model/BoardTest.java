@@ -72,4 +72,56 @@ public class BoardTest {
 
         assertNotEquals(boardA, boardB, "Boards are equal, but shouldn't be!");
     }
+
+    @Test
+    public void testGetKing(){
+        Board boardA = new Board();
+
+        //white default King
+        Position pos1 = new Position(4, 0);
+        assertTrue(Board.getKing(boardA, 0).getPosX() == pos1.getPosX(), "x-position is incorrect!");
+        assertTrue(Board.getKing(boardA, 0).getPosY() == pos1.getPosY(), "y-position is incorrect!");
+
+        //black default King
+        Position pos2 = new Position(4, 7);
+        assertTrue(Board.getKing(boardA, 1).getPosX() == pos2.getPosX(), "x-position is incorrect!");
+        assertTrue(Board.getKing(boardA, 1).getPosY() == pos2.getPosY(), "y-position is incorrect!");
+
+        //white random king position
+        Position pos3 = new Position(2, 4);
+        boardA.setFigure(4, 0, null);
+        boardA.setFigure(2, 4, new King(0));
+        assertTrue(Board.getKing(boardA, 0).getPosX() == pos3.getPosX(), "x-position is incorrect!");
+        assertTrue(Board.getKing(boardA, 0).getPosY() == pos3.getPosY(), "y-position is incorrect!");
+
+        //black random king position
+        Position pos4 = new Position(7, 2);
+        boardA.setFigure(4, 7, null);
+        boardA.setFigure(7, 2, new King(1));
+        assertTrue(Board.getKing(boardA, 1).getPosX() == pos4.getPosX(), "x-position is incorrect!");
+        assertTrue(Board.getKing(boardA, 1).getPosY() == pos4.getPosY(), "y-position is incorrect!");
+    }
+
+    @Test
+    public void testIsThreatened(){
+        //Test start position
+        Board boardA = new Board();
+        assertFalse(Board.isThreatened(boardA, Board.getKing(boardA, 0), 0), "white king is threatened!");
+        assertFalse(Board.isThreatened(boardA, Board.getKing(boardA, 1), 1), "back king is threatened!");
+
+        //Test threatened position
+        Board boardB = new Board();
+        boardB.setFigure(4, 0, null);
+        boardB.setFigure(4, 7, null);
+        boardB.setFigure(2, 0, null);
+        boardB.setFigure(2, 7, null);
+
+        boardB.setFigure(2, 4, new King(1));
+        boardB.setFigure(5, 4, new King(0));
+        boardB.setFigure(3, 2, new Bishop(1));
+        boardB.setFigure(4, 2, new Bishop(0));
+
+        assertTrue(Board.isThreatened(boardB, Board.getKing(boardB, 0), 0), "is not Threatened!");
+        assertTrue(Board.isThreatened(boardB, Board.getKing(boardB, 1), 1), "is not Threatened!");
+    }
 }

@@ -124,8 +124,10 @@ public class Board {
         //Check if any enemy figure can do a valid move to target Position
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (tmpBoard.getFigure(x, y).getTeam() != team && tmpBoard.getFigure(x, y).validMove(new Position(x, y), targetPos, tmpBoard)) {
-                    return true;
+                if(tmpBoard.getFigure(x, y) != null){
+                    if (tmpBoard.getFigure(x, y).getTeam() != team && tmpBoard.getFigure(x, y).validMove(new Position(x, y), targetPos, tmpBoard)) {
+                        return true;
+                    }
                 }
             }
         }
