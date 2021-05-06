@@ -39,7 +39,7 @@ public class Rook extends Figure {
         // is a figure between the old position and the new position?
         // move right
         if (newY == posY && newX > posX) {
-            for (int j = 1; j < Math.abs(posX - newX) - 1; j++) {
+            for (int j = 1; j <= Math.abs(posX - newX) - 1; j++) {
                 if (!(board.getFigure(posX + j, posY) instanceof None)) {
                     return false;
                 }
@@ -48,7 +48,7 @@ public class Rook extends Figure {
         }
         // move left
         if (newY == posY && newX < posX) {
-            for (int j = 1; j < Math.abs(posX - newX) - 1; j++) {
+            for (int j = 1; j <= Math.abs(posX - newX) - 1; j++) {
                 if (!(board.getFigure(posX - j, posY) instanceof None)) {
                     return false;
                 }
@@ -57,7 +57,7 @@ public class Rook extends Figure {
         }
         // move up
         if (newX == posX && newY > posY) {
-            for (int j = 1; j < Math.abs(posY - newY) - 1; j++) {
+            for (int j = 1; j <= (Math.abs(posY - newY) - 1); j++) {
                 if (!(board.getFigure(posX, posY + j) instanceof None)) {
                     return false;
                 }
@@ -66,7 +66,7 @@ public class Rook extends Figure {
         }
         // move down
         if (newX == posX && newY < posY) {
-            for (int j = 1; j < Math.abs(posY - newY) - 1; j++) {
+            for (int j = 1; j <= Math.abs(posY - newY) - 1; j++) {
                 if (!(board.getFigure(posX, posY - j) instanceof None)) {
                     return false;
                 }

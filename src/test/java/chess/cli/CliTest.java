@@ -1,5 +1,7 @@
 package chess.cli;
 
+import chess.model.Move;
+import chess.model.Position;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,7 +10,7 @@ import java.util.Map;
 
 public class CliTest {
 
-    @Test
+    /*@Test
     public void parserTest(){
         //Testcase 01 (correct default input)
         Map<String, Integer> test01 = new HashMap<String, Integer>();
@@ -25,8 +27,8 @@ public class CliTest {
         test02.put("posY", 6);
         test02.put("newX", 3);
         test02.put("newY", 7);
-        test02.put("convertPawnTo", 1);
-        assertEquals(test02, Cli.parse("d7-d8P"),  "Test02 fail");
+        test02.put("convertPawnTo", 4);
+        assertEquals(test02, Cli.parse("d7-d8B"),  "Test02 fail");
 
         //Testcase 03 (invalid default input)
         Map<String, Integer> test03 = new HashMap<String, Integer>();
@@ -45,5 +47,37 @@ public class CliTest {
         assertEquals(test04, Cli.parse("i6-i7K"),  "i6-i7K fail");
         assertEquals(test04, Cli.parse("d6-d7-Q"),  "d6-d7-Q fail");
         assertEquals(test04, Cli.parse("d6-d7QQ"),  "d6-d7QQ fail");
+    }*/
+
+    @Test
+    public void testParser(){
+        //Testcase 1 (correct default input)
+        Move testMove1 = new Move(new Position(0,0), new Position(0,1),5);
+        assertEquals(testMove1, Cli.parse("a1-a2"),  "Test1 fail");
+
+        //Testcase 2 (correct PawnConversion input)
+        Move testMove2 = new Move(new Position(3,6), new Position(3,7),4);
+        assertEquals(testMove2, Cli.parse("d7-d8B"),  "Test2 fail");
+
+        //Testcase 3 (correct PawnConversion input)
+        Move testMove3 = new Move(new Position(3,6), new Position(3,7));
+        assertEquals(testMove3, Cli.parse("d7-d8"),  "Test3 fail");
     }
+
+    @Test
+    public void testValidSyntax(){
+        assertFalse(Cli.validSyntax("d1-i5"),  "d1-i5 not detected");
+        assertFalse(Cli.validSyntax("b3-a9"),  "b3-a9 not detected");
+        assertFalse(Cli.validSyntax("a1-a22"),  "a1-a22 not detected");
+        assertFalse(Cli.validSyntax("d1-a2-d6"),  "d1-a2-d6 not detected");
+        assertFalse(Cli.validSyntax("d-e"),  "d-e not detected");
+        assertFalse(Cli.validSyntax("2-4"),  "2-4 not detected");
+        assertFalse(Cli.validSyntax("-"),  "- not detected");
+        assertFalse(Cli.validSyntax("a1-a2V"),  "a1-a2V not detected");
+        assertFalse(Cli.validSyntax("b6-b7F"),  "b6-b7F not detected");
+        assertFalse(Cli.validSyntax("i6-i7K"),  "i6-i7K not detected");
+        assertFalse(Cli.validSyntax("d6-d7-Q"),  "d6-d7-Q not detected");
+        assertFalse(Cli.validSyntax("d6-d7QQ"),  "d6-d7QQ not detected");
+    }
+
 }

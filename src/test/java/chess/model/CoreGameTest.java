@@ -8,9 +8,11 @@ public class CoreGameTest {
 
     CoreGame testGame = new CoreGame(1);
 
-    /*@Test
+    @Test
     public void testChessMove() {
         Move move = new Move(new Position(0,1),new Position(0,2));
+        assertTrue(testGame.chessMove(move),"move is not accepted even if it is correct");
+
         PrintWriter printWriter = new PrintWriter(System.out, true);
         for (int y = 0; y < 8; y++) {
             printWriter.print(8 - y + " ");
@@ -22,7 +24,6 @@ public class CoreGameTest {
         printWriter.println("  a b c d e f g h");
         printWriter.println("");
 
-        assertTrue(testGame.chessMove(move));
-    }*/
+    }
 
 }

@@ -77,10 +77,21 @@ public class Cli {
                 continue;
             }
 
-            //Check (in)valid syntax and make move
-            if(checkSyntax(input) && coreGame.chessMove(parse(input))) {
+            // Check syntax and make move
+            if (validSyntax(input)) {
+                coreGame.chessMove(parse(input));
+            }
+            // end game if game is over because one team is in checkmate
+            if (coreGame.isGameOver()) {
                 break;
             }
+
+            /*//Check (in)valid syntax and make move, end game if syntax is not correct or chessMove
+            if (!validSyntax(input)) {
+                continue;
+            } else if (coreGame.chessMove(parse((input)))) {
+                break;
+            }*/
 
         } while (true);
     }
@@ -160,7 +171,7 @@ public class Cli {
         if(pos.size() != 5) pos.clear();
         return pos;
     }*/
-    public static boolean checkSyntax(String input) {
+    public static boolean validSyntax(String input) {
         // e.g. "b2-e5Q"
         if ((input.length() == 5 || input.length() == 6) &&
                 input.charAt(0) >= 97 && input.charAt(0) <= 104 &&
