@@ -12,6 +12,13 @@ public class King extends Figure {
 
     public King(int team) {
         super(team);
+        super.figureID = 6;
+    }
+
+    public King(King sourceClass){
+        super(sourceClass.team);
+        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.figureID = 6;
     }
 
     /**

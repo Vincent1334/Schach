@@ -1,8 +1,11 @@
 package chess.model;
 
+import chess.cli.Cli;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.io.PrintWriter;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
 
@@ -53,5 +56,20 @@ public class BoardTest {
 
         //check that all the figures are in the right place
         //assertEquals(setup, boardA.getBoard());
+    }
+
+    @Test
+    public void testCopyConstructor() {
+        Board boardA = new Board();
+        boardA.setFigure(3, 5, new Rook(1));
+
+        Board boardB = new Board(boardA);
+
+        assertNotSame(boardA, boardB, "Boards are not same, but should be!");
+        assertEquals(boardA, boardB);
+
+        boardB.getFigure(3, 5).setAlreadyMoved(true);
+
+        assertNotEquals(boardA, boardB, "Boards are equal, but shouldn't be!");
     }
 }

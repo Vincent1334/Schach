@@ -13,6 +13,13 @@ public class Knight extends Figure {
 
     public Knight(int team) {
         super(team);
+        super.figureID = 3;
+    }
+
+    public Knight(Knight sourceClass){
+        super(sourceClass.team);
+        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.figureID = 3;
     }
 
     /**

@@ -12,6 +12,13 @@ public class Rook extends Figure {
 
     public Rook(int team) {
         super(team);
+        super.figureID = 2;
+    }
+
+    public Rook(Rook sourceClass){
+        super(sourceClass.team);
+        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.figureID = 2;
     }
 
     /**

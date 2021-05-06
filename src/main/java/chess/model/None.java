@@ -5,6 +5,13 @@ public class None extends Figure {
 
     public None() {
         super(2);
+        super.figureID = 0;
+    }
+
+    public None(None sourceClass){
+        super(sourceClass.team);
+        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.figureID = 0;
     }
 
     /**

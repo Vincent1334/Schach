@@ -11,6 +11,14 @@ package chess.model;
 public class Pawn extends Figure {
     public Pawn(int team) {
         super(team);
+        super.figureID = 1;
+    }
+
+    public Pawn(Pawn sourceClass){
+        super(sourceClass.team);
+        super.alreadyMoved = sourceClass.alreadyMoved;
+        this.enPassant = sourceClass.enPassant;
+        super.figureID = 1;
     }
 
     boolean enPassant = false;

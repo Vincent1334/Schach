@@ -12,6 +12,13 @@ public class Bishop extends Figure {
 
     public Bishop(int team) {
         super(team);
+        super.figureID = 4;
+    }
+
+    public Bishop(Bishop sourceClass){
+        super(sourceClass.team);
+        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.figureID = 4;
     }
 
     /**

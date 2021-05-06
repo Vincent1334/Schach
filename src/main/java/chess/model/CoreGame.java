@@ -9,7 +9,7 @@ public class CoreGame {
     private int activePlayer = 0;
     private int gameMode = 0;
 
-    private ArrayList<String> moveHistory = new ArrayList<String>();
+    private ArrayList<Board> moveHistory = new ArrayList<Board>();
 
     public CoreGame(int gameMode) {
         board = new Board();
@@ -136,7 +136,7 @@ public class CoreGame {
         System.out.println("![" + Character.toString(actualPos.getPosX()+97) + (actualPos.getPosY()+1) + "-" + Character.toString(targetPos.getPosX()+97) + (targetPos.getPosY()+1) + getPawnLetter(pawnConversion) + "]");
         switchPlayer();
         resetEnPassant(targetPos.getPosX(), targetPos.getPosY());
-        moveHistory.add(""); //TODO:
+        moveHistory.add(new Board(board));
     }
 
     /**

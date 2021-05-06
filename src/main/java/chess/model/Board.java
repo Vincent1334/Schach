@@ -1,6 +1,8 @@
 package chess.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Board {
 
@@ -51,14 +53,25 @@ public class Board {
      *
      * @return copy of the actual board
      */
+
     public Board(Board sourceClass) {
         board = new Figure[8][8];
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                this.setFigure(x, y, sourceClass.getFigure(x, y));
+                switch (sourceClass.getFigure(x, y).getFigureID()){
+                    case 0: board[x][y] = new None((None) sourceClass.getFigure(x, y)); break;
+                    case 1: board[x][y] = new Pawn((Pawn) sourceClass.getFigure(x, y)); break;
+                    case 2: board[x][y] = new Rook((Rook) sourceClass.getFigure(x, y)); break;
+                    case 3: board[x][y] = new Knight((Knight) sourceClass.getFigure(x, y)); break;
+                    case 4: board[x][y] = new Bishop((Bishop) sourceClass.getFigure(x, y)); break;
+                    case 5: board[x][y] = new Queen((Queen) sourceClass.getFigure(x, y)); break;
+                    case 6: board[x][y] = new King((King) sourceClass.getFigure(x, y)); break;
+                }
             }
         }
     }
+
+
 
     public Figure[][] getBoard() {
         return board;
@@ -188,4 +201,13 @@ public class Board {
         }
         return false;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Board) {
+            return ((((Board) other).getBoard()) == board) && (((Board) other).getBeatenFigures() == beatenFigures);
+        }
+        return false;
+    }
+
 }

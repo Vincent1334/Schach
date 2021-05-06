@@ -3,7 +3,7 @@ package chess.model;
 public abstract class Figure {
 
     boolean alreadyMoved = false;
-    int team;
+    int team, figureID;
 
     /**
      * Constructor for default figures
@@ -31,5 +31,9 @@ public abstract class Figure {
 
     public void setAlreadyMoved(boolean alreadyMoved) {
         this.alreadyMoved = alreadyMoved;
+    }
+
+    public int getFigureID(){
+        return this.figureID;
     }
 }

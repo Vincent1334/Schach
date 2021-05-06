@@ -12,6 +12,13 @@ public class Queen extends Figure {
 
     public Queen(int team) {
         super(team);
+        super.figureID = 5;
+    }
+
+    public Queen(Queen sourceClass){
+        super(sourceClass.team);
+        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.figureID = 5;
     }
 
 
