@@ -3,9 +3,8 @@ package chess.model;
 /**
  * This class contains the information about the queens valid movements
  *
- * @author Lydia Engelhardt, Sofia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-05-05
- *
  */
 
 public class Queen extends Figure {
@@ -15,7 +14,7 @@ public class Queen extends Figure {
         super.figureID = 5;
     }
 
-    public Queen(Queen sourceClass){
+    public Queen(Queen sourceClass) {
         super(sourceClass.team);
         super.alreadyMoved = sourceClass.alreadyMoved;
         super.figureID = 5;
@@ -24,13 +23,12 @@ public class Queen extends Figure {
 
     /**
      * Proofs if the move is a valid move for Queen
+     *
      * @param actualPos actual position for Queen
      * @param targetPos new input position for Queen
-     * @param board actual state of chessboard
+     * @param board     actual state of chessboard
      * @return whether move was successful
      */
-
-
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
 
@@ -40,7 +38,7 @@ public class Queen extends Figure {
         int newY = targetPos.getPosY();
 
         //Is the new position valid
-        for (int i=-8; i<9; i++) {
+        for (int i = -8; i < 9; i++) {
             if ((newX == posX + i && newY == posY + i)
                     || (newX == posX - i && newY == posY + i)
                     || (newX == posX + i && newY == posY - i)
@@ -117,9 +115,10 @@ public class Queen extends Figure {
         }
         return false;
     }
+
     @Override
     public char getSymbol() {
-        return team == 0 ?  '\u265B' : '\u2655';
+        return team == 0 ? '\u265B' : '\u2655';
     }
 }
 

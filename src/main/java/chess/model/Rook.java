@@ -3,9 +3,8 @@ package chess.model;
 /**
  * This class contains the information about the rooks valid movements
  *
- * @author Lydia Engelhardt, Sofia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-05-05
- *
  */
 
 public class Rook extends Figure {
@@ -15,7 +14,7 @@ public class Rook extends Figure {
         super.figureID = 2;
     }
 
-    public Rook(Rook sourceClass){
+    public Rook(Rook sourceClass) {
         super(sourceClass.team);
         super.alreadyMoved = sourceClass.alreadyMoved;
         super.figureID = 2;
@@ -23,12 +22,12 @@ public class Rook extends Figure {
 
     /**
      * Proofs if the move is a valid move for Rook
+     *
      * @param actualPos actual position for Rook
      * @param targetPos new input position for Rook
-     * @param board actual state of chessboard
+     * @param board     actual state of chessboard
      * @return whether move was successful
      */
-
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
 
@@ -40,7 +39,7 @@ public class Rook extends Figure {
         // is a figure between the old position and the new position?
         // move right
         if (newY == posY && newX > posX) {
-            for (int j = 1; j < Math.abs(posX - newX)-1; j++) {
+            for (int j = 1; j < Math.abs(posX - newX) - 1; j++) {
                 if (!(board.getFigure(posX + j, posY) instanceof None)) {
                     return false;
                 }
@@ -49,7 +48,7 @@ public class Rook extends Figure {
         }
         // move left
         if (newY == posY && newX < posX) {
-            for (int j = 1; j < Math.abs(posX - newX)-1; j++) {
+            for (int j = 1; j < Math.abs(posX - newX) - 1; j++) {
                 if (!(board.getFigure(posX - j, posY) instanceof None)) {
                     return false;
                 }
@@ -58,8 +57,8 @@ public class Rook extends Figure {
         }
         // move up
         if (newX == posX && newY > posY) {
-            for (int j = 1; j < Math.abs(posY - newY)-1; j++) {
-                if (!(board.getFigure(posX, posY+j) instanceof None)) {
+            for (int j = 1; j < Math.abs(posY - newY) - 1; j++) {
+                if (!(board.getFigure(posX, posY + j) instanceof None)) {
                     return false;
                 }
             }
@@ -67,15 +66,15 @@ public class Rook extends Figure {
         }
         // move down
         if (newX == posX && newY < posY) {
-            for (int j = 1; j < Math.abs(posY - newY)-1; j++) {
-                if (!(board.getFigure(posX, posY-j) instanceof None)) {
+            for (int j = 1; j < Math.abs(posY - newY) - 1; j++) {
+                if (!(board.getFigure(posX, posY - j) instanceof None)) {
                     return false;
                 }
             }
             return true;
         }
 
-    return false;
+        return false;
     }
 
     @Override

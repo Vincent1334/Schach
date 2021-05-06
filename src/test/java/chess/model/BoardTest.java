@@ -65,8 +65,8 @@ public class BoardTest {
 
         Board boardB = new Board(boardA);
 
-        assertNotSame(boardA, boardB, "Boards are not same, but should be!");
-        assertEquals(boardA, boardB);
+        assertNotSame(boardA, boardB);
+        assertEquals(boardA, boardB, "Boards are not equal, but should be!");
 
         boardB.getFigure(3, 5).setAlreadyMoved(true);
 

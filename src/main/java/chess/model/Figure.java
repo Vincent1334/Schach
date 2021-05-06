@@ -7,6 +7,7 @@ public abstract class Figure {
 
     /**
      * Constructor for default figures
+     *
      * @param team of the figure (0=white, 1=black, 2=none)
      */
     public Figure(int team) {
@@ -16,13 +17,15 @@ public abstract class Figure {
     /**
      * Constructor for None Figures
      */
-    public Figure(){}
+    public Figure() {
+    }
 
     public abstract boolean validMove(Position actualPos, Position targetPos, Board board);
 
-    public int getTeam(){
+    public int getTeam() {
         return this.team;
     }
+
     public abstract char getSymbol();
 
     public boolean isAlreadyMoved() {
@@ -33,7 +36,17 @@ public abstract class Figure {
         this.alreadyMoved = alreadyMoved;
     }
 
-    public int getFigureID(){
+    public int getFigureID() {
         return this.figureID;
     }
+
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof Figure) {
+            Figure figure1 = (Figure) other;
+            return figure1.getFigureID() == figureID && figure1.getTeam() == team && figure1.isAlreadyMoved() == alreadyMoved;
+        }
+        return false;
+    }
+
 }

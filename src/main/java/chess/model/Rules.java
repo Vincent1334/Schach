@@ -1,7 +1,5 @@
 package chess.model;
 
-import javafx.geometry.Pos;
-
 public class Rules {
 
     /*
@@ -13,25 +11,20 @@ public class Rules {
      *
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move
-     * @param board the current chessboard
+     * @param board     the current chessboard
      * @return whether normal move is possible
      */
     public static boolean checkValidDefaultMove(Position actualPos, Position targetPos, Board board) {
 
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
-        Figure actualFigure = board.getFigure(posX, posY);
-        Figure targetFigure = board.getFigure(newX, newY);
+        Figure actualFigure = board.getFigure(actualPos);
+        Figure targetFigure = board.getFigure(targetPos);
 
         if (actualFigure.validMove(actualPos, targetPos, board)) {
             //create a tmpBoard with the new untested figure position
             Board tmpBoard = new Board(board);
             //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
-            tmpBoard.setFigure(posX, posY, new None());
-            tmpBoard.setFigure(newX, newY, actualFigure);
+            tmpBoard.setFigure(actualPos, new None());
+            tmpBoard.setFigure(targetPos, actualFigure);
 
             return !Board.kingInCheck(tmpBoard, actualFigure.getTeam()) && actualFigure.getTeam() != targetFigure.getTeam();
         }
@@ -43,25 +36,20 @@ public class Rules {
      *
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move
-     * @param board the current chessboard
+     * @param board     the current chessboard
      */
     public static void performDefaultMove(Position actualPos, Position targetPos, Board board) {
 
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
-        Figure actualFigure = board.getFigure(posX, posY);
-        Figure targetFigure = board.getFigure(newX, newY);
+        Figure actualFigure = board.getFigure(actualPos);
+        Figure targetFigure = board.getFigure(targetPos);
 
         if (!(targetFigure instanceof None)) {
             board.getBeatenFigures().add(targetFigure);
         }
 
         //Update Board
-        board.setFigure(newX, newY, actualFigure);
-        board.setFigure(posX, posY, new None());
+        board.setFigure(targetPos, actualFigure);
+        board.setFigure(actualPos, new None());
 
         //Set Figure to AlreadyMoved
         //board.getFigure(newX, newY).setAlreadyMoved(true);        kann hier nicht aufgerufen werden, da sonst Fehler bei schachMattPrüfung (siehe ChessMove())
@@ -76,7 +64,7 @@ public class Rules {
      *
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move
-     * @param board the current chessboard
+     * @param board     the current chessboard
      * @return Whether enPassant is possible
      */
     public static boolean checkEnPassant(Position actualPos, Position targetPos, Board board) {
@@ -86,11 +74,11 @@ public class Rules {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        if ((board.getFigure(newX, posY) instanceof Pawn) && (board.getFigure(posX, posY) instanceof Pawn)
-                && (board.getFigure(newX, posY).getTeam() != board.getFigure(posX, posY).getTeam())
+        if ((board.getFigure(newX, posY) instanceof Pawn) && (board.getFigure(actualPos) instanceof Pawn)
+                && (board.getFigure(newX, posY).getTeam() != board.getFigure(actualPos).getTeam())
                 && (Math.abs(posX - newX) == 1)
-                && ((board.getFigure(posX, posY).getTeam() == 0 && newY - posY == 1)
-                || (board.getFigure(posX, posY).getTeam() == 1 && newY - posY == -1))) {
+                && ((board.getFigure(actualPos).getTeam() == 0 && newY - posY == 1)
+                || (board.getFigure(actualPos).getTeam() == 1 && newY - posY == -1))) {
             return ((Pawn) board.getFigure(newX, posY)).isEnPassant();
         }
         return false;
@@ -101,19 +89,17 @@ public class Rules {
      *
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move
-     * @param board the current chessboard
+     * @param board     the current chessboard
      */
     public static void performEnPassantMove(Position actualPos, Position targetPos, Board board) {
 
-        int posX = actualPos.getPosX();
         int posY = actualPos.getPosY();
         int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
 
         board.getBeatenFigures().add(board.getFigure(newX, posY));
         board.setFigure(newX, posY, new None());
-        board.setFigure(newX, newY, board.getFigure(posX, posY));
-        board.setFigure(posX, posY, new None());
+        board.setFigure(targetPos, board.getFigure(actualPos));
+        board.setFigure(actualPos, new None());
     }
 
     /*
@@ -125,7 +111,7 @@ public class Rules {
      *
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move
-     * @param board the current chessboard
+     * @param board     the current chessboard
      * @return 0 if castling is not possible, 1 if a queenside castling is possible, 2 if a kingside castling is possible
      */
     public static int checkCastling(Position actualPos, Position targetPos, Board board) {
@@ -133,9 +119,8 @@ public class Rules {
         int posX = actualPos.getPosX();
         int posY = actualPos.getPosY();
         int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
 
-        Figure actualFigure = board.getFigure(posX, posY);
+        Figure actualFigure = board.getFigure(actualPos);
 
         // castle left
         if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved()) && newX == posX - 2 && !(board.getFigure(0, posY).isAlreadyMoved())) {
@@ -165,27 +150,23 @@ public class Rules {
      *
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move
-     * @param board the current chessboard
+     * @param board     the current chessboard
      */
     public static void performCastlingMoveLeft(Position actualPos, Position targetPos, Board board) {
 
-        int posX = actualPos.getPosX();
         int posY = actualPos.getPosY();
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        Figure actualFigure = board.getFigure(posX, posY);
-        Figure targetFigure = board.getFigure(newX, newY);
+        Figure actualFigure = board.getFigure(actualPos);
+        Figure targetFigure = board.getFigure(targetPos);
 
         board.setFigure(newX + 1, newY, board.getFigure(0, posY));    // move rook
         board.setFigure(0, newY, new None());                            // replace field where rook was standing
 
-        board.setFigure(newX, newY, actualFigure);                          // move king
-        board.setFigure(posX, posY, targetFigure);                          // replace field where king was standing
+        board.setFigure(targetPos, actualFigure);                          // move king
+        board.setFigure(actualPos, targetFigure);                          // replace field where king was standing
 
-        // kann hier nicht aufgerufen werden, da sonst Fehler bei schachMattPrüfung (siehe ChessMove())
-        // board.getFigure(0, posY).setAlreadyMoved(true);                  //Update AlreadyMoved
-        // board.getFigure(posX, posY).setAlreadyMoved(true);               //Update AlreadyMoved
     }
 
     /**
@@ -193,27 +174,23 @@ public class Rules {
      *
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move
-     * @param board the current chessboard
+     * @param board     the current chessboard
      */
     public static void performCastlingMoveRight(Position actualPos, Position targetPos, Board board) {
 
-        int posX = actualPos.getPosX();
         int posY = actualPos.getPosY();
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        Figure actualFigure = board.getFigure(posX, posY);
-        Figure targetFigure = board.getFigure(newX, newY);
+        Figure actualFigure = board.getFigure(actualPos);
+        Figure targetFigure = board.getFigure(targetPos);
 
         board.setFigure(newX - 1, newY, board.getFigure(7, posY));      // move rook
         board.setFigure(7, newY, new None());                              // replace field where rook was standing
 
-        board.setFigure(newX, newY, actualFigure);                            // move king
-        board.setFigure(posX, posY, targetFigure);                            // replace field where king was standing
+        board.setFigure(targetPos, actualFigure);                            // move king
+        board.setFigure(actualPos, targetFigure);                            // replace field where king was standing
 
-        // kann hier nicht aufgerufen werden, da sonst Fehler bei schachMattPrüfung (siehe ChessMove())
-        // board.getFigure(7, posY).setAlreadyMoved(true);                    //Update AlreadyMoved
-        // board.getFigure(posX, posY).setAlreadyMoved(true);                 //Update AlreadyMoved
     }
 
     /*
@@ -225,17 +202,14 @@ public class Rules {
      *
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move
-     * @param board the current chessboard
+     * @param board     the current chessboard
      * @return Whether a pawn conversion is possible
      */
     public static boolean checkPawnConversion(Position actualPos, Position targetPos, Board board) {
 
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        Figure actualFigure = board.getFigure(posX, posY);
+        Figure actualFigure = board.getFigure(actualPos);
 
         if (actualFigure instanceof Pawn) {
             if (actualFigure.validMove(actualPos, targetPos, board)) {
@@ -250,17 +224,14 @@ public class Rules {
      *
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move
-     * @param figureID the number of the figure you want the pawn to convert to (0 for queen, 1 for knight, 2 for bishop)
-     * @param board    the current chessboard
+     * @param figureID  the number of the figure you want the pawn to convert to (0 for queen, 1 for knight, 2 for bishop)
+     * @param board     the current chessboard
      */
     public static void performPawnConversion(Position actualPos, Position targetPos, int figureID, Board board) {
 
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        Figure actualFigure = board.getFigure(posX, posY);
+        Figure actualFigure = board.getFigure(actualPos);
 
         //convert white pawn
         if (newY == 7 && actualFigure instanceof Pawn && actualFigure.getTeam() == 0) {
@@ -268,21 +239,21 @@ public class Rules {
             switch (figureID) {
                 //to knight
                 case 3: {
-                    board.setFigure(newX, newY, new Knight(0));
+                    board.setFigure(targetPos, new Knight(0));
                     break;
                 }
                 //to bishop
                 case 4: {
-                    board.setFigure(newX, newY, new Bishop(0));
+                    board.setFigure(targetPos, new Bishop(0));
                     break;
                 }
                 //to rook
                 case 2: {
-                    board.setFigure(newX, newY, new Rook(0));
+                    board.setFigure(targetPos, new Rook(0));
                 }
                 //to queen
                 default: {
-                    board.setFigure(newX, newY, new Queen(0));
+                    board.setFigure(targetPos, new Queen(0));
                     break;
                 }
             }
@@ -293,28 +264,28 @@ public class Rules {
             switch (figureID) {
                 //to knight
                 case 3: {
-                    board.setFigure(newX, newY, new Knight(1));
+                    board.setFigure(targetPos, new Knight(1));
                     break;
                 }
                 //to bishop
                 case 4: {
-                    board.setFigure(newX, newY, new Bishop(1));
+                    board.setFigure(targetPos, new Bishop(1));
                     break;
                 }
                 //to rook
                 case 2: {
-                    board.setFigure(newX, newY, new Rook(1));
+                    board.setFigure(targetPos, new Rook(1));
                 }
                 //to queen
                 default: {
-                    board.setFigure(newX, newY, new Queen(1));
+                    board.setFigure(targetPos, new Queen(1));
                     break;
                 }
             }
         }
 
-        board.getFigure(newX, newY).setAlreadyMoved(true);
-        board.setFigure(posX, posY, new None());
+        board.getFigure(targetPos).setAlreadyMoved(true);
+        board.setFigure(actualPos, new None());
     }
 
 }

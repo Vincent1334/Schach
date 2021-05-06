@@ -3,7 +3,7 @@ package chess.model;
 /**
  * This class contains the information about the kings valid movements
  *
- * @author Lydia Engelhardt, Sofia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-05-05
  *
  */

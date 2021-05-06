@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Board {
 
     private Figure[][] board;
-    private ArrayList<Figure> beatenFigures = new ArrayList<Figure>();
+    private ArrayList<Figure> beatenFigures = new ArrayList<>();
 
     /**
      * Creates a new board with the standard figure setup
@@ -49,11 +49,10 @@ public class Board {
 
     /**
      * Copy Constructor
-     * copies actual board
+     * copies the current board
      *
-     * @return copy of the actual board
+     * @param sourceClass the board-object you want to copy
      */
-
     public Board(Board sourceClass) {
         board = new Figure[8][8];
         for (int x = 0; x < 8; x++) {
@@ -69,8 +68,10 @@ public class Board {
                 }
             }
         }
+        // beatenFigures wird allerdings nicht verwendet
+        beatenFigures = new ArrayList<>();
+        beatenFigures.addAll(sourceClass.getBeatenFigures());
     }
-
 
 
     public Figure[][] getBoard() {
@@ -81,21 +82,33 @@ public class Board {
         return board[x][y];
     }
 
+    public Figure getFigure(Position position) {
+        return board[position.getPosX()][position.getPosY()];
+    }
+
     public void setFigure(int x, int y, Figure figure) {
         board[x][y] = figure;
     }
 
-    public ArrayList<Figure> getBeatenFigures(){
+    public void setFigure(Position position, Figure figure) {
+        int posX = position.getPosX();
+        int posY = position.getPosY();
+        board[posX][posY] = figure;
+    }
+
+    public ArrayList<Figure> getBeatenFigures() {
         return this.beatenFigures;
     }
 
     /*
     <-------Board-analysis--------------------------------------------------------------------------------------------->
      */
+
     /**
      * Get the position of the target king
      *
-     * @param team
+     * @param board current chessboard
+     * @param team  team-ID of the king you want to get
      * @return position of target king, {0,0} if there is no king found
      */
     public static Position getKing(Board board, int team) {
@@ -115,16 +128,16 @@ public class Board {
     /**
      * Checks if the figure is threatened by the other team
      *
-     * @param tmpBoard      current chessboard
-     * @param team       team of the figure you want to check
-     * @param targetPos  position of the figure you want to check
+     * @param tmpBoard  current chessboard
+     * @param team      team of the figure you want to check
+     * @param targetPos position of the figure you want to check
      * @return whether the figure is threatened by the other team
      */
     public static boolean isThreatened(Board tmpBoard, Position targetPos, int team) {
         //Check if any enemy figure can do a valid move to target Position
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if(tmpBoard.getFigure(x, y) != null){
+                if (tmpBoard.getFigure(x, y) != null) {
                     if (tmpBoard.getFigure(x, y).getTeam() != team && tmpBoard.getFigure(x, y).validMove(new Position(x, y), targetPos, tmpBoard)) {
                         return true;
                     }
@@ -137,7 +150,8 @@ public class Board {
     /**
      * Check chessMate
      *
-     * @param team the team of the target king
+     * @param board current chessboard
+     * @param team  the team of the target king
      * @return whether the king of "team"-color is in checkmate
      */
     public static boolean checkChessMate(Board board, int team) {
@@ -192,7 +206,7 @@ public class Board {
     /**
      * Checks whether the king is in check
      *
-     * @param board the current chessboard
+     * @param board current chessboard
      * @param team  The team ID of the target King
      * @return Whether the king is in check or not
      */
@@ -204,12 +218,19 @@ public class Board {
         return false;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object other) {
         if (other instanceof Board) {
             return ((((Board) other).getBoard()) == board) && (((Board) other).getBeatenFigures() == beatenFigures);
         }
         return false;
-    }
+    }*/
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Board board1 = (Board) other;
+        return Arrays.deepEquals(board, board1.board) && Objects.equals(beatenFigures, board1.beatenFigures);
+    }
 }
