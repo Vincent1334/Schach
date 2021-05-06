@@ -224,7 +224,7 @@ public class Rules {
      *
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move
-     * @param figureID  the number of the figure you want the pawn to convert to (0 for queen, 1 for knight, 2 for bishop)
+     * @param figureID  the number of the figure you want the pawn to convert to (2 for rook, 3 for knight, 4 for bishop, 5 for queen)
      * @param board     the current chessboard
      */
     public static void performPawnConversion(Position actualPos, Position targetPos, int figureID, Board board) {
@@ -250,6 +250,7 @@ public class Rules {
                 //to rook
                 case 2: {
                     board.setFigure(targetPos, new Rook(0));
+                    break;
                 }
                 //to queen
                 default: {
@@ -275,6 +276,7 @@ public class Rules {
                 //to rook
                 case 2: {
                     board.setFigure(targetPos, new Rook(1));
+                    break;
                 }
                 //to queen
                 default: {
