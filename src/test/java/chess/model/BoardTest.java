@@ -1,10 +1,6 @@
 package chess.model;
 
-import chess.cli.Cli;
 import org.junit.jupiter.api.Test;
-
-import java.io.PrintWriter;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
@@ -79,27 +75,27 @@ public class BoardTest {
 
         //white default King
         Position pos1 = new Position(4, 0);
-        assertTrue(Board.getKing(boardA, 0).getPosX() == pos1.getPosX(), "x-position is incorrect!");
-        assertTrue(Board.getKing(boardA, 0).getPosY() == pos1.getPosY(), "y-position is incorrect!");
+        assertEquals(Board.getKing(boardA, 0).getPosX(), pos1.getPosX(), "x-position is incorrect!");
+        assertEquals(Board.getKing(boardA, 0).getPosY(), pos1.getPosY(), "y-position is incorrect!");
 
         //black default King
         Position pos2 = new Position(4, 7);
-        assertTrue(Board.getKing(boardA, 1).getPosX() == pos2.getPosX(), "x-position is incorrect!");
-        assertTrue(Board.getKing(boardA, 1).getPosY() == pos2.getPosY(), "y-position is incorrect!");
+        assertEquals(Board.getKing(boardA, 1).getPosX(), pos2.getPosX(), "x-position is incorrect!");
+        assertEquals(Board.getKing(boardA, 1).getPosY(), pos2.getPosY(), "y-position is incorrect!");
 
         //white random king position
         Position pos3 = new Position(2, 4);
         boardA.setFigure(4, 0, null);
         boardA.setFigure(2, 4, new King(0));
-        assertTrue(Board.getKing(boardA, 0).getPosX() == pos3.getPosX(), "x-position is incorrect!");
-        assertTrue(Board.getKing(boardA, 0).getPosY() == pos3.getPosY(), "y-position is incorrect!");
+        assertEquals(Board.getKing(boardA, 0).getPosX(), pos3.getPosX(), "x-position is incorrect!");
+        assertEquals(Board.getKing(boardA, 0).getPosY(), pos3.getPosY(), "y-position is incorrect!");
 
         //black random king position
         Position pos4 = new Position(7, 2);
         boardA.setFigure(4, 7, null);
         boardA.setFigure(7, 2, new King(1));
-        assertTrue(Board.getKing(boardA, 1).getPosX() == pos4.getPosX(), "x-position is incorrect!");
-        assertTrue(Board.getKing(boardA, 1).getPosY() == pos4.getPosY(), "y-position is incorrect!");
+        assertEquals(Board.getKing(boardA, 1).getPosX(), pos4.getPosX(), "x-position is incorrect!");
+        assertEquals(Board.getKing(boardA, 1).getPosY(), pos4.getPosY(), "y-position is incorrect!");
     }
 
     @Test
@@ -140,7 +136,7 @@ public class BoardTest {
         // king can move out of chess
         board.setFigure(3,4,whiteKing);
         board.setFigure(3,1,new Rook(1));
-        assertFalse(board.checkChessMate(board,0), "return checkmate even if the king could move away");
+        assertFalse(Board.checkChessMate(board,0), "return checkmate even if the king could move away");
 
         // any figure can beat the figure that threatens the king
         board.setFigure(3,4,new None());
@@ -149,12 +145,12 @@ public class BoardTest {
         board.setFigure(2,0,new Queen(1));
         board.setFigure(6,7,new Bishop(1));
         board.setFigure(7,6,new Pawn(0));
-        assertFalse(board.checkChessMate(board,0), "return checkmate even if the threatening figure can be beaten");
+        assertFalse(Board.checkChessMate(board,0), "return checkmate even if the threatening figure can be beaten");
 
         // any figure except the king can protect the king
         board.setFigure(7,6,new None());
         board.setFigure(3,7,new Rook(0));
-        assertFalse(board.checkChessMate(board,0), "return checkmate even if a figure could block the attack");
+        assertFalse(Board.checkChessMate(board,0), "return checkmate even if a figure could block the attack");
 
         // a pawn can block the king by performing enPassant
         board.setFigure(3,7,new None());
@@ -167,7 +163,7 @@ public class BoardTest {
         enPassantBlack.setEnPassant(true);
         board.setFigure(4,4,enPassantBlack);
 
-        assertFalse(board.checkChessMate(board,0), "return checkmate even if a pawn could block the king by performing EnPassant");
+        assertFalse(Board.checkChessMate(board,0), "return checkmate even if a pawn could block the king by performing EnPassant");
 
     }
 
@@ -184,6 +180,6 @@ public class BoardTest {
         board.setFigure(6,0,new Rook(1));
         board.setFigure(3,3,new Bishop(1));
 
-        assertTrue(board.checkChessMate(board,0), "checkmate is not recognized");
+        assertTrue(Board.checkChessMate(board,0), "checkmate is not recognized");
     }
 }

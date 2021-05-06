@@ -1,11 +1,11 @@
 package chess.cli;
 
 import chess.model.CoreGame;
+import chess.model.Move;
+import chess.model.Position;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -33,9 +33,9 @@ public class Cli {
     /**
      * User interface to initial the Gamemode
      */
-    public static void init(String[] args){
-        if(!Arrays.asList(args).contains("--simple")){
-            do{
+    public static void init(String[] args) {
+        if (!Arrays.asList(args).contains("--simple")) {
+            do {
                 System.out.println(" ██████╗██╗  ██╗███████╗███████╗███████╗");
                 System.out.println("██╔════╝██║  ██║██╔════╝██╔════╝██╔════╝");
                 System.out.println("██║     ███████║█████╗  ███████╗███████╗");
@@ -50,13 +50,13 @@ public class Cli {
                 System.out.print("Your entry: ");
 
                 String input = scan.next();
-                if(input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 51){
-                    coreGame = new CoreGame(input.charAt(0)-48);
+                if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 51) {
+                    coreGame = new CoreGame(input.charAt(0) - 48);
                     break;
                 }
-            }while(true);
+            } while (true);
             //Enter simpleMode
-        }else coreGame = new CoreGame(1);
+        } else coreGame = new CoreGame(1);
     }
 
     /**
@@ -64,26 +64,28 @@ public class Cli {
      * Clear Windows, drawBoard and wait for user input
      * After game the loop ends
      */
-    public static void enterGame(){
-        do{
+    public static void enterGame() {
+        do {
             drawBoard();
             String input = scan.next();
 
             //check Commands
-            if(input.equals("beaten")){
+            if (input.equals("beaten")) {
                 System.out.println("Beaten figures:");
-                for(int i = 0; i < coreGame.getBeatenFigures().size(); i++) printWriter.println(coreGame.getBeatenFigures().get(i).getSymbol());
+                for (int i = 0; i < coreGame.getBeatenFigures().size(); i++)
+                    printWriter.println(coreGame.getBeatenFigures().get(i).getSymbol());
                 continue;
             }
 
-            //Check invalid syntax
-            if(parse(input).size() == 0) continue;
-            //Make move and check checkMate
-            else if(coreGame.chessMove(parse((input)))) break;
-        }while(true);
+            //Check (in)valid syntax and make move
+            if(checkSyntax(input) && coreGame.chessMove(parse(input))) {
+                break;
+            }
+
+        } while (true);
     }
 
-    public static void endGame(){
+    public static void endGame() {
         //TODO: endGame
         System.out.println("Game ends");
     }
@@ -91,11 +93,11 @@ public class Cli {
     /**
      * Draw the board into the commandline
      */
-    public static void drawBoard(){
-        for(int y = 0; y < 8; y++){
-            printWriter.print(8-y + " ");
-            for(int x = 0; x < 8; x++){
-                printWriter.print(coreGame.getBoard().getFigure(x, 7-y).getSymbol()+ " ");
+    public static void drawBoard() {
+        for (int y = 0; y < 8; y++) {
+            printWriter.print(8 - y + " ");
+            for (int x = 0; x < 8; x++) {
+                printWriter.print(coreGame.getBoard().getFigure(x, 7 - y).getSymbol() + " ");
             }
             printWriter.println("");
         }
@@ -113,7 +115,7 @@ public class Cli {
      * @param input User input
      * @return Move coordinates
      */
-    public static Map<String, Integer> parse(String input) {
+    /*public static Map<String, Integer> parse(String input) {
         Map<String, Integer> pos = new HashMap<String, Integer>();
         //"a3-b4" or "a3-b4Q"
         if ((input.length() == 5 || input.length() == 6) && input.charAt(2) == 45) {
@@ -157,5 +159,48 @@ public class Cli {
         //Clear invalid entries
         if(pos.size() != 5) pos.clear();
         return pos;
+    }*/
+    public static boolean checkSyntax(String input) {
+        // e.g. "b2-e5Q"
+        if ((input.length() == 5 || input.length() == 6) &&
+                input.charAt(0) >= 97 && input.charAt(0) <= 104 &&
+                input.charAt(1) >= 49 && input.charAt(1) <= 56 &&
+                input.charAt(2) == 45 &&
+                input.charAt(3) >= 97 && input.charAt(3) <= 104 &&
+                input.charAt(4) >= 49 && input.charAt(4) <= 56) {
+            return input.length() != 6 || input.charAt(5) == 66 || input.charAt(5) == 78 || input.charAt(5) == 81 || input.charAt(5) == 82;
+        }
+        System.out.println("!Invalid move");
+        return false;
+    }
+
+    public static Move parse(String input) {
+        // e.g. "b2-e5Q"
+        int posX = (int) input.charAt(0) - 97;
+        int posY = (int) input.charAt(1) - 49;
+        int newX = (int) input.charAt(3) - 97;
+        int newY = (int) input.charAt(4) - 49;
+        if (input.length() == 6) {
+            int pawnConversionTo;
+            switch (input.charAt(5)) {
+                // Rook
+                case 82:
+                    pawnConversionTo = 2;
+                    break;
+                // Knight
+                case 78:
+                    pawnConversionTo = 3;
+                    break;
+                // Bishop
+                case 66:
+                    pawnConversionTo = 4;
+                    break;
+                // Queen
+                default:
+                    pawnConversionTo = 5;
+            }
+            return new Move(new Position(posX, posY), new Position(newX, newY), pawnConversionTo);
+        }
+        return new Move(new Position(posX, posY), new Position(newX, newY));
     }
 }

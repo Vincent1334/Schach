@@ -1,7 +1,6 @@
 package chess.model;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class CoreGame {
 
@@ -22,11 +21,11 @@ public class CoreGame {
      * @param move parsed move the user gave in
      * @return whether the chessMove is valid according to the chess rules
      */
-    public boolean chessMove(Map<String, Integer> move) {
+    public boolean chessMove(Move move) {
 
-        Position actualPos = new Position(move.get("posX"), move.get("posY"));
-        Position targetPos = new Position(move.get("newX"), move.get("newY"));
-        Integer pawnConversion = move.get("convertPawnTo");
+        Position actualPos = move.getActualPosition();
+        Position targetPos = move.getTargetPosition();
+        int pawnConversion = move.getPawnConversionTo();
 
         if (board.getFigure(actualPos).getTeam() == activePlayer) {
             //check EnPassant
