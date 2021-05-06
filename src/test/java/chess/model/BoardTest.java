@@ -128,24 +128,46 @@ public class BoardTest {
     @Test
     public void testChessMateEscapes() {
         Board board = new Board();
+        Figure whiteKing = new King(0);
+        whiteKing.setAlreadyMoved(true);
+
         for (int x=0; x<8; x++) {
             for (int y=0; y<8; y++) {
                 board.setFigure(x, y, new None());
             }
         }
-        board.setFigure(3,4,new King(0));
-        board.setFigure(3,1,new Rook(1));
 
         // king can move out of chess
+        board.setFigure(3,4,whiteKing);
+        board.setFigure(3,1,new Rook(1));
         assertFalse(board.checkChessMate(board,0), "return checkmate even if the king could move away");
 
         // any figure can beat the figure that threatens the king
-        board.setFigure(2,2,new Pawn(0));
+        board.setFigure(3,4,new None());
+        board.setFigure(3,1,new None());
+        board.setFigure(0,1,whiteKing);
+        board.setFigure(2,0,new Queen(1));
+        board.setFigure(6,7,new Bishop(1));
+        board.setFigure(7,6,new Pawn(0));
         assertFalse(board.checkChessMate(board,0), "return checkmate even if the threatening figure can be beaten");
 
         // any figure except the king can protect the king
-        board.setFigure(5,5,new Bishop(0));
+        board.setFigure(7,6,new None());
+        board.setFigure(3,7,new Rook(0));
         assertFalse(board.checkChessMate(board,0), "return checkmate even if a figure could block the attack");
+
+        // a pawn can block the king by performing enPassant
+        board.setFigure(3,7,new None());
+
+        Figure enPassantWhite = new Pawn(0);
+        enPassantWhite.setAlreadyMoved(true);
+        board.setFigure(5,4,enPassantWhite);
+
+        Pawn enPassantBlack = new Pawn(1);
+        enPassantBlack.setEnPassant(true);
+        board.setFigure(4,4,enPassantBlack);
+
+        assertFalse(board.checkChessMate(board,0), "return checkmate even if a pawn could block the king by performing EnPassant");
 
     }
 
