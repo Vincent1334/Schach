@@ -212,7 +212,7 @@ public class Board {
      */
     public static boolean kingInCheck(Board board, int team) {
         if (isThreatened(board, Board.getKing(board, team), team)) {
-            System.out.println("You are in check");
+            // System.out.println("You are in check");      --> hier auskommentiert, da sonst auch (falsche) Ausgabe bei checkChessMate
             return true;
         }
         return false;

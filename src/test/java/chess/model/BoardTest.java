@@ -124,4 +124,44 @@ public class BoardTest {
         assertTrue(Board.isThreatened(boardB, Board.getKing(boardB, 0), 0), "is not Threatened!");
         assertTrue(Board.isThreatened(boardB, Board.getKing(boardB, 1), 1), "is not Threatened!");
     }
+
+    @Test
+    public void testChessMateEscapes() {
+        Board board = new Board();
+        for (int x=0; x<8; x++) {
+            for (int y=0; y<8; y++) {
+                board.setFigure(x, y, new None());
+            }
+        }
+        board.setFigure(3,4,new King(0));
+        board.setFigure(3,1,new Rook(1));
+
+        // king can move out of chess
+        assertFalse(board.checkChessMate(board,0), "return checkmate even if the king could move away");
+
+        // any figure can beat the figure that threatens the king
+        board.setFigure(2,2,new Pawn(0));
+        assertFalse(board.checkChessMate(board,0), "return checkmate even if the threatening figure can be beaten");
+
+        // any figure except the king can protect the king
+        board.setFigure(5,5,new Bishop(0));
+        assertFalse(board.checkChessMate(board,0), "return checkmate even if a figure could block the attack");
+
+    }
+
+    @Test
+    public void testCheckMates() {
+        Board board = new Board();
+        for (int x=0; x<8; x++) {
+            for (int y=0; y<8; y++) {
+                board.setFigure(x, y, new None());
+            }
+        }
+        board.setFigure(0,0,new King(0));
+        board.setFigure(0,4,new Rook(1));
+        board.setFigure(6,0,new Rook(1));
+        board.setFigure(3,3,new Bishop(1));
+
+        assertTrue(board.checkChessMate(board,0), "checkmate is not recognized");
+    }
 }

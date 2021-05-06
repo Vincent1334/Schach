@@ -28,10 +28,6 @@ public class CoreGame {
         Position targetPos = new Position(move.get("newX"), move.get("newY"));
         Integer pawnConversion = move.get("convertPawnTo");
 
-        //BackUp for Documentation file
-        Figure actualFigure = board.getFigure(actualPos);
-        Figure targetFigure = board.getFigure(targetPos);
-
         if (board.getFigure(actualPos).getTeam() == activePlayer) {
             //check EnPassant
             if (Rules.checkEnPassant(actualPos, targetPos, board)) {
