@@ -22,9 +22,13 @@ public class None extends Figure {
         return false;
     }
 
-    @Override
+    /*@Override
     public char getSymbol() {
         return '\u0020';
+    }*/
+    @Override
+    public char getSymbol() {
+        return ' ';
     }
 
 

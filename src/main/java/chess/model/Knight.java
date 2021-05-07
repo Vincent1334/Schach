@@ -51,9 +51,13 @@ public class Knight extends Figure {
                 || (posX - 2 == newX && posY + 1 == newY) || (posX - 2 == newX && posY - 1 == newY);
     }
 
-    @Override
+    /*@Override
     public char getSymbol() {
         return team == 0 ?  '\u265E' : '\u2658';
+    }*/
+    @Override
+    public char getSymbol() {
+        return team == 0 ?  'N' : 'n';
     }
 
 

@@ -79,10 +79,13 @@ public class Pawn extends Figure {
         this.enPassant = enPassant;
     }
 
-    @Override
+    /*@Override
     public char getSymbol() {
         return team == 0 ? '\u265F' : '\u2659';
+    }*/
+    @Override
+    public char getSymbol() {
+        return team == 0 ? 'P' : 'p';
     }
-
 
 }

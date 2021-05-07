@@ -85,10 +85,13 @@ public class Rook extends Figure {
         return false;
     }
 
-    @Override
+    /*@Override
     public char getSymbol() {
         return team == 0 ? '\u265C' : '\u2656';
+    }*/
+    @Override
+    public char getSymbol() {
+        return team == 0 ? 'R' : 'r';
     }
-
 
 }

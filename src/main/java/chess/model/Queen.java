@@ -124,9 +124,13 @@ public class Queen extends Figure {
         return false;
     }
 
-    @Override
+    /*@Override
     public char getSymbol() {
         return team == 0 ? '\u265B' : '\u2655';
+    }*/
+    @Override
+    public char getSymbol() {
+        return team == 0 ? 'Q' : 'q';
     }
 }
 

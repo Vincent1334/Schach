@@ -90,9 +90,13 @@ public class Bishop extends Figure {
     }
 
 
-    @Override
+    /*@Override
     public char getSymbol() {
         return team == 0 ? '\u265D' : '\u2657';
+    }*/
+    @Override
+    public char getSymbol() {
+        return team == 0 ? 'B' : 'b';
     }
 
 }
