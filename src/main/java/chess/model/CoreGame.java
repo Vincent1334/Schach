@@ -125,7 +125,7 @@ public class CoreGame {
      * @param pawnConversion figure in which the pawn converts
      */
     private void updateChanges(Position actualPos, Position targetPos, int pawnConversion) {
-        System.out.println("![" + Character.toString(actualPos.getPosX() + 97) + (actualPos.getPosY() + 1) + "-" + Character.toString(targetPos.getPosX() + 97) + (targetPos.getPosY() + 1) + getPawnLetter(pawnConversion) + "]");
+        System.out.println("!" + Character.toString(actualPos.getPosX() + 97) + (actualPos.getPosY() + 1) + "-" + Character.toString(targetPos.getPosX() + 97) + (targetPos.getPosY() + 1) + getPawnLetter(pawnConversion));
         switchPlayer();
         resetEnPassant(targetPos.getPosX(), targetPos.getPosY());
         moveHistory.add(new Board(board));
