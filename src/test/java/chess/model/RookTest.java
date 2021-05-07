@@ -48,9 +48,14 @@ public class RookTest {
     /**
      * Tests if the right symbol for the rooks is used
      */
-    @Test
+    /*@Test
     public void testGetSymbol() {
         assertEquals('\u265C',whiteRook.getSymbol(), "!wrong Symbol for white Rook");
         assertEquals('\u2656',blackRook.getSymbol(), "!wrong Symbol for black Rook");
+    }*/
+    @Test
+    public void testGetSymbol() {
+        assertEquals('R',whiteRook.getSymbol(), "!wrong Symbol for white Rook");
+        assertEquals('r',blackRook.getSymbol(), "!wrong Symbol for black Rook");
     }
 }

@@ -48,7 +48,7 @@ public class CoreGame {
             if (Rules.checkEnPassant(actualPos, targetPos, currentBoard)) {
                 Rules.performEnPassantMove(actualPos, targetPos, currentBoard);
                 System.out.println("EnPassant");
-                updateChanges(actualPos, targetPos, pawnConversion);
+                updateChanges(move);
                 return true;
             }
             //check Castling
@@ -57,7 +57,7 @@ public class CoreGame {
                 currentBoard.getFigure(0, actualPos.getPosX()).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
                 currentBoard.getFigure(actualPos).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
                 System.out.println("Castling left");
-                updateChanges(actualPos, targetPos, pawnConversion);
+                updateChanges(move);
                 return true;
             }
             if (Rules.checkCastling(actualPos, targetPos, currentBoard) == 2) {
@@ -65,7 +65,7 @@ public class CoreGame {
                 currentBoard.getFigure(7, actualPos.getPosY()).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
                 currentBoard.getFigure(actualPos).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
                 System.out.println("Castling right");
-                updateChanges(actualPos, targetPos, pawnConversion);
+                updateChanges(move);
                 return true;
             }
             //check Pawn conversion
@@ -73,14 +73,14 @@ public class CoreGame {
                 Rules.performPawnConversion(actualPos, targetPos, pawnConversion, currentBoard);
                 currentBoard.getFigure(actualPos).setAlreadyMoved(true);          // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
                 System.out.println("PawnConversion");
-                updateChanges(actualPos, targetPos, pawnConversion);
+                updateChanges(move);
                 return true;
             }
             //checkValidDefaultMove
             if (Rules.checkValidDefaultMove(actualPos, targetPos, currentBoard)) {
                 Rules.performDefaultMove(actualPos, targetPos, currentBoard);
                 System.out.println("Default move");
-                updateChanges(actualPos, targetPos, pawnConversion);
+                updateChanges(move);
                 return true;
             }
         }
@@ -135,14 +135,12 @@ public class CoreGame {
      * Does the standard tasks after each move.
      * (Prints the latest move and adds it to the history, switches the actual player and proofs if the game is finished)
      *
-     * @param actualPos      current position
-     * @param targetPos      new position
-     * @param pawnConversion figure in which the pawn converts
+     * @param move the actual chess move
      */
-    private void updateChanges(Position actualPos, Position targetPos, int pawnConversion) {
-        System.out.println("!" + Character.toString(actualPos.getPosX() + 97) + (actualPos.getPosY() + 1) + "-" + Character.toString(targetPos.getPosX() + 97) + (targetPos.getPosY() + 1) + getPawnLetter(pawnConversion));
+    private void updateChanges(Move move) {
+        move.toString();
         switchPlayer();
-        resetEnPassant(targetPos.getPosX(), targetPos.getPosY());
+        resetEnPassant(move.getTargetPosition().getPosX(), move.getTargetPosition().getPosY());
         moveHistory.add(new Board(currentBoard));
         if (Board.checkChessMate(currentBoard, activePlayer)) {
             gameOver = true;
@@ -153,21 +151,20 @@ public class CoreGame {
         return gameOver;
     }
 
-    /**
-     * Return Figure Letter
-     *
-     * @param pawnConversion ID of the figure you want the pawn to convert to
-     * @return Letter of the figure you want the pawn to convert to
-     */
-    public String getPawnLetter(int pawnConversion){
+    /*public String getPawnLetter(int pawnConversion){
         switch(pawnConversion){
             case 1: return "P";
             case 2: return "R";
             case 3: return "N";
             case 4: return "B";
-            case 5: return "";
+            case 5: return "Q";
             case 6: return "K";
         }
         return "";
+    }*/
+
+    // zu Testzwecken
+    public void setActivePlayer(int activePlayer) {
+        this.activePlayer = activePlayer;
     }
 }

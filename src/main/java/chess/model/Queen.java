@@ -45,6 +45,10 @@ public class Queen extends Figure {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
+        if(actualPos.getPosX() == targetPos.getPosX() && actualPos.getPosY() == targetPos.getPosY()){
+            return false;
+        }
+
         //Is the new position valid
         for (int i = -8; i < 9; i++) {
             if ((newX == posX + i && newY == posY + i)

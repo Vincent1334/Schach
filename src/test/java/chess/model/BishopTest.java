@@ -46,9 +46,14 @@ public class BishopTest {
     /**
      * Tests if the right symbol for the rooks is used
      */
-    @Test
+    /*@Test
     public void testGetSymbol() {
         assertEquals('\u265D', whiteBishop.getSymbol(), "!wrong Symbol for white bishop");
         assertEquals('\u2657', blackBishop.getSymbol(), "!wrong Symbol for black bishop");
+    }*/
+    @Test
+    public void testGetSymbol() {
+        assertEquals('B', whiteBishop.getSymbol(), "!wrong Symbol for white bishop");
+        assertEquals('b', blackBishop.getSymbol(), "!wrong Symbol for black bishop");
     }
 }

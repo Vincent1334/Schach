@@ -33,6 +33,11 @@ public class Move {
         this.targetPosition = targetPosition;
     }
 
+    public String toString() {
+        return Character.toString(actualPosition.getPosX() + 97) + (actualPosition.getPosY() + 1) + "-" +
+                Character.toString(targetPosition.getPosX() + 97) + (targetPosition.getPosY() + 1) + getPawnLetter(pawnConversionTo);
+    }
+
     /**
      * return actual position
      * @return actualPosition
@@ -77,5 +82,23 @@ public class Move {
     @Override
     public int hashCode() {
         return Objects.hash(actualPosition, targetPosition, pawnConversionTo);
+    }
+
+    /**
+     * Return Figure Letter
+     *
+     * @param pawnConversion ID of the figure you want the pawn to convert to
+     * @return Letter of the figure you want the pawn to convert to
+     */
+    public String getPawnLetter(int pawnConversion){
+        switch(pawnConversion){
+            case 1: return "P";
+            case 2: return "R";
+            case 3: return "N";
+            case 4: return "B";
+            case 5: return "";
+            case 6: return "K";
+        }
+        return "";
     }
 }

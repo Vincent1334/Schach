@@ -67,9 +67,14 @@ public class KingTest {
     /**
      * Tests if the right symbol for the kings is used
      */
-    @Test
+    /*@Test
     public void testGetSymbol() {
         assertEquals('\u265A',whiteKing.getSymbol(), "!wrong Symbol for white King");
         assertEquals('\u2654',blackKing.getSymbol(), "!wrong Symbol for black King");
+    }*/
+    @Test
+    public void testGetSymbol() {
+        assertEquals('K',whiteKing.getSymbol(), "!wrong Symbol for white King");
+        assertEquals('k',blackKing.getSymbol(), "!wrong Symbol for black King");
     }
 }

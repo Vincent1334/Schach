@@ -45,21 +45,26 @@ public class KnightTest {
         assertTrue(whiteKnight.validMove(new Position(1, 0), new Position(2, 2), board), "!white knight can't attack an opposing figure");
         assertTrue(blackKnight.validMove(new Position(2, 2), new Position(1, 0), board), "!black knight can't attack an opposing figure");
 
-        board.setFigure(1, 0, whiteKnight);
+        /*board.setFigure(1, 0, whiteKnight);
         board.setFigure(2, 2, whiteKnight);
         assertFalse(whiteKnight.validMove(new Position(1, 0), new Position(2, 2), board), "!white knight can attack a figure from the same team");
 
         board.setFigure(1, 0, blackKnight);
         board.setFigure(2, 2, blackKnight);
-        assertFalse(blackKnight.validMove(new Position(1, 0), new Position(2, 2), board), "!black knight can attack a figure from the same team");
+        assertFalse(blackKnight.validMove(new Position(1, 0), new Position(2, 2), board), "!black knight can attack a figure from the same team");*/
     }
 
     /**
      * Tests if the right symbol for the knights is used
      */
-    @Test
+    /*@Test
     public void testGetSymbol() {
         assertEquals('\u265E',whiteKnight.getSymbol(), "!wrong Symbol for white knight");
         assertEquals('\u2658',blackKnight.getSymbol(), "!wrong Symbol for black Knight");
+    }*/
+    @Test
+    public void testGetSymbol() {
+        assertEquals('N',whiteKnight.getSymbol(), "!wrong Symbol for white knight");
+        assertEquals('n',blackKnight.getSymbol(), "!wrong Symbol for black Knight");
     }
 }

@@ -179,13 +179,17 @@ public class Cli {
     }*/
     public static boolean validSyntax(String input) {
         // e.g. "b2-e5Q"
-        boolean correct = checkHyphen(input) && checkLetters(input) && checkNumbers(input);
+        boolean correct = checkLength(input) && checkHyphen(input) && checkLetters(input) && checkNumbers(input);
         if (input.length() == 6) {
             correct = correct && checkConversionLetter(input);
         }
         if (correct) return true;
         System.out.println("!Invalid move");
         return false;
+    }
+
+    private static boolean checkLength(String input) {
+        return input.length() == 5 || input.length() == 6;
     }
 
     private static boolean checkHyphen(String input) {
