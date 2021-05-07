@@ -18,6 +18,10 @@ public class Queen extends Figure {
         super.figureID = 5;
     }
 
+    /**
+     * The copy constructor of this class
+     * @param sourceClass
+     */
     public Queen(Queen sourceClass) {
         super(sourceClass.team);
         super.alreadyMoved = sourceClass.alreadyMoved;

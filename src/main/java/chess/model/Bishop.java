@@ -19,6 +19,10 @@ public class Bishop extends Figure {
         super.figureID = 4;
     }
 
+    /**
+     * The copy constructor of this class
+     * @param sourceClass
+     */
     public Bishop(Bishop sourceClass){
         super(sourceClass.team);
         super.alreadyMoved = sourceClass.alreadyMoved;

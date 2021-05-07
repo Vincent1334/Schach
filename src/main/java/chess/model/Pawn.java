@@ -14,6 +14,10 @@ public class Pawn extends Figure {
         super.figureID = 1;
     }
 
+    /**
+     * The copy constructor of this class
+     * @param sourceClass
+     */
     public Pawn(Pawn sourceClass) {
         super(sourceClass.team);
         super.alreadyMoved = sourceClass.alreadyMoved;

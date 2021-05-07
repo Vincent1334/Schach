@@ -18,6 +18,10 @@ public class Rook extends Figure {
         super.figureID = 2;
     }
 
+    /**
+     * The copy constructor of this class
+     * @param sourceClass
+     */
     public Rook(Rook sourceClass) {
         super(sourceClass.team);
         super.alreadyMoved = sourceClass.alreadyMoved;

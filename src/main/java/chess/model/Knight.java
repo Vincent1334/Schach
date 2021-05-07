@@ -19,6 +19,10 @@ public class Knight extends Figure {
         super.figureID = 3;
     }
 
+    /**
+     * The copy constructor of this class
+     * @param sourceClass
+     */
     public Knight(Knight sourceClass){
         super(sourceClass.team);
         super.alreadyMoved = sourceClass.alreadyMoved;

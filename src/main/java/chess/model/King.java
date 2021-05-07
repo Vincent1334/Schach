@@ -19,6 +19,10 @@ public class King extends Figure {
         super.figureID = 6;
     }
 
+    /**
+     * The copy constructor of this class
+     * @param sourceClass
+     */
     public King(King sourceClass){
         super(sourceClass.team);
         super.alreadyMoved = sourceClass.alreadyMoved;

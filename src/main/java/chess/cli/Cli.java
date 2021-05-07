@@ -56,7 +56,9 @@ public class Cli {
                 }
             } while (true);
             //Enter simpleMode
-        } else coreGame = new CoreGame(1);
+        } else{
+            coreGame = new CoreGame(1);
+        }
     }
 
     /**
@@ -72,8 +74,9 @@ public class Cli {
             //check Commands
             if (input.equals("beaten")) {
                 System.out.println("Beaten figures:");
-                for (int i = 0; i < coreGame.getBeatenFigures().size(); i++)
+                for (int i = 0; i < coreGame.getBeatenFigures().size(); i++){
                     printWriter.println(coreGame.getBeatenFigures().get(i).getSymbol());
+                }
                 continue;
             }
 
@@ -96,6 +99,9 @@ public class Cli {
         } while (true);
     }
 
+    /**
+     * Screen for credits
+     */
     public static void endGame() {
         //TODO: endGame
         System.out.println("Game ends");
@@ -185,6 +191,11 @@ public class Cli {
         return false;
     }
 
+    /**
+     * parse String input into Move objekt
+     * @param input String input
+     * @return Move object
+     */
     public static Move parse(String input) {
         // e.g. "b2-e5Q"
         int posX = (int) input.charAt(0) - 97;
