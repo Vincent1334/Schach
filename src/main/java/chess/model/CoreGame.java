@@ -28,6 +28,12 @@ public class CoreGame {
         Position targetPos = move.getTargetPosition();
         int pawnConversion = move.getPawnConversionTo();
 
+        if(actualPos.getPosX() == targetPos.getPosX() && actualPos.getPosY() == targetPos.getPosY()){
+            //User command fails
+            System.out.println("!Move not allowed");
+            return false;
+        }
+
         if (board.getFigure(actualPos).getTeam() == activePlayer) {
             //check EnPassant
             if (Rules.checkEnPassant(actualPos, targetPos, board)) {
