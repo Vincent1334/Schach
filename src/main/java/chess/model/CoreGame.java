@@ -138,7 +138,7 @@ public class CoreGame {
      * @param move the actual chess move
      */
     private void updateChanges(Move move) {
-        move.toString();
+        System.out.println("!" + move.toString());
         switchPlayer();
         resetEnPassant(move.getTargetPosition().getPosX(), move.getTargetPosition().getPosY());
         moveHistory.add(new Board(currentBoard));
