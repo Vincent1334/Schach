@@ -4,10 +4,20 @@ import org.junit.jupiter.api.Test;
 import java.io.PrintWriter;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains tests to check methods in coreGame
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-07
+ *
+ */
 public class CoreGameTest {
 
     CoreGame testGame = new CoreGame(1);
 
+    /**
+     * Tests whether the chess move method is correct
+     */
     @Test
     public void testChessMove() {
         Move move = new Move(new Position(0,1),new Position(0,2));

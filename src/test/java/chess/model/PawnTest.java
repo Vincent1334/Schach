@@ -4,16 +4,27 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains tests to check the pawns movements
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-07
+ *
+ */
 public class PawnTest {
 
-    public PawnTest(){
-    }
+/*    public PawnTest(){
+    }*/
 
     CoreGame game = new CoreGame(0);
     Board board = new Board();
     Figure pawnWhite = new Pawn(0);
     Figure pawnBlack = new Pawn(1);
 
+    /**
+     * Tests some random valid and invalid moves for a pawn
+     *
+     */
     @Test
     public void testNormalMove(){
         pawnWhite.setAlreadyMoved(true);
@@ -36,6 +47,10 @@ public class PawnTest {
 
     }
 
+    /**
+     * Tests some random valid and invalid attacks for a pawn
+     * Tests some random valid and invalid attacks for a pawn
+     */
     @Test
     public void testAttack(){
         for(int i=0;i<8;i++){
@@ -57,6 +72,9 @@ public class PawnTest {
 
     }
 
+    /**
+     * Tests whether a pawn can move either one or two steps forward in his first move
+     */
     @Test
     public void testFirstMove(){
         pawnWhite.setAlreadyMoved(false);
@@ -68,6 +86,7 @@ public class PawnTest {
         assertTrue(pawnWhite.validMove(new Position(0,1),new Position(0,3),board),"!white pawn can't move two steps forward in his first move!");
         assertTrue(pawnBlack.validMove(new Position(0,6),new Position(0,4),board),"!black pawn can't move two steps forward in his first move!");
     }
+
     @Test
     @Disabled
     public void testEnPassant(){

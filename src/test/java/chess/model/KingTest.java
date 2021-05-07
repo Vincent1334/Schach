@@ -3,12 +3,23 @@ package chess.model;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains tests to check the kings movements
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-07
+ *
+ */
 public class KingTest {
 
     Board board = new Board();
     Figure whiteKing = new King(0);
     Figure blackKing = new King(1);
 
+    /**
+     * Tests some random valid and invalid moves for a king
+     *
+     */
     @Test
     public void testValidMove() {
         assertTrue(whiteKing.validMove(new Position(4, 3), new Position(4, 4), board), "!white king can't move one field vertical correctly");
@@ -21,6 +32,10 @@ public class KingTest {
         assertFalse(blackKing.validMove(new Position(4, 7), new Position(4 ,7), board), "!black king can stay in the same place for a move");
     }
 
+    /**
+     * Tests some random valid and invalid attacks for a king
+     * Tests some random valid and invalid attacks for a king
+     */
     @Test
     public void testAttack() {
         for (int x=0; x<8; x++) {
@@ -49,6 +64,9 @@ public class KingTest {
 
     }
 
+    /**
+     * Tests if the right symbol for the kings is used
+     */
     @Test
     public void testGetSymbol() {
         assertEquals('\u265A',whiteKing.getSymbol(), "!wrong Symbol for white King");

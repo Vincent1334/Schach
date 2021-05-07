@@ -4,12 +4,23 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains tests to check the rooks movements
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-07
+ *
+ */
 public class RookTest {
 
     Board board = new Board();
     Figure whiteRook = new Rook(0);
     Figure blackRook = new Rook(1);
 
+    /**
+     * Tests some random valid and invalid moves for a rook
+     *
+     */
     @Test
     public void testValidMove() {
         for (int x=0; x<8; x++) {
@@ -34,6 +45,9 @@ public class RookTest {
         assertFalse(whiteRook.validMove(new Position(7,0), new Position(0,0), board), "!white rook can move to the left even if there is a figure from the same team in the way");
     }
 
+    /**
+     * Tests if the right symbol for the rooks is used
+     */
     @Test
     public void testGetSymbol() {
         assertEquals('\u265C',whiteRook.getSymbol(), "!wrong Symbol for white Rook");

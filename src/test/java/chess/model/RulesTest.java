@@ -6,10 +6,20 @@ import java.io.PrintWriter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains tests to check the pawn conversion and castling moves
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-07
+ *
+ */
 public class RulesTest {
 
     Board board = new Board();
 
+    /**
+     * Tests valid pawn conversion for black and white figures
+     */
     @Test
     public void testPerformPawnConversion(){
         for (int x=0; x<8; x++) {
@@ -53,6 +63,9 @@ public class RulesTest {
         assertTrue(board.getFigure(new Position(3,0)) instanceof Queen, "black pawnConversion to Queen failed");
     }
 
+    /**
+     * Tests valid castling move on the right side of the board
+     */
     @Test
     public void testPerformCastlingMoveRight() {
         for (int x=0; x<8; x++) {
@@ -68,6 +81,10 @@ public class RulesTest {
         assertTrue(board.getFigure(new Position(6,0)) instanceof King, "Castling failed: king was not moved correctly");
         assertTrue(board.getFigure(new Position(7,0)) instanceof None, "Castling failed: rook was not removed from original position");
     }
+
+    /**
+     * Tests valid castling move on the left side of the board
+     */
     @Test
     public void testPerformCastlingMoveLeft() {
         for (int x=0; x<8; x++) {
