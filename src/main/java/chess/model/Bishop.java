@@ -10,6 +10,10 @@ package chess.model;
 
 public class Bishop extends Figure {
 
+    /**
+     * The constructor of a bishop
+     * The bishops team and figure ID are initialized here.
+     */
     public Bishop(int team) {
         super(team);
         super.figureID = 4;

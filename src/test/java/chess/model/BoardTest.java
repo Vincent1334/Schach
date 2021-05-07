@@ -182,4 +182,5 @@ public class BoardTest {
 
         assertTrue(Board.checkChessMate(board,0), "checkmate is not recognized");
     }
+
 }

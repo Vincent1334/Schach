@@ -10,7 +10,10 @@ package chess.model;
 
 public class Knight extends Figure {
 
-
+    /**
+     * The constructor of a knight
+     * The knights team and figure ID are is initialized here.
+     */
     public Knight(int team) {
         super(team);
         super.figureID = 3;
