@@ -3,8 +3,18 @@ package chess.model;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains tests to check the methods in board class
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-07
+ *
+ */
 public class BoardTest {
 
+    /**
+     * Tests whether figure setup for beginning is correct
+     */
     @Test
     public void testFigureSetUp(){
         Board boardA = new Board();
@@ -54,6 +64,9 @@ public class BoardTest {
         //assertEquals(setup, boardA.getBoard());
     }
 
+    /**
+     * Tests whether the copied board and the board are the same
+     */
     @Test
     public void testCopyConstructor() {
         Board boardA = new Board();
@@ -69,6 +82,9 @@ public class BoardTest {
         assertNotEquals(boardA, boardB, "Boards are equal, but shouldn't be!");
     }
 
+    /**
+     * Tests the kings position
+     */
     @Test
     public void testGetKing(){
         Board boardA = new Board();
@@ -98,6 +114,9 @@ public class BoardTest {
         assertEquals(Board.getKing(boardA, 1).getPosY(), pos4.getPosY(), "y-position is incorrect!");
     }
 
+    /**
+     * Tests whether the king is threatened by an opposing figure
+     */
     @Test
     public void testIsThreatened(){
         //Test start position
@@ -121,6 +140,9 @@ public class BoardTest {
         assertTrue(Board.isThreatened(boardB, Board.getKing(boardB, 1), 1), "is not Threatened!");
     }
 
+    /**
+     * Tests some random setups for checkmate escape
+     */
     @Test
     public void testChessMateEscapes() {
         Board board = new Board();
@@ -167,6 +189,9 @@ public class BoardTest {
 
     }
 
+    /**
+     * checks a random testcase for checkmate
+     */
     @Test
     public void testCheckMates() {
         Board board = new Board();

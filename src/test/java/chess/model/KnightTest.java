@@ -3,15 +3,24 @@ package chess.model;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains tests to check the knights movements
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-07
+ *
+ */
 public class KnightTest {
-
-    public KnightTest(){
-    }
 
     Board board = new Board();
     Figure whiteKnight = new Knight(0);
     Figure blackKnight = new Knight(1);
 
+
+    /**
+     * Tests some random valid and invalid moves for a Knight
+     *
+     */
     @Test
     public void testValidMove(){
         assertTrue(whiteKnight.validMove(new Position(1, 0), new Position(2, 2), board), "!white knight can't move forward correctly");
@@ -21,6 +30,9 @@ public class KnightTest {
         assertFalse(blackKnight.validMove(new Position(1, 7), new Position(1 ,7), board), "!black knight can stay in the same place for a move");
     }
 
+    /**
+     * Tests some random valid and invalid attacks for a Knight
+     */
     @Test
     public void testAttack(){
         for (int x=0; x<8; x++){
@@ -42,4 +54,12 @@ public class KnightTest {
         assertFalse(blackKnight.validMove(new Position(1, 0), new Position(2, 2), board), "!black knight can attack a figure from the same team");
     }
 
+    /**
+     * Tests if the right symbol for the knights is used
+     */
+    @Test
+    public void testGetSymbol() {
+        assertEquals('\u265E',whiteKnight.getSymbol(), "!wrong Symbol for white knight");
+        assertEquals('\u2658',blackKnight.getSymbol(), "!wrong Symbol for black Knight");
+    }
 }

@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class QueenTest {
 
-    public QueenTest(){
-    }
-
     Board board = new Board();
     Figure whiteQueen = new Queen(0);
     Figure blackQueen = new Queen(1);
+
+    public QueenTest(){
+    }
 
     @Test
     public void testValidMove(){
@@ -57,29 +57,38 @@ public class QueenTest {
         //beating a figure from the same team horizontally
         board.setFigure(0, 2, whiteQueen);
         board.setFigure(5, 2, whiteQueen);
-        assertTrue(whiteQueen.validMove(new Position(0, 2), new Position(5, 2), board), "!white queen can beat figure from the same team horizontally");
+        assertFalse(whiteQueen.validMove(new Position(0, 2), new Position(5, 2), board), "!white queen can beat figure from the same team horizontally");
 
         board.setFigure(0, 2, blackQueen);
         board.setFigure(5, 2, blackQueen);
-        assertTrue(blackQueen.validMove(new Position(0, 2), new Position(5, 2), board), "!black queen can beat figure from the same team horizontally");
+        assertFalse(blackQueen.validMove(new Position(0, 2), new Position(5, 2), board), "!black queen can beat figure from the same team horizontally");
 
         //beating a figure from the same team vertical
         board.setFigure(0, 2, whiteQueen);
         board.setFigure(0, 5, whiteQueen);
-        assertTrue(whiteQueen.validMove(new Position(0, 2), new Position(0, 5), board), "!white queen can beat figure from the same team vertically");
+        assertFalse(whiteQueen.validMove(new Position(0, 2), new Position(0, 5), board), "!white queen can beat figure from the same team vertically");
 
         board.setFigure(0, 2, blackQueen);
         board.setFigure(0, 5, blackQueen);
-        assertTrue(blackQueen.validMove(new Position(0, 2), new Position(0, 5), board), "!black queen can beat figure from the same team vertically");
+        assertFalse(blackQueen.validMove(new Position(0, 2), new Position(0, 5), board), "!black queen can beat figure from the same team vertically");
 
         //beating a figure from the same team diagonal
         board.setFigure(2, 2, whiteQueen);
         board.setFigure(5, 5, whiteQueen);
-        assertTrue(whiteQueen.validMove(new Position(2, 2), new Position(5, 5), board), "!white queen can beat figure from the same team diagonally");
+        assertFalse(whiteQueen.validMove(new Position(2, 2), new Position(5, 5), board), "!white queen can beat figure from the same team diagonally");
 
         board.setFigure(2, 2, blackQueen);
         board.setFigure(5, 5, blackQueen);
-        assertTrue(blackQueen.validMove(new Position(2, 2), new Position(5, 5), board), "!black queen can beat figure from the same team diagonally");
+        assertFalse(blackQueen.validMove(new Position(2, 2), new Position(5, 5), board), "!black queen can beat figure from the same team diagonally");
+    }
+
+    /**
+     * Tests if the right symbol for the queens is used
+     */
+    @Test
+    public void testGetSymbol() {
+        assertEquals('\u265B',whiteQueen.getSymbol(), "!wrong Symbol for white queen");
+        assertEquals('\u2655',blackQueen.getSymbol(), "!wrong Symbol for black queen");
     }
 
 }
