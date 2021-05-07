@@ -53,4 +53,35 @@ public class RulesTest {
         assertTrue(board.getFigure(new Position(3,0)) instanceof Queen, "black pawnConversion to Queen failed");
     }
 
+    @Test
+    public void testPerformCastlingMoveRight() {
+        for (int x=0; x<8; x++) {
+            for (int y=0; y<8; y++) {
+                board.setFigure(x, y, new None());
+            }
+        }
+        board.setFigure(new Position(4,0),new King(0));
+        board.setFigure(new Position(7,0),new Rook(0));
+        Rules.performCastlingMoveRight(new Position(4,0),new Position(6,0),board);
+        assertTrue(board.getFigure(new Position(4,0)) instanceof None, "Castling failed: king was not removed from original position");
+        assertTrue(board.getFigure(new Position(5,0)) instanceof Rook, "Castling failed: rook was not moved correctly");
+        assertTrue(board.getFigure(new Position(6,0)) instanceof King, "Castling failed: king was not moved correctly");
+        assertTrue(board.getFigure(new Position(7,0)) instanceof None, "Castling failed: rook was not removed from original position");
+    }
+    @Test
+    public void testPerformCastlingMoveLeft() {
+        for (int x=0; x<8; x++) {
+            for (int y=0; y<8; y++) {
+                board.setFigure(x, y, new None());
+            }
+        }
+        board.setFigure(new Position(4,0),new King(0));
+        board.setFigure(new Position(0,0),new Rook(0));
+        Rules.performCastlingMoveLeft(new Position(4,0),new Position(2,0),board);
+        assertTrue(board.getFigure(new Position(0,0)) instanceof None, "Castling failed: rook was not removed from original position");
+        assertTrue(board.getFigure(new Position(2,0)) instanceof King, "Castling failed: king was not moved correctly");
+        assertTrue(board.getFigure(new Position(3,0)) instanceof Rook, "Castling failed: rook was not moved correctly");
+        assertTrue(board.getFigure(new Position(4,0)) instanceof None, "Castling failed: king was not removed from original position");
+    }
+
 }
