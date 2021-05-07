@@ -2,47 +2,54 @@ package chess.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class contains the information about the chess board which contains the chess pieces/figures
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-07
+ */
 public class Board {
 
-    private Figure[][] board;
-    private ArrayList<Figure> beatenFigures = new ArrayList<>();
+    private Figure[][] internalBoard;
+    private List<Figure> beatenFigures = new ArrayList<>();
 
     /**
      * Creates a new board with the standard figure setup
      */
     public Board() {
-        board = new Figure[8][8];
+        internalBoard = new Figure[8][8];
 
         for (int team = 0; team <= 1; team++) {
             //create Pawns
             for (int i = 0; i < 8; i++) {
-                board[i][1 + team * 5] = new Pawn(team);
+                internalBoard[i][1 + team * 5] = new Pawn(team);
             }
             //create King
-            board[4][team * 7] = new King(team);
+            internalBoard[4][team * 7] = new King(team);
 
             //create Queen
-            board[3][team * 7] = new Queen(team);
+            internalBoard[3][team * 7] = new Queen(team);
 
-            //create Rook
+            //create Rooks
             for (int i = 0; i <= 1; i++) {
-                board[i * 7][team * 7] = new Rook(team);
+                internalBoard[i * 7][team * 7] = new Rook(team);
             }
-            //create Bishop
+            //create Bishops
             for (int i = 0; i <= 1; i++) {
-                board[2 + i * 3][team * 7] = new Bishop(team);
+                internalBoard[2 + i * 3][team * 7] = new Bishop(team);
             }
-            //create Knight
+            //create Knights
             for (int i = 0; i <= 1; i++) {
-                board[1 + i * 5][team * 7] = new Knight(team);
+                internalBoard[1 + i * 5][team * 7] = new Knight(team);
             }
         }
         //create None
         for (int y = 2; y < 6; y++) {
             for (int x = 0; x < 8; x++) {
-                board[x][y] = new None();
+                internalBoard[x][y] = new None();
             }
         }
     }
@@ -54,17 +61,31 @@ public class Board {
      * @param sourceClass the board-object you want to copy
      */
     public Board(Board sourceClass) {
-        board = new Figure[8][8];
+        internalBoard = new Figure[8][8];
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                switch (sourceClass.getFigure(x, y).getFigureID()){
-                    case 0: board[x][y] = new None((None) sourceClass.getFigure(x, y)); break;
-                    case 1: board[x][y] = new Pawn((Pawn) sourceClass.getFigure(x, y)); break;
-                    case 2: board[x][y] = new Rook((Rook) sourceClass.getFigure(x, y)); break;
-                    case 3: board[x][y] = new Knight((Knight) sourceClass.getFigure(x, y)); break;
-                    case 4: board[x][y] = new Bishop((Bishop) sourceClass.getFigure(x, y)); break;
-                    case 5: board[x][y] = new Queen((Queen) sourceClass.getFigure(x, y)); break;
-                    case 6: board[x][y] = new King((King) sourceClass.getFigure(x, y)); break;
+                switch (sourceClass.getFigure(x, y).getFigureID()) {
+                    case 0:
+                        internalBoard[x][y] = new None((None) sourceClass.getFigure(x, y));
+                        break;
+                    case 1:
+                        internalBoard[x][y] = new Pawn((Pawn) sourceClass.getFigure(x, y));
+                        break;
+                    case 2:
+                        internalBoard[x][y] = new Rook((Rook) sourceClass.getFigure(x, y));
+                        break;
+                    case 3:
+                        internalBoard[x][y] = new Knight((Knight) sourceClass.getFigure(x, y));
+                        break;
+                    case 4:
+                        internalBoard[x][y] = new Bishop((Bishop) sourceClass.getFigure(x, y));
+                        break;
+                    case 5:
+                        internalBoard[x][y] = new Queen((Queen) sourceClass.getFigure(x, y));
+                        break;
+                    case 6:
+                        internalBoard[x][y] = new King((King) sourceClass.getFigure(x, y));
+                        break;
                 }
             }
         }
@@ -73,30 +94,56 @@ public class Board {
         beatenFigures.addAll(sourceClass.getBeatenFigures());
     }
 
-
-    public Figure[][] getBoard() {
-        return board;
-    }
-
+    /**
+     * Get the figure at a specified position on the board
+     *
+     * @param x x-coordinate of the position
+     * @param y y-coordinate of the position
+     * @return the figure at this position of the board
+     */
     public Figure getFigure(int x, int y) {
-        return board[x][y];
+        return internalBoard[x][y];
     }
 
+    /**
+     * Get the figure at a specified position on the board
+     *
+     * @param position the position on the board where you want to get the figure from
+     * @return the figure at this position of the board
+     */
     public Figure getFigure(Position position) {
-        return board[position.getPosX()][position.getPosY()];
+        return internalBoard[position.getPosX()][position.getPosY()];
     }
 
+    /**
+     * Set a figure to a specified position on the board
+     *
+     * @param x      x-coordinate of the position
+     * @param y      y-coordinate of the position
+     * @param figure the figure you want to set to the position on the board
+     */
     public void setFigure(int x, int y, Figure figure) {
-        board[x][y] = figure;
+        internalBoard[x][y] = figure;
     }
 
+    /**
+     * Set a figure to a specified position on the board
+     *
+     * @param position the position on the board where you want to set the figure to
+     * @param figure   the figure you want to set to the position on the board
+     */
     public void setFigure(Position position, Figure figure) {
         int posX = position.getPosX();
         int posY = position.getPosY();
-        board[posX][posY] = figure;
+        internalBoard[posX][posY] = figure;
     }
 
-    public ArrayList<Figure> getBeatenFigures() {
+    /**
+     * Get the list of beatenFigures of the board
+     *
+     * @return the list of beatenFigures of the board
+     */
+    public List<Figure> getBeatenFigures() {
         return this.beatenFigures;
     }
 
@@ -137,10 +184,10 @@ public class Board {
         //Check if any enemy figure can do a valid move to target Position
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (tmpBoard.getFigure(x, y) != null) {
-                    if (tmpBoard.getFigure(x, y).getTeam() != team && tmpBoard.getFigure(x, y).validMove(new Position(x, y), targetPos, tmpBoard)) {
-                        return true;
-                    }
+                if (tmpBoard.getFigure(x, y) != null &&
+                        tmpBoard.getFigure(x, y).getTeam() != team &&
+                        tmpBoard.getFigure(x, y).validMove(new Position(x, y), targetPos, tmpBoard)) {
+                    return true;
                 }
             }
         }
@@ -158,40 +205,13 @@ public class Board {
         boolean possibleSolution = false;
 
         // test all possible moves and check whether your king is still in check
-        for (int y = 0; y < 8; y++) {                                                   // for all your own figures on the board
+        for (int y = 0; y < 8; y++) {                                           // for all your own figures on the board
             for (int x = 0; x < 8; x++) {
-                Figure actualFigure = board.getFigure(x, y);
-                if (actualFigure.getTeam() == team) {
-                    //create a copy of Board
-                    Board tmpBoard = new Board(board);                             // create a temporary board
-
-                    for (int newX = 0; newX < 8; newX++) {                              // and test all possible moves to every possible targetField
+                if (board.getFigure(new Position(x, y)).getTeam() == team) {
+                    for (int newX = 0; newX < 8; newX++) {                      // test all possible moves to every possible targetField
                         for (int newY = 0; newY < 8; newY++) {
-
-                            if (Rules.checkEnPassant(new Position(x, y), new Position(newX, newY), tmpBoard)) {           // check EnPassant and eventually perform it on the temporary board
-                                Rules.performEnPassantMove(new Position(x, y), new Position(newX, newY), tmpBoard);
-                                if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
-                                    possibleSolution = true;
-                                }
-                            }
-                            if (Rules.checkCastling(new Position(x, y), new Position(newX, newY), tmpBoard) == 1) {            // check Castling and eventually perform it on the temporary board
-                                Rules.performCastlingMoveLeft(new Position(x, y), new Position(newX, newY), tmpBoard);
-                                if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
-                                    possibleSolution = true;
-                                }
-                            }
-                            if (Rules.checkCastling(new Position(x, y), new Position(newX, newY), tmpBoard) == 2) {            // check Castling and eventually perform it on the temporary board
-                                Rules.performCastlingMoveRight(new Position(x, y), new Position(newX, newY), tmpBoard);
-                                if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
-                                    possibleSolution = true;
-                                }
-                            }
-                            if (Rules.checkValidDefaultMove(new Position(x, y), new Position(newX, newY), tmpBoard)) {    // checkValidDefaultMove and eventually perform it on the temporary board
-                                Rules.performDefaultMove(new Position(x, y), new Position(newX, newY), tmpBoard);
-                                if (!kingInCheck(tmpBoard, team)) {                         // and at least check whether the king would still be in check after every possible move
-                                    possibleSolution = true;
-                                }
-                            }
+                            Board tmpBoard = new Board(board);                  // on a copy of the board
+                            possibleSolution = possibleSolution || possibleSolution(new Position(x, y),new Position(newX, newY),tmpBoard,team);
                         }
                     }
                 }
@@ -203,6 +223,22 @@ public class Board {
         return !possibleSolution;
     }
 
+    private static boolean possibleSolution(Position actualPos, Position targetPos, Board tmpBoard, int team) {
+        if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {             // check EnPassant and eventually perform it on the temporary board
+            Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
+        }
+        if (Rules.checkCastling(actualPos, targetPos, tmpBoard) == 1) {         // check CastlingLeft and eventually perform it on the temporary board
+            Rules.performCastlingMoveLeft(actualPos, targetPos, tmpBoard);
+        }
+        if (Rules.checkCastling(actualPos, targetPos, tmpBoard) == 2) {         // check CastlingRight and eventually perform it on the temporary board
+            Rules.performCastlingMoveRight(actualPos, targetPos, tmpBoard);
+        }
+        if (Rules.checkValidDefaultMove(actualPos, targetPos, tmpBoard)) {      // checkValidDefaultMove and eventually perform it on the temporary board
+            Rules.performDefaultMove(actualPos, targetPos, tmpBoard);
+        }
+        return !kingInCheck(tmpBoard, team);
+    }
+
     /**
      * Checks whether the king is in check
      *
@@ -211,11 +247,8 @@ public class Board {
      * @return Whether the king is in check or not
      */
     public static boolean kingInCheck(Board board, int team) {
-        if (isThreatened(board, Board.getKing(board, team), team)) {
-            // System.out.println("You are in check");      --> hier auskommentiert, da sonst auch (falsche) Ausgabe bei checkChessMate
-            return true;
-        }
-        return false;
+        // System.out.println("You are in check");      --> hier auskommentiert, da sonst auch (falsche) Ausgabe bei checkChessMate
+        return isThreatened(board, Board.getKing(board, team), team);
     }
 
     /*@Override
@@ -231,6 +264,13 @@ public class Board {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         Board board1 = (Board) other;
-        return Arrays.deepEquals(board, board1.board) && Objects.equals(beatenFigures, board1.beatenFigures);
+        return Arrays.deepEquals(internalBoard, board1.internalBoard) && Objects.equals(beatenFigures, board1.beatenFigures);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(beatenFigures);
+        result = 31 * result + Arrays.deepHashCode(internalBoard);
+        return result;
     }
 }

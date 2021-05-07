@@ -1,10 +1,19 @@
 package chess.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * This class contains the information about the processes when the player does a chess move.
+ * It will detect the correct type of move and execute it and it will also detect when the game is over.
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-07
+ *
+ */
 public class CoreGame {
 
-    private Board board;
+    private Board currentBoard;
     private int activePlayer = 0;
     private int gameMode = 0;
     private boolean gameOver = false;
@@ -12,7 +21,7 @@ public class CoreGame {
     private ArrayList<Board> moveHistory = new ArrayList<>();
 
     public CoreGame(int gameMode) {
-        board = new Board();
+        currentBoard = new Board();
         this.gameMode = gameMode;
     }
 
@@ -34,42 +43,42 @@ public class CoreGame {
             return false;
         }
 
-        if (board.getFigure(actualPos).getTeam() == activePlayer) {
+        if (currentBoard.getFigure(actualPos).getTeam() == activePlayer) {
             //check EnPassant
-            if (Rules.checkEnPassant(actualPos, targetPos, board)) {
-                Rules.performEnPassantMove(actualPos, targetPos, board);
+            if (Rules.checkEnPassant(actualPos, targetPos, currentBoard)) {
+                Rules.performEnPassantMove(actualPos, targetPos, currentBoard);
                 System.out.println("EnPassant");
                 updateChanges(actualPos, targetPos, pawnConversion);
                 return true;
             }
             //check Castling
-            if (Rules.checkCastling(actualPos, targetPos, board) == 1) {
-                Rules.performCastlingMoveLeft(actualPos, targetPos, board);
-                board.getFigure(0, actualPos.getPosX()).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
-                board.getFigure(actualPos).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
+            if (Rules.checkCastling(actualPos, targetPos, currentBoard) == 1) {
+                Rules.performCastlingMoveLeft(actualPos, targetPos, currentBoard);
+                currentBoard.getFigure(0, actualPos.getPosX()).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
+                currentBoard.getFigure(actualPos).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
                 System.out.println("Castling left");
                 updateChanges(actualPos, targetPos, pawnConversion);
                 return true;
             }
-            if (Rules.checkCastling(actualPos, targetPos, board) == 2) {
-                Rules.performCastlingMoveRight(actualPos, targetPos, board);
-                board.getFigure(7, actualPos.getPosY()).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
-                board.getFigure(actualPos).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
+            if (Rules.checkCastling(actualPos, targetPos, currentBoard) == 2) {
+                Rules.performCastlingMoveRight(actualPos, targetPos, currentBoard);
+                currentBoard.getFigure(7, actualPos.getPosY()).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
+                currentBoard.getFigure(actualPos).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
                 System.out.println("Castling right");
                 updateChanges(actualPos, targetPos, pawnConversion);
                 return true;
             }
             //check Pawn conversion
-            if (Rules.checkPawnConversion(actualPos, targetPos, board)) {
-                Rules.performPawnConversion(actualPos, targetPos, pawnConversion, board);
-                board.getFigure(actualPos).setAlreadyMoved(true);          // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
+            if (Rules.checkPawnConversion(actualPos, targetPos, currentBoard)) {
+                Rules.performPawnConversion(actualPos, targetPos, pawnConversion, currentBoard);
+                currentBoard.getFigure(actualPos).setAlreadyMoved(true);          // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
                 System.out.println("PawnConversion");
                 updateChanges(actualPos, targetPos, pawnConversion);
                 return true;
             }
             //checkValidDefaultMove
-            if (Rules.checkValidDefaultMove(actualPos, targetPos, board)) {
-                Rules.performDefaultMove(actualPos, targetPos, board);
+            if (Rules.checkValidDefaultMove(actualPos, targetPos, currentBoard)) {
+                Rules.performDefaultMove(actualPos, targetPos, currentBoard);
                 System.out.println("Default move");
                 updateChanges(actualPos, targetPos, pawnConversion);
                 return true;
@@ -85,13 +94,13 @@ public class CoreGame {
      * <------Default-commands------------------------------------------------------------------------------------------>
      */
 
-    public Board getBoard() {
-        return board;
+    public Board getCurrentBoard() {
+        return currentBoard;
     }
 
     // doppelt
-    public ArrayList<Figure> getBeatenFigures() {
-        return board.getBeatenFigures();
+    public List<Figure> getBeatenFigures() {
+        return currentBoard.getBeatenFigures();
     }
 
     /*
@@ -114,8 +123,8 @@ public class CoreGame {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 if (x != newX && y != newY) {
-                    if (board.getFigure(x, y) instanceof Pawn) {
-                        ((Pawn) board.getFigure(x, y)).resetEnPassant();
+                    if (currentBoard.getFigure(x, y) instanceof Pawn) {
+                        ((Pawn) currentBoard.getFigure(x, y)).resetEnPassant();
                     }
                 }
             }
@@ -134,8 +143,8 @@ public class CoreGame {
         System.out.println("!" + Character.toString(actualPos.getPosX() + 97) + (actualPos.getPosY() + 1) + "-" + Character.toString(targetPos.getPosX() + 97) + (targetPos.getPosY() + 1) + getPawnLetter(pawnConversion));
         switchPlayer();
         resetEnPassant(targetPos.getPosX(), targetPos.getPosY());
-        moveHistory.add(new Board(board));
-        if (Board.checkChessMate(board, activePlayer)) {
+        moveHistory.add(new Board(currentBoard));
+        if (Board.checkChessMate(currentBoard, activePlayer)) {
             gameOver = true;
         }
     }

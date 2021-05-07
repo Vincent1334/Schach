@@ -56,7 +56,7 @@ public class Cli {
                 }
             } while (true);
             //Enter simpleMode
-        } else{
+        } else {
             coreGame = new CoreGame(1);
         }
     }
@@ -74,7 +74,7 @@ public class Cli {
             //check Commands
             if (input.equals("beaten")) {
                 System.out.println("Beaten figures:");
-                for (int i = 0; i < coreGame.getBeatenFigures().size(); i++){
+                for (int i = 0; i < coreGame.getBeatenFigures().size(); i++) {
                     printWriter.println(coreGame.getBeatenFigures().get(i).getSymbol());
                 }
                 continue;
@@ -114,7 +114,7 @@ public class Cli {
         for (int y = 0; y < 8; y++) {
             printWriter.print(8 - y + " ");
             for (int x = 0; x < 8; x++) {
-                printWriter.print(coreGame.getBoard().getFigure(x, 7 - y).getSymbol() + " ");
+                printWriter.print(coreGame.getCurrentBoard().getFigure(x, 7 - y).getSymbol() + " ");
             }
             printWriter.println("");
         }
@@ -179,20 +179,34 @@ public class Cli {
     }*/
     public static boolean validSyntax(String input) {
         // e.g. "b2-e5Q"
-        if ((input.length() == 5 || input.length() == 6) &&
-                input.charAt(0) >= 97 && input.charAt(0) <= 104 &&
-                input.charAt(1) >= 49 && input.charAt(1) <= 56 &&
-                input.charAt(2) == 45 &&
-                input.charAt(3) >= 97 && input.charAt(3) <= 104 &&
-                input.charAt(4) >= 49 && input.charAt(4) <= 56) {
-            return input.length() != 6 || input.charAt(5) == 66 || input.charAt(5) == 78 || input.charAt(5) == 81 || input.charAt(5) == 82;
+        boolean correct = checkHyphen(input) && checkLetters(input) && checkNumbers(input);
+        if (input.length() == 6) {
+            correct = correct && checkConversionLetter(input);
         }
+        if (correct) return true;
         System.out.println("!Invalid move");
         return false;
     }
 
+    private static boolean checkHyphen(String input) {
+        return input.charAt(2) == 45;
+    }
+
+    private static boolean checkLetters(String input) {
+        return input.charAt(0) >= 97 && input.charAt(0) <= 104 && input.charAt(3) >= 97 && input.charAt(3) <= 104;
+    }
+
+    private static boolean checkNumbers(String input) {
+        return input.charAt(1) >= 49 && input.charAt(1) <= 56 && input.charAt(4) >= 49 && input.charAt(4) <= 56;
+    }
+
+    private static boolean checkConversionLetter(String input) {
+        return input.charAt(5) == 66 || input.charAt(5) == 78 || input.charAt(5) == 81 || input.charAt(5) == 82;
+    }
+
     /**
      * parse String input into Move objekt
+     *
      * @param input String input
      * @return Move object
      */

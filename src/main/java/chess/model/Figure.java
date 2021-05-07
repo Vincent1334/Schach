@@ -1,5 +1,7 @@
 package chess.model;
 
+import java.util.Objects;
+
 public abstract class Figure {
 
     boolean alreadyMoved = false;
@@ -49,4 +51,8 @@ public abstract class Figure {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(alreadyMoved, team, figureID);
+    }
 }

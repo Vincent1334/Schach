@@ -27,7 +27,7 @@ public class CoreGameTest {
         for (int y = 0; y < 8; y++) {
             printWriter.print(8 - y + " ");
             for (int x = 0; x < 8; x++) {
-                printWriter.print(testGame.getBoard().getFigure(x, 7 - y).getSymbol() + " ");
+                printWriter.print(testGame.getCurrentBoard().getFigure(x, 7 - y).getSymbol() + " ");
             }
             printWriter.println("");
         }
@@ -39,15 +39,15 @@ public class CoreGameTest {
     public void testEnPassantMove(){
         for (int x=0; x<8; x++) {
             for (int y=0; y<8; y++) {
-                testGame.getBoard().setFigure(x,y,new None());
+                testGame.getCurrentBoard().setFigure(x,y,new None());
             }
         }
-        testGame.getBoard().setFigure(3,4,new Pawn(0));
-        testGame.getBoard().setFigure(0,0,new King(1)); // otherwise CheckChessMate() would not find any possible move to avoid checkmate and would return "checkMate"
+        testGame.getCurrentBoard().setFigure(3,4,new Pawn(0));
+        testGame.getCurrentBoard().setFigure(0,0,new King(1)); // otherwise CheckChessMate() would not find any possible move to avoid checkmate and would return "checkMate"
 
         Pawn blackEnPassantPawn = new Pawn(1);
         blackEnPassantPawn.setEnPassant(true);
-        testGame.getBoard().setFigure(4,4,blackEnPassantPawn);
+        testGame.getCurrentBoard().setFigure(4,4,blackEnPassantPawn);
 
         Move move = new Move(new Position(3,4),new Position(4,5));
         assertTrue(testGame.chessMove(move), "enPassant move is not accepted even if it is correct");
