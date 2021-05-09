@@ -18,8 +18,12 @@ public class CoreGame {
     private int gameMode = 0;
     private boolean gameOver = false;
 
-    private ArrayList<Board> moveHistory = new ArrayList<>();
+    private List<Board> moveHistory = new ArrayList<>();
 
+    /**
+     * the constructor of CoreGame
+     * @param gameMode mode like local game, network game or a.i game
+     */
     public CoreGame(int gameMode) {
         currentBoard = new Board();
         this.gameMode = gameMode;
@@ -94,13 +98,12 @@ public class CoreGame {
      * <------Default-commands------------------------------------------------------------------------------------------>
      */
 
+    /**
+     * return the current board
+     * @return Board
+     */
     public Board getCurrentBoard() {
         return currentBoard;
-    }
-
-    // doppelt
-    public List<Figure> getBeatenFigures() {
-        return currentBoard.getBeatenFigures();
     }
 
     /*
@@ -124,7 +127,8 @@ public class CoreGame {
             for (int x = 0; x < 8; x++) {
                 if (x != newX && y != newY) {
                     if (currentBoard.getFigure(x, y) instanceof Pawn) {
-                        ((Pawn) currentBoard.getFigure(x, y)).resetEnPassant();
+                        Pawn tmpPawn = (Pawn) currentBoard.getFigure(x, y);
+                        tmpPawn.resetEnPassant();
                     }
                 }
             }

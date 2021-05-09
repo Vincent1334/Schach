@@ -74,8 +74,8 @@ public class Cli {
             //check Commands
             if (input.equals("beaten")) {
                 System.out.println("Beaten figures:");
-                for (int i = 0; i < coreGame.getBeatenFigures().size(); i++) {
-                    printWriter.println(coreGame.getBeatenFigures().get(i).getSymbol());
+                for (int i = 0; i < coreGame.getCurrentBoard().getBeatenFigures().size(); i++) {
+                    printWriter.println(coreGame.getCurrentBoard().getBeatenFigures().get(i).getSymbol());
                 }
                 continue;
             }
