@@ -1,6 +1,8 @@
 package chess.model;
 
 
+import java.util.Objects;
+
 /**
  * This class contains the information about a Position
  *
@@ -22,18 +24,34 @@ public class Position {
         this.posY = posY;
     }
 
+    /**
+     * set x-position
+     * @param posX
+     */
     public void setPosX(int posX) {
         this.posX = posX;
     }
 
+    /**
+     * set y-position
+     * @param posY
+     */
     public void setPosY(int posY) {
         this.posY = posY;
     }
 
+    /**
+     * return x-position
+     * @return x-position
+     */
     public int getPosX() {
         return this.posX;
     }
 
+    /**
+     * return y-position
+     * @return y-position
+     */
     public int getPosY() {
         return this.posY;
     }
@@ -51,4 +69,12 @@ public class Position {
         return posX == position.posX && posY == position.posY;
     }
 
+    /**
+     * return hashCode
+     * @return hashCode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(posX, posY);
+    }
 }
