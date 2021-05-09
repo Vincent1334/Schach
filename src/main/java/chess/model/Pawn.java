@@ -8,7 +8,11 @@ package chess.model;
  */
 
 public class Pawn extends Figure {
-
+    boolean enPassant = false;
+    /**
+     * The constructor of a pawn
+     * The pawns team and figure ID are initialized here.
+     */
     public Pawn(int team) {
         super(team);
         super.figureID = 1;
@@ -24,8 +28,6 @@ public class Pawn extends Figure {
         this.enPassant = sourceClass.enPassant;
         super.figureID = 1;
     }
-
-    boolean enPassant = false;
 
     /**
      * getter for enPassant
@@ -46,30 +48,63 @@ public class Pawn extends Figure {
      */
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
+        return normalMove(actualPos,targetPos) || normalAttack(actualPos,targetPos,board) || firstMove(actualPos,targetPos,board);
+    }
 
+    /**
+     * Tests if the pawn makes an normal move
+     * @param actualPos actual position for Pawn
+     * @param targetPos new input position for Pawn
+     * @return pawn makes an normal move
+     */
+    private boolean normalMove(Position actualPos, Position targetPos){
         int posX = actualPos.getPosX();
         int posY = actualPos.getPosY();
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        if (((team == 0 && posY + 1 == newY) || (team == 1 && posY - 1 == newY)) && posX == newX) {
-            //normal move
-            return true;
-        }
-        if ((team == 0 && posY + 1 == newY && board.getFigure(targetPos).getTeam() == 1)
-                || (team == 1 && posY - 1 == newY && board.getFigure(targetPos).getTeam() == 0)
-                && (posX + 1 == newX || posX - 1 == newX)) {
-            //normal attack
-            return true;
-        }
-        if (((team == 0 && posY + 2 == newY) || (team == 1 && posY - 2 == newY)) && (posX == newX && !alreadyMoved)) {
-            //first move
+        return ((team == 0 && posY + 1 == newY) || (team == 1 && posY - 1 == newY)) && posX == newX;
+    }
+
+    /**
+     * Tests if the pawn makes an normal attack
+     * @param actualPos actual position for Pawn
+     * @param targetPos new input position for Pawn
+     * @return pawn makes an normal attack
+     */
+    private boolean normalAttack(Position actualPos, Position targetPos, Board board){
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+        int newY = targetPos.getPosY();
+
+        return ((team == 0 && posY + 1 == newY ) || (team == 1 && posY - 1 == newY )) && (posX + 1 == newX || posX - 1 == newX) && !(board.getFigure(targetPos) instanceof None);
+    }
+
+    /**
+     * Tests if the pawn makes his first move
+     * @param actualPos actual position for Pawn
+     * @param targetPos new input position for Pawn
+     * @return pawn makes first move
+     */
+    private boolean firstMove(Position actualPos, Position targetPos, Board board){
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+        int newY = targetPos.getPosY();
+
+        if (((team == 0 && posY + 2 == newY && board.getFigure(posX,posY+1) instanceof None)
+                || ((team == 1 && posY - 2 == newY) && board.getFigure(posX,posY-1) instanceof None))
+                && posX == newX && !alreadyMoved) {
             enPassant = true;
             return true;
         }
         return false;
     }
 
+    /**
+     * sets enPassant to false
+     */
     public void resetEnPassant() {
         this.enPassant = false;
     }
@@ -79,10 +114,6 @@ public class Pawn extends Figure {
         this.enPassant = enPassant;
     }
 
-    /*@Override
-    public char getSymbol() {
-        return team == 0 ? '\u265F' : '\u2659';
-    }*/
     @Override
     public char getSymbol() {
         return team == 0 ? 'P' : 'p';

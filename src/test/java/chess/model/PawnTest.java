@@ -69,16 +69,8 @@ public class PawnTest {
         }
         board.setFigure(0,4,pawnWhite);
         board.setFigure(1,5,pawnBlack);
-        assertTrue(pawnWhite.validMove(new Position(0,4),new Position(1,5),board),"!white pawn can't attack an opposing figure!");
-        assertTrue(pawnBlack.validMove(new Position(1,5),new Position(0,4),board),"!black pawn can't attack an opposing figure!");
-
-        board.setFigure(0,4,pawnWhite);
-        board.setFigure(1,5,pawnWhite);
-        assertFalse(pawnWhite.validMove(new Position(0,4),new Position(1,5),board),"!white pawn can attack a white figure!");
-
-        board.setFigure(0,4,pawnBlack);
-        board.setFigure(1,5,pawnBlack);
-        assertFalse(pawnBlack.validMove(new Position(1,5),new Position(0,4),board),"!black pawn can attack a black figure!");
+        assertTrue(pawnWhite.validMove(new Position(0,4),new Position(1,5),board),"!white pawn can't attack a figure!");
+        assertTrue(pawnBlack.validMove(new Position(1,5),new Position(0,4),board),"!black pawn can't attack a figure!");
 
 
     }
