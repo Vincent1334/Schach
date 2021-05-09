@@ -1,5 +1,11 @@
 package chess.model;
 
+/**
+ * This class contains the information about all allowed chess moves
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-05
+ */
 public class Rules {
 
     /*
@@ -115,35 +121,60 @@ public class Rules {
      * @return 0 if castling is not possible, 1 if a queenside castling is possible, 2 if a kingside castling is possible
      */
     public static int checkCastling(Position actualPos, Position targetPos, Board board) {
-
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-
-        Figure actualFigure = board.getFigure(actualPos);
-
-        // castle left
-        if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved()) && newX == posX - 2 && !(board.getFigure(0, posY).isAlreadyMoved())) {
-            // check, whether all field between are empty and are not threatened
-            for (int j = 1; j < posX; j++) {
-                if (!(board.getFigure(j, posY) instanceof None) || Board.isThreatened(board, new Position(j, posY), actualFigure.getTeam())) {
-                    return 0;
-                }
-            }
+        if (checkCastlingLeft(actualPos, targetPos, board)){
             return 1;
         }
-        // castle right
-        if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved()) && newX == posX + 2 && !(board.getFigure(7, posY).isAlreadyMoved())) {
-            // check, whether all field between are empty and are not threatened
-            for (int j = posX + 1; j < 7; j++) {
-                if (!(board.getFigure(j, posY) instanceof None) || Board.isThreatened(board, new Position(j, posY), actualFigure.getTeam())) {
-                    return 0;
-                }
-            }
+        if (checkCastlingRight(actualPos, targetPos,board)){
             return 2;
         }
         return 0;
     }
+
+    /**
+     * checks valid castling left
+     *
+     * @param actualPos current position of the figure you want to move
+     * @param targetPos target position of the figure you want to move
+     * @param board     the current chessboard
+     * @return false if castling is not possible
+     */
+    private static boolean checkCastlingLeft(Position actualPos, Position targetPos, Board board){
+        // castle left
+        if (board.getFigure(actualPos) instanceof King && !(board.getFigure(actualPos).isAlreadyMoved()) && targetPos.getPosX() == actualPos.getPosX() - 2 && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved())) {
+            // check, whether all field between are empty and are not threatened
+            for (int j = 1; j < actualPos.getPosX(); j++) {
+                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None) || Board.isThreatened(board, new Position(j, actualPos.getPosY()), board.getFigure(actualPos).getTeam())) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * checks valid castling right
+     *
+     * @param actualPos current position of the figure you want to move
+     * @param targetPos target position of the figure you want to move
+     * @param board     the current chessboard
+     * @return false if castling is not possible
+     */
+    private static boolean checkCastlingRight(Position actualPos, Position targetPos, Board board){
+        // castle right
+        if (board.getFigure(actualPos) instanceof King && !(board.getFigure(actualPos).isAlreadyMoved()) && targetPos.getPosX() == actualPos.getPosX() + 2 && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved())) {
+            // check, whether all field between are empty and are not threatened
+            for (int j = actualPos.getPosX() + 1; j < 7; j++) {
+                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None) || Board.isThreatened(board, new Position(j, actualPos.getPosY()), board.getFigure(actualPos).getTeam())) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+
 
     /**
      * executes a queenside (left) castling move on the board
@@ -211,11 +242,10 @@ public class Rules {
 
         Figure actualFigure = board.getFigure(actualPos);
 
-        if (actualFigure instanceof Pawn) {
-            if (actualFigure.validMove(actualPos, targetPos, board)) {
-                return (newY == 7 && actualFigure.getTeam() == 0) || (newY == 0 && actualFigure.getTeam() == 1);
-            }
+        if (actualFigure instanceof Pawn && actualFigure.validMove(actualPos, targetPos, board)) {
+            return (newY == 7 && actualFigure.getTeam() == 0) || (newY == 0 && actualFigure.getTeam() == 1);
         }
+
         return false;
     }
 
@@ -229,12 +259,24 @@ public class Rules {
      */
     public static void performPawnConversion(Position actualPos, Position targetPos, int figureID, Board board) {
 
-        int newY = targetPos.getPosY();
+        convertWhitePawn(actualPos, targetPos, figureID, board);
+        convertBlackPawn(actualPos, targetPos, figureID, board);
 
-        Figure actualFigure = board.getFigure(actualPos);
+        board.getFigure(targetPos).setAlreadyMoved(true);
+        board.setFigure(actualPos, new None());
+    }
 
+    /**
+     * executes a white pawn conversion on the board
+     *
+     * @param actualPos current position of the figure you want to move
+     * @param targetPos target position of the figure you want to move
+     * @param figureID  the number of the figure you want the pawn to convert to (2 for rook, 3 for knight, 4 for bishop, 5 for queen)
+     * @param board     the current chessboard
+     */
+    private static void convertWhitePawn(Position actualPos, Position targetPos, int figureID, Board board){
         //convert white pawn
-        if (newY == 7 && actualFigure instanceof Pawn && actualFigure.getTeam() == 0) {
+        if (targetPos.getPosY() == 7 && board.getFigure(actualPos) instanceof Pawn && board.getFigure(actualPos).getTeam() == 0) {
 
             switch (figureID) {
                 //to knight
@@ -259,9 +301,19 @@ public class Rules {
                 }
             }
         }
+    }
 
+    /**
+     * executes a black pawn conversion on the board
+     *
+     * @param actualPos current position of the figure you want to move
+     * @param targetPos target position of the figure you want to move
+     * @param figureID  the number of the figure you want the pawn to convert to (2 for rook, 3 for knight, 4 for bishop, 5 for queen)
+     * @param board     the current chessboard
+     */
+    private static void convertBlackPawn(Position actualPos, Position targetPos, int figureID, Board board){
         //convert black pawn
-        if (newY == 0 && actualFigure instanceof Pawn && actualFigure.getTeam() == 1) {
+        if (targetPos.getPosY() == 0 && board.getFigure(actualPos) instanceof Pawn && board.getFigure(actualPos).getTeam() == 1) {
             switch (figureID) {
                 //to knight
                 case 3: {
@@ -285,9 +337,6 @@ public class Rules {
                 }
             }
         }
-
-        board.getFigure(targetPos).setAlreadyMoved(true);
-        board.setFigure(actualPos, new None());
     }
 
 }
