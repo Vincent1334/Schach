@@ -40,98 +40,14 @@ public class Queen extends Figure {
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
 
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
+        Bishop b = new Bishop(team);
+        Rook r = new Rook(team);
 
-        if(actualPos.getPosX() == targetPos.getPosX() && actualPos.getPosY() == targetPos.getPosY()){
-            return false;
-        }
+        return b.validMove(actualPos,targetPos,board)||r.validMove(actualPos,targetPos,board);
 
-        //Is the new position valid
-        for (int i = -8; i < 9; i++) {
-            if ((newX == posX + i && newY == posY + i)
-                    || (newX == posX - i && newY == posY + i)
-                    || (newX == posX + i && newY == posY - i)
-                    || (newX == posX) || (newY == posY)) {
-
-                //is there a figure in the way
-
-                //new position upper right
-                if (posX - newX < 0 && posY - newY < 0) {
-                    for (int j = 1; j < Math.abs(posX - newX); j++) {
-                        if (!(board.getFigure(posX + j, posY + j) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
-                //new position upper left
-                if (posX - newX > 0 && posY - newY < 0) {
-                    for (int j = 1; j < Math.abs(posX - newX); j++) {
-                        if (!(board.getFigure(posX - j, posY + j) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
-                //new position bottom right
-                if (posX - newX < 0 && posY - newY > 0) {
-                    for (int j = 1; j < Math.abs(posX - newX); j++) {
-                        if (!(board.getFigure(posX + j, posY - j) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
-                //new position bottom left
-                if (posX - newX > 0 && posY - newY > 0) {
-                    for (int j = 1; j < Math.abs(posX - newX); j++) {
-                        if (!(board.getFigure(posX - j, posY - j) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
-                //new position horizontal, right
-                if (posX - newX < 0) {
-                    for (int j = 1; j < Math.abs(posX - newX); j++) {
-                        if (!(board.getFigure(posX + j, posY) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
-                //new position horizontal, left
-                if (posX - newX > 0) {
-                    for (int j = 1; j < Math.abs(posX - newX); j++) {
-                        if (!(board.getFigure(posX - j, posY) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
-                //new position vertical, up
-                if (posY - newY < 0) {
-                    for (int j = 1; j < Math.abs(posY - newY); j++) {
-                        if (!(board.getFigure(posX, posY + j) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
-                //new position vertical, down
-                if (posY - newY > 0) {
-                    for (int j = 1; j < Math.abs(posY - newY); j++) {
-                        if (!(board.getFigure(posX, posY - j) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
-                return true;
-            }
-        }
-        return false;
     }
 
-    /*@Override
-    public char getSymbol() {
-        return team == 0 ? '\u265B' : '\u2655';
-    }*/
+
     @Override
     public char getSymbol() {
         return team == 0 ? 'Q' : 'q';

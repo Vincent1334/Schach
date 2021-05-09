@@ -99,7 +99,7 @@ public class Bishop extends Figure {
         int posY = actualPos.getPosY();
         int newX = targetPos.getPosX();
 
-        for (int j = 1; j <= Math.abs(posX - newX); j++) {
+        for (int j = 1; j < Math.abs(posX - newX); j++) {
             if(!(board.getFigure(posX + j, posY + j) instanceof None)){
                 return true;
             }
@@ -112,7 +112,7 @@ public class Bishop extends Figure {
         int posY = actualPos.getPosY();
         int newX = targetPos.getPosX();
 
-        for (int j = 1; j <= Math.abs(posX - newX); j++) {
+        for (int j = 1; j < Math.abs(posX - newX); j++) {
             if(!(board.getFigure(posX - j, posY + j) instanceof None)){
                 return true;
             }
@@ -125,7 +125,7 @@ public class Bishop extends Figure {
         int posY = actualPos.getPosY();
         int newX = targetPos.getPosX();
 
-        for (int j = 1; j <= Math.abs(posX - newX); j++) {
+        for (int j = 1; j < Math.abs(posX - newX); j++) {
             if(!(board.getFigure(posX + j, posY - j) instanceof None)){
                 return true;
             }
@@ -138,7 +138,7 @@ public class Bishop extends Figure {
         int posY = actualPos.getPosY();
         int newX = targetPos.getPosX();
 
-        for (int j = 1; j <= Math.abs(posX - newX); j++) {
+        for (int j = 1; j < Math.abs(posX - newX); j++) {
             if(!(board.getFigure(posX - j, posY - j) instanceof None)){
                 return true;
             }
