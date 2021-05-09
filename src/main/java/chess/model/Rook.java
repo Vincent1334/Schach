@@ -31,21 +31,30 @@ public class Rook extends Figure {
     /**
      * Proofs if the move is a valid move for Rook
      *
-     * @param actualPos actual position for Rook
+     * @param actualPos actual position of the Rook
      * @param targetPos new input position for Rook
      * @param board     actual state of chessboard
      * @return whether move was successful
      */
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
+        // is a figure between the old position and the new position?
+        return moveRight(actualPos,targetPos,board)||moveLeft(actualPos,targetPos,board)||moveUp(actualPos,targetPos,board)||moveDown(actualPos,targetPos,board);
+    }
 
+    /**
+     * tests if the rook moves right and that there are no figures between the actual- and target-position
+     * @param actualPos actual position of the Rook
+     * @param targetPos new input position for Rook
+     * @param board actual state of chessboard
+     * @return if the rook moves right and that there are no figures between the actual- and target-position
+     */
+    private boolean moveRight(Position actualPos, Position targetPos, Board board){
         int posX = actualPos.getPosX();
         int posY = actualPos.getPosY();
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        // is a figure between the old position and the new position?
-        // move right
         if (newY == posY && newX > posX) {
             for (int j = 1; j <= Math.abs(posX - newX) - 1; j++) {
                 if (!(board.getFigure(posX + j, posY) instanceof None)) {
@@ -54,7 +63,22 @@ public class Rook extends Figure {
             }
             return true;
         }
-        // move left
+        return false;
+    }
+
+    /**
+     * tests if the rook moves left and that there are no figures between the actual- and target-position
+     * @param actualPos actual position of the Rook
+     * @param targetPos new input position for Rook
+     * @param board actual state of chessboard
+     * @return if the rook moves left and that there are no figures between the actual- and target-position
+     */
+    private boolean moveLeft(Position actualPos, Position targetPos, Board board){
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+        int newY = targetPos.getPosY();
+
         if (newY == posY && newX < posX) {
             for (int j = 1; j <= Math.abs(posX - newX) - 1; j++) {
                 if (!(board.getFigure(posX - j, posY) instanceof None)) {
@@ -63,7 +87,22 @@ public class Rook extends Figure {
             }
             return true;
         }
-        // move up
+        return false;
+    }
+
+    /**
+     * tests if the rook moves upwards and that there are no figures between the actual- and target-position
+     * @param actualPos actual position of the Rook
+     * @param targetPos new input position for Rook
+     * @param board actual state of chessboard
+     * @return if the rook moves upwards and that there are no figures between the actual- and target-position
+     */
+    private boolean moveUp(Position actualPos, Position targetPos, Board board){
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+        int newY = targetPos.getPosY();
+
         if (newX == posX && newY > posY) {
             for (int j = 1; j <= (Math.abs(posY - newY) - 1); j++) {
                 if (!(board.getFigure(posX, posY + j) instanceof None)) {
@@ -72,7 +111,22 @@ public class Rook extends Figure {
             }
             return true;
         }
-        // move down
+        return false;
+    }
+
+    /**
+     * tests if the rook moves downwards and that there are no figures between the actual- and target-position
+     * @param actualPos actual position of the Rook
+     * @param targetPos new input position for Rook
+     * @param board actual state of chessboard
+     * @return if the rook moves downwards and that there are no figures between the actual- and target-position
+     */
+    private boolean moveDown(Position actualPos, Position targetPos, Board board){
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+        int newY = targetPos.getPosY();
+
         if (newX == posX && newY < posY) {
             for (int j = 1; j <= Math.abs(posY - newY) - 1; j++) {
                 if (!(board.getFigure(posX, posY - j) instanceof None)) {
@@ -81,14 +135,10 @@ public class Rook extends Figure {
             }
             return true;
         }
-
         return false;
     }
 
-    /*@Override
-    public char getSymbol() {
-        return team == 0 ? '\u265C' : '\u2656';
-    }*/
+
     @Override
     public char getSymbol() {
         return team == 0 ? 'R' : 'r';
