@@ -98,22 +98,4 @@ public class PawnTest {
         assertTrue(pawnBlack.validMove(new Position(0,6),new Position(0,4),board),"!black pawn can't move two steps forward in his first move!");
     }
 
-
-/*    @Test
-    @Disabled
-    public void testEnPassant(){
-        for(int i=0;i<8;i++){
-            board.setFigure(i,i,new None());
-        }
-        board.setFigure(0,3,pawnWhite);
-        board.setFigure(1,3,pawnBlack);
-        if(board.getFigure(0,3) instanceof Pawn){
-            ((Pawn)board.getFigure(0,3)).setEnPassant(true);
-        }
-        //assertTrue(game.checkEnPassant(1,3,0,2,board),"!black pawn can't make an en passant move!");
-    }
-    @Test
-    public void testConversion(){
-
-    }*/
 }

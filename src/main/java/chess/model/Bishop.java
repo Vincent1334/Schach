@@ -20,7 +20,6 @@ public class Bishop extends Figure {
 
     /**
      * The copy constructor of this class
-     *
      * @param sourceClass
      */
     public Bishop(Bishop sourceClass) {
@@ -41,64 +40,111 @@ public class Bishop extends Figure {
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
 
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
+        //Is the target position the actual position
         if (actualPos.getPosX() == targetPos.getPosX() && actualPos.getPosY() == targetPos.getPosY()) {
             return false;
         }
 
         //Is the new position on a diagonal from the old position
-        for (int i = -8; i < 9; i++) {
-            if ((newX == posX + i && newY == posY + i)
-                    || (newX == posX - i && newY == posY + i)
-                    || (newX == posX + i && newY == posY - i)) {
-                //is between the old position and the new position a figure
-                //new position on the upper right
-                if (posX - newX < 0 && posY - newY < 0) {
-                    for (int j = 1; j < Math.abs(posX - newX); j++) {
-                        if (!(board.getFigure(posX + j, posY + j) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
-                //new position on the upper left
-                if (posX - newX > 0 && posY - newY < 0) {
-                    for (int j = 1; j < Math.abs(posX - newX); j++) {
-                        if (!(board.getFigure(posX - j, posY + j) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
-                //new position on the bottom right
-                if (posX - newX < 0 && posY - newY > 0) {
-                    for (int j = 1; j < Math.abs(posX - newX); j++) {
-                        if (!(board.getFigure(posX + j, posY - j) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
-                //new position on the bottom left
-                if (posX - newX > 0 && posY - newY > 0) {
-                    for (int j = 1; j < Math.abs(posX - newX); j++) {
-                        if (!(board.getFigure(posX - j, posY - j) instanceof None)) {
-                            return false;
-                        }
-                    }
-                }
+        if(!targetPositionOnDiagonal(actualPos, targetPos)){
+           return false;
+        }
+
+        //is between the old position and the new position a figure
+        return !figureBetweenActualAndTargetPosition(actualPos, targetPos, board);
+    }
+
+    private boolean targetPositionOnDiagonal(Position actualPos, Position targetPos){
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+        int newY = targetPos.getPosY();
+
+        for (int i = 1; i <= Math.abs(posX - newX); i++) {
+            if ((newX == posX + i && (newY == posY + i || newY == posY - i)) || (newX == posX - i && (newY == posY + i || newY == posY - i))) {
                 return true;
             }
         }
         return false;
     }
 
+    private boolean figureBetweenActualAndTargetPosition(Position actualPos, Position targetPos, Board board){
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+        int newY = targetPos.getPosY();
 
-    /*@Override
-    public char getSymbol() {
-        return team == 0 ? '\u265D' : '\u2657';
-    }*/
+            //new position on the upper right
+            if (posX - newX < 0 && posY - newY < 0) {
+                return upperRight(actualPos,targetPos,board);
+            }
+            //new position on the upper left
+            if (posX - newX > 0 && posY - newY < 0) {
+                return upperLeft(actualPos,targetPos,board);
+            }
+            //new position on the bottom right
+            if (posX - newX < 0 && posY - newY > 0) {
+                return bottomRight(actualPos,targetPos,board);
+            }
+            //new position on the bottom left
+            if (posX - newX > 0 && posY - newY > 0) {
+                return bottomLeft(actualPos,targetPos,board);
+            }
+        return false;
+    }
+
+    private boolean upperRight(Position actualPos, Position targetPos, Board board){
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+
+        for (int j = 1; j <= Math.abs(posX - newX); j++) {
+            if(!(board.getFigure(posX + j, posY + j) instanceof None)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean upperLeft(Position actualPos, Position targetPos, Board board){
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+
+        for (int j = 1; j <= Math.abs(posX - newX); j++) {
+            if(!(board.getFigure(posX - j, posY + j) instanceof None)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean bottomRight(Position actualPos, Position targetPos, Board board){
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+
+        for (int j = 1; j <= Math.abs(posX - newX); j++) {
+            if(!(board.getFigure(posX + j, posY - j) instanceof None)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean bottomLeft(Position actualPos, Position targetPos, Board board){
+        int posX = actualPos.getPosX();
+        int posY = actualPos.getPosY();
+        int newX = targetPos.getPosX();
+
+        for (int j = 1; j <= Math.abs(posX - newX); j++) {
+            if(!(board.getFigure(posX - j, posY - j) instanceof None)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public char getSymbol() {
         return team == 0 ? 'B' : 'b';
