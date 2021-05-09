@@ -1,9 +1,6 @@
 package chess.model;
 
 import org.junit.jupiter.api.Test;
-
-import java.io.PrintWriter;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -18,17 +15,15 @@ public class RulesTest {
     Board board = new Board();
 
     /**
-     * Tests valid pawn conversion for black and white figures
+     * Tests valid pawn conversion for white figure
      */
     @Test
-    public void testPerformPawnConversion(){
+    public void testPerformPawnConversionWhite(){
         for (int x=0; x<8; x++) {
             for (int y=0; y<8; y++) {
                 board.setFigure(x, y, new None());
             }
         }
-
-        // white
         board.setFigure(new Position(3,6),new Pawn(0));
         Rules.performPawnConversion(new Position(3,6),new Position(3,7),3,board);
         assertTrue(board.getFigure(new Position(3,7)) instanceof Knight, "white pawnConversion to Knight failed");
@@ -44,8 +39,18 @@ public class RulesTest {
         board.setFigure(new Position(3,6),new Pawn(0));
         Rules.performPawnConversion(new Position(3,6),new Position(3,7),5,board);
         assertTrue(board.getFigure(new Position(3,7)) instanceof Queen, "white pawnConversion to Queen failed");
+    }
 
-        // black
+    /**
+     * Tests valid pawn conversion for black figure
+     */
+    @Test
+    public void testPerformPawnConversionBlack(){
+        for (int x=0; x<8; x++) {
+            for (int y=0; y<8; y++) {
+                board.setFigure(x, y, new None());
+            }
+        }
         board.setFigure(new Position(3,1),new Pawn(1));
         Rules.performPawnConversion(new Position(3,1),new Position(3,0),3,board);
         assertTrue(board.getFigure(new Position(3,0)) instanceof Knight, "black pawnConversion to Knight failed");
@@ -62,6 +67,7 @@ public class RulesTest {
         Rules.performPawnConversion(new Position(3,1),new Position(3,0),5,board);
         assertTrue(board.getFigure(new Position(3,0)) instanceof Queen, "black pawnConversion to Queen failed");
     }
+
 
     /**
      * Tests valid castling move on the right side of the board
