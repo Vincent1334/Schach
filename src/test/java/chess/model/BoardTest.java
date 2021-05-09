@@ -17,6 +17,7 @@ public class BoardTest {
      */
     @Test
     public void testFigureSetUp(){
+
         Board boardA = new Board();
         Figure[][] setup = new Figure[8][8];
 
@@ -81,37 +82,47 @@ public class BoardTest {
 
         assertNotEquals(boardA, boardB, "Boards are equal, but shouldn't be!");
     }
-
     /**
-     * Tests the kings position
+     * Tests the white kings position
      */
     @Test
-    public void testGetKing(){
+    public void testGetKingWhite(){
+        String x = "x-position is incorrect!";
+        String y = "y-position is incorrect!";
         Board boardA = new Board();
 
         //white default King
         Position pos1 = new Position(4, 0);
-        assertEquals(Board.getKing(boardA, 0).getPosX(), pos1.getPosX(), "x-position is incorrect!");
-        assertEquals(Board.getKing(boardA, 0).getPosY(), pos1.getPosY(), "y-position is incorrect!");
-
-        //black default King
-        Position pos2 = new Position(4, 7);
-        assertEquals(Board.getKing(boardA, 1).getPosX(), pos2.getPosX(), "x-position is incorrect!");
-        assertEquals(Board.getKing(boardA, 1).getPosY(), pos2.getPosY(), "y-position is incorrect!");
+        assertEquals(Board.getKing(boardA, 0).getPosX(), pos1.getPosX(), x);
+        assertEquals(Board.getKing(boardA, 0).getPosY(), pos1.getPosY(), y);
 
         //white random king position
         Position pos3 = new Position(2, 4);
         boardA.setFigure(4, 0, null);
         boardA.setFigure(2, 4, new King(0));
-        assertEquals(Board.getKing(boardA, 0).getPosX(), pos3.getPosX(), "x-position is incorrect!");
-        assertEquals(Board.getKing(boardA, 0).getPosY(), pos3.getPosY(), "y-position is incorrect!");
+        assertEquals(Board.getKing(boardA, 0).getPosX(), pos3.getPosX(), x);
+        assertEquals(Board.getKing(boardA, 0).getPosY(), pos3.getPosY(), y);
+    }
+    /**
+     * Tests the black kings position
+     */
+    @Test
+    public void testGetKingBlack(){
+        Board boardA = new Board();
+        String x = "x-position is incorrect!";
+        String y = "y-position is incorrect!";
+
+        //black default King
+        Position pos2 = new Position(4, 7);
+        assertEquals(Board.getKing(boardA, 1).getPosX(), pos2.getPosX(), x);
+        assertEquals(Board.getKing(boardA, 1).getPosY(), pos2.getPosY(), y);
 
         //black random king position
         Position pos4 = new Position(7, 2);
         boardA.setFigure(4, 7, null);
         boardA.setFigure(7, 2, new King(1));
-        assertEquals(Board.getKing(boardA, 1).getPosX(), pos4.getPosX(), "x-position is incorrect!");
-        assertEquals(Board.getKing(boardA, 1).getPosY(), pos4.getPosY(), "y-position is incorrect!");
+        assertEquals(Board.getKing(boardA, 1).getPosX(), pos4.getPosX(), x);
+        assertEquals(Board.getKing(boardA, 1).getPosY(), pos4.getPosY(), y);
     }
 
     /**
