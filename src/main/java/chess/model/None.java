@@ -14,18 +14,18 @@ public class None extends Figure {
     }
 
     /**
-     *
+     *proofs if the move is valid
+     * @return false, none can't move
      */
-
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
         return false;
     }
 
-    /*@Override
-    public char getSymbol() {
-        return '\u0020';
-    }*/
+    /**
+     * returns the symbol of None
+     * @return symbol of None
+     */
     @Override
     public char getSymbol() {
         return ' ';

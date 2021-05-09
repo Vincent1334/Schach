@@ -61,7 +61,8 @@ public class Bishop extends Figure {
         int newY = targetPos.getPosY();
 
         for (int i = 1; i <= Math.abs(posX - newX); i++) {
-            if ((newX == posX + i && (newY == posY + i || newY == posY - i)) || (newX == posX - i && (newY == posY + i || newY == posY - i))) {
+            boolean y = newY == posY + i || newY == posY - i;
+            if ((newX == posX + i && y) || (newX == posX - i && y)) {
                 return true;
             }
         }

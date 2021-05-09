@@ -33,6 +33,12 @@ public class Move {
         this.targetPosition = targetPosition;
     }
 
+
+    /**
+     * returns a move out of characters as a string
+     * @return move out of characters as a string
+     */
+    @Override
     public String toString() {
         return Character.toString(actualPosition.getPosX() + 97) + (actualPosition.getPosY() + 1) + "-" +
                 Character.toString(targetPosition.getPosX() + 97) + (targetPosition.getPosY() + 1) + getPawnLetter(pawnConversionTo);
