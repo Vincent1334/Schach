@@ -18,7 +18,7 @@ public class KnightTest {
 
 
     /**
-     * Tests some random valid and invalid moves for a Knight
+     * Tests some random valid and invalid moves for a knight
      *
      */
     @Test
@@ -31,7 +31,7 @@ public class KnightTest {
     }
 
     /**
-     * Tests some random valid and invalid attacks for a Knight
+     * Tests some random valid and invalid attacks for a knight
      */
     @Test
     public void testAttack(){

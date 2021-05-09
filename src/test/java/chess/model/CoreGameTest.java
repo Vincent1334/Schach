@@ -35,6 +35,9 @@ public class CoreGameTest {
         printWriter.println("");
     }
 
+    /**
+     * Tests whether the en passant move is executed correctly
+     */
     @Test
     public void testEnPassantMove(){
         for (int x=0; x<8; x++) {
@@ -52,7 +55,9 @@ public class CoreGameTest {
         Move move = new Move(new Position(3,4),new Position(4,5));
         assertTrue(testGame.chessMove(move), "enPassant move is not accepted even if it is correct");
     }
-
+    /**
+     * Tests whether the castling move on the right is executed correctly
+     */
     @Test
     public void testCastlingMoveRight(){
         for (int x=0; x<8; x++) {
@@ -68,6 +73,9 @@ public class CoreGameTest {
         assertTrue(testGame.chessMove(move), "CastlingRight move is not accepted even if it is correct");
     }
 
+    /**
+     * Tests whether the castling move on the left is executed correctly
+     */
     @Test
     public void testCastlingMoveLeft(){
         for (int x=0; x<8; x++) {
@@ -83,6 +91,9 @@ public class CoreGameTest {
         assertTrue(testGame.chessMove(move), "CastlingRight move is not accepted even if it is correct");
     }
 
+    /**
+     * Tests whether the pawn conversion move is executed correctly
+     */
     @Test
     public void testPawnConversionMove(){
         for (int x=0; x<8; x++) {
