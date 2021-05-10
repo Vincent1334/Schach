@@ -100,7 +100,8 @@ public class CliTest {
     /**
      * Tests some random invalid inputs
      */
-    @Test void testSyntaxInvalidInput(){
+    @Test
+    public void testSyntaxInvalidInput(){
         assertFalse(Cli.validSyntax("d1-a2-d6"),  "d1-a2-d6 not detected");
         assertFalse(Cli.validSyntax("d-e"),  "d-e not detected");
         assertFalse(Cli.validSyntax("2-4"),  "2-4 not detected");
