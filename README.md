@@ -28,7 +28,7 @@ Erstellte Diagramme wie UML- und Anwendungsfalldiagramm werden hier aufgelistet
 
 [aktuelles UML-Klassen-Diagramm](documentation/uml-class-diagramm 2.png)
 
-[aktuelles Use-Case-Diagramm](documentation/sketches/Use-Case%20v2.0.pdf)
+[aktuelles Use-Case-Diagramm](https://projects.isp.uni-luebeck.de/gruppe-10/schach/-/blob/main/documentation/Use_Case_Diagramm.PNG)
 
 ## Statische Variabeln
 
