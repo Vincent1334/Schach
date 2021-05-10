@@ -45,10 +45,10 @@ public class Knight extends Figure {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        return (posX + 1 == newX && posY + 2 == newY || posX + 1 == newX && posY - 2 == newY
+        return posX + 1 == newX && posY + 2 == newY || posX + 1 == newX && posY - 2 == newY
                 || posX - 1 == newX && posY + 2 == newY || posX - 1 == newX && posY - 2 == newY
                 || posX + 2 == newX && posY + 1 == newY || posX + 2 == newX && posY - 1 == newY
-                || posX - 2 == newX && posY + 1 == newY || posX - 2 == newX && posY - 1 == newY);
+                || posX - 2 == newX && posY + 1 == newY || posX - 2 == newX && posY - 1 == newY;
     }
 
     /*@Override
