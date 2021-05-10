@@ -38,106 +38,26 @@ public class Rook extends Figure {
      */
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
-        // is a figure between the old position and the new position?
-        return moveRight(actualPos,targetPos,board)||moveLeft(actualPos,targetPos,board)||moveUp(actualPos,targetPos,board)||moveDown(actualPos,targetPos,board);
-    }
+        //Is the new position frontal from the old position
+        if(actualPos.getPosX() != targetPos.getPosX() && actualPos.getPosY() != targetPos.getPosY()) return false;
 
-    /**
-     * tests if the rook moves right and that there are no figures between the actual- and target-position
-     * @param actualPos actual position of the Rook
-     * @param targetPos new input position for Rook
-     * @param board actual state of chessboard
-     * @return if the rook moves right and that there are no figures between the actual- and target-position
-     */
-    private boolean moveRight(Position actualPos, Position targetPos, Board board){
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
+        //is between the old position and the new position a figure
+        int directionX = 1;
+        int directionY = 1;
+        if(actualPos.getPosX() > targetPos.getPosX()) directionX = -1;
+        if(actualPos.getPosY() > targetPos.getPosY()) directionY = -1;
 
-        if (newY == posY && newX > posX) {
-            for (int j = 1; j <= Math.abs(posX - newX) - 1; j++) {
-                if (!(board.getFigure(posX + j, posY) instanceof None)) {
-                    return false;
-                }
+        if(actualPos.getPosX() == targetPos.getPosX()){
+            for(int i = 1; i < Math.abs(actualPos.getPosY()- targetPos.getPosY()); i++){
+                if(!(board.getFigure(actualPos.getPosX(), actualPos.getPosY()+i*directionY) instanceof None)) return false;
             }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * tests if the rook moves left and that there are no figures between the actual- and target-position
-     * @param actualPos actual position of the Rook
-     * @param targetPos new input position for Rook
-     * @param board actual state of chessboard
-     * @return if the rook moves left and that there are no figures between the actual- and target-position
-     */
-    private boolean moveLeft(Position actualPos, Position targetPos, Board board){
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
-        if (newY == posY && newX < posX) {
-            for (int j = 1; j <= Math.abs(posX - newX) - 1; j++) {
-                if (!(board.getFigure(posX - j, posY) instanceof None)) {
-                    return false;
-                }
+        }else{
+            for(int i = 1; i < Math.abs(actualPos.getPosX()- targetPos.getPosX()); i++){
+                if(!(board.getFigure(actualPos.getPosX()+i*directionX, actualPos.getPosY()) instanceof None)) return false;
             }
-            return true;
         }
-        return false;
+        return true;
     }
-
-    /**
-     * tests if the rook moves upwards and that there are no figures between the actual- and target-position
-     * @param actualPos actual position of the Rook
-     * @param targetPos new input position for Rook
-     * @param board actual state of chessboard
-     * @return if the rook moves upwards and that there are no figures between the actual- and target-position
-     */
-    private boolean moveUp(Position actualPos, Position targetPos, Board board){
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
-        if (newX == posX && newY > posY) {
-            for (int j = 1; j <= (Math.abs(posY - newY) - 1); j++) {
-                if (!(board.getFigure(posX, posY + j) instanceof None)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * tests if the rook moves downwards and that there are no figures between the actual- and target-position
-     * @param actualPos actual position of the Rook
-     * @param targetPos new input position for Rook
-     * @param board actual state of chessboard
-     * @return if the rook moves downwards and that there are no figures between the actual- and target-position
-     */
-    private boolean moveDown(Position actualPos, Position targetPos, Board board){
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
-        if (newX == posX && newY < posY) {
-            for (int j = 1; j <= Math.abs(posY - newY) - 1; j++) {
-                if (!(board.getFigure(posX, posY - j) instanceof None)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
 
     @Override
     public char getSymbol() {
