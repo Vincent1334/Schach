@@ -63,7 +63,7 @@ public class Pawn extends Figure {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        return ((team == 0 && posY + 1 == newY) || (team == 1 && posY - 1 == newY)) && posX == newX;
+        return (team == 0 && posY + 1 == newY || team == 1 && posY - 1 == newY) && posX == newX;
     }
 
     /**
@@ -78,7 +78,7 @@ public class Pawn extends Figure {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        return ((team == 0 && posY + 1 == newY ) || (team == 1 && posY - 1 == newY )) && (posX + 1 == newX || posX - 1 == newX) && !(board.getFigure(targetPos) instanceof None);
+        return (team == 0 && posY + 1 == newY  || team == 1 && posY - 1 == newY ) && (posX + 1 == newX || posX - 1 == newX) && !(board.getFigure(targetPos) instanceof None);
     }
 
     /**
@@ -93,8 +93,8 @@ public class Pawn extends Figure {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        if (((team == 0 && posY + 2 == newY && board.getFigure(posX,posY+1) instanceof None)
-                || ((team == 1 && posY - 2 == newY) && board.getFigure(posX,posY-1) instanceof None))
+        if ((team == 0 && posY + 2 == newY && board.getFigure(posX,posY+1) instanceof None
+                || team == 1 && posY - 2 == newY && board.getFigure(posX,posY-1) instanceof None)
                 && posX == newX && !alreadyMoved) {
             enPassant = true;
             return true;

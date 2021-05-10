@@ -80,11 +80,11 @@ public class Rules {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        if ((board.getFigure(newX, posY) instanceof Pawn) && (board.getFigure(actualPos) instanceof Pawn)
-                && (board.getFigure(newX, posY).getTeam() != board.getFigure(actualPos).getTeam())
-                && (Math.abs(posX - newX) == 1)
-                && ((board.getFigure(actualPos).getTeam() == 0 && newY - posY == 1)
-                || (board.getFigure(actualPos).getTeam() == 1 && newY - posY == -1))) {
+        if (board.getFigure(newX, posY) instanceof Pawn && board.getFigure(actualPos) instanceof Pawn
+                && board.getFigure(newX, posY).getTeam() != board.getFigure(actualPos).getTeam()
+                && Math.abs(posX - newX) == 1
+                && (board.getFigure(actualPos).getTeam() == 0 && newY - posY == 1
+                || board.getFigure(actualPos).getTeam() == 1 && newY - posY == -1)) {
             return ((Pawn) board.getFigure(newX, posY)).isEnPassant();
         }
         return false;
@@ -243,7 +243,7 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         if (actualFigure instanceof Pawn && actualFigure.validMove(actualPos, targetPos, board)) {
-            return (newY == 7 && actualFigure.getTeam() == 0) || (newY == 0 && actualFigure.getTeam() == 1);
+            return newY == 7 && actualFigure.getTeam() == 0 || newY == 0 && actualFigure.getTeam() == 1;
         }
 
         return false;

@@ -78,7 +78,7 @@ public abstract class Figure {
     /**
      *
      * @param other an object
-     * @return whether the figures are equal
+     * @return whether the objects are equal but not identical
      */
     @Override
     public boolean equals(Object other){
