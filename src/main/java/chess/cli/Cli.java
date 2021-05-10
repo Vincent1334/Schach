@@ -132,51 +132,7 @@ public class Cli {
      * @param input User input
      * @return Move coordinates
      */
-    /*public static Map<String, Integer> parse(String input) {
-        Map<String, Integer> pos = new HashMap<String, Integer>();
-        //"a3-b4" or "a3-b4Q"
-        if ((input.length() == 5 || input.length() == 6) && input.charAt(2) == 45) {
-            //split "a3-b4Q" to "a3" and "b4Q"
-            String[] result = input.split("-");
-            if (result.length == 2) {
-                String[] typ = {"pos", "new"};
-                for (int i = 0; i < 2; i++) {
-                    String[] xyPosition = result[i].split("");
-                    //convert letters to numbers with ASCII code
-                    if (xyPosition[0].charAt(0) >= 97 && xyPosition[0].charAt(0) <= 104) {
-                        pos.put(typ[i] + "X", (int) xyPosition[0].charAt(0) - 97);
-                    }
-                    //convert numbers to numbers
-                    if (xyPosition[1].charAt(0) >= 49 && xyPosition[1].charAt(0) <= 56) {
-                        pos.put(typ[i] + "Y", Integer.parseInt(xyPosition[1]) - 1);
-                    }
-                }
-            }
-            //Add Queen as default
-            pos.put("convertPawnTo", 5);
 
-            //Check correct pawn conversion
-            if(input.length() == 6){
-                //split "a7-a8N" to "a7" and "a8" and "P" (Pawn)
-                if (input.matches("^[a-h][27]-[a-h][18][P]$")) {
-                    pos.put("convertPawnTo", 1);
-                }else if (input.matches("^[a-h][27]-[a-h][18][R]$")) {
-                    pos.put("convertPawnTo", 2);
-                }else if (input.matches("^[a-h][27]-[a-h][18][N]$")) {
-                    pos.put("convertPawnTo", 3);
-                }else if (input.matches("^[a-h][27]-[a-h][18][B]$")) {
-                    pos.put("convertPawnTo", 4);
-                }else pos.clear();
-            }
-        } else {
-            //if pos is less than 5 then invalid entry
-            System.out.println("!Invalid move");
-
-        }
-        //Clear invalid entries
-        if(pos.size() != 5) pos.clear();
-        return pos;
-    }*/
     public static boolean validSyntax(String input) {
         // e.g. "b2-e5Q"
         boolean correct = checkLength(input) && checkHyphen(input) && checkLetters(input) && checkNumbers(input);

@@ -1,7 +1,6 @@
 package chess.model;
 
 import org.junit.jupiter.api.Test;
-import java.io.PrintWriter;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

@@ -247,17 +247,8 @@ public class Board {
      * @return Whether the king is in check or not
      */
     public static boolean kingInCheck(Board board, int team) {
-        // System.out.println("You are in check");      --> hier auskommentiert, da sonst auch (falsche) Ausgabe bei checkChessMate
         return isThreatened(board, Board.getKing(board, team), team);
     }
-
-    /*@Override
-    public boolean equals(Object other) {
-        if (other instanceof Board) {
-            return ((((Board) other).getBoard()) == board) && (((Board) other).getBeatenFigures() == beatenFigures);
-        }
-        return false;
-    }*/
 
     @Override
     public boolean equals(Object other) {
