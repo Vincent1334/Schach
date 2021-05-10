@@ -5,9 +5,13 @@ import chess.model.Position;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * This class contains tests to check the methods in CLI
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-05-11
+ *
+ */
 public class CliTest {
 
     /*@Test
@@ -49,6 +53,9 @@ public class CliTest {
         assertEquals(test04, Cli.parse("d6-d7QQ"),  "d6-d7QQ fail");
     }*/
 
+    /**
+     * Tests whether the parser works correctly
+     */
     @Test
     public void testParser(){
         //Testcase 1 (correct default input)
@@ -64,7 +71,7 @@ public class CliTest {
         assertEquals(testMove3, Cli.parse("d7-d8"),  "Test3 fail");
     }
 
-    @Test
+ /*    @Test
     public void testValidSyntax(){
         assertFalse(Cli.validSyntax("d1-i5"),  "d1-i5 not detected");
         assertFalse(Cli.validSyntax("b3-a9"),  "b3-a9 not detected");
@@ -73,6 +80,38 @@ public class CliTest {
         assertFalse(Cli.validSyntax("d-e"),  "d-e not detected");
         assertFalse(Cli.validSyntax("2-4"),  "2-4 not detected");
         assertFalse(Cli.validSyntax("-"),  "- not detected");
+        assertFalse(Cli.validSyntax("a1-a2V"),  "a1-a2V not detected");
+        assertFalse(Cli.validSyntax("b6-b7F"),  "b6-b7F not detected");
+        assertFalse(Cli.validSyntax("i6-i7K"),  "i6-i7K not detected");
+        assertFalse(Cli.validSyntax("d6-d7-Q"),  "d6-d7-Q not detected");
+        assertFalse(Cli.validSyntax("d6-d7QQ"),  "d6-d7QQ not detected");
+    }*/
+
+    /**
+     * Tests some random inputs outside of the boards boundaries
+     */
+    @Test
+    public void testSyntaxOutOfBounds(){
+        assertFalse(Cli.validSyntax("d1-i5"),  "d1-i5 not detected");
+        assertFalse(Cli.validSyntax("b3-a9"),  "b3-a9 not detected");
+        assertFalse(Cli.validSyntax("a1-a22"),  "a1-a22 not detected");
+    }
+
+    /**
+     * Tests some random invalid inputs
+     */
+    @Test void testSyntaxInvalidInput(){
+        assertFalse(Cli.validSyntax("d1-a2-d6"),  "d1-a2-d6 not detected");
+        assertFalse(Cli.validSyntax("d-e"),  "d-e not detected");
+        assertFalse(Cli.validSyntax("2-4"),  "2-4 not detected");
+        assertFalse(Cli.validSyntax("-"),  "- not detected");
+    }
+
+    /**
+     * Tests some random inputs for Pawn Conversion
+     */
+    @Test
+    public void testSyntaxInvalidPawnConversion(){
         assertFalse(Cli.validSyntax("a1-a2V"),  "a1-a2V not detected");
         assertFalse(Cli.validSyntax("b6-b7F"),  "b6-b7F not detected");
         assertFalse(Cli.validSyntax("i6-i7K"),  "i6-i7K not detected");
