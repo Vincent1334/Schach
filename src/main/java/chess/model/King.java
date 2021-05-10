@@ -52,10 +52,6 @@ public class King extends Figure {
                 && !(newX == posX && newY == posY);
     }
 
-    /*@Override
-    public char getSymbol() {
-        return team == 0 ? '\u265A' : '\u2654';
-    }*/
     @Override
     public char getSymbol() {
         return team == 0 ? 'K' : 'k';
