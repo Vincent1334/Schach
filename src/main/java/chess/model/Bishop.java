@@ -13,7 +13,7 @@ public class Bishop extends Figure {
      * The constructor of a bishop
      * The bishops team and figure ID are initialized here.
      */
-    public Bishop(int team) {
+    public Bishop(boolean team) {
         super(team);
         super.figureID = 4;
     }
@@ -53,12 +53,18 @@ public class Bishop extends Figure {
             if(!(board.getFigure(actualPos.getPosX()+i*directionX, actualPos.getPosY()+i*directionY) instanceof None)) return false;
         }
 
+        //is the field empty?
+        if((board.getFigure(targetPos) instanceof  None)) return true;
+
+        // is the target field with an enemy figure?
+        if(board.getFigure(targetPos).getTeam() == team) return false;
+
         return true;
     }
 
     @Override
     public char getSymbol() {
-        return team == 0 ? 'B' : 'b';
+        return team == false ? 'B' : 'b';
     }
 
 }

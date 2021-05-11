@@ -21,29 +21,34 @@ public class Board {
      */
     public Board() {
         internalBoard = new Figure[8][8];
+        boolean team = false;
 
-        for (int team = 0; team <= 1; team++) {
+        for (int i = 0; i <= 1; i++) {
+            // set team
+            if(i == 0) team = false;
+            else team = true;
+
             //create Pawns
-            for (int i = 0; i < 8; i++) {
-                internalBoard[i][1 + team * 5] = new Pawn(team);
+            for (int j = 0; j < 8; j++) {
+                internalBoard[j][1 + i * 5] = new Pawn(team);
             }
             //create King
-            internalBoard[4][team * 7] = new King(team);
+            internalBoard[4][i * 7] = new King(team);
 
             //create Queen
-            internalBoard[3][team * 7] = new Queen(team);
+            internalBoard[3][i * 7] = new Queen(team);
 
             //create Rooks
-            for (int i = 0; i <= 1; i++) {
-                internalBoard[i * 7][team * 7] = new Rook(team);
+            for (int j = 0; j <= 1; j++) {
+                internalBoard[j * 7][i * 7] = new Rook(team);
             }
             //create Bishops
-            for (int i = 0; i <= 1; i++) {
-                internalBoard[2 + i * 3][team * 7] = new Bishop(team);
+            for (int j = 0; j <= 1; j++) {
+                internalBoard[2 + j * 3][i * 7] = new Bishop(team);
             }
             //create Knights
-            for (int i = 0; i <= 1; i++) {
-                internalBoard[1 + i * 5][team * 7] = new Knight(team);
+            for (int j = 0; j <= 1; j++) {
+                internalBoard[1 + j * 5][i * 7] = new Knight(team);
             }
         }
         //create None
@@ -158,7 +163,7 @@ public class Board {
      * @param team  team-ID of the king you want to get
      * @return position of target king, {0,0} if there is no king found
      */
-    public static Position getKing(Board board, int team) {
+    public static Position getKing(Board board, boolean team) {
         //Searching target King position
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
@@ -173,70 +178,29 @@ public class Board {
     }
 
     /**
-     * Checks if the figure is threatened by the other team
+     * Checks if a field is threatened by the selected team
      *
      * @param tmpBoard  current chessboard
      * @param team      team of the figure you want to check
      * @param targetPos position of the figure you want to check
      * @return whether the figure is threatened by the other team
      */
-    public static boolean isThreatened(Board tmpBoard, Position targetPos, int team) {
-        //Check if any enemy figure can do a valid move to target Position
+    public static boolean isThreatened(Board tmpBoard, Position targetPos, boolean team) {
+        //Check if the target team threatened the target field
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (tmpBoard.getFigure(x, y) != null &&
-                        tmpBoard.getFigure(x, y).getTeam() != team &&
-                        tmpBoard.getFigure(x, y).validMove(new Position(x, y), targetPos, tmpBoard)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Check chessMate
-     *
-     * @param board current chessboard
-     * @param team  the team of the target king
-     * @return whether the king of "team"-color is in checkmate
-     */
-    public static boolean checkChessMate(Board board, int team) {
-        boolean possibleSolution = false;
-
-        // test all possible moves and check whether your king is still in check
-        for (int y = 0; y < 8; y++) {                                           // for all your own figures on the board
-            for (int x = 0; x < 8; x++) {
-                if (board.getFigure(new Position(x, y)).getTeam() == team) {
-                    for (int newX = 0; newX < 8; newX++) {                      // test all possible moves to every possible targetField
-                        for (int newY = 0; newY < 8; newY++) {
-                            Board tmpBoard = new Board(board);                  // on a copy of the board
-                            possibleSolution = possibleSolution || possibleSolution(new Position(x, y),new Position(newX, newY),tmpBoard,team);
-                        }
+                //don't check the target pos!
+                if(!(x == targetPos.getPosX() && y == targetPos.getPosY())){
+                    //check if the figure can perform a valid move
+                    if (!(tmpBoard.getFigure(x, y) instanceof None) &&
+                            tmpBoard.getFigure(x, y).getTeam() == team &&
+                            tmpBoard.getFigure(x, y).validMove(new Position(x, y), targetPos, tmpBoard)) {
+                        return true;
                     }
                 }
             }
         }
-        if (!possibleSolution) {
-            System.out.println("You are checkmate");
-        }
-        return !possibleSolution;
-    }
-
-    private static boolean possibleSolution(Position actualPos, Position targetPos, Board tmpBoard, int team) {
-        if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {             // check EnPassant and eventually perform it on the temporary board
-            Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
-        }
-        if (Rules.checkCastling(actualPos, targetPos, tmpBoard) == 1) {         // check CastlingLeft and eventually perform it on the temporary board
-            Rules.performCastlingMoveLeft(actualPos, targetPos, tmpBoard);
-        }
-        if (Rules.checkCastling(actualPos, targetPos, tmpBoard) == 2) {         // check CastlingRight and eventually perform it on the temporary board
-            Rules.performCastlingMoveRight(actualPos, targetPos, tmpBoard);
-        }
-        if (Rules.checkValidDefaultMove(actualPos, targetPos, tmpBoard)) {      // checkValidDefaultMove and eventually perform it on the temporary board
-            Rules.performDefaultMove(actualPos, targetPos, tmpBoard);
-        }
-        return !kingInCheck(tmpBoard, team);
+        return false;
     }
 
     /**
@@ -246,9 +210,53 @@ public class Board {
      * @param team  The team ID of the target King
      * @return Whether the king is in check or not
      */
-    public static boolean kingInCheck(Board board, int team) {
-        return isThreatened(board, Board.getKing(board, team), team);
+    public static boolean kingInCheck(Board board, boolean team) {
+        return isThreatened(board, Board.getKing(board, team), !team);
     }
+
+    /**
+     * Check chessMate
+     *
+     * @param board current chessboard
+     * @param team  the team of the target king
+     * @return whether the king of "team"-color is in checkmate
+     */
+    public static boolean checkChessMate(Board board, boolean team) {
+        //Is king in check?
+        if(kingInCheck(board, team)){
+            // test all possible moves and check whether your king is still in check
+            for (int y = 0; y < 8; y++) {                                           // for all your own figures on the board
+                for (int x = 0; x < 8; x++) {
+                    if (!(board.getFigure(new Position(x, y)) instanceof None) && board.getFigure(new Position(x, y)).getTeam() == team) {
+                        for (int newX = 0; newX < 8; newX++) {                      // test all possible moves to every possible targetField
+                            for (int newY = 0; newY < 8; newY++) {
+                                Board tmpBoard = new Board(board);                  // on a copy of the board
+                                if(possibleSolution(new Position(x, y), new Position(newX, newY), tmpBoard, team)) return false;
+                            }
+                        }
+                    }
+                }
+            }
+            System.out.println("You are checkmate");
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean possibleSolution(Position actualPos, Position targetPos, Board tmpBoard, boolean team) {
+        if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {             // check EnPassant and eventually perform it on the temporary board
+            Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
+        }
+        if (Rules.checkValidDefaultMove(actualPos, targetPos, tmpBoard)) {      // checkValidDefaultMove and eventually perform it on the temporary board
+            System.out.println("possible");
+            Rules.performDefaultMove(actualPos, targetPos, tmpBoard);
+        }
+        //All other moves are not allowed in this case!
+
+        return !kingInCheck(tmpBoard, team);
+    }
+
+
 
     @Override
     public boolean equals(Object other) {

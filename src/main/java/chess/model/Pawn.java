@@ -13,7 +13,7 @@ public class Pawn extends Figure {
      * The constructor of a pawn
      * The pawns team and figure ID are initialized here.
      */
-    public Pawn(int team) {
+    public Pawn(boolean team) {
         super(team);
         super.figureID = 1;
     }
@@ -48,7 +48,17 @@ public class Pawn extends Figure {
      */
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
-        return normalMove(actualPos,targetPos) || normalAttack(actualPos,targetPos,board) || firstMove(actualPos,targetPos,board);
+
+        //is move legal?
+        if(!(normalMove(actualPos,targetPos) || normalAttack(actualPos,targetPos,board) || firstMove(actualPos,targetPos,board))) return false;
+
+        //is the field empty?
+        if((board.getFigure(targetPos) instanceof  None)) return true;
+
+        // is the target field with an enemy figure?
+        if(board.getFigure(targetPos).getTeam() == team) return false;
+
+        return true;
     }
 
     /**
@@ -63,7 +73,7 @@ public class Pawn extends Figure {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        return (team == 0 && posY + 1 == newY || team == 1 && posY - 1 == newY) && posX == newX;
+        return (team == false && posY + 1 == newY || team == true && posY - 1 == newY) && posX == newX;
     }
 
     /**
@@ -78,7 +88,7 @@ public class Pawn extends Figure {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        return (team == 0 && posY + 1 == newY  || team == 1 && posY - 1 == newY ) && (posX + 1 == newX || posX - 1 == newX) && !(board.getFigure(targetPos) instanceof None);
+        return (team == false && posY + 1 == newY  || team == true && posY - 1 == newY ) && (posX + 1 == newX || posX - 1 == newX) && !(board.getFigure(targetPos) instanceof None);
     }
 
     /**
@@ -93,8 +103,8 @@ public class Pawn extends Figure {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        if ((team == 0 && posY + 2 == newY && board.getFigure(posX,posY+1) instanceof None
-                || team == 1 && posY - 2 == newY && board.getFigure(posX,posY-1) instanceof None)
+        if ((team == false && posY + 2 == newY && board.getFigure(posX,posY+1) instanceof None
+                || team == true && posY - 2 == newY && board.getFigure(posX,posY-1) instanceof None)
                 && posX == newX && !alreadyMoved) {
             enPassant = true;
             return true;
@@ -116,7 +126,7 @@ public class Pawn extends Figure {
 
     @Override
     public char getSymbol() {
-        return team == 0 ? 'P' : 'p';
+        return team == false ? 'P' : 'p';
     }
 
 }

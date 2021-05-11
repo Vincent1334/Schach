@@ -13,7 +13,6 @@ public class None extends Figure {
      * nones team and figure ID are initialized here
      */
     public None() {
-        super(2);
         super.figureID = 0;
     }
 

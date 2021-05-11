@@ -13,7 +13,7 @@ public class Rook extends Figure {
      * The constructor of a rook
      * The rooks team and figure ID are initialized here.
      */
-    public Rook(int team) {
+    public Rook(boolean team) {
         super(team);
         super.figureID = 2;
     }
@@ -56,12 +56,19 @@ public class Rook extends Figure {
                 if(!(board.getFigure(actualPos.getPosX()+i*directionX, actualPos.getPosY()) instanceof None)) return false;
             }
         }
+
+        //is the field empty?
+        if((board.getFigure(targetPos) instanceof  None)) return true;
+
+        // is the target field with an enemy figure?
+        if(board.getFigure(targetPos).getTeam() == team) return false;
+
         return true;
     }
 
     @Override
     public char getSymbol() {
-        return team == 0 ? 'R' : 'r';
+        return team == false ? 'R' : 'r';
     }
 
 }

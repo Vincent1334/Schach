@@ -23,29 +23,29 @@ public class BoardTest {
 
         //Build default setup white
         for(int i = 0; i < 8; i++) {
-            setup[i][1] = new Pawn(0);
+            setup[i][1] = new Pawn(false);
         }
-        setup[0][0] = new Rook(0);
-        setup[7][0] = new Rook(0);
-        setup[1][0] = new Knight(0);
-        setup[6][0] = new Knight(0);
-        setup[2][0] = new Bishop(0);
-        setup[5][0] = new Bishop(0);
-        setup[3][0] = new Queen(0);
-        setup[4][0] = new King(0);
+        setup[0][0] = new Rook(false);
+        setup[7][0] = new Rook(false);
+        setup[1][0] = new Knight(false);
+        setup[6][0] = new Knight(false);
+        setup[2][0] = new Bishop(false);
+        setup[5][0] = new Bishop(false);
+        setup[3][0] = new Queen(false);
+        setup[4][0] = new King(false);
 
         //Build default setup black
         for(int i = 0; i < 8; i++) {
-            setup[i][6] = new Pawn(1);
+            setup[i][6] = new Pawn(true);
         }
-        setup[0][7] = new Rook(1);
-        setup[7][7] = new Rook(1);
-        setup[1][7] = new Knight(1);
-        setup[6][7] = new Knight(1);
-        setup[2][7] = new Bishop(1);
-        setup[5][7] = new Bishop(1);
-        setup[3][7] = new Queen(1);
-        setup[4][7] = new King(1);
+        setup[0][7] = new Rook(true);
+        setup[7][7] = new Rook(true);
+        setup[1][7] = new Knight(true);
+        setup[6][7] = new Knight(true);
+        setup[2][7] = new Bishop(true);
+        setup[5][7] = new Bishop(true);
+        setup[3][7] = new Queen(true);
+        setup[4][7] = new King(true);
 
         //Build default setup none
         for(int y = 2; y < 6; y++){
@@ -71,7 +71,7 @@ public class BoardTest {
     @Test
     public void testCopyConstructor() {
         Board boardA = new Board();
-        boardA.setFigure(3, 5, new Rook(1));
+        boardA.setFigure(3, 5, new Rook(true));
 
         Board boardB = new Board(boardA);
 
@@ -93,15 +93,15 @@ public class BoardTest {
 
         //white default King
         Position pos1 = new Position(4, 0);
-        assertEquals(Board.getKing(boardA, 0).getPosX(), pos1.getPosX(), x);
-        assertEquals(Board.getKing(boardA, 0).getPosY(), pos1.getPosY(), y);
+        assertEquals(Board.getKing(boardA, false).getPosX(), pos1.getPosX(), x);
+        assertEquals(Board.getKing(boardA, false).getPosY(), pos1.getPosY(), y);
 
         //white random king position
         Position pos3 = new Position(2, 4);
         boardA.setFigure(4, 0, null);
-        boardA.setFigure(2, 4, new King(0));
-        assertEquals(Board.getKing(boardA, 0).getPosX(), pos3.getPosX(), x);
-        assertEquals(Board.getKing(boardA, 0).getPosY(), pos3.getPosY(), y);
+        boardA.setFigure(2, 4, new King(false));
+        assertEquals(Board.getKing(boardA, false).getPosX(), pos3.getPosX(), x);
+        assertEquals(Board.getKing(boardA, false).getPosY(), pos3.getPosY(), y);
     }
     /**
      * Tests the black kings position
@@ -114,15 +114,15 @@ public class BoardTest {
 
         //black default King
         Position pos2 = new Position(4, 7);
-        assertEquals(Board.getKing(boardA, 1).getPosX(), pos2.getPosX(), x);
-        assertEquals(Board.getKing(boardA, 1).getPosY(), pos2.getPosY(), y);
+        assertEquals(Board.getKing(boardA, true).getPosX(), pos2.getPosX(), x);
+        assertEquals(Board.getKing(boardA, true).getPosY(), pos2.getPosY(), y);
 
         //black random king position
         Position pos4 = new Position(7, 2);
         boardA.setFigure(4, 7, null);
-        boardA.setFigure(7, 2, new King(1));
-        assertEquals(Board.getKing(boardA, 1).getPosX(), pos4.getPosX(), x);
-        assertEquals(Board.getKing(boardA, 1).getPosY(), pos4.getPosY(), y);
+        boardA.setFigure(7, 2, new King(true));
+        assertEquals(Board.getKing(boardA, true).getPosX(), pos4.getPosX(), x);
+        assertEquals(Board.getKing(boardA, true).getPosY(), pos4.getPosY(), y);
     }
 
     /**
@@ -132,23 +132,24 @@ public class BoardTest {
     public void testIsThreatened(){
         //Test start position
         Board boardA = new Board();
-        assertFalse(Board.isThreatened(boardA, Board.getKing(boardA, 0), 0), "white king is threatened!");
-        assertFalse(Board.isThreatened(boardA, Board.getKing(boardA, 1), 1), "back king is threatened!");
+
+        assertFalse(Board.isThreatened(boardA, Board.getKing(boardA, false), true), "white king is threatened!");
+        assertFalse(Board.isThreatened(boardA, Board.getKing(boardA, true), false), "black king is threatened!");
 
         //Test threatened position
         Board boardB = new Board();
-        boardB.setFigure(4, 0, null);
-        boardB.setFigure(4, 7, null);
-        boardB.setFigure(2, 0, null);
-        boardB.setFigure(2, 7, null);
+        boardB.setFigure(4, 0, new None());
+        boardB.setFigure(4, 7, new None());
+        boardB.setFigure(2, 0, new None());
+        boardB.setFigure(2, 7, new None());
 
-        boardB.setFigure(2, 4, new King(1));
-        boardB.setFigure(5, 4, new King(0));
-        boardB.setFigure(3, 2, new Bishop(1));
-        boardB.setFigure(4, 2, new Bishop(0));
+        boardB.setFigure(2, 4, new King(true));
+        boardB.setFigure(5, 4, new King(false));
+        boardB.setFigure(3, 2, new Bishop(true));
+        boardB.setFigure(4, 2, new Bishop(false));
 
-        assertTrue(Board.isThreatened(boardB, Board.getKing(boardB, 0), 0), "is not Threatened!");
-        assertTrue(Board.isThreatened(boardB, Board.getKing(boardB, 1), 1), "is not Threatened!");
+        assertTrue(Board.isThreatened(boardB, Board.getKing(boardB, false), true), "is not Threatened!");
+        assertTrue(Board.isThreatened(boardB, Board.getKing(boardB, true), false), "is not Threatened!");
     }
 
     /**
@@ -157,7 +158,7 @@ public class BoardTest {
     @Test
     public void testChessMateEscapes() {
         Board board = new Board();
-        Figure whiteKing = new King(0);
+        Figure whiteKing = new King(false);
         whiteKing.setAlreadyMoved(true);
 
         for (int x=0; x<8; x++) {
@@ -168,35 +169,35 @@ public class BoardTest {
 
         // king can move out of chess
         board.setFigure(3,4,whiteKing);
-        board.setFigure(3,1,new Rook(1));
-        assertFalse(Board.checkChessMate(board,0), "return checkmate even if the king could move away");
+        board.setFigure(3,1,new Rook(true));
+        assertFalse(Board.checkChessMate(board,false), "return checkmate even if the king could move away");
 
         // any figure can beat the figure that threatens the king
         board.setFigure(3,4,new None());
         board.setFigure(3,1,new None());
         board.setFigure(0,1,whiteKing);
-        board.setFigure(2,0,new Queen(1));
-        board.setFigure(6,7,new Bishop(1));
-        board.setFigure(7,6,new Pawn(0));
-        assertFalse(Board.checkChessMate(board,0), "return checkmate even if the threatening figure can be beaten");
+        board.setFigure(2,0,new Queen(true));
+        board.setFigure(6,7,new Bishop(true));
+        board.setFigure(7,6,new Pawn(false));
+        assertFalse(Board.checkChessMate(board,false), "return checkmate even if the threatening figure can be beaten");
 
         // any figure except the king can protect the king
         board.setFigure(7,6,new None());
-        board.setFigure(3,7,new Rook(0));
-        assertFalse(Board.checkChessMate(board,0), "return checkmate even if a figure could block the attack");
+        board.setFigure(3,7,new Rook(false));
+        assertFalse(Board.checkChessMate(board,false), "return checkmate even if a figure could block the attack");
 
         // a pawn can block the king by performing enPassant
         board.setFigure(3,7,new None());
 
-        Figure enPassantWhite = new Pawn(0);
+        Figure enPassantWhite = new Pawn(false);
         enPassantWhite.setAlreadyMoved(true);
         board.setFigure(5,4,enPassantWhite);
 
-        Pawn enPassantBlack = new Pawn(1);
+        Pawn enPassantBlack = new Pawn(true);
         enPassantBlack.setEnPassant(true);
         board.setFigure(4,4,enPassantBlack);
 
-        assertFalse(Board.checkChessMate(board,0), "return checkmate even if a pawn could block the king by performing EnPassant");
+        assertFalse(Board.checkChessMate(board,false), "return checkmate even if a pawn could block the king by performing EnPassant");
 
     }
 
@@ -211,12 +212,12 @@ public class BoardTest {
                 board.setFigure(x, y, new None());
             }
         }
-        board.setFigure(0,0,new King(0));
-        board.setFigure(0,4,new Rook(1));
-        board.setFigure(6,0,new Rook(1));
-        board.setFigure(3,3,new Bishop(1));
+        board.setFigure(0,0,new King(false));
+        board.setFigure(0,4,new Rook(true));
+        board.setFigure(6,0,new Rook(true));
+        board.setFigure(3,3,new Bishop(true));
 
-        assertTrue(Board.checkChessMate(board,0), "checkmate is not recognized");
+        assertTrue(Board.checkChessMate(board,false), "checkmate is not recognized");
     }
 
 }

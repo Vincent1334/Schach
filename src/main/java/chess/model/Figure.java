@@ -11,14 +11,15 @@ import java.util.Objects;
 public abstract class Figure {
 
     boolean alreadyMoved = false;
-    int team, figureID;
+    int figureID;
+    boolean team;
 
     /**
      * Constructor for default figures
      *
      * @param team of the figure (0=white, 1=black, 2=none)
      */
-    public Figure(int team) {
+    public Figure(boolean team) {
         this.team = team;
     }
 
@@ -41,7 +42,7 @@ public abstract class Figure {
      * the getter for the team
      * @return the team of the figure
      */
-    public int getTeam() {
+    public boolean getTeam() {
         return this.team;
     }
 

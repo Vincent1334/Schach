@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BishopTest {
 
     Board board = new Board();
-    Figure whiteBishop = new Bishop(0);
-    Figure blackBishop = new Bishop(1);
+    Figure whiteBishop = new Bishop(false);
+    Figure blackBishop = new Bishop(true);
 
     /**
      * Tests some random valid and invalid moves for a bishop
@@ -47,11 +47,11 @@ public class BishopTest {
             }
         }
 
-        board.setFigure(3,3,new Pawn(0));
+        board.setFigure(3,3,new Pawn(false));
         assertFalse(whiteBishop.validMove(new Position(0,0), new Position(7,7), board), "!white bishop can move to the upper right even if there is a figure from the same team in the way");
         assertFalse(whiteBishop.validMove(new Position(7,7), new Position(0,0), board), "!white bishop can move to the bottom left even if there is a figure from the same team in the way");
 
-        board.setFigure(3,4,new Pawn(0));
+        board.setFigure(3,4,new Pawn(false));
         assertFalse(whiteBishop.validMove(new Position(0,7), new Position(7,0), board), "!white bishop can move to the bottom right even if there is a figure from the same team in the way");
         assertFalse(whiteBishop.validMove(new Position(7,0), new Position(0,7), board), "!white bishop can move to the upper left even if there is a figure from the same team in the way");
     }

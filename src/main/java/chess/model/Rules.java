@@ -23,7 +23,6 @@ public class Rules {
     public static boolean checkValidDefaultMove(Position actualPos, Position targetPos, Board board) {
 
         Figure actualFigure = board.getFigure(actualPos);
-        Figure targetFigure = board.getFigure(targetPos);
 
         if (actualFigure.validMove(actualPos, targetPos, board)) {
             //create a tmpBoard with the new untested figure position
@@ -32,7 +31,7 @@ public class Rules {
             tmpBoard.setFigure(actualPos, new None());
             tmpBoard.setFigure(targetPos, actualFigure);
 
-            return !Board.kingInCheck(tmpBoard, actualFigure.getTeam()) && actualFigure.getTeam() != targetFigure.getTeam();
+            return !Board.kingInCheck(tmpBoard, actualFigure.getTeam());
         }
         return false;
     }
@@ -56,9 +55,6 @@ public class Rules {
         //Update Board
         board.setFigure(targetPos, actualFigure);
         board.setFigure(actualPos, new None());
-
-        //Set Figure to AlreadyMoved
-        //board.getFigure(newX, newY).setAlreadyMoved(true);        kann hier nicht aufgerufen werden, da sonst Fehler bei schachMattPrüfung (siehe ChessMove())
     }
 
     /*
@@ -80,11 +76,14 @@ public class Rules {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
+        Figure actualFigure = board.getFigure(actualPos);
+        Figure targetFigure = board.getFigure(targetPos);
+
         if (board.getFigure(newX, posY) instanceof Pawn && board.getFigure(actualPos) instanceof Pawn
                 && board.getFigure(newX, posY).getTeam() != board.getFigure(actualPos).getTeam()
                 && Math.abs(posX - newX) == 1
-                && (board.getFigure(actualPos).getTeam() == 0 && newY - posY == 1
-                || board.getFigure(actualPos).getTeam() == 1 && newY - posY == -1)) {
+                && (board.getFigure(actualPos).getTeam() == false && newY - posY == 1
+                || board.getFigure(actualPos).getTeam() == true && newY - posY == -1)) {
             return ((Pawn) board.getFigure(newX, posY)).isEnPassant();
         }
         return false;
@@ -140,10 +139,11 @@ public class Rules {
      */
     private static boolean checkCastlingLeft(Position actualPos, Position targetPos, Board board){
         // castle left
-        if (board.getFigure(actualPos) instanceof King && !(board.getFigure(actualPos).isAlreadyMoved()) && targetPos.getPosX() == actualPos.getPosX() - 2 && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved())) {
+        if (board.getFigure(actualPos) instanceof King && !(board.getFigure(actualPos).isAlreadyMoved()) && targetPos.getPosX() == actualPos.getPosX() - 2 && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved()) && board.getFigure(0, actualPos.getPosY()).getTeam() == board.getFigure(actualPos).getTeam()) {
             // check, whether all field between are empty and are not threatened
+
             for (int j = 1; j < actualPos.getPosX(); j++) {
-                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None) || Board.isThreatened(board, new Position(j, actualPos.getPosY()), board.getFigure(actualPos).getTeam())) {
+                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None) || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).getTeam())) {
                     return false;
                 }
             }
@@ -162,10 +162,11 @@ public class Rules {
      */
     private static boolean checkCastlingRight(Position actualPos, Position targetPos, Board board){
         // castle right
-        if (board.getFigure(actualPos) instanceof King && !(board.getFigure(actualPos).isAlreadyMoved()) && targetPos.getPosX() == actualPos.getPosX() + 2 && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved())) {
+        if (board.getFigure(actualPos) instanceof King && !(board.getFigure(actualPos).isAlreadyMoved()) && targetPos.getPosX() == actualPos.getPosX() + 2 && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved()) && board.getFigure(7, actualPos.getPosY()).getTeam() == board.getFigure(actualPos).getTeam()) {
+
             // check, whether all field between are empty and are not threatened
-            for (int j = actualPos.getPosX() + 1; j < 7; j++) {
-                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None) || Board.isThreatened(board, new Position(j, actualPos.getPosY()), board.getFigure(actualPos).getTeam())) {
+            for (int j = actualPos.getPosX()+1; j < 7; j++) {
+                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None) || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).getTeam())) {
                     return false;
                 }
             }
@@ -243,7 +244,7 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         if (actualFigure instanceof Pawn && actualFigure.validMove(actualPos, targetPos, board)) {
-            return newY == 7 && actualFigure.getTeam() == 0 || newY == 0 && actualFigure.getTeam() == 1;
+            return newY == 7 && actualFigure.getTeam() == false || newY == 0 && actualFigure.getTeam() == true;
         }
 
         return false;
@@ -276,27 +277,27 @@ public class Rules {
      */
     private static void convertWhitePawn(Position actualPos, Position targetPos, int figureID, Board board){
         //convert white pawn
-        if (targetPos.getPosY() == 7 && board.getFigure(actualPos) instanceof Pawn && board.getFigure(actualPos).getTeam() == 0) {
+        if (targetPos.getPosY() == 7 && board.getFigure(actualPos) instanceof Pawn && board.getFigure(actualPos).getTeam() == false) {
 
             switch (figureID) {
                 //to knight
                 case 3: {
-                    board.setFigure(targetPos, new Knight(0));
+                    board.setFigure(targetPos, new Knight(false));
                     break;
                 }
                 //to bishop
                 case 4: {
-                    board.setFigure(targetPos, new Bishop(0));
+                    board.setFigure(targetPos, new Bishop(false));
                     break;
                 }
                 //to rook
                 case 2: {
-                    board.setFigure(targetPos, new Rook(0));
+                    board.setFigure(targetPos, new Rook(false));
                     break;
                 }
                 //to queen
                 default: {
-                    board.setFigure(targetPos, new Queen(0));
+                    board.setFigure(targetPos, new Queen(false));
                     break;
                 }
             }
@@ -313,30 +314,29 @@ public class Rules {
      */
     private static void convertBlackPawn(Position actualPos, Position targetPos, int figureID, Board board){
         //convert black pawn
-        if (targetPos.getPosY() == 0 && board.getFigure(actualPos) instanceof Pawn && board.getFigure(actualPos).getTeam() == 1) {
+        if (targetPos.getPosY() == 0 && board.getFigure(actualPos) instanceof Pawn && board.getFigure(actualPos).getTeam() == true) {
             switch (figureID) {
                 //to knight
                 case 3: {
-                    board.setFigure(targetPos, new Knight(1));
+                    board.setFigure(targetPos, new Knight(true));
                     break;
                 }
                 //to bishop
                 case 4: {
-                    board.setFigure(targetPos, new Bishop(1));
+                    board.setFigure(targetPos, new Bishop(true));
                     break;
                 }
                 //to rook
                 case 2: {
-                    board.setFigure(targetPos, new Rook(1));
+                    board.setFigure(targetPos, new Rook(true));
                     break;
                 }
                 //to queen
                 default: {
-                    board.setFigure(targetPos, new Queen(1));
+                    board.setFigure(targetPos, new Queen(true));
                     break;
                 }
             }
         }
     }
-
 }

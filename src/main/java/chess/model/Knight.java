@@ -14,7 +14,7 @@ public class Knight extends Figure {
      * The constructor of a knight
      * The knights team and figure ID are is initialized here.
      */
-    public Knight(int team) {
+    public Knight(boolean team) {
         super(team);
         super.figureID = 3;
     }
@@ -45,15 +45,26 @@ public class Knight extends Figure {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        return posX + 1 == newX && posY + 2 == newY || posX + 1 == newX && posY - 2 == newY
+        //is the move legal?
+        if(!( posX + 1 == newX && posY + 2 == newY || posX + 1 == newX && posY - 2 == newY
                 || posX - 1 == newX && posY + 2 == newY || posX - 1 == newX && posY - 2 == newY
                 || posX + 2 == newX && posY + 1 == newY || posX + 2 == newX && posY - 1 == newY
-                || posX - 2 == newX && posY + 1 == newY || posX - 2 == newX && posY - 1 == newY;
+                || posX - 2 == newX && posY + 1 == newY || posX - 2 == newX && posY - 1 == newY)){
+            return false;
+        }
+
+        //is the field empty?
+        if((board.getFigure(targetPos) instanceof  None)) return true;
+
+        // is the target field with an enemy figure?
+        if(board.getFigure(targetPos).getTeam() == team) return false;
+
+        return true;
     }
 
     @Override
     public char getSymbol() {
-        return team == 0 ?  'N' : 'n';
+        return team == false ?  'N' : 'n';
     }
 
 

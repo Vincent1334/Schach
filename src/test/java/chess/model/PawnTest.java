@@ -14,8 +14,8 @@ public class PawnTest {
 
     CoreGame game = new CoreGame(0);
     Board board = new Board();
-    Figure pawnWhite = new Pawn(0);
-    Figure pawnBlack = new Pawn(1);
+    Figure pawnWhite = new Pawn(false);
+    Figure pawnBlack = new Pawn(true);
 
     /**
      * Tests some random valid and invalid moves for a white pawn

@@ -13,7 +13,7 @@ public class Queen extends Figure {
      * The constructor of a queen
      * The queens team and figure ID are initialized here.
      */
-    public Queen(int team) {
+    public Queen(boolean team) {
         super(team);
         super.figureID = 5;
     }
@@ -43,14 +43,22 @@ public class Queen extends Figure {
         Bishop b = new Bishop(team);
         Rook r = new Rook(team);
 
-        return b.validMove(actualPos,targetPos,board)||r.validMove(actualPos,targetPos,board);
+        //is the move legal?
+        if(!(b.validMove(actualPos,targetPos,board)||r.validMove(actualPos,targetPos,board))) return false;
 
+        //is the field empty?
+        if((board.getFigure(targetPos) instanceof  None)) return true;
+
+        // is the target with an enemy figure?
+        if(board.getFigure(targetPos).getTeam() == team) return false;
+
+        return true;
     }
 
 
     @Override
     public char getSymbol() {
-        return team == 0 ? 'Q' : 'q';
+        return team == false ? 'Q' : 'q';
     }
 }
 

@@ -14,7 +14,7 @@ public class King extends Figure {
      * The constructor of a king
      * The kings team and figure ID are initialized here.
      */
-    public King(int team) {
+    public King(boolean team) {
         super(team);
         super.figureID = 6;
     }
@@ -40,21 +40,21 @@ public class King extends Figure {
 
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
-
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
         // normal move
-        return (newX == posX + 1 || newX == posX - 1 || newX == posX)
-                && (newY == posY + 1 || newY == posY - 1 || newY == posY)
-                && !(newX == posX && newY == posY);
+        if(!(Math.abs(actualPos.getPosX()-targetPos.getPosX()) <= 1 && Math.abs(actualPos.getPosY()-targetPos.getPosY()) <= 1)) return false;
+
+        //is the field empty?
+        if((board.getFigure(targetPos) instanceof  None)) return true;
+
+        // is the target field with an enemy figure?
+        if(board.getFigure(targetPos).getTeam() == team) return false;
+
+        return true;
     }
 
     @Override
     public char getSymbol() {
-        return team == 0 ? 'K' : 'k';
+        return team == false ? 'K' : 'k';
     }
 
 

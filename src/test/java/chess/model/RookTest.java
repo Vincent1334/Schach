@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RookTest {
 
     Board board = new Board();
-    Figure whiteRook = new Rook(0);
-    Figure blackRook = new Rook(1);
+    Figure whiteRook = new Rook(false);
+    Figure blackRook = new Rook(true);
 
     /**
      * Tests some random valid and invalid moves for a rook
@@ -48,11 +48,11 @@ public class RookTest {
                 board.setFigure(x, y, new None());
             }
         }
-        board.setFigure(0,4,new Pawn(0));
+        board.setFigure(0,4,new Pawn(false));
         assertFalse(whiteRook.validMove(new Position(0,0), new Position(0,7), board), "!white rook can move to the top even if there is a figure from the same team in the way");
         assertFalse(whiteRook.validMove(new Position(0,7), new Position(0,0), board), "!white rook can move to the bottom even if there is a figure from the same team in the way");
 
-        board.setFigure(4,0,new Pawn(0));
+        board.setFigure(4,0,new Pawn(false));
         assertFalse(whiteRook.validMove(new Position(0,0), new Position(7,0), board), "!white rook can move to the right even if there is a figure from the same team in the way");
         assertFalse(whiteRook.validMove(new Position(7,0), new Position(0,0), board), "!white rook can move to the left even if there is a figure from the same team in the way");
     }

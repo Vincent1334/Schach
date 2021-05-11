@@ -14,7 +14,7 @@ import java.util.List;
 public class CoreGame {
 
     private Board currentBoard;
-    private int activePlayer = 0;
+    private boolean activePlayer = false;
     private int gameMode = 0;
     private boolean gameOver = false;
 
@@ -45,9 +45,15 @@ public class CoreGame {
         }
 
         //check pawn move
-        if(pawnMove(move)) return true;
+        if(pawnMove(move)){
+            updateChanges(move);
+            return true;
+        }
         //check king move
-        if(kingMove(move)) return true;
+        if(kingMove(move)){
+            updateChanges(move);
+            return true;
+        }
         //checkValidDefaultMove
         if (Rules.checkValidDefaultMove(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
             Rules.performDefaultMove(move.getActualPosition(), move.getTargetPosition(), currentBoard);
@@ -163,7 +169,7 @@ public class CoreGame {
      * switch active player
      */
     private void switchPlayer() {
-        activePlayer = activePlayer == 0 ? 1 : 0;
+        activePlayer = !activePlayer;
     }
 
     /**
@@ -204,7 +210,7 @@ public class CoreGame {
     }
 
     // zu Testzwecken
-    public void setActivePlayer(int activePlayer) {
+    public void setActivePlayer(boolean activePlayer) {
         this.activePlayer = activePlayer;
     }
 }

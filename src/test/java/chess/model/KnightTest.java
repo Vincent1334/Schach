@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class KnightTest {
 
     Board board = new Board();
-    Figure whiteKnight = new Knight(0);
-    Figure blackKnight = new Knight(1);
+    Figure whiteKnight = new Knight(false);
+    Figure blackKnight = new Knight(true);
 
 
     /**

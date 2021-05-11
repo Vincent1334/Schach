@@ -84,19 +84,7 @@ public class Cli {
             if (validSyntax(input)) {
                 coreGame.chessMove(parse(input));
             }
-            // end game if game is over because one team is in checkmate
-            if (coreGame.isGameOver()) {
-                break;
-            }
-
-            /*//Check (in)valid syntax and make move, end game if syntax is not correct or chessMove
-            if (!validSyntax(input)) {
-                continue;
-            } else if (coreGame.chessMove(parse((input)))) {
-                break;
-            }*/
-
-        } while (true);
+        } while (!coreGame.isGameOver());
     }
 
     /**
