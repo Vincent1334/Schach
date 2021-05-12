@@ -59,6 +59,9 @@ public class CoreGame {
 
         //User command fails
         System.out.println("!Move not allowed");
+
+        //debug
+        debug(move);
         return false;
     }
 
@@ -156,5 +159,52 @@ public class CoreGame {
     // zu Testzwecken
     public void setActivePlayer(boolean activePlayer) {
         this.activePlayer = activePlayer;
+    }
+
+    //debug
+    public void debug(Move move){
+        System.out.println("==============");
+        System.out.println(" ActualFigure");
+        System.out.println("==============");
+        switch(currentBoard.getFigure(move.getActualPosition()).getFigureID()){
+            case 0: System.out.println("+ Type: None"); break;
+            case 1: System.out.println("+ Type: Pawn"); break;
+            case 2: System.out.println("+ Type: Rook"); break;
+            case 3: System.out.println("+ Type: Knight"); break;
+            case 4: System.out.println("+ Type: Bishop"); break;
+            case 5: System.out.println("+ Type: Queen"); break;
+            case 6: System.out.println("+ Type: King"); break;
+        }
+        System.out.println("+ AlreadyMove: " + currentBoard.getFigure(move.getActualPosition()).isAlreadyMoved());
+        System.out.println("+ Team: " + currentBoard.getFigure(move.getActualPosition()).getTeam());
+        System.out.println("+ validMove " + currentBoard.getFigure(move.getActualPosition()).validMove(move.getActualPosition(), move.getTargetPosition(), currentBoard));
+        if(currentBoard.getFigure(move.getActualPosition()) instanceof Pawn){
+            System.out.println("+ Direction: " + ((Pawn)currentBoard.getFigure(move.getActualPosition())).checkRightDirection(move.getActualPosition(), move.getTargetPosition()));
+            System.out.println("+ EnPassant: " + ((Pawn)currentBoard.getFigure(move.getActualPosition())).isEnPassant());
+        }
+        System.out.println("==============");
+        System.out.println(" TargetFigure");
+        System.out.println("==============");
+        switch(currentBoard.getFigure(move.getTargetPosition()).getFigureID()){
+            case 0: System.out.println("+ Type: None"); break;
+            case 1: System.out.println("+ Type: Pawn"); break;
+            case 2: System.out.println("+ Type: Rook"); break;
+            case 3: System.out.println("+ Type: Knight"); break;
+            case 4: System.out.println("+ Type: Bishop"); break;
+            case 5: System.out.println("+ Type: Queen"); break;
+            case 6: System.out.println("+ Type: King"); break;
+        }
+        System.out.println("+ AlreadyMove: " + currentBoard.getFigure(move.getTargetPosition()).isAlreadyMoved());
+        System.out.println("+ Team: " + currentBoard.getFigure(move.getTargetPosition()).getTeam());
+        System.out.println("+ validMove " + currentBoard.getFigure(move.getTargetPosition()).validMove(move.getActualPosition(), move.getTargetPosition(), currentBoard));
+        if(currentBoard.getFigure(move.getTargetPosition()) instanceof Pawn){
+            System.out.println("+ Direction: " + ((Pawn)currentBoard.getFigure(move.getTargetPosition())).checkRightDirection(move.getActualPosition(), move.getTargetPosition()));
+            System.out.println("+ EnPassant: " + ((Pawn)currentBoard.getFigure(move.getTargetPosition())).isEnPassant());
+        }
+        System.out.println("=============");
+        System.out.println(" Game stuff");
+        System.out.println("=============");
+        System.out.println("+ ActivePlayer: " +  activePlayer);
+        System.out.println("+ King in check: " + Board.kingInCheck(currentBoard, activePlayer));
     }
 }
