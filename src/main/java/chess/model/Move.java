@@ -13,9 +13,10 @@ public class Move {
 
     /**
      * Manage move parameters with custom pawn conversion
-     * @param actualPosition
-     * @param targetPosition
-     * @param pawnConversionTo
+     *
+     * @param actualPosition   the start position of the move
+     * @param targetPosition   the target position of the move
+     * @param pawnConversionTo the id of the figure the pawn should be converted to
      */
     public Move(Position actualPosition, Position targetPosition, int pawnConversionTo) {
         this.actualPosition = actualPosition;
@@ -25,8 +26,9 @@ public class Move {
 
     /**
      * Manager move parameters with default pawn conversion
-     * @param actualPosition
-     * @param targetPosition
+     *
+     * @param actualPosition the start position of the move
+     * @param targetPosition the target position of the move
      */
     public Move(Position actualPosition, Position targetPosition) {
         this.actualPosition = actualPosition;
@@ -36,6 +38,7 @@ public class Move {
 
     /**
      * returns a move out of characters as a string
+     *
      * @return move out of characters as a string
      */
     @Override
@@ -46,6 +49,7 @@ public class Move {
 
     /**
      * return actual position
+     *
      * @return actualPosition
      */
     public Position getActualPosition() {
@@ -54,6 +58,7 @@ public class Move {
 
     /**
      * return target position
+     *
      * @return targetPosition
      */
     public Position getTargetPosition() {
@@ -62,6 +67,7 @@ public class Move {
 
     /**
      * return PawnConversion ID
+     *
      * @return pawnConversion
      */
     public int getPawnConversionTo() {
@@ -70,8 +76,9 @@ public class Move {
 
     /**
      * Override equals
-     * @param other
-     * @return
+     *
+     * @param other the compared Move
+     * @return whether the Moves are semantically equal
      */
     @Override
     public boolean equals(Object other) {
@@ -83,6 +90,7 @@ public class Move {
 
     /**
      * Override hashCode
+     *
      * @return
      */
     @Override
@@ -96,14 +104,20 @@ public class Move {
      * @param pawnConversion ID of the figure you want the pawn to convert to
      * @return Letter of the figure you want the pawn to convert to
      */
-    public String getPawnLetter(int pawnConversion){
-        switch(pawnConversion){
-            case 1: return "P";
-            case 2: return "R";
-            case 3: return "N";
-            case 4: return "B";
-            case 5: return "";
-            case 6: return "K";
+    public String getPawnLetter(int pawnConversion) {
+        switch (pawnConversion) {
+            case 1:
+                return "P";
+            case 2:
+                return "R";
+            case 3:
+                return "N";
+            case 4:
+                return "B";
+            case 5:
+                return "";
+            case 6:
+                return "K";
         }
         return "";
     }

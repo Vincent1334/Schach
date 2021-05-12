@@ -25,7 +25,8 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         //check target field is valid
-        if(!(board.getFigure(targetPos) instanceof None) && board.getFigure(targetPos).getTeam() == actualFigure.getTeam()) return false;
+        if (!(board.getFigure(targetPos) instanceof None) && board.getFigure(targetPos).isBlackTeam() == actualFigure.isBlackTeam())
+            return false;
 
         //check move is possible
         if (actualFigure.validMove(actualPos, targetPos, board)) {
@@ -35,7 +36,7 @@ public class Rules {
             //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
             tmpBoard.setFigure(actualPos, new None());
             tmpBoard.setFigure(targetPos, actualFigure);
-            return !Board.kingInCheck(tmpBoard, actualFigure.getTeam());
+            return !Board.kingInCheck(tmpBoard, actualFigure.isBlackTeam());
         }
         return false;
     }
@@ -80,27 +81,27 @@ public class Rules {
         Figure targetFigure = board.getFigure(targetPos.getPosX(), actualPos.getPosY());
 
         //check target field is valid
-        if(!(board.getFigure(targetPos) instanceof None)) return false;
+        if (!(board.getFigure(targetPos) instanceof None)) return false;
 
         //check EnPassant is possible
-        if(actualFigure instanceof Pawn && targetFigure instanceof Pawn && actualFigure.getTeam() != targetFigure.getTeam()){
-            //check right movement
-            if(Math.abs(actualPos.getPosX()- targetPos.getPosX()) == 1 && Math.abs(actualPos.getPosY()- targetPos.getPosY()) == 1 && ((Pawn)targetFigure).isEnPassant()){
-                //check right direction
-                if(((Pawn) actualFigure).checkRightDirection(actualPos, targetPos)){
+        if (actualFigure instanceof Pawn && targetFigure instanceof Pawn
+                && actualFigure.isBlackTeam() != targetFigure.isBlackTeam()
+                && Math.abs(actualPos.getPosX() - targetPos.getPosX()) == 1
+                && Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 1
+                && ((Pawn) targetFigure).isEnPassant()
+                && ((Pawn) actualFigure).checkRightDirection(actualPos, targetPos)) {
 
-                    //create a tmpBoard with the new untested figure position
-                    Board tmpBoard = new Board(board);
-                    //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
-                    tmpBoard.setFigure(targetPos, tmpBoard.getFigure(actualPos));
-                    tmpBoard.setFigure(actualPos, new None());
-                    tmpBoard.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
+            //create a tmpBoard with the new untested figure position
+            Board tmpBoard = new Board(board);
+            //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
+            tmpBoard.setFigure(targetPos, tmpBoard.getFigure(actualPos));
+            tmpBoard.setFigure(actualPos, new None());
+            tmpBoard.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
 
-                    return !(Board.kingInCheck(tmpBoard, actualFigure.getTeam()));
-                }
-            }
+            return !(Board.kingInCheck(tmpBoard, actualFigure.isBlackTeam()));
         }
-           return false;
+
+        return false;
     }
 
     /**
@@ -138,31 +139,39 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         //check chess
-        if(Board.kingInCheck(board, actualFigure.getTeam())) return false;
+        if (Board.kingInCheck(board, actualFigure.isBlackTeam())) {
+            return false;
+        }
 
-        if(actualFigure instanceof King && !(actualFigure.isAlreadyMoved())){
-            //check short castling
-            if(targetPos.getPosX() == 6 && board.getFigure(7, actualPos.getPosY()) instanceof Rook && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved())){
+        if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved())) {
+            //check short castling left (queenside)
+            if (targetPos.getPosX() == 6 && board.getFigure(7, actualPos.getPosY()) instanceof Rook
+                    && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved())) {
                 //check, whether all field between are empty and are not threatened
                 for (int j = 5; j < 7; j++) {
-                    if (!(board.getFigure(j, actualPos.getPosY()) instanceof None && Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.getTeam()))) return false;
+                    if (!(board.getFigure(j, actualPos.getPosY()) instanceof None
+                            && Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.isBlackTeam()))) {
+                        return false;
+                    }
                 }
                 //check Rook is not threatened
-                if(Board.isThreatened(board, new Position(7, actualPos.getPosY()), !actualFigure.getTeam())) return false;
+                return !Board.isThreatened(board, new Position(7, actualPos.getPosY()), !actualFigure.isBlackTeam());
                 //Castling is possible
-                return true;
             }
 
-            //check long castling
-            if(targetPos.getPosX() == 2 && board.getFigure(0, actualPos.getPosY()) instanceof Rook && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved())){
+            //check long castling right (kingside)
+            if (targetPos.getPosX() == 2 && board.getFigure(0, actualPos.getPosY()) instanceof Rook
+                    && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved())) {
                 //check, whether all field between are empty and are not threatened
                 for (int j = 5; j > 0; j--) {
-                    if (!(board.getFigure(j, actualPos.getPosY()) instanceof None && Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.getTeam()))) return false;
+                    if (!(board.getFigure(j, actualPos.getPosY()) instanceof None
+                            && Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.isBlackTeam()))) {
+                        return false;
+                    }
                 }
                 //check Rook is not threatened
-                if(Board.isThreatened(board, new Position(0, actualPos.getPosY()), !actualFigure.getTeam())) return false;
+                return !Board.isThreatened(board, new Position(0, actualPos.getPosY()), !actualFigure.isBlackTeam());
                 //Castling is possible
-                return true;
             }
         }
         return false;
@@ -180,7 +189,7 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         //perform short castling
-        if(targetPos.getPosX() == 6){
+        if (targetPos.getPosX() == 6) {
             //set King
             board.setFigure(targetPos, actualFigure);
             board.setFigure(actualPos, new None());
@@ -193,7 +202,7 @@ public class Rules {
         }
 
         //perform short castling
-        if(targetPos.getPosX() == 2){
+        if (targetPos.getPosX() == 2) {
             //set King
             board.setFigure(targetPos, actualFigure);
             board.setFigure(actualPos, new None());
@@ -223,16 +232,14 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         //check valid move
-        if(actualFigure instanceof Pawn && actualFigure.validMove(actualPos, targetPos, board) && targetPos.getPosY() == 7 || targetPos.getPosY() == 0){
+        if (actualFigure instanceof Pawn && actualFigure.validMove(actualPos, targetPos, board) && targetPos.getPosY() == 7 || targetPos.getPosY() == 0) {
             //create a tmpBoard with the new untested figure position
             Board tmpBoard = new Board(board);
             //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
             tmpBoard.setFigure(actualPos, new None());
             tmpBoard.setFigure(targetPos, actualFigure);
             //check chess
-            if(Board.kingInCheck(tmpBoard, actualFigure.getTeam())) return false;
-
-            return true;
+            return !Board.kingInCheck(tmpBoard, actualFigure.isBlackTeam());
         }
         return false;
     }
@@ -249,22 +256,22 @@ public class Rules {
         switch (figureID) {
             //to knight
             case 3: {
-                board.setFigure(targetPos, new Knight(board.getFigure(actualPos).getTeam()));
+                board.setFigure(targetPos, new Knight(board.getFigure(actualPos).isBlackTeam()));
                 break;
             }
             //to bishop
             case 4: {
-                board.setFigure(targetPos, new Bishop(board.getFigure(actualPos).getTeam()));
+                board.setFigure(targetPos, new Bishop(board.getFigure(actualPos).isBlackTeam()));
                 break;
             }
             //to rook
             case 2: {
-                board.setFigure(targetPos, new Rook(board.getFigure(actualPos).getTeam()));
+                board.setFigure(targetPos, new Rook(board.getFigure(actualPos).isBlackTeam()));
                 break;
             }
             //to queen
             default: {
-                board.setFigure(targetPos, new Queen(board.getFigure(actualPos).getTeam()));
+                board.setFigure(targetPos, new Queen(board.getFigure(actualPos).isBlackTeam()));
                 break;
             }
         }

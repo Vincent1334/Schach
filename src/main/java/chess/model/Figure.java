@@ -12,15 +12,15 @@ public abstract class Figure {
 
     protected boolean alreadyMoved = false;
     protected int figureID;
-    protected boolean team;
+    protected boolean blackTeam;
 
     /**
      * Constructor for default figures
      *
-     * @param team of the figure (0=white, 1=black, 2=none)
+     * @param blackTeam of the figure (0=white, 1=black, 2=none)
      */
-    public Figure(boolean team) {
-        this.team = team;
+    public Figure(boolean blackTeam) {
+        this.blackTeam = blackTeam;
     }
 
     /**
@@ -30,30 +30,30 @@ public abstract class Figure {
     }
 
     /**
-     *
      * @param actualPos the actual position of the figure
      * @param targetPos the target position of the figure
-     * @param board the current board
+     * @param board     the current board
      * @return whether the move is valid or not
      */
     public abstract boolean validMove(Position actualPos, Position targetPos, Board board);
 
     /**
      * the getter for the team
+     *
      * @return the team of the figure
      */
-    public boolean getTeam() {
-        return this.team;
+    public boolean isBlackTeam() {
+        return this.blackTeam;
     }
 
     /**
      * The getter for the figures symbol
+     *
      * @return the figures symbol
      */
     public abstract char getSymbol();
 
     /**
-     *
      * @return whether the figure has already been moved
      */
     public boolean isAlreadyMoved() {
@@ -61,7 +61,6 @@ public abstract class Figure {
     }
 
     /**
-     *
      * @param alreadyMoved has the figure been already moved?
      */
     public void setAlreadyMoved(boolean alreadyMoved) {
@@ -70,6 +69,7 @@ public abstract class Figure {
 
     /**
      * getter for the figure ID
+     *
      * @return the figure ID
      */
     public int getFigureID() {
@@ -77,25 +77,23 @@ public abstract class Figure {
     }
 
     /**
-     *
      * @param other an object
      * @return whether the objects are equal but not identical
      */
     @Override
-    public boolean equals(Object other){
-        if(other instanceof Figure) {
+    public boolean equals(Object other) {
+        if (other instanceof Figure) {
             Figure figure1 = (Figure) other;
-            return figure1.getFigureID() == figureID && figure1.getTeam() == team && figure1.isAlreadyMoved() == alreadyMoved;
+            return figure1.getFigureID() == figureID && figure1.isBlackTeam() == blackTeam && figure1.isAlreadyMoved() == alreadyMoved;
         }
         return false;
     }
 
     /**
-     *
      * @return hash code of the object
      */
     @Override
     public int hashCode() {
-        return Objects.hash(alreadyMoved, team, figureID);
+        return Objects.hash(alreadyMoved, blackTeam, figureID);
     }
 }

@@ -5,7 +5,6 @@ package chess.model;
  *
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-05-05
- *
  */
 
 public class King extends Figure {
@@ -14,17 +13,18 @@ public class King extends Figure {
      * The constructor of a king
      * The kings team and figure ID are initialized here.
      */
-    public King(boolean team) {
-        super(team);
+    public King(boolean blackTeam) {
+        super(blackTeam);
         super.figureID = 6;
     }
 
     /**
      * The copy constructor of this class
-     * @param sourceClass
+     *
+     * @param sourceClass King you want to clone
      */
-    public King(King sourceClass){
-        super(sourceClass.team);
+    public King(King sourceClass) {
+        super(sourceClass.blackTeam);
         super.alreadyMoved = sourceClass.alreadyMoved;
         super.figureID = 6;
     }
@@ -34,23 +34,20 @@ public class King extends Figure {
      *
      * @param actualPos actual position for King
      * @param targetPos new input position for King
-     * @param board actual state of chessboard
+     * @param board     actual state of chessboard
      * @return whether move was successful
      */
 
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
         // normal move
-        if(!(Math.abs(actualPos.getPosX()-targetPos.getPosX()) <= 1 && Math.abs(actualPos.getPosY()-targetPos.getPosY()) <= 1)) return false;
-
-        return true;
+        return Math.abs(actualPos.getPosX() - targetPos.getPosX()) <= 1 && Math.abs(actualPos.getPosY() - targetPos.getPosY()) <= 1;
     }
 
     @Override
     public char getSymbol() {
-        return team == false ? 'K' : 'k';
+        return !blackTeam ? 'K' : 'k';
     }
-
 
 
 }

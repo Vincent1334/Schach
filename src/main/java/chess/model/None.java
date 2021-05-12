@@ -18,16 +18,18 @@ public class None extends Figure {
 
     /**
      * The copy constructor of none class
-     * @param sourceClass
+     *
+     * @param sourceClass the None you want to clone
      */
-    public None(None sourceClass){
-        super(sourceClass.team);
+    public None(None sourceClass) {
+        super(sourceClass.blackTeam);
         super.alreadyMoved = sourceClass.alreadyMoved;
         super.figureID = 0;
     }
 
     /**
      * proofs if the move is valid
+     *
      * @return false, none can't move
      */
     @Override
@@ -37,13 +39,13 @@ public class None extends Figure {
 
     /**
      * returns the symbol of None
+     *
      * @return symbol of None
      */
     @Override
     public char getSymbol() {
         return ' ';
     }
-
 
 
 }

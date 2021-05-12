@@ -21,34 +21,38 @@ public class Board {
      */
     public Board() {
         internalBoard = new Figure[8][8];
-        boolean team = false;
+        boolean blackTeam = false;
 
         for (int i = 0; i <= 1; i++) {
             // set team
-            if(i == 0) team = false;
-            else team = true;
+            blackTeam = i != 0;
+            /*if (i == 0) {
+                team = false;
+            } else {
+                team = true;
+            }*/
 
             //create Pawns
             for (int j = 0; j < 8; j++) {
-                internalBoard[j][1 + i * 5] = new Pawn(team);
+                internalBoard[j][1 + i * 5] = new Pawn(blackTeam);
             }
             //create King
-            internalBoard[4][i * 7] = new King(team);
+            internalBoard[4][i * 7] = new King(blackTeam);
 
             //create Queen
-            internalBoard[3][i * 7] = new Queen(team);
+            internalBoard[3][i * 7] = new Queen(blackTeam);
 
             //create Rooks
             for (int j = 0; j <= 1; j++) {
-                internalBoard[j * 7][i * 7] = new Rook(team);
+                internalBoard[j * 7][i * 7] = new Rook(blackTeam);
             }
             //create Bishops
             for (int j = 0; j <= 1; j++) {
-                internalBoard[2 + j * 3][i * 7] = new Bishop(team);
+                internalBoard[2 + j * 3][i * 7] = new Bishop(blackTeam);
             }
             //create Knights
             for (int j = 0; j <= 1; j++) {
-                internalBoard[1 + j * 5][i * 7] = new Knight(team);
+                internalBoard[1 + j * 5][i * 7] = new Knight(blackTeam);
             }
         }
         //create None
@@ -160,14 +164,14 @@ public class Board {
      * Get the position of the target king
      *
      * @param board current chessboard
-     * @param team  team-ID of the king you want to get
+     * @param blackTeam  team-ID of the king you want to get
      * @return position of target king, {0,0} if there is no king found
      */
-    public static Position getKing(Board board, boolean team) {
+    public static Position getKing(Board board, boolean blackTeam) {
         //Searching target King position
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (board.getFigure(x, y) instanceof King && board.getFigure(x, y).getTeam() == team) {
+                if (board.getFigure(x, y) instanceof King && board.getFigure(x, y).isBlackTeam() == blackTeam) {
                     //Return target king position
                     return new Position(x, y);
                 }
@@ -181,11 +185,11 @@ public class Board {
      * Checks if a field is threatened by the selected team
      *
      * @param tmpBoard  current chessboard
-     * @param team      team of the figure you want to check
+     * @param blackTeam     opposite team that may threaten the figure
      * @param targetPos position of the figure you want to check
      * @return whether the figure is threatened by the other team
      */
-    public static boolean isThreatened(Board tmpBoard, Position targetPos, boolean team) {
+    public static boolean isThreatened(Board tmpBoard, Position targetPos, boolean blackTeam) {
         //Check if the target team threatened the target field
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
@@ -207,31 +211,32 @@ public class Board {
      * Checks whether the king is in check
      *
      * @param board current chessboard
-     * @param team  The team ID of the target King
+     * @param blackTeam  The team ID of the target King
      * @return Whether the king is in check or not
      */
-    public static boolean kingInCheck(Board board, boolean team) {
-        return isThreatened(board, Board.getKing(board, team), !team);
+    public static boolean kingInCheck(Board board, boolean blackTeam) {
+        return isThreatened(board, Board.getKing(board, blackTeam), !blackTeam);
     }
 
     /**
      * Check chessMate
      *
      * @param board current chessboard
-     * @param team  the team of the target king
+     * @param blackTeam  the team of the target king
      * @return whether the king of "team"-color is in checkmate
      */
-    public static boolean checkChessMate(Board board, boolean team) {
+    public static boolean checkChessMate(Board board, boolean blackTeam) {
         //Is king in check?
-        if(kingInCheck(board, team)){
+        if (kingInCheck(board, blackTeam)) {
             // test all possible moves and check whether your king is still in check
             for (int y = 0; y < 8; y++) {                                           // for all your own figures on the board
                 for (int x = 0; x < 8; x++) {
-                    if (!(board.getFigure(new Position(x, y)) instanceof None) && board.getFigure(new Position(x, y)).getTeam() == team) {
+                    if (!(board.getFigure(new Position(x, y)) instanceof None) && board.getFigure(new Position(x, y)).isBlackTeam() == blackTeam) {
                         for (int newX = 0; newX < 8; newX++) {                      // test all possible moves to every possible targetField
                             for (int newY = 0; newY < 8; newY++) {
                                 Board tmpBoard = new Board(board);                  // on a copy of the board
-                                if(possibleSolution(new Position(x, y), new Position(newX, newY), tmpBoard, team)) return false;
+                                if (possibleSolution(new Position(x, y), new Position(newX, newY), tmpBoard, blackTeam))
+                                    return false;
                             }
                         }
                     }
@@ -243,7 +248,7 @@ public class Board {
         return false;
     }
 
-    private static boolean possibleSolution(Position actualPos, Position targetPos, Board tmpBoard, boolean team) {
+    private static boolean possibleSolution(Position actualPos, Position targetPos, Board tmpBoard, boolean blackTeam) {
         if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {             // check EnPassant and eventually perform it on the temporary board
             Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
         }
@@ -252,7 +257,7 @@ public class Board {
         }
         //All other moves are not allowed in this case!
 
-        return !kingInCheck(tmpBoard, team);
+        return !kingInCheck(tmpBoard, blackTeam);
     }
 
 

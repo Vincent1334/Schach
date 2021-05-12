@@ -9,7 +9,6 @@ import java.util.List;
  *
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-05-07
- *
  */
 public class CoreGame {
 
@@ -22,6 +21,7 @@ public class CoreGame {
 
     /**
      * the constructor of CoreGame
+     *
      * @param gameMode mode like local game, network game or a.i game
      */
     public CoreGame(int gameMode) {
@@ -38,17 +38,17 @@ public class CoreGame {
     public boolean chessMove(Move move) {
 
         //check valid input
-        if(move.getActualPosition().getPosX() == move.getTargetPosition().getPosX() && move.getActualPosition().getPosY() == move.getTargetPosition().getPosY() || currentBoard.getFigure(move.getActualPosition()).getTeam() != activePlayer){
+        if (move.getActualPosition().getPosX() == move.getTargetPosition().getPosX() && move.getActualPosition().getPosY() == move.getTargetPosition().getPosY() || currentBoard.getFigure(move.getActualPosition()).isBlackTeam() != activePlayer) {
             //User command fails
             System.out.println("!Move not allowed");
             return false;
         }
 
         //check pawn move
-        if(pawnMove(move)) return true;
+        if (pawnMove(move)) return true;
 
         //check king move
-        if(kingMove(move)) return true;
+        if (kingMove(move)) return true;
 
         //checkValidDefaultMove
         if (Rules.checkValidDefaultMove(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
@@ -69,8 +69,8 @@ public class CoreGame {
      * <------Pawn-move------------------------------------------------------------------------------------------------>
      */
 
-    private boolean pawnMove(Move move){
-        //check Enpassant
+    private boolean pawnMove(Move move) {
+        //check EnPassant
         if (Rules.checkEnPassant(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
             Rules.performEnPassantMove(move.getActualPosition(), move.getTargetPosition(), currentBoard);
             updateChanges(move);
@@ -88,7 +88,7 @@ public class CoreGame {
     /*
      * <------King-move------------------------------------------------------------------------------------------------>
      */
-    private boolean kingMove(Move move){
+    private boolean kingMove(Move move) {
         if (Rules.checkCastling(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
             Rules.performCastlingMove(move.getActualPosition(), move.getTargetPosition(), currentBoard);
             return true;
@@ -102,6 +102,7 @@ public class CoreGame {
 
     /**
      * return the current board
+     *
      * @return Board
      */
     public Board getCurrentBoard() {
@@ -121,16 +122,15 @@ public class CoreGame {
 
     /**
      * resets EnPassant
+     *
      * @param targetPos
      */
     private void resetEnPassant(Position targetPos) {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (x != targetPos.getPosX() && y != targetPos.getPosY()) {
-                    if (currentBoard.getFigure(x, y) instanceof Pawn) {
-                        Pawn tmpPawn = (Pawn) currentBoard.getFigure(x, y);
-                        tmpPawn.resetEnPassant();
-                    }
+                if (x != targetPos.getPosX() && y != targetPos.getPosY() && currentBoard.getFigure(x, y) instanceof Pawn) {
+                    Pawn tmpPawn = (Pawn) currentBoard.getFigure(x, y);
+                    tmpPawn.resetEnPassant();
                 }
             }
         }
@@ -176,7 +176,7 @@ public class CoreGame {
             case 6: System.out.println("+ Type: King"); break;
         }
         System.out.println("+ AlreadyMove: " + currentBoard.getFigure(move.getActualPosition()).isAlreadyMoved());
-        System.out.println("+ Team: " + currentBoard.getFigure(move.getActualPosition()).getTeam());
+        System.out.println("+ Team: " + currentBoard.getFigure(move.getActualPosition()).isBlackTeam());
         System.out.println("+ validMove " + currentBoard.getFigure(move.getActualPosition()).validMove(move.getActualPosition(), move.getTargetPosition(), currentBoard));
         if(currentBoard.getFigure(move.getActualPosition()) instanceof Pawn){
             System.out.println("+ Direction: " + ((Pawn)currentBoard.getFigure(move.getActualPosition())).checkRightDirection(move.getActualPosition(), move.getTargetPosition()));
@@ -195,7 +195,7 @@ public class CoreGame {
             case 6: System.out.println("+ Type: King"); break;
         }
         System.out.println("+ AlreadyMove: " + currentBoard.getFigure(move.getTargetPosition()).isAlreadyMoved());
-        System.out.println("+ Team: " + currentBoard.getFigure(move.getTargetPosition()).getTeam());
+        System.out.println("+ Team: " + currentBoard.getFigure(move.getTargetPosition()).isBlackTeam());
         System.out.println("+ validMove " + currentBoard.getFigure(move.getTargetPosition()).validMove(move.getActualPosition(), move.getTargetPosition(), currentBoard));
         if(currentBoard.getFigure(move.getTargetPosition()) instanceof Pawn){
             System.out.println("+ Direction: " + ((Pawn)currentBoard.getFigure(move.getTargetPosition())).checkRightDirection(move.getActualPosition(), move.getTargetPosition()));

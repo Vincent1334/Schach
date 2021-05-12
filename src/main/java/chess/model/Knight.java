@@ -5,7 +5,6 @@ package chess.model;
  *
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-05-05
- *
  */
 
 public class Knight extends Figure {
@@ -14,26 +13,28 @@ public class Knight extends Figure {
      * The constructor of a knight
      * The knights team and figure ID are is initialized here.
      */
-    public Knight(boolean team) {
-        super(team);
+    public Knight(boolean blackTeam) {
+        super(blackTeam);
         super.figureID = 3;
     }
 
     /**
      * The copy constructor of this class
-     * @param sourceClass
+     *
+     * @param sourceClass Knight you want to clone
      */
-    public Knight(Knight sourceClass){
-        super(sourceClass.team);
+    public Knight(Knight sourceClass) {
+        super(sourceClass.blackTeam);
         super.alreadyMoved = sourceClass.alreadyMoved;
         super.figureID = 3;
     }
 
     /**
      * Proofs if the move is a valid move for Knight
+     *
      * @param actualPos actual position for Knight
      * @param targetPos new input position for Knight
-     * @param board actual state of chessboard
+     * @param board     actual state of chessboard
      * @return whether move was successful
      */
 
@@ -46,21 +47,30 @@ public class Knight extends Figure {
         int newY = targetPos.getPosY();
 
         //is the move legal?
-        if(!( posX + 1 == newX && posY + 2 == newY || posX + 1 == newX && posY - 2 == newY
-                || posX - 1 == newX && posY + 2 == newY || posX - 1 == newX && posY - 2 == newY
-                || posX + 2 == newX && posY + 1 == newY || posX + 2 == newX && posY - 1 == newY
-                || posX - 2 == newX && posY + 1 == newY || posX - 2 == newX && posY - 1 == newY)){
-            return false;
-        }
+        return rightUp(posX, posY, newX, newY) || rightDown(posX, posY, newX, newY)
+                || leftUp(posX, posY, newX, newY) || leftDown(posX, posY, newX, newY);
+    }
 
-        return true;
+    private boolean leftDown(int posX, int posY, int newX, int newY) {
+        return posX - 2 == newX && posY - 1 == newY || posX - 1 == newX && posY - 2 == newY;
+    }
+
+    private boolean leftUp(int posX, int posY, int newX, int newY) {
+        return posX - 2 == newX && posY + 1 == newY || posX - 1 == newX && posY + 2 == newY;
+    }
+
+    private boolean rightDown(int posX, int posY, int newX, int newY) {
+        return posX + 2 == newX && posY - 1 == newY || posX + 1 == newX && posY - 2 == newY;
+    }
+
+    private boolean rightUp(int posX, int posY, int newX, int newY) {
+        return posX + 2 == newX && posY + 1 == newY || posX + 1 == newX && posY + 2 == newY;
     }
 
     @Override
     public char getSymbol() {
-        return team == false ?  'N' : 'n';
+        return !blackTeam ? 'N' : 'n';
     }
-
 
 
 }

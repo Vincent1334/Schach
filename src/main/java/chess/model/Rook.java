@@ -13,17 +13,18 @@ public class Rook extends Figure {
      * The constructor of a rook
      * The rooks team and figure ID are initialized here.
      */
-    public Rook(boolean team) {
-        super(team);
+    public Rook(boolean blackTeam) {
+        super(blackTeam);
         super.figureID = 2;
     }
 
     /**
      * The copy constructor of this class
-     * @param sourceClass
+     *
+     * @param sourceClass Rook you want to clone
      */
     public Rook(Rook sourceClass) {
-        super(sourceClass.team);
+        super(sourceClass.blackTeam);
         super.alreadyMoved = sourceClass.alreadyMoved;
         super.figureID = 2;
     }
@@ -38,31 +39,42 @@ public class Rook extends Figure {
      */
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
-        //Is the new position frontal from the old position
-        if(actualPos.getPosX() != targetPos.getPosX() && actualPos.getPosY() != targetPos.getPosY()) return false;
+        // don't stay at the same place
+        if (actualPos.getPosX() != targetPos.getPosX() && actualPos.getPosY() != targetPos.getPosY()) return false;
 
-        //is between the old position and the new position a figure
-        int directionX = 1;
+        // return false if there is a figure between the old position and the new position
+        /*int directionX = 1;
         int directionY = 1;
-        if(actualPos.getPosX() > targetPos.getPosX()) directionX = -1;
-        if(actualPos.getPosY() > targetPos.getPosY()) directionY = -1;
 
-        if(actualPos.getPosX() == targetPos.getPosX()){
-            for(int i = 1; i < Math.abs(actualPos.getPosY()- targetPos.getPosY()); i++){
-                if(!(board.getFigure(actualPos.getPosX(), actualPos.getPosY()+i*directionY) instanceof None)) return false;
-            }
-        }else{
-            for(int i = 1; i < Math.abs(actualPos.getPosX()- targetPos.getPosX()); i++){
-                if(!(board.getFigure(actualPos.getPosX()+i*directionX, actualPos.getPosY()) instanceof None)) return false;
+        if (actualPos.getPosX() > targetPos.getPosX()) {
+            directionX = -1;
+        }
+        if (actualPos.getPosY() > targetPos.getPosY()) {
+            directionY = -1;
+        }*/
+        int directionFactor = actualPos.getPosX() > targetPos.getPosX() || actualPos.getPosY() > targetPos.getPosY() ? -1 : 1;
+        // vertical
+        if (actualPos.getPosX() == targetPos.getPosX()) {
+            for (int i = 1; i < Math.abs(actualPos.getPosY() - targetPos.getPosY()); i++) {
+                if (!(board.getFigure(actualPos.getPosX(), actualPos.getPosY() + i * directionFactor) instanceof None)) {
+                    return false;
+                }
             }
         }
-
+        // horizontal
+        else {
+            for (int i = 1; i < Math.abs(actualPos.getPosX() - targetPos.getPosX()); i++) {
+                if (!(board.getFigure(actualPos.getPosX() + i * directionFactor, actualPos.getPosY()) instanceof None)) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
     @Override
     public char getSymbol() {
-        return team == false ? 'R' : 'r';
+        return !blackTeam ? 'R' : 'r';
     }
 
 }

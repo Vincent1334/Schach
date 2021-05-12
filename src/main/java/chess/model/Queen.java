@@ -13,17 +13,18 @@ public class Queen extends Figure {
      * The constructor of a queen
      * The queens team and figure ID are initialized here.
      */
-    public Queen(boolean team) {
-        super(team);
+    public Queen(boolean blackTeam) {
+        super(blackTeam);
         super.figureID = 5;
     }
 
     /**
      * The copy constructor of this class
-     * @param sourceClass
+     *
+     * @param sourceClass Queen you want to clone
      */
     public Queen(Queen sourceClass) {
-        super(sourceClass.team);
+        super(sourceClass.blackTeam);
         super.alreadyMoved = sourceClass.alreadyMoved;
         super.figureID = 5;
     }
@@ -40,18 +41,17 @@ public class Queen extends Figure {
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
 
-        Bishop b = new Bishop(team);
-        Rook r = new Rook(team);
+        Bishop b = new Bishop(blackTeam);
+        Rook r = new Rook(blackTeam);
 
         //is the move legal?
-        if(!(b.validMove(actualPos,targetPos,board)||r.validMove(actualPos,targetPos,board))) return false;
-        return true;
+        return b.validMove(actualPos, targetPos, board) || r.validMove(actualPos, targetPos, board);
     }
 
 
     @Override
     public char getSymbol() {
-        return team == false ? 'Q' : 'q';
+        return !blackTeam ? 'Q' : 'q';
     }
 }
 

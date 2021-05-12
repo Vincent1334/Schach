@@ -16,6 +16,7 @@ public class Position {
     /**
      * The constructor of a Position
      * posX and posY are initialized here
+     *
      * @param posX x Position
      * @param posY y Position
      */
@@ -25,23 +26,8 @@ public class Position {
     }
 
     /**
-     * set x-position
-     * @param posX
-     */
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    /**
-     * set y-position
-     * @param posY
-     */
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
-    /**
      * return x-position
+     *
      * @return x-position
      */
     public int getPosX() {
@@ -50,6 +36,7 @@ public class Position {
 
     /**
      * return y-position
+     *
      * @return y-position
      */
     public int getPosY() {
@@ -58,6 +45,7 @@ public class Position {
 
     /**
      * proofs if two positions are equal
+     *
      * @param other the other position
      * @return if two positions are equal
      */
@@ -71,6 +59,7 @@ public class Position {
 
     /**
      * return hashCode
+     *
      * @return hashCode
      */
     @Override

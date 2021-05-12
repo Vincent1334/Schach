@@ -10,21 +10,23 @@ package chess.model;
 public class Pawn extends Figure {
 
     private boolean enPassant = false;
+
     /**
      * The constructor of a pawn
      * The pawns team and figure ID are initialized here.
      */
-    public Pawn(boolean team) {
-        super(team);
+    public Pawn(boolean blackTeam) {
+        super(blackTeam);
         super.figureID = 1;
     }
 
     /**
      * The copy constructor of this class
-     * @param sourceClass
+     *
+     * @param sourceClass Pawn you want to clone
      */
     public Pawn(Pawn sourceClass) {
-        super(sourceClass.getTeam());
+        super(sourceClass.isBlackTeam());
         super.alreadyMoved = sourceClass.isAlreadyMoved();
         this.enPassant = sourceClass.enPassant;
         super.figureID = 1;
@@ -51,41 +53,43 @@ public class Pawn extends Figure {
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
 
         // check direction
-        if(!checkRightDirection(actualPos, targetPos)) return false;
+        if (!checkRightDirection(actualPos, targetPos)) return false;
         //is move legal?
-        if(!(normalMove(actualPos,targetPos) || normalAttack(actualPos,targetPos,board) || firstMove(actualPos,targetPos,board))) return false;
-
-        return true;
+        return normalMove(actualPos, targetPos) || normalAttack(actualPos, targetPos, board) || firstMove(actualPos, targetPos);
     }
 
     /**
      * Tests if the pawn makes an normal move
+     *
      * @param actualPos actual position for Pawn
      * @param targetPos new input position for Pawn
      * @return pawn makes an normal move
      */
-    private boolean normalMove(Position actualPos, Position targetPos){
-        return Math.abs(actualPos.getPosY()- targetPos.getPosY()) == 1 && actualPos.getPosX() == targetPos.getPosX();
+    private boolean normalMove(Position actualPos, Position targetPos) {
+        return Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 1 && actualPos.getPosX() == targetPos.getPosX();
     }
 
     /**
      * Tests if the pawn makes an normal attack
+     *
      * @param actualPos actual position for Pawn
      * @param targetPos new input position for Pawn
      * @return pawn makes an normal attack
      */
-    private boolean normalAttack(Position actualPos, Position targetPos, Board board){
-        return Math.abs(actualPos.getPosY()- targetPos.getPosY()) == 1 && Math.abs(actualPos.getPosX()- targetPos.getPosX()) == 1 && !(board.getFigure(targetPos) instanceof None);
+    private boolean normalAttack(Position actualPos, Position targetPos, Board board) {
+        return Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 1 && Math.abs(actualPos.getPosX() - targetPos.getPosX()) == 1 && !(board.getFigure(targetPos) instanceof None);
     }
 
     /**
      * Tests if the pawn makes his first move
+     *
      * @param actualPos actual position for Pawn
      * @param targetPos new input position for Pawn
      * @return pawn makes first move
      */
-    private boolean firstMove(Position actualPos, Position targetPos, Board board){
-        if(!alreadyMoved && Math.abs(actualPos.getPosY()-targetPos.getPosY()) == 2 && actualPos.getPosX() == targetPos.getPosX()){
+    private boolean firstMove(Position actualPos, Position targetPos) {
+
+        if (!alreadyMoved && Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 2 && actualPos.getPosX() == targetPos.getPosX()) {
             enPassant = true;
             return true;
         }
@@ -100,17 +104,17 @@ public class Pawn extends Figure {
     }
 
     /**
-     * check if Pawn move in right direction
-     * @param actualPos
-     * @param targetPos
-     * @return
+     * check if Pawn moves in right direction
+     *
+     * @param actualPos current position of the pawn
+     * @param targetPos target position of the pawn
+     * @return whether the pawn moves in correct direction
      */
-    public boolean checkRightDirection(Position actualPos, Position targetPos){
-        if(team == false && targetPos.getPosY() > actualPos.getPosY()) return true;
-        if(team == false && targetPos.getPosY() < actualPos.getPosY()) return false;
-        if(team == true && targetPos.getPosY() > actualPos.getPosY()) return false;
-        if(team == true && targetPos.getPosY() < actualPos.getPosY()) return true;
-        return false;
+    public boolean checkRightDirection(Position actualPos, Position targetPos) {
+        if (!blackTeam && targetPos.getPosY() > actualPos.getPosY()) return true;
+        if (!blackTeam && targetPos.getPosY() < actualPos.getPosY()) return false;
+        if (blackTeam && targetPos.getPosY() > actualPos.getPosY()) return false;
+        return blackTeam && targetPos.getPosY() < actualPos.getPosY();
     }
 
     //only for Testing
@@ -120,6 +124,6 @@ public class Pawn extends Figure {
 
     @Override
     public char getSymbol() {
-        return team == false ? 'P' : 'p';
+        return !blackTeam ? 'P' : 'p';
     }
 }

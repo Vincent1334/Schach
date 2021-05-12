@@ -13,17 +13,18 @@ public class Bishop extends Figure {
      * The constructor of a bishop
      * The bishops team and figure ID are initialized here.
      */
-    public Bishop(boolean team) {
-        super(team);
+    public Bishop(boolean blackTeam) {
+        super(blackTeam);
         super.figureID = 4;
     }
 
     /**
      * The copy constructor of this class
-     * @param sourceClass
+     *
+     * @param sourceClass Bishop you want to clone
      */
     public Bishop(Bishop sourceClass) {
-        super(sourceClass.team);
+        super(sourceClass.blackTeam);
         super.alreadyMoved = sourceClass.alreadyMoved;
         super.figureID = 4;
     }
@@ -38,25 +39,29 @@ public class Bishop extends Figure {
      */
 
     @Override
-    public boolean validMove(Position actualPos, Position targetPos, Board board){
+    public boolean validMove(Position actualPos, Position targetPos, Board board) {
 
         //Is the new position on a diagonal from the old position
-        if(Math.abs(actualPos.getPosX() - targetPos.getPosX()) != Math.abs(actualPos.getPosY() - targetPos.getPosY())) return false;
+        if (Math.abs(actualPos.getPosX() - targetPos.getPosX()) != Math.abs(actualPos.getPosY() - targetPos.getPosY()))
+            return false;
         //is between the old position and the new position a figure
-        int directionX = 1;
+        /*int directionX = 1;
         int directionY = 1;
-        if(actualPos.getPosX() > targetPos.getPosX()) directionX = -1;
-        if(actualPos.getPosY() > targetPos.getPosY()) directionY = -1;
+        if (actualPos.getPosX() > targetPos.getPosX()) directionX = -1;
+        if (actualPos.getPosY() > targetPos.getPosY()) directionY = -1;*/
 
-        for(int i = 1; i < Math.abs(actualPos.getPosX()-targetPos.getPosX()); i++){
-            if(!(board.getFigure(actualPos.getPosX()+i*directionX, actualPos.getPosY()+i*directionY) instanceof None)) return false;
+        int directionFactor = actualPos.getPosX() > targetPos.getPosX() || actualPos.getPosY() > targetPos.getPosY() ? -1 : 1;
+
+        for (int i = 1; i < Math.abs(actualPos.getPosX() - targetPos.getPosX()); i++) {
+            if (!(board.getFigure(actualPos.getPosX() + i * directionFactor, actualPos.getPosY() + i * directionFactor) instanceof None))
+                return false;
         }
         return true;
     }
 
     @Override
     public char getSymbol() {
-        return team == false ? 'B' : 'b';
+        return !blackTeam ? 'B' : 'b';
     }
 
 }
