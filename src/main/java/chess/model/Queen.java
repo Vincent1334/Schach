@@ -45,7 +45,6 @@ public class Queen extends Figure {
 
         //is the move legal?
         if(!(b.validMove(actualPos,targetPos,board)||r.validMove(actualPos,targetPos,board))) return false;
-
         return true;
     }
 

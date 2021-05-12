@@ -42,7 +42,6 @@ public class Bishop extends Figure {
 
         //Is the new position on a diagonal from the old position
         if(Math.abs(actualPos.getPosX() - targetPos.getPosX()) != Math.abs(actualPos.getPosY() - targetPos.getPosY())) return false;
-
         //is between the old position and the new position a figure
         int directionX = 1;
         int directionY = 1;
@@ -52,7 +51,6 @@ public class Bishop extends Figure {
         for(int i = 1; i < Math.abs(actualPos.getPosX()-targetPos.getPosX()); i++){
             if(!(board.getFigure(actualPos.getPosX()+i*directionX, actualPos.getPosY()+i*directionY) instanceof None)) return false;
         }
-
         return true;
     }
 
