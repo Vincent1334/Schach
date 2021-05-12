@@ -136,6 +136,7 @@ public class Rules {
      */
     public static boolean checkCastling(Position actualPos, Position targetPos, Board board) {
 
+        //King
         Figure actualFigure = board.getFigure(actualPos);
 
         //check chess
@@ -144,13 +145,13 @@ public class Rules {
         }
 
         if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved())) {
-            //check short castling left (queenside)
+            //check short castling right (kingside)
             if (targetPos.getPosX() == 6 && board.getFigure(7, actualPos.getPosY()) instanceof Rook
                     && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved())) {
                 //check, whether all field between are empty and are not threatened
                 for (int j = 5; j < 7; j++) {
-                    if (!(board.getFigure(j, actualPos.getPosY()) instanceof None
-                            && Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.isBlackTeam()))) {
+                    if (!(board.getFigure(j, actualPos.getPosY()) instanceof None)
+                            || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.isBlackTeam())) {
                         return false;
                     }
                 }
@@ -159,13 +160,13 @@ public class Rules {
                 //Castling is possible
             }
 
-            //check long castling right (kingside)
+            //check long castling left (queenside)
             if (targetPos.getPosX() == 2 && board.getFigure(0, actualPos.getPosY()) instanceof Rook
                     && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved())) {
                 //check, whether all field between are empty and are not threatened
-                for (int j = 5; j > 0; j--) {
-                    if (!(board.getFigure(j, actualPos.getPosY()) instanceof None
-                            && Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.isBlackTeam()))) {
+                for (int j = 3; j > 0; j--) {
+                    if (!(board.getFigure(j, actualPos.getPosY()) instanceof None)
+                            || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.isBlackTeam())) {
                         return false;
                     }
                 }
