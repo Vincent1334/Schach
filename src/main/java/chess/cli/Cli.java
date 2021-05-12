@@ -14,7 +14,6 @@ import java.util.Scanner;
 public class Cli {
 
     static Scanner scan;
-    static PrintWriter printWriter;
     static CoreGame coreGame;
 
     /**
@@ -24,7 +23,6 @@ public class Cli {
      */
     public static void main(String[] args) {
         scan = new Scanner(System.in);
-        printWriter = new PrintWriter(System.out, true);
         init(args);
         enterGame();
         endGame();
@@ -75,7 +73,7 @@ public class Cli {
             if (input.equals("beaten")) {
                 System.out.println("Beaten figures:");
                 for (int i = 0; i < coreGame.getCurrentBoard().getBeatenFigures().size(); i++) {
-                    printWriter.println(coreGame.getCurrentBoard().getBeatenFigures().get(i).getSymbol());
+                    System.out.println(coreGame.getCurrentBoard().getBeatenFigures().get(i).getSymbol());
                 }
                 continue;
             }
@@ -100,14 +98,14 @@ public class Cli {
      */
     public static void drawBoard() {
         for (int y = 0; y < 8; y++) {
-            printWriter.print(8 - y + " ");
+            System.out.print(8 - y + " ");
             for (int x = 0; x < 8; x++) {
-                printWriter.print(coreGame.getCurrentBoard().getFigure(x, 7 - y).getSymbol() + " ");
+                System.out.print(coreGame.getCurrentBoard().getFigure(x, 7 - y).getSymbol() + " ");
             }
-            printWriter.println("");
+            System.out.println("");
         }
-        printWriter.println("  a b c d e f g h");
-        printWriter.println("");
+        System.out.println("  a b c d e f g h");
+        System.out.println("");
     }
 
     /**
@@ -123,6 +121,8 @@ public class Cli {
 
     public static boolean validSyntax(String input) {
         // e.g. "b2-e5Q"
+
+
         boolean correct = checkLength(input) && checkHyphen(input) && checkLetters(input) && checkNumbers(input);
         if (input.length() == 6) {
             correct = correct && checkConversionLetter(input);
@@ -133,7 +133,7 @@ public class Cli {
     }
 
     private static boolean checkLength(String input) {
-        return input.length() == 5 || input.length() == 6;
+        return (input.length() == 5 || input.length() == 6) && !input.isBlank();
     }
 
     private static boolean checkHyphen(String input) {
