@@ -192,10 +192,8 @@ public class Board {
                 //don't check the target pos!
                 if(!(x == targetPos.getPosX() && y == targetPos.getPosY())){
                     //check if the figure can perform a valid move
-                    if (!(tmpBoard.getFigure(x, y) instanceof None) &&
-                            tmpBoard.getFigure(x, y).getTeam() == team &&
-                            tmpBoard.getFigure(x, y).validMove(new Position(x, y), targetPos, tmpBoard)) {
-                        return true;
+                    if(!(tmpBoard.getFigure(new Position(x, y)) instanceof None)){
+                        return tmpBoard.getFigure(new Position(x, y)).validMove(new Position(x, y), targetPos, tmpBoard);
                     }
                 }
             }

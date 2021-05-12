@@ -225,7 +225,6 @@ public class Rules {
 
         //check valid move
         if(actualFigure instanceof Pawn && actualFigure.validMove(actualPos, targetPos, board) && targetPos.getPosY() == 7 || targetPos.getPosY() == 0){
-
             //create a tmpBoard with the new untested figure position
             Board tmpBoard = new Board(board);
             //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal

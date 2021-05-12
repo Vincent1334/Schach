@@ -85,12 +85,7 @@ public class Pawn extends Figure {
      * @return pawn makes first move
      */
     private boolean firstMove(Position actualPos, Position targetPos, Board board){
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
-        if(!alreadyMoved && Math.abs(actualPos.getPosY()- targetPos.getPosY()) == 2 && actualPos.getPosX() == targetPos.getPosX()){
+        if(!alreadyMoved && Math.abs(actualPos.getPosY()-targetPos.getPosY()) == 2 && actualPos.getPosX() == targetPos.getPosX()){
             enPassant = true;
             return true;
         }
