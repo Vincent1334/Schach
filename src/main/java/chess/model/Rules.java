@@ -60,6 +60,7 @@ public class Rules {
         //Update Board
         board.setFigure(targetPos, actualFigure);
         board.setFigure(actualPos, new None());
+        board.getFigure(targetPos).setAlreadyMoved(true);
     }
 
     /*

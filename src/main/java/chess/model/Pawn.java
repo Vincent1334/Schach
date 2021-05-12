@@ -65,12 +65,7 @@ public class Pawn extends Figure {
      * @return pawn makes an normal move
      */
     private boolean normalMove(Position actualPos, Position targetPos){
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
-        return (team == false && posY + 1 == newY || team == true && posY - 1 == newY) && posX == newX;
+        return Math.abs(actualPos.getPosY()- targetPos.getPosY()) == 1 && actualPos.getPosX() == targetPos.getPosX();
     }
 
     /**
@@ -80,12 +75,7 @@ public class Pawn extends Figure {
      * @return pawn makes an normal attack
      */
     private boolean normalAttack(Position actualPos, Position targetPos, Board board){
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
-        return (team == false && posY + 1 == newY  || team == true && posY - 1 == newY ) && (posX + 1 == newX || posX - 1 == newX) && !(board.getFigure(targetPos) instanceof None);
+        return Math.abs(actualPos.getPosY()- targetPos.getPosY()) == 1 && Math.abs(actualPos.getPosX()- targetPos.getPosX()) == 1 && !(board.getFigure(targetPos) instanceof None);
     }
 
     /**
@@ -100,9 +90,7 @@ public class Pawn extends Figure {
         int newX = targetPos.getPosX();
         int newY = targetPos.getPosY();
 
-        if ((team == false && posY + 2 == newY && board.getFigure(posX,posY+1) instanceof None
-                || team == true && posY - 2 == newY && board.getFigure(posX,posY-1) instanceof None)
-                && posX == newX && !alreadyMoved) {
+        if(!alreadyMoved && Math.abs(actualPos.getPosY()- targetPos.getPosY()) == 2 && actualPos.getPosX() == targetPos.getPosX()){
             enPassant = true;
             return true;
         }
