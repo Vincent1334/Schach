@@ -127,5 +127,4 @@ public class Pawn extends Figure {
     public char getSymbol() {
         return team == false ? 'P' : 'p';
     }
-
 }

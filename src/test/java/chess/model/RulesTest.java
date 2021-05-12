@@ -81,7 +81,7 @@ public class RulesTest {
         }
         board.setFigure(new Position(4,0),new King(false));
         board.setFigure(new Position(7,0),new Rook(false));
-        Rules.performCastlingMoveRight(new Position(4,0),new Position(6,0),board);
+        Rules.performCastlingMove(new Position(4,0),new Position(6,0),board);
         assertTrue(board.getFigure(new Position(4,0)) instanceof None, "Castling failed: king was not removed from original position");
         assertTrue(board.getFigure(new Position(5,0)) instanceof Rook, "Castling failed: rook was not moved correctly");
         assertTrue(board.getFigure(new Position(6,0)) instanceof King, "Castling failed: king was not moved correctly");
@@ -100,7 +100,7 @@ public class RulesTest {
         }
         board.setFigure(new Position(4,0),new King(false));
         board.setFigure(new Position(0,0),new Rook(false));
-        Rules.performCastlingMoveLeft(new Position(4,0),new Position(2,0),board);
+        Rules.performCastlingMove(new Position(4,0),new Position(2,0),board);
         assertTrue(board.getFigure(new Position(0,0)) instanceof None, "Castling failed: rook was not removed from original position");
         assertTrue(board.getFigure(new Position(2,0)) instanceof King, "Castling failed: king was not moved correctly");
         assertTrue(board.getFigure(new Position(3,0)) instanceof Rook, "Castling failed: rook was not moved correctly");

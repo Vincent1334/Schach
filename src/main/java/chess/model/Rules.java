@@ -81,12 +81,12 @@ public class Rules {
         Figure targetFigure = board.getFigure(targetPos.getPosX(), actualPos.getPosY());
 
         //check target field is valid
-        if(!(board.getFigure(targetPos) instanceof None) && board.getFigure(targetPos).getTeam() == actualFigure.getTeam()) return false;
+        if(!(board.getFigure(targetPos) instanceof None)) return false;
 
         //check EnPassant is possible
-        if(actualFigure instanceof Pawn && targetFigure instanceof Pawn && actualFigure.getTeam() != targetFigure.getTeam() && ((Pawn)board.getFigure(targetPos)).isEnPassant()){
+        if(actualFigure instanceof Pawn && targetFigure instanceof Pawn && actualFigure.getTeam() != targetFigure.getTeam()){
             //check right movement
-            if(Math.abs(actualPos.getPosX()- targetPos.getPosX()) == 1 && Math.abs(actualPos.getPosY()- targetPos.getPosY()) == 1){
+            if(Math.abs(actualPos.getPosX()- targetPos.getPosX()) == 1 && Math.abs(actualPos.getPosY()- targetPos.getPosY()) == 1 && ((Pawn)targetFigure).isEnPassant()){
                 //check right direction
                 if(((Pawn) actualFigure).checkRightDirection(actualPos, targetPos)){
 
