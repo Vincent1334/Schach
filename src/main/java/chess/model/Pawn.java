@@ -24,8 +24,8 @@ public class Pawn extends Figure {
      * @param sourceClass
      */
     public Pawn(Pawn sourceClass) {
-        super(sourceClass.team);
-        super.alreadyMoved = sourceClass.alreadyMoved;
+        super(sourceClass.getTeam());
+        super.alreadyMoved = sourceClass.isAlreadyMoved();
         this.enPassant = sourceClass.enPassant;
         super.figureID = 1;
     }
@@ -50,6 +50,8 @@ public class Pawn extends Figure {
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
 
+        // check direction
+        if(!checkRightDirection(actualPos, targetPos)) return false;
         //is move legal?
         if(!(normalMove(actualPos,targetPos) || normalAttack(actualPos,targetPos,board) || firstMove(actualPos,targetPos,board))) return false;
 

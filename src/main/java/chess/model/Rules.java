@@ -220,22 +220,21 @@ public class Rules {
      */
     public static boolean checkPawnConversion(Position actualPos, Position targetPos, Board board) {
 
-        int newY = targetPos.getPosY();
-
         Figure actualFigure = board.getFigure(actualPos);
 
-        //create a tmpBoard with the new untested figure position
-        Board tmpBoard = new Board(board);
-        //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
-        tmpBoard.setFigure(actualPos, new None());
-        tmpBoard.setFigure(targetPos, actualFigure);
-        //check chess
-        if(Board.kingInCheck(tmpBoard, actualFigure.getTeam())) return false;
+        //check valid move
+        if(actualFigure instanceof Pawn && actualFigure.validMove(actualPos, targetPos, board) && targetPos.getPosY() == 7 || targetPos.getPosY() == 0){
 
-        if (actualFigure instanceof Pawn && actualFigure.validMove(actualPos, targetPos, board)) {
-            return newY == 7 && actualFigure.getTeam() == false || newY == 0 && actualFigure.getTeam() == true;
+            //create a tmpBoard with the new untested figure position
+            Board tmpBoard = new Board(board);
+            //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
+            tmpBoard.setFigure(actualPos, new None());
+            tmpBoard.setFigure(targetPos, actualFigure);
+            //check chess
+            if(Board.kingInCheck(tmpBoard, actualFigure.getTeam())) return false;
+
+            return true;
         }
-
         return false;
     }
 
@@ -248,84 +247,30 @@ public class Rules {
      * @param board     the current chessboard
      */
     public static void performPawnConversion(Position actualPos, Position targetPos, int figureID, Board board) {
-
-        convertWhitePawn(actualPos, targetPos, figureID, board);
-        convertBlackPawn(actualPos, targetPos, figureID, board);
+        switch (figureID) {
+            //to knight
+            case 3: {
+                board.setFigure(targetPos, new Knight(board.getFigure(actualPos).getTeam()));
+                break;
+            }
+            //to bishop
+            case 4: {
+                board.setFigure(targetPos, new Bishop(board.getFigure(actualPos).getTeam()));
+                break;
+            }
+            //to rook
+            case 2: {
+                board.setFigure(targetPos, new Rook(board.getFigure(actualPos).getTeam()));
+                break;
+            }
+            //to queen
+            default: {
+                board.setFigure(targetPos, new Queen(board.getFigure(actualPos).getTeam()));
+                break;
+            }
+        }
 
         board.getFigure(targetPos).setAlreadyMoved(true);
         board.setFigure(actualPos, new None());
-    }
-
-    /**
-     * executes a white pawn conversion on the board
-     *
-     * @param actualPos current position of the figure you want to move
-     * @param targetPos target position of the figure you want to move
-     * @param figureID  the number of the figure you want the pawn to convert to (2 for rook, 3 for knight, 4 for bishop, 5 for queen)
-     * @param board     the current chessboard
-     */
-    private static void convertWhitePawn(Position actualPos, Position targetPos, int figureID, Board board){
-        //convert white pawn
-        if (targetPos.getPosY() == 7 && board.getFigure(actualPos) instanceof Pawn && board.getFigure(actualPos).getTeam() == false) {
-
-            switch (figureID) {
-                //to knight
-                case 3: {
-                    board.setFigure(targetPos, new Knight(false));
-                    break;
-                }
-                //to bishop
-                case 4: {
-                    board.setFigure(targetPos, new Bishop(false));
-                    break;
-                }
-                //to rook
-                case 2: {
-                    board.setFigure(targetPos, new Rook(false));
-                    break;
-                }
-                //to queen
-                default: {
-                    board.setFigure(targetPos, new Queen(false));
-                    break;
-                }
-            }
-        }
-    }
-
-    /**
-     * executes a black pawn conversion on the board
-     *
-     * @param actualPos current position of the figure you want to move
-     * @param targetPos target position of the figure you want to move
-     * @param figureID  the number of the figure you want the pawn to convert to (2 for rook, 3 for knight, 4 for bishop, 5 for queen)
-     * @param board     the current chessboard
-     */
-    private static void convertBlackPawn(Position actualPos, Position targetPos, int figureID, Board board){
-        //convert black pawn
-        if (targetPos.getPosY() == 0 && board.getFigure(actualPos) instanceof Pawn && board.getFigure(actualPos).getTeam() == true) {
-            switch (figureID) {
-                //to knight
-                case 3: {
-                    board.setFigure(targetPos, new Knight(true));
-                    break;
-                }
-                //to bishop
-                case 4: {
-                    board.setFigure(targetPos, new Bishop(true));
-                    break;
-                }
-                //to rook
-                case 2: {
-                    board.setFigure(targetPos, new Rook(true));
-                    break;
-                }
-                //to queen
-                default: {
-                    board.setFigure(targetPos, new Queen(true));
-                    break;
-                }
-            }
-        }
     }
 }
