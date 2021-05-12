@@ -47,7 +47,7 @@ public class Cli {
                 System.out.println("3. Start a network game");
                 System.out.print("Your entry: ");
 
-                String input = scan.next();
+                String input = scan.nextLine();
                 if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 51) {
                     coreGame = new CoreGame(input.charAt(0) - 48);
                     break;
@@ -67,7 +67,7 @@ public class Cli {
     public static void enterGame() {
         do {
             drawBoard();
-            String input = scan.next();
+            String input = scan.nextLine();
 
             //check Commands
             if (input.equals("beaten")) {
@@ -133,7 +133,7 @@ public class Cli {
     }
 
     private static boolean checkLength(String input) {
-        return (input.length() == 5 || input.length() == 6) && !input.isBlank();
+        return ((input.length() == 5 || input.length() == 6) && !input.isEmpty());
     }
 
     private static boolean checkHyphen(String input) {
