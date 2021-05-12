@@ -25,8 +25,7 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         //check target field is valid
-        if (!(board.getFigure(targetPos) instanceof None) && board.getFigure(targetPos).isBlackTeam() == actualFigure.isBlackTeam())
-            return false;
+        if (!(board.getFigure(targetPos) instanceof None) && board.getFigure(targetPos).isBlackTeam() == actualFigure.isBlackTeam()) return false;
 
         //check move is possible
         if (actualFigure.validMove(actualPos, targetPos, board)) {
