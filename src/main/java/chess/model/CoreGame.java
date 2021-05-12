@@ -91,6 +91,7 @@ public class CoreGame {
     private boolean kingMove(Move move) {
         if (Rules.checkCastling(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
             Rules.performCastlingMove(move.getActualPosition(), move.getTargetPosition(), currentBoard);
+            updateChanges(move);
             return true;
         }
         return false;
