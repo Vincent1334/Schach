@@ -198,8 +198,8 @@ public class Board {
                         && tmpBoard.getFigure(x, y).isBlackTeam() == blackTeam
                         && !(tmpBoard.getFigure(new Position(x, y)) instanceof None)
                         && tmpBoard.getFigure(new Position(x, y)).validMove(new Position(x, y), targetPos, tmpBoard)){
-                    String team = blackTeam ? "schwarz" : "weiß";
-                    System.out.println("Das Feld wird von " + team + " " + tmpBoard.getFigure(new Position(x, y)).getSymbol() + " auf Position (x:" + x + ", y:" + y + ") bedroht.");
+                    //String team = blackTeam ? "schwarz" : "weiß";
+                   // System.out.println("Das Feld wird von " + team + " " + tmpBoard.getFigure(new Position(x, y)).getSymbol() + " auf Position (x:" + x + ", y:" + y + ") bedroht. (Board.isThreatened)");
                     return true;
                 }
             }
