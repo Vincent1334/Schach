@@ -112,12 +112,12 @@ public class Rules {
      */
     public static void performEnPassantMove(Position actualPos, Position targetPos, Board board) {
 
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
+        Figure actualFigure = board.getFigure(actualPos);
+        Figure targetFigure = board.getFigure(targetPos.getPosX(), actualPos.getPosY());
 
-        board.getBeatenFigures().add(board.getFigure(newX, posY));
-        board.setFigure(newX, posY, new None());
-        board.setFigure(targetPos, board.getFigure(actualPos));
+        board.getBeatenFigures().add(targetFigure);
+        board.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
+        board.setFigure(targetPos, actualFigure);
         board.setFigure(actualPos, new None());
     }
 
@@ -133,67 +133,40 @@ public class Rules {
      * @param board     the current chessboard
      * @return 0 if castling is not possible, 1 if a queenside castling is possible, 2 if a kingside castling is possible
      */
-    public static int checkCastling(Position actualPos, Position targetPos, Board board) {
+    public static boolean checkCastling(Position actualPos, Position targetPos, Board board) {
+
+        Figure actualFigure = board.getFigure(actualPos);
 
         //check chess
-        if(Board.kingInCheck(board, board.getFigure(actualPos).getTeam())) return 0;
+        if(Board.kingInCheck(board, actualFigure.getTeam())) return false;
 
-        if (checkCastlingLeft(actualPos, targetPos, board)){
-            return 1;
-        }
-        if (checkCastlingRight(actualPos, targetPos,board)){
-            return 2;
-        }
-        return 0;
-    }
-
-    /**
-     * checks valid castling left
-     *
-     * @param actualPos current position of the figure you want to move
-     * @param targetPos target position of the figure you want to move
-     * @param board     the current chessboard
-     * @return false if castling is not possible
-     */
-    private static boolean checkCastlingLeft(Position actualPos, Position targetPos, Board board){
-        // castle left
-        if (board.getFigure(actualPos) instanceof King && !(board.getFigure(actualPos).isAlreadyMoved()) && targetPos.getPosX() == actualPos.getPosX() - 2 && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved()) && board.getFigure(0, actualPos.getPosY()).getTeam() == board.getFigure(actualPos).getTeam()) {
-            // check, whether all field between are empty and are not threatened
-
-            for (int j = 1; j < actualPos.getPosX(); j++) {
-                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None) || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).getTeam())) {
-                    return false;
+        if(actualFigure instanceof King && !(actualFigure.isAlreadyMoved())){
+            //check short castling
+            if(targetPos.getPosX() == 6 && board.getFigure(7, actualPos.getPosY()) instanceof Rook && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved())){
+                //check, whether all field between are empty and are not threatened
+                for (int j = 5; j < 7; j++) {
+                    if (!(board.getFigure(j, actualPos.getPosY()) instanceof None && Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.getTeam()))) return false;
                 }
+                //check Rook is not threatened
+                if(Board.isThreatened(board, new Position(7, actualPos.getPosY()), !actualFigure.getTeam())) return false;
+                //Castling is possible
+                return true;
             }
-            return true;
+
+            //check long castling
+            if(targetPos.getPosX() == 2 && board.getFigure(0, actualPos.getPosY()) instanceof Rook && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved())){
+                //check, whether all field between are empty and are not threatened
+                for (int j = 5; j > 0; j--) {
+                    if (!(board.getFigure(j, actualPos.getPosY()) instanceof None && Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.getTeam()))) return false;
+                }
+                //check Rook is not threatened
+                if(Board.isThreatened(board, new Position(0, actualPos.getPosY()), !actualFigure.getTeam())) return false;
+                //Castling is possible
+                return true;
+            }
         }
         return false;
     }
-
-    /**
-     * checks valid castling right
-     *
-     * @param actualPos current position of the figure you want to move
-     * @param targetPos target position of the figure you want to move
-     * @param board     the current chessboard
-     * @return false if castling is not possible
-     */
-    private static boolean checkCastlingRight(Position actualPos, Position targetPos, Board board){
-        // castle right
-        if (board.getFigure(actualPos) instanceof King && !(board.getFigure(actualPos).isAlreadyMoved()) && targetPos.getPosX() == actualPos.getPosX() + 2 && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved()) && board.getFigure(7, actualPos.getPosY()).getTeam() == board.getFigure(actualPos).getTeam()) {
-
-            // check, whether all field between are empty and are not threatened
-            for (int j = actualPos.getPosX()+1; j < 7; j++) {
-                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None) || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).getTeam())) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-
 
     /**
      * executes a queenside (left) castling move on the board
@@ -202,45 +175,35 @@ public class Rules {
      * @param targetPos target position of the figure you want to move
      * @param board     the current chessboard
      */
-    public static void performCastlingMoveLeft(Position actualPos, Position targetPos, Board board) {
-
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
+    public static void performCastlingMove(Position actualPos, Position targetPos, Board board) {
 
         Figure actualFigure = board.getFigure(actualPos);
-        Figure targetFigure = board.getFigure(targetPos);
 
-        board.setFigure(newX + 1, newY, board.getFigure(0, posY));    // move rook
-        board.setFigure(0, newY, new None());                            // replace field where rook was standing
+        //perform short castling
+        if(targetPos.getPosX() == 6){
+            //set King
+            board.setFigure(targetPos, actualFigure);
+            board.setFigure(actualPos, new None());
+            board.getFigure(targetPos).setAlreadyMoved(true);
 
-        board.setFigure(targetPos, actualFigure);                          // move king
-        board.setFigure(actualPos, targetFigure);                          // replace field where king was standing
+            //set Rook
+            board.setFigure(5, actualPos.getPosY(), board.getFigure(7, actualPos.getPosY()));
+            board.setFigure(7, actualPos.getPosY(), new None());
+            board.getFigure(5, actualPos.getPosY()).setAlreadyMoved(true);
+        }
 
-    }
+        //perform short castling
+        if(targetPos.getPosX() == 2){
+            //set King
+            board.setFigure(targetPos, actualFigure);
+            board.setFigure(actualPos, new None());
+            board.getFigure(targetPos).setAlreadyMoved(true);
 
-    /**
-     * executes a kingside (right) castling move on the board
-     *
-     * @param actualPos current position of the figure you want to move
-     * @param targetPos target position of the figure you want to move
-     * @param board     the current chessboard
-     */
-    public static void performCastlingMoveRight(Position actualPos, Position targetPos, Board board) {
-
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
-        Figure actualFigure = board.getFigure(actualPos);
-        Figure targetFigure = board.getFigure(targetPos);
-
-        board.setFigure(newX - 1, newY, board.getFigure(7, posY));      // move rook
-        board.setFigure(7, newY, new None());                              // replace field where rook was standing
-
-        board.setFigure(targetPos, actualFigure);                            // move king
-        board.setFigure(actualPos, targetFigure);                            // replace field where king was standing
-
+            //set Rook
+            board.setFigure(3, actualPos.getPosY(), board.getFigure(0, actualPos.getPosY()));
+            board.setFigure(0, actualPos.getPosY(), new None());
+            board.getFigure(3, actualPos.getPosY()).setAlreadyMoved(true);
+        }
     }
 
     /*

@@ -10,9 +10,9 @@ import java.util.Objects;
  */
 public abstract class Figure {
 
-    boolean alreadyMoved = false;
-    int figureID;
-    boolean team;
+    private boolean alreadyMoved = false;
+    private int figureID;
+    private boolean team;
 
     /**
      * Constructor for default figures
