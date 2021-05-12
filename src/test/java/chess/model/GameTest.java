@@ -124,7 +124,7 @@ public class GameTest {
         }
 
         //perform problem move from log.txt
-        //game05.chessMove(Cli.parse("a7-a6"));
+        game05.chessMove(Cli.parse("g2-g4"));
 
         for (int y = 0; y < 8; y++) {
             System.out.print(8 - y + " ");

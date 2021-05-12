@@ -55,7 +55,7 @@ public class Pawn extends Figure {
         // check direction
         if (!checkRightDirection(actualPos, targetPos)) return false;
         //is move legal?
-        return normalMove(actualPos, targetPos, board) || normalAttack(actualPos, targetPos, board) || firstMove(actualPos, targetPos);
+        return normalMove(actualPos, targetPos, board) || normalAttack(actualPos, targetPos, board) || firstMove(actualPos, targetPos, board);
     }
 
     /**
@@ -87,9 +87,9 @@ public class Pawn extends Figure {
      * @param targetPos new input position for Pawn
      * @return pawn makes first move
      */
-    private boolean firstMove(Position actualPos, Position targetPos) {
+    private boolean firstMove(Position actualPos, Position targetPos, Board board) {
 
-        if (!alreadyMoved && Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 2 && actualPos.getPosX() == targetPos.getPosX()) {
+        if (!alreadyMoved && Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 2 && actualPos.getPosX() == targetPos.getPosX() && board.getFigure(targetPos) instanceof None) {
             enPassant = true;
             return true;
         }
