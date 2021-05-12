@@ -24,7 +24,12 @@ public class Rules {
 
         Figure actualFigure = board.getFigure(actualPos);
 
+        //check target field is valid
+        if(!(board.getFigure(targetPos) instanceof None) && board.getFigure(targetPos).getTeam() == actualFigure.getTeam()) return false;
+
+        //check move is possible
         if (actualFigure.validMove(actualPos, targetPos, board)) {
+
             //create a tmpBoard with the new untested figure position
             Board tmpBoard = new Board(board);
             //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
@@ -71,33 +76,31 @@ public class Rules {
      */
     public static boolean checkEnPassant(Position actualPos, Position targetPos, Board board) {
 
-        int posX = actualPos.getPosX();
-        int posY = actualPos.getPosY();
-        int newX = targetPos.getPosX();
-        int newY = targetPos.getPosY();
-
         Figure actualFigure = board.getFigure(actualPos);
-        Figure targetFigure = board.getFigure(targetPos);
+        Figure targetFigure = board.getFigure(targetPos.getPosX(), actualPos.getPosY());
 
-        if (board.getFigure(newX, posY) instanceof Pawn && board.getFigure(actualPos) instanceof Pawn
-                && board.getFigure(newX, posY).getTeam() != board.getFigure(actualPos).getTeam()
-                && Math.abs(posX - newX) == 1
-                && (board.getFigure(actualPos).getTeam() == false && newY - posY == 1
-                || board.getFigure(actualPos).getTeam() == true && newY - posY == -1)) {
+        //check target field is valid
+        if(!(board.getFigure(targetPos) instanceof None) && board.getFigure(targetPos).getTeam() == actualFigure.getTeam()) return false;
 
-            //create a tmpBoard with the new untested figure position
-            Board tmpBoard = new Board(board);
-            //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
-            tmpBoard.setFigure(targetPos, tmpBoard.getFigure(actualPos));
-            tmpBoard.setFigure(actualPos, new None());
-            tmpBoard.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
+        //check EnPassant is possible
+        if(actualFigure instanceof Pawn && targetFigure instanceof Pawn && actualFigure.getTeam() != targetFigure.getTeam() && ((Pawn)board.getFigure(targetPos)).isEnPassant()){
+            //check right movement
+            if(Math.abs(actualPos.getPosX()- targetPos.getPosX()) == 1 && Math.abs(actualPos.getPosY()- targetPos.getPosY()) == 1){
+                //check right direction
+                if(((Pawn) actualFigure).checkRightDirection(actualPos, targetPos)){
 
-            //check chess
-            if(Board.kingInCheck(tmpBoard, actualFigure.getTeam())) return false;
+                    //create a tmpBoard with the new untested figure position
+                    Board tmpBoard = new Board(board);
+                    //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
+                    tmpBoard.setFigure(targetPos, tmpBoard.getFigure(actualPos));
+                    tmpBoard.setFigure(actualPos, new None());
+                    tmpBoard.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
 
-            return ((Pawn) board.getFigure(newX, posY)).isEnPassant();
+                    return !(Board.kingInCheck(tmpBoard, actualFigure.getTeam()));
+                }
+            }
         }
-        return false;
+           return false;
     }
 
     /**

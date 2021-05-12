@@ -8,7 +8,8 @@ package chess.model;
  */
 
 public class Pawn extends Figure {
-    boolean enPassant = false;
+
+    private boolean enPassant = false;
     /**
      * The constructor of a pawn
      * The pawns team and figure ID are initialized here.
@@ -111,6 +112,20 @@ public class Pawn extends Figure {
      */
     public void resetEnPassant() {
         this.enPassant = false;
+    }
+
+    /**
+     * check if Pawn move in right direction
+     * @param actualPos
+     * @param targetPos
+     * @return
+     */
+    public boolean checkRightDirection(Position actualPos, Position targetPos){
+        if(team == false && targetPos.getPosY() > actualPos.getPosY()) return true;
+        if(team == false && targetPos.getPosY() < actualPos.getPosY()) return false;
+        if(team == true && targetPos.getPosY() > actualPos.getPosY()) return false;
+        if(team == true && targetPos.getPosY() < actualPos.getPosY()) return true;
+        return false;
     }
 
     //only for Testing
