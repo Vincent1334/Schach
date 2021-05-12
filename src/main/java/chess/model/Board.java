@@ -163,8 +163,8 @@ public class Board {
     /**
      * Get the position of the target king
      *
-     * @param board current chessboard
-     * @param blackTeam  team-ID of the king you want to get
+     * @param board     current chessboard
+     * @param blackTeam team-ID of the king you want to get
      * @return position of target king, {0,0} if there is no king found
      */
     public static Position getKing(Board board, boolean blackTeam) {
@@ -185,7 +185,7 @@ public class Board {
      * Checks if a field is threatened by the selected team
      *
      * @param tmpBoard  current chessboard
-     * @param blackTeam     opposite team that may threaten the figure
+     * @param blackTeam opposite team that may threaten the figure
      * @param targetPos position of the figure you want to check
      * @return whether the figure is threatened by the other team
      */
@@ -193,14 +193,15 @@ public class Board {
         //Check if the target team threatened the target field
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                //don't check the target pos!
-                if(!(x == targetPos.getPosX() && y == targetPos.getPosY())){
-                    //check if the figure can perform a valid move
-                    if(!(tmpBoard.getFigure(new Position(x, y)) instanceof None)){
-                        if(tmpBoard.getFigure(new Position(x, y)).validMove(new Position(x, y), targetPos, tmpBoard)){
-                            System.out.println("Mögliche bedrohung von " + tmpBoard.getFigure(new Position(x, y)).getFigureID() + " von x: " + x + " und y: " + y + " (Board.isThreatened)");
-                        }
-                    }
+                //don't check the target position, don't check empty fields
+                if (!(x == targetPos.getPosX() && y == targetPos.getPosY())
+                        && tmpBoard.getFigure(x, y).isBlackTeam() == blackTeam
+                        && !(tmpBoard.getFigure(new Position(x, y)) instanceof None)
+                        && tmpBoard.getFigure(new Position(x, y)).validMove(new Position(x, y), targetPos, tmpBoard)){
+                    //System.out.println("Mögliche Bedrohung von " + tmpBoard.getFigure(new Position(x, y)).getFigureID() + " von x: " + x + " und y: " + y + " (Board.isThreatened)");
+                    String team = blackTeam ? "schwarze" : "weiße";
+                    System.out.println("Der " + team + " König wird von " + tmpBoard.getFigure(new Position(x, y)).getSymbol() + " auf Position (x:" + x + ", y:" + y + ") bedroht.");
+                    return true;
                 }
             }
         }
@@ -210,8 +211,8 @@ public class Board {
     /**
      * Checks whether the king is in check
      *
-     * @param board current chessboard
-     * @param blackTeam  The team ID of the target King
+     * @param board     current chessboard
+     * @param blackTeam The team ID of the target King
      * @return Whether the king is in check or not
      */
     public static boolean kingInCheck(Board board, boolean blackTeam) {
@@ -221,8 +222,8 @@ public class Board {
     /**
      * Check chessMate
      *
-     * @param board current chessboard
-     * @param blackTeam  the team of the target king
+     * @param board     current chessboard
+     * @param blackTeam the team of the target king
      * @return whether the king of "team"-color is in checkmate
      */
     public static boolean checkChessMate(Board board, boolean blackTeam) {
@@ -259,7 +260,6 @@ public class Board {
 
         return !kingInCheck(tmpBoard, blackTeam);
     }
-
 
 
     @Override
