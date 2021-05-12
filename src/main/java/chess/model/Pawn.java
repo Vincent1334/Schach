@@ -55,7 +55,7 @@ public class Pawn extends Figure {
         // check direction
         if (!checkRightDirection(actualPos, targetPos)) return false;
         //is move legal?
-        return normalMove(actualPos, targetPos) || normalAttack(actualPos, targetPos, board) || firstMove(actualPos, targetPos);
+        return normalMove(actualPos, targetPos, board) || normalAttack(actualPos, targetPos, board) || firstMove(actualPos, targetPos);
     }
 
     /**
@@ -65,8 +65,8 @@ public class Pawn extends Figure {
      * @param targetPos new input position for Pawn
      * @return pawn makes an normal move
      */
-    private boolean normalMove(Position actualPos, Position targetPos) {
-        return Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 1 && actualPos.getPosX() == targetPos.getPosX();
+    private boolean normalMove(Position actualPos, Position targetPos, Board board) {
+        return Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 1 && actualPos.getPosX() == targetPos.getPosX() && board.getFigure(targetPos) instanceof None;
     }
 
     /**

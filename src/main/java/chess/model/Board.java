@@ -196,13 +196,9 @@ public class Board {
                 //don't check the target position, don't check empty fields
                 if (!(x == targetPos.getPosX() && y == targetPos.getPosY())
                         && tmpBoard.getFigure(x, y).isBlackTeam() == blackTeam
-                        && !(tmpBoard.getFigure(new Position(x, y)) instanceof None)){
-
-                    //check if target figure is Pawn
-                    if(tmpBoard.getFigure(new Position(x, y)) instanceof Pawn && x == targetPos.getPosX() && Math.abs(y- targetPos.getPosY()) == 1) continue;
-
-                    //check normal move
-                    if(tmpBoard.getFigure(new Position(x, y)).validMove(new Position(x, y), targetPos, tmpBoard)) return true;
+                        && !(tmpBoard.getFigure(new Position(x, y)) instanceof None)
+                        && tmpBoard.getFigure(new Position(x, y)).validMove(new Position(x, y), targetPos, tmpBoard)){
+                    return true;
                 }
             }
         }
