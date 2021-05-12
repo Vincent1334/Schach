@@ -67,77 +67,30 @@ public class CoreGame {
      */
 
     private boolean pawnMove(Move move){
-        if(currentBoard.getFigure(move.getActualPosition()) instanceof Pawn){
-            //check Enpassant
-            if (Rules.checkEnPassant(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
-                pawnEnpassant(move);
-                return true;
-            }
-            //check Pawn conversion
-            if (Rules.checkPawnConversion(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
-                pawnConversion(move);
-                return true;
-            }
+        //check Enpassant
+        if (Rules.checkEnPassant(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
+            Rules.performEnPassantMove(move.getActualPosition(), move.getTargetPosition(), currentBoard);
+            updateChanges(move);
+            return true;
+        }
+        //check Pawn conversion
+        if (Rules.checkPawnConversion(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
+            Rules.performPawnConversion(move.getActualPosition(), move.getTargetPosition(), move.getPawnConversionTo(), currentBoard);
+            updateChanges(move);
+            return true;
         }
         return false;
-    }
-
-    /**
-     * perfom pawn enpassant
-     * @param move
-     */
-    private void pawnEnpassant(Move move){
-        Rules.performEnPassantMove(move.getActualPosition(), move.getTargetPosition(), currentBoard);
-        updateChanges(move);
-    }
-
-    /**
-     * perform pawn conversion
-     * @param move
-     */
-    private void pawnConversion(Move move){
-        Rules.performPawnConversion(move.getActualPosition(), move.getTargetPosition(), move.getPawnConversionTo(), currentBoard);
-        currentBoard.getFigure(move.getActualPosition()).setAlreadyMoved(true);        // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
-        updateChanges(move);
     }
 
     /*
      * <------King-move------------------------------------------------------------------------------------------------>
      */
     private boolean kingMove(Move move){
-        if(currentBoard.getFigure(move.getActualPosition()) instanceof King){
-            if (Rules.checkCastling(move.getActualPosition(), move.getTargetPosition(), currentBoard) == 1) {
-                kingCastlingLeft(move);
-                return true;
-            }
-            if (Rules.checkCastling(move.getActualPosition(), move.getTargetPosition(), currentBoard) == 2) {
-                kingCastlingRight(move);
-                return true;
-            }
+        if (Rules.checkCastling(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
+            Rules.performCastlingMove(move.getActualPosition(), move.getTargetPosition(), currentBoard);
+            return true;
         }
         return false;
-    }
-
-    /**
-     * Perfom king castling
-     * @param move
-     */
-    private void kingCastlingLeft(Move move){
-        Rules.performCastlingMoveLeft(move.getActualPosition(), move.getTargetPosition(), currentBoard);
-        currentBoard.getFigure(0, move.getActualPosition().getPosY()).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
-        currentBoard.getFigure(move.getActualPosition()).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
-        updateChanges(move);
-    }
-
-    /**
-     * Perfom king castling
-     * @param move
-     */
-    private void kingCastlingRight(Move move){
-        Rules.performCastlingMoveRight(move.getActualPosition(), move.getTargetPosition(), currentBoard);
-        currentBoard.getFigure(7, move.getActualPosition().getPosY()).setAlreadyMoved(true);         // muss hier aufgerufen werden, da sonst auch bei der Überprüfung von Schachmatt ggf. die Figur auf
-        currentBoard.getFigure(move.getActualPosition()).setAlreadyMoved(true);         // setAlreadyMoved=true gesetzt wird (da Figure unabhängig von board bzw. tmpBoard)
-        updateChanges(move);
     }
 
     /*
