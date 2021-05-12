@@ -198,7 +198,7 @@ public class Board {
                     //check if the figure can perform a valid move
                     if(!(tmpBoard.getFigure(new Position(x, y)) instanceof None)){
                         if(tmpBoard.getFigure(new Position(x, y)).validMove(new Position(x, y), targetPos, tmpBoard)){
-                            System.out.println("Mögliche bedrohung von " + tmpBoard.getFigure(new Position(x, y)).getFigureID() + " von x: " + x + " und y: " + y);
+                            System.out.println("Mögliche bedrohung von " + tmpBoard.getFigure(new Position(x, y)).getFigureID() + " von x: " + x + " und y: " + y + " (Board.isThreatened)");
                         }
                     }
                 }

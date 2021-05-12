@@ -23,9 +23,9 @@ public class King extends Figure {
      *
      * @param sourceClass King you want to clone
      */
-    public King(King sourceClass) {
+    public King(King sourceClass){
         super(sourceClass.blackTeam);
-        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.setAlreadyMoved(sourceClass.isAlreadyMoved());
         super.figureID = 6;
     }
 

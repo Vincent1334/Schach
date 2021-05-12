@@ -25,7 +25,7 @@ public class Bishop extends Figure {
      */
     public Bishop(Bishop sourceClass) {
         super(sourceClass.blackTeam);
-        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.setAlreadyMoved(sourceClass.isAlreadyMoved());
         super.figureID = 4;
     }
 
@@ -40,10 +40,10 @@ public class Bishop extends Figure {
 
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
-
         //Is the new position on a diagonal from the old position
-        if (Math.abs(actualPos.getPosX() - targetPos.getPosX()) != Math.abs(actualPos.getPosY() - targetPos.getPosY()))
+        if (Math.abs(actualPos.getPosX() - targetPos.getPosX()) != Math.abs(actualPos.getPosY() - targetPos.getPosY())) {
             return false;
+        }
         //is between the old position and the new position a figure
         /*int directionX = 1;
         int directionY = 1;

@@ -23,9 +23,9 @@ public class Knight extends Figure {
      *
      * @param sourceClass Knight you want to clone
      */
-    public Knight(Knight sourceClass) {
+    public Knight(Knight sourceClass){
         super(sourceClass.blackTeam);
-        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.setAlreadyMoved(sourceClass.isAlreadyMoved());
         super.figureID = 3;
     }
 
