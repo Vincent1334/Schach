@@ -25,7 +25,7 @@ public class King extends Figure {
      */
     public King(King sourceClass){
         super(sourceClass.team);
-        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.setAlreadyMoved(sourceClass.isAlreadyMoved());
         super.figureID = 6;
     }
 

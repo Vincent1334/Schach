@@ -25,8 +25,8 @@ public class Pawn extends Figure {
      */
     public Pawn(Pawn sourceClass) {
         super(sourceClass.getTeam());
-        super.alreadyMoved = sourceClass.isAlreadyMoved();
-        this.enPassant = sourceClass.enPassant;
+        super.setAlreadyMoved(sourceClass.isAlreadyMoved());
+        this.enPassant = sourceClass.isEnPassant();
         super.figureID = 1;
     }
 

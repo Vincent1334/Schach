@@ -24,7 +24,7 @@ public class Rook extends Figure {
      */
     public Rook(Rook sourceClass) {
         super(sourceClass.team);
-        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.setAlreadyMoved(sourceClass.isAlreadyMoved());
         super.figureID = 2;
     }
 

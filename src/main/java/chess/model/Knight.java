@@ -25,7 +25,7 @@ public class Knight extends Figure {
      */
     public Knight(Knight sourceClass){
         super(sourceClass.team);
-        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.setAlreadyMoved(sourceClass.isAlreadyMoved());
         super.figureID = 3;
     }
 

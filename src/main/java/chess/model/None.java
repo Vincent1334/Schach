@@ -22,7 +22,7 @@ public class None extends Figure {
      */
     public None(None sourceClass){
         super(sourceClass.team);
-        super.alreadyMoved = sourceClass.alreadyMoved;
+        super.setAlreadyMoved(sourceClass.isAlreadyMoved());
         super.figureID = 0;
     }
 

@@ -29,12 +29,12 @@ public class Rules {
 
         //check move is possible
         if (actualFigure.validMove(actualPos, targetPos, board)) {
-
             //create a tmpBoard with the new untested figure position
             Board tmpBoard = new Board(board);
             //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
             tmpBoard.setFigure(actualPos, new None());
             tmpBoard.setFigure(targetPos, actualFigure);
+
             return !Board.kingInCheck(tmpBoard, actualFigure.getTeam());
         }
         return false;
