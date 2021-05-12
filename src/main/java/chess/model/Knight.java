@@ -53,12 +53,6 @@ public class Knight extends Figure {
             return false;
         }
 
-        //is the field empty?
-        if((board.getFigure(targetPos) instanceof  None)) return true;
-
-        // is the target field with an enemy figure?
-        if(board.getFigure(targetPos).getTeam() == team) return false;
-
         return true;
     }
 

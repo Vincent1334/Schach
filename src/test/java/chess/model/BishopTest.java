@@ -56,12 +56,6 @@ public class BishopTest {
         assertFalse(whiteBishop.validMove(new Position(7,0), new Position(0,7), board), "!white bishop can move to the upper left even if there is a figure from the same team in the way");
     }
 
-
-    /*@Test
-    public void testGetSymbol() {
-        assertEquals('\u265D', whiteBishop.getSymbol(), "!wrong Symbol for white bishop");
-        assertEquals('\u2657', blackBishop.getSymbol(), "!wrong Symbol for black bishop");
-    }*/
     /**
      * Tests if the right symbol for the rooks is used
      */

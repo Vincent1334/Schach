@@ -52,12 +52,6 @@ public class Pawn extends Figure {
         //is move legal?
         if(!(normalMove(actualPos,targetPos) || normalAttack(actualPos,targetPos,board) || firstMove(actualPos,targetPos,board))) return false;
 
-        //is the field empty?
-        if((board.getFigure(targetPos) instanceof  None)) return true;
-
-        // is the target field with an enemy figure?
-        if(board.getFigure(targetPos).getTeam() == team) return false;
-
         return true;
     }
 

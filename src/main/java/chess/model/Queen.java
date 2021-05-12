@@ -46,12 +46,6 @@ public class Queen extends Figure {
         //is the move legal?
         if(!(b.validMove(actualPos,targetPos,board)||r.validMove(actualPos,targetPos,board))) return false;
 
-        //is the field empty?
-        if((board.getFigure(targetPos) instanceof  None)) return true;
-
-        // is the target with an enemy figure?
-        if(board.getFigure(targetPos).getTeam() == team) return false;
-
         return true;
     }
 

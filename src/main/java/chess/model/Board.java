@@ -247,8 +247,7 @@ public class Board {
         if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {             // check EnPassant and eventually perform it on the temporary board
             Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
         }
-        if (Rules.checkValidDefaultMove(actualPos, targetPos, tmpBoard)) {      // checkValidDefaultMove and eventually perform it on the temporary board
-            System.out.println("possible");
+        if (Rules.checkValidDefaultMove(actualPos, targetPos, tmpBoard)) { // checkValidDefaultMove and eventually perform it on the temporary board
             Rules.performDefaultMove(actualPos, targetPos, tmpBoard);
         }
         //All other moves are not allowed in this case!

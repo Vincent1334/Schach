@@ -84,6 +84,17 @@ public class Rules {
                 && Math.abs(posX - newX) == 1
                 && (board.getFigure(actualPos).getTeam() == false && newY - posY == 1
                 || board.getFigure(actualPos).getTeam() == true && newY - posY == -1)) {
+
+            //create a tmpBoard with the new untested figure position
+            Board tmpBoard = new Board(board);
+            //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
+            tmpBoard.setFigure(targetPos, tmpBoard.getFigure(actualPos));
+            tmpBoard.setFigure(actualPos, new None());
+            tmpBoard.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
+
+            //check chess
+            if(Board.kingInCheck(tmpBoard, actualFigure.getTeam())) return false;
+
             return ((Pawn) board.getFigure(newX, posY)).isEnPassant();
         }
         return false;
@@ -120,6 +131,10 @@ public class Rules {
      * @return 0 if castling is not possible, 1 if a queenside castling is possible, 2 if a kingside castling is possible
      */
     public static int checkCastling(Position actualPos, Position targetPos, Board board) {
+
+        //check chess
+        if(Board.kingInCheck(board, board.getFigure(actualPos).getTeam())) return 0;
+
         if (checkCastlingLeft(actualPos, targetPos, board)){
             return 1;
         }
@@ -242,6 +257,14 @@ public class Rules {
         int newY = targetPos.getPosY();
 
         Figure actualFigure = board.getFigure(actualPos);
+
+        //create a tmpBoard with the new untested figure position
+        Board tmpBoard = new Board(board);
+        //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
+        tmpBoard.setFigure(actualPos, new None());
+        tmpBoard.setFigure(targetPos, actualFigure);
+        //check chess
+        if(Board.kingInCheck(tmpBoard, actualFigure.getTeam())) return false;
 
         if (actualFigure instanceof Pawn && actualFigure.validMove(actualPos, targetPos, board)) {
             return newY == 7 && actualFigure.getTeam() == false || newY == 0 && actualFigure.getTeam() == true;
