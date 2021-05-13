@@ -14,6 +14,7 @@ public class GameTest {
     private String[] testInput05 = {"f2-f3","b8-c6","e2-e4","g7-g5","h2-h4","a7-a5","f1-d3","c6-e5","b2-b3","f8-g7","c2-c4","g8-h6","h1-h3","e8-g8","f3-f4","d7-d5","h4-h5","d8-d6","h3-h2","g7-h8","d1-c2","c8-g4","e4-d5","d6-c5","c2-d1","h8-g7","g1-h3","c5-d4"};
     private String[] testInput06 = {"f2-f3","b7-b6","h2-h3","g8-h6","h3-h4","h6-f5","e1-f2","c7-c6","h1-h2","c8-a6","d1-e1","a6-d3"};
     private String[] testInput07 = {"a2-a3","e7-e5","d2-d3","d8-f6","g2-g3","f8-a3","c1-e3","f6-g6","e3-g5","g6-e4","g5-c1","g8-h6","f2-f3","b7-b5","d3-d4","h8-g8","b2-a3","e4-d4","c1-b2","e8-f8","f1-h3","d4-c5","a1-a2","f7-f5"};
+    private String[] testInput08 = {"d2-d4","f7-f5","g1-f3","a7-a6","c1-g5","g7-g6","d1-d3","g8-f6","h2-h4","f6-g4","d3-e3","a8-a7","b1-d2","c7-c5","d4-c5","e7-e5"};
 
     @Test
     public void testGame01(){
@@ -185,6 +186,32 @@ public class GameTest {
             System.out.print(8 - y + " ");
             for (int x = 0; x < 8; x++) {
                 System.out.print(game07.getCurrentBoard().getFigure(x, 7 - y).getSymbol() + " ");
+            }
+            System.out.println("");
+        }
+        System.out.println("  a b c d e f g h");
+        System.out.println("");
+    }
+
+    @Test
+    public void testGame08(){
+        CoreGame game08 = new CoreGame(1);
+
+        for(int i = 0; i < testInput08.length; i++){
+            if(!(game08.chessMove(Cli.parse(testInput08[i])))){
+                System.out.println("Fail on Move " + i + " " + testInput08[i]);
+                break;
+            }
+        }
+
+        //perform problem move from log.txt
+       // assertFalse(Cli.validSyntax(""));
+        game08.chessMove(Cli.parse("e1-c3"));
+
+        for (int y = 0; y < 8; y++) {
+            System.out.print(8 - y + " ");
+            for (int x = 0; x < 8; x++) {
+                System.out.print(game08.getCurrentBoard().getFigure(x, 7 - y).getSymbol() + " ");
             }
             System.out.println("");
         }
