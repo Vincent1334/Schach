@@ -1,6 +1,6 @@
 package chess.cli;
 
-import chess.model.CoreGame;
+import chess.controller.CoreGame;
 import chess.model.Move;
 import chess.model.Position;
 import java.util.Arrays;

@@ -1,5 +1,7 @@
 package chess.model;
 
+import chess.figures.*;
+
 /**
  * This class contains the information about all allowed chess moves
  *

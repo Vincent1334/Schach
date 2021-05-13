@@ -1,4 +1,7 @@
-package chess.model;
+package chess.figures;
+
+import chess.model.Board;
+import chess.model.Position;
 
 /**
  * This class contains the information about the none figure

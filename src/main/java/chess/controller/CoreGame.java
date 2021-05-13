@@ -1,4 +1,7 @@
-package chess.model;
+package chess.controller;
+
+import chess.figures.Pawn;
+import chess.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
