@@ -42,8 +42,8 @@ public class Knight extends Figure {
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
 
         //is the move legal?
-        return (Math.abs(actualPos.getPosX()-targetPos.getPosX()) == 2 && Math.abs(actualPos.getPosY()-targetPos.getPosY()) == 1)
-                || (Math.abs(actualPos.getPosX()-targetPos.getPosX()) == 1 && Math.abs(actualPos.getPosY()-targetPos.getPosY()) == 2);
+        return Math.abs(actualPos.getPosX()-targetPos.getPosX()) == 2 && Math.abs(actualPos.getPosY()-targetPos.getPosY()) == 1
+                || Math.abs(actualPos.getPosX()-targetPos.getPosX()) == 1 && Math.abs(actualPos.getPosY()-targetPos.getPosY()) == 2;
     }
 
     /**

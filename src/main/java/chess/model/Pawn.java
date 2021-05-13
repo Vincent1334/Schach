@@ -89,11 +89,10 @@ public class Pawn extends Figure {
      */
     private boolean firstMove(Position actualPos, Position targetPos, Board board) {
 
-        if (!alreadyMoved && Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 2 && actualPos.getPosX() == targetPos.getPosX() && board.getFigure(targetPos) instanceof None) {
-            if(board.getFigure(new Position(targetPos.getPosX(), targetPos.getPosY()  + (blackTeam ? 1 : -1))) instanceof None){
-                enPassant = true;
-                return true;
-            }
+        if (!alreadyMoved && Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 2 && actualPos.getPosX() == targetPos.getPosX() && board.getFigure(targetPos) instanceof None
+            && board.getFigure(new Position(targetPos.getPosX(), targetPos.getPosY()  + (blackTeam ? 1 : -1))) instanceof None) {
+            enPassant = true;
+            return true;
         }
         return false;
     }

@@ -3,8 +3,6 @@ package chess.cli;
 import chess.model.CoreGame;
 import chess.model.Move;
 import chess.model.Position;
-
-import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -133,7 +131,7 @@ public class Cli {
     }
 
     private static boolean checkLength(String input) {
-        return ((input.length() == 5 || input.length() == 6) && !input.isEmpty());
+        return input.length() == 5 || input.length() == 6 && !input.isEmpty();
     }
 
     private static boolean checkHyphen(String input) {
