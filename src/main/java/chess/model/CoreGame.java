@@ -66,6 +66,11 @@ public class CoreGame {
      * <------Pawn-move------------------------------------------------------------------------------------------------>
      */
 
+    /**
+     * check special move for pawn
+     * @param move
+     * @return
+     */
     private boolean pawnMove(Move move) {
         //check EnPassant
         if (Rules.checkEnPassant(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
@@ -84,6 +89,12 @@ public class CoreGame {
 
     /*
      * <------King-move------------------------------------------------------------------------------------------------>
+     */
+
+    /**
+     * Check special moves for King
+     * @param move
+     * @return
      */
     private boolean kingMove(Move move) {
         if (Rules.checkCastling(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
@@ -150,11 +161,18 @@ public class CoreGame {
         }
     }
 
+    /**
+     * Check GameOver
+     * @return gameover
+     */
     public boolean isGameOver() {
         return gameOver;
     }
 
-    // zu Testzwecken
+    /**
+     * Set active player manual. Important for JUnit test
+     * @param activePlayer
+     */
     public void setActivePlayer(boolean activePlayer) {
         this.activePlayer = activePlayer;
     }

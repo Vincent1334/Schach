@@ -37,13 +37,16 @@ public class King extends Figure {
      * @param board     actual state of chessboard
      * @return whether move was successful
      */
-
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
         // normal move
         return Math.abs(actualPos.getPosX() - targetPos.getPosX()) <= 1 && Math.abs(actualPos.getPosY() - targetPos.getPosY()) <= 1;
     }
 
+    /**
+     * return Symbol
+     * @return
+     */
     @Override
     public char getSymbol() {
         return !blackTeam ? 'K' : 'k';

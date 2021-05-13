@@ -55,6 +55,10 @@ public class Bishop extends Figure {
         return true;
     }
 
+    /**
+     * return Symbol
+     * @return
+     */
     @Override
     public char getSymbol() {
         return !blackTeam ? 'B' : 'b';

@@ -48,7 +48,10 @@ public class Queen extends Figure {
         return b.validMove(actualPos, targetPos, board) || r.validMove(actualPos, targetPos, board);
     }
 
-
+    /**
+     * return Symbol
+     * @return
+     */
     @Override
     public char getSymbol() {
         return !blackTeam ? 'Q' : 'q';

@@ -119,11 +119,18 @@ public class Pawn extends Figure {
         return blackTeam && targetPos.getPosY() < actualPos.getPosY();
     }
 
-    //only for Testing
+    /**
+     * Set enpassant manul. Import for JUnit test
+     * @param enPassant
+     */
     public void setEnPassant(boolean enPassant) {
         this.enPassant = enPassant;
     }
 
+    /**
+     * return Symbol
+     * @return
+     */
     @Override
     public char getSymbol() {
         return !blackTeam ? 'P' : 'p';

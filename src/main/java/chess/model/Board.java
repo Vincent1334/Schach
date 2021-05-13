@@ -207,7 +207,6 @@ public class Board {
 
     /**
      * Checks whether the king is in check
-     *
      * @param board     current chessboard
      * @param blackTeam The team ID of the target King
      * @return Whether the king is in check or not
@@ -218,7 +217,6 @@ public class Board {
 
     /**
      * Check chessMate
-     *
      * @param board     current chessboard
      * @param blackTeam the team of the target king
      * @return whether the king of "team"-color is in checkmate
@@ -246,6 +244,14 @@ public class Board {
         return false;
     }
 
+    /**
+     * Check if target figure can perform a possible move
+     * @param actualPos
+     * @param targetPos
+     * @param tmpBoard
+     * @param blackTeam
+     * @return
+     */
     private static boolean possibleSolution(Position actualPos, Position targetPos, Board tmpBoard, boolean blackTeam) {
         if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {             // check EnPassant and eventually perform it on the temporary board
             Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
@@ -259,6 +265,11 @@ public class Board {
     }
 
 
+    /**
+     * Important for copy constructor
+     * @param other
+     * @return
+     */
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
@@ -267,6 +278,10 @@ public class Board {
         return Arrays.deepEquals(internalBoard, board1.internalBoard) && Objects.equals(beatenFigures, board1.beatenFigures);
     }
 
+    /**
+     * return hashCode
+     * @return
+     */
     @Override
     public int hashCode() {
         int result = Objects.hash(beatenFigures);

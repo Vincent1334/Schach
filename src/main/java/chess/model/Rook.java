@@ -61,6 +61,10 @@ public class Rook extends Figure {
         return true;
     }
 
+    /**
+     * return Symbol
+     * @return
+     */
     @Override
     public char getSymbol() {
         return !blackTeam ? 'R' : 'r';
