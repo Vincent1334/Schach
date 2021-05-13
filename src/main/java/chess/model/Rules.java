@@ -1,5 +1,7 @@
 package chess.model;
 
+import chess.figures.*;
+
 /**
  * This class contains the information about all allowed chess moves
  *
@@ -20,7 +22,7 @@ public class Rules {
      * @param board     the current chessboard
      * @return whether normal move is possible
      */
-    public static boolean checkValidDefaultMove(Position actualPos, Position targetPos, Board board) {
+    public static boolean checkDefaultMove(Position actualPos, Position targetPos, Board board) {
 
         Figure actualFigure = board.getFigure(actualPos);
 

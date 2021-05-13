@@ -44,7 +44,7 @@ public class Move {
     @Override
     public String toString() {
         return Character.toString(actualPosition.getPosX() + 97) + (actualPosition.getPosY() + 1) + "-" +
-                Character.toString(targetPosition.getPosX() + 97) + (targetPosition.getPosY() + 1) + getPawnLetter(pawnConversionTo);
+                Character.toString(targetPosition.getPosX() + 97) + (targetPosition.getPosY() + 1) + getConversionLetter(pawnConversionTo);
     }
 
     /**
@@ -104,7 +104,7 @@ public class Move {
      * @param pawnConversion ID of the figure you want the pawn to convert to
      * @return Letter of the figure you want the pawn to convert to
      */
-    public String getPawnLetter(int pawnConversion) {
+    public String getConversionLetter(int pawnConversion) {
         switch (pawnConversion) {
             case 1:
                 return "P";

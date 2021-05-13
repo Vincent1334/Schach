@@ -1,5 +1,7 @@
 package chess.model;
 
+import chess.figures.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -142,9 +144,7 @@ public class Board {
      * @param figure   the figure you want to set to the position on the board
      */
     public void setFigure(Position position, Figure figure) {
-        int posX = position.getPosX();
-        int posY = position.getPosY();
-        internalBoard[posX][posY] = figure;
+        internalBoard[position.getPosX()][position.getPosY()] = figure;
     }
 
     /**
@@ -167,7 +167,7 @@ public class Board {
      * @param blackTeam team-ID of the king you want to get
      * @return position of target king, {0,0} if there is no king found
      */
-    public static Position getKing(Board board, boolean blackTeam) {
+    public static Position getKingPos(Board board, boolean blackTeam) {
         //Searching target King position
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
@@ -212,7 +212,7 @@ public class Board {
      * @return Whether the king is in check or not
      */
     public static boolean kingInCheck(Board board, boolean blackTeam) {
-        return isThreatened(board, Board.getKing(board, blackTeam), !blackTeam);
+        return isThreatened(board, Board.getKingPos(board, blackTeam), !blackTeam);
     }
 
     /**
@@ -256,7 +256,7 @@ public class Board {
         if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {             // check EnPassant and eventually perform it on the temporary board
             Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
         }
-        if (Rules.checkValidDefaultMove(actualPos, targetPos, tmpBoard)) { // checkValidDefaultMove and eventually perform it on the temporary board
+        if (Rules.checkDefaultMove(actualPos, targetPos, tmpBoard)) { // checkValidDefaultMove and eventually perform it on the temporary board
             Rules.performDefaultMove(actualPos, targetPos, tmpBoard);
         }
         //All other moves are not allowed in this case!

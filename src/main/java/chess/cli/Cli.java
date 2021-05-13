@@ -1,6 +1,6 @@
 package chess.cli;
 
-import chess.model.CoreGame;
+import chess.controller.CoreGame;
 import chess.model.Move;
 import chess.model.Position;
 import java.util.Arrays;
@@ -11,8 +11,8 @@ import java.util.Scanner;
  */
 public class Cli {
 
-    static Scanner scan;
-    static CoreGame coreGame;
+    private static Scanner scan;
+    private static CoreGame coreGame;
 
     /**
      * The entry point of the CLI application.

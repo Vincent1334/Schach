@@ -1,5 +1,6 @@
 package chess.model;
 
+import chess.figures.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -93,15 +94,15 @@ public class BoardTest {
 
         //white default King
         Position pos1 = new Position(4, 0);
-        assertEquals(Board.getKing(boardA, false).getPosX(), pos1.getPosX(), x);
-        assertEquals(Board.getKing(boardA, false).getPosY(), pos1.getPosY(), y);
+        assertEquals(Board.getKingPos(boardA, false).getPosX(), pos1.getPosX(), x);
+        assertEquals(Board.getKingPos(boardA, false).getPosY(), pos1.getPosY(), y);
 
         //white random king position
         Position pos3 = new Position(2, 4);
         boardA.setFigure(4, 0, null);
         boardA.setFigure(2, 4, new King(false));
-        assertEquals(Board.getKing(boardA, false).getPosX(), pos3.getPosX(), x);
-        assertEquals(Board.getKing(boardA, false).getPosY(), pos3.getPosY(), y);
+        assertEquals(Board.getKingPos(boardA, false).getPosX(), pos3.getPosX(), x);
+        assertEquals(Board.getKingPos(boardA, false).getPosY(), pos3.getPosY(), y);
     }
     /**
      * Tests the black kings position
@@ -114,15 +115,15 @@ public class BoardTest {
 
         //black default King
         Position pos2 = new Position(4, 7);
-        assertEquals(Board.getKing(boardA, true).getPosX(), pos2.getPosX(), x);
-        assertEquals(Board.getKing(boardA, true).getPosY(), pos2.getPosY(), y);
+        assertEquals(Board.getKingPos(boardA, true).getPosX(), pos2.getPosX(), x);
+        assertEquals(Board.getKingPos(boardA, true).getPosY(), pos2.getPosY(), y);
 
         //black random king position
         Position pos4 = new Position(7, 2);
         boardA.setFigure(4, 7, null);
         boardA.setFigure(7, 2, new King(true));
-        assertEquals(Board.getKing(boardA, true).getPosX(), pos4.getPosX(), x);
-        assertEquals(Board.getKing(boardA, true).getPosY(), pos4.getPosY(), y);
+        assertEquals(Board.getKingPos(boardA, true).getPosX(), pos4.getPosX(), x);
+        assertEquals(Board.getKingPos(boardA, true).getPosY(), pos4.getPosY(), y);
     }
 
     /**
@@ -133,8 +134,8 @@ public class BoardTest {
         //Test start position
         Board boardA = new Board();
 
-        assertFalse(Board.isThreatened(boardA, Board.getKing(boardA, false), true), "white king is threatened!");
-        assertFalse(Board.isThreatened(boardA, Board.getKing(boardA, true), false), "black king is threatened!");
+        assertFalse(Board.isThreatened(boardA, Board.getKingPos(boardA, false), true), "white king is threatened!");
+        assertFalse(Board.isThreatened(boardA, Board.getKingPos(boardA, true), false), "black king is threatened!");
 
         //Test threatened position
         Board boardB = new Board();
@@ -148,8 +149,8 @@ public class BoardTest {
         boardB.setFigure(3, 2, new Bishop(true));
         boardB.setFigure(4, 2, new Bishop(false));
 
-        assertTrue(Board.isThreatened(boardB, Board.getKing(boardB, false), true), "is not Threatened!");
-        assertTrue(Board.isThreatened(boardB, Board.getKing(boardB, true), false), "is not Threatened!");
+        assertTrue(Board.isThreatened(boardB, Board.getKingPos(boardB, false), true), "is not Threatened!");
+        assertTrue(Board.isThreatened(boardB, Board.getKingPos(boardB, true), false), "is not Threatened!");
     }
 
     /**

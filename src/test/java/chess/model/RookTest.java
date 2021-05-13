@@ -1,5 +1,9 @@
 package chess.model;
 
+import chess.figures.Figure;
+import chess.figures.None;
+import chess.figures.Pawn;
+import chess.figures.Rook;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

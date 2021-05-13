@@ -1,4 +1,7 @@
-package chess.model;
+package chess.controller;
+
+import chess.figures.Pawn;
+import chess.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +54,7 @@ public class CoreGame {
         if (kingMove(move)) return true;
 
         //checkValidDefaultMove
-        if (Rules.checkValidDefaultMove(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
+        if (Rules.checkDefaultMove(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
             Rules.performDefaultMove(move.getActualPosition(), move.getTargetPosition(), currentBoard);
             updateChanges(move);
             return true;
@@ -139,7 +142,7 @@ public class CoreGame {
             for (int x = 0; x < 8; x++) {
                 if (x != targetPos.getPosX() && y != targetPos.getPosY() && currentBoard.getFigure(x, y) instanceof Pawn) {
                     Pawn tmpPawn = (Pawn) currentBoard.getFigure(x, y);
-                    tmpPawn.resetEnPassant();
+                    tmpPawn.setEnPassant(false);
                 }
             }
         }

@@ -1,4 +1,7 @@
-package chess.model;
+package chess.figures;
+
+import chess.model.Board;
+import chess.model.Position;
 
 /**
  * This class contains the information about the pawns valid movements
@@ -98,13 +101,6 @@ public class Pawn extends Figure {
     }
 
     /**
-     * sets enPassant to false
-     */
-    public void resetEnPassant() {
-        this.enPassant = false;
-    }
-
-    /**
      * check if Pawn moves in right direction
      *
      * @param actualPos current position of the pawn
@@ -112,14 +108,13 @@ public class Pawn extends Figure {
      * @return whether the pawn moves in correct direction
      */
     public boolean checkRightDirection(Position actualPos, Position targetPos) {
-        if (!blackTeam && targetPos.getPosY() > actualPos.getPosY()) return true;
-        if (!blackTeam && targetPos.getPosY() < actualPos.getPosY()) return false;
-        if (blackTeam && targetPos.getPosY() > actualPos.getPosY()) return false;
-        return blackTeam && targetPos.getPosY() < actualPos.getPosY();
+        if ((!blackTeam && targetPos.getPosY() > actualPos.getPosY())
+            ||(blackTeam && targetPos.getPosY() < actualPos.getPosY())) return true;
+        return false;
     }
 
     /**
-     * Set enpassant manul. Import for JUnit test
+     * Set enpassant status
      * @param enPassant
      */
     public void setEnPassant(boolean enPassant) {
