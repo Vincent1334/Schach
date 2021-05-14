@@ -137,48 +137,65 @@ public class Rules {
      * @return 0 if castling is not possible, 1 if a queenside castling is possible, 2 if a kingside castling is possible
      */
     public static boolean checkCastling(Position actualPos, Position targetPos, Board board) {
+        //King
+        Figure actualFigure = board.getFigure(actualPos);
 
-        //check wrong input
-        if(actualPos.getPosY() == targetPos.getPosY()){
-            //King
-            Figure actualFigure = board.getFigure(actualPos);
+        //check chess or wrong input
+        if (actualPos.getPosY() != targetPos.getPosY() || Board.kingInCheck(board, actualFigure.isBlackTeam())) return false;
 
-            //check chess
-            if (Board.kingInCheck(board, actualFigure.isBlackTeam())) {
-                return false;
-            }
+        if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved())) {
+            if(checkShortCastling(board, actualPos, targetPos)) return true;
+            if(checkLongCastling(board, actualPos, targetPos)) return true;
+        }
+        return false;
+    }
 
-            if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved())) {
-                //check short castling right (kingside)
-                if (targetPos.getPosX() == 6 && board.getFigure(7, actualPos.getPosY()) instanceof Rook
-                        && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved())) {
-                    //check, whether all field between are empty and are not threatened
-                    for (int j = 5; j < 7; j++) {
-                        if (!(board.getFigure(j, actualPos.getPosY()) instanceof None)
-                                || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.isBlackTeam())) {
-                            return false;
-                        }
-                    }
-                    //check Rook is not threatened
-                    return !Board.isThreatened(board, new Position(7, actualPos.getPosY()), !actualFigure.isBlackTeam());
-                    //Castling is possible
-                }
-
-                //check long castling left (queenside)
-                if (targetPos.getPosX() == 2 && board.getFigure(0, actualPos.getPosY()) instanceof Rook
-                        && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved())) {
-                    //check, whether all field between are empty and are not threatened
-                    for (int j = 3; j > 0; j--) {
-                        if (!(board.getFigure(j, actualPos.getPosY()) instanceof None)
-                                || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !actualFigure.isBlackTeam())) {
-                            return false;
-                        }
-                    }
-                    //check Rook is not threatened
-                    return !Board.isThreatened(board, new Position(0, actualPos.getPosY()), !actualFigure.isBlackTeam());
-                    //Castling is possible
+    /**
+     * check long castling
+     * @param board
+     * @param actualPos
+     * @param targetPos
+     * @return
+     */
+    private static boolean checkLongCastling(Board board, Position actualPos, Position targetPos){
+        //check long castling left (queenside)
+        if (targetPos.getPosX() == 2 && board.getFigure(0, actualPos.getPosY()) instanceof Rook
+                && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved())) {
+            //check, whether all field between are empty and are not threatened
+            for (int j = 3; j > 0; j--) {
+                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None)
+                        || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).isBlackTeam())) {
+                    return false;
                 }
             }
+            //check Rook is not threatened
+            return !Board.isThreatened(board, new Position(0, actualPos.getPosY()), !board.getFigure(actualPos).isBlackTeam());
+            //Castling is possible
+        }
+        return false;
+    }
+
+    /**
+     * check short castling
+     * @param board
+     * @param actualPos
+     * @param targetPos
+     * @return
+     */
+    private static boolean checkShortCastling(Board board, Position actualPos, Position targetPos){
+        //check short castling right (kingside)
+        if (targetPos.getPosX() == 6 && board.getFigure(7, actualPos.getPosY()) instanceof Rook
+                && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved())) {
+            //check, whether all field between are empty and are not threatened
+            for (int j = 5; j < 7; j++) {
+                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None)
+                        || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).isBlackTeam())) {
+                    return false;
+                }
+            }
+            //check Rook is not threatened
+            return !Board.isThreatened(board, new Position(7, actualPos.getPosY()), !board.getFigure(actualPos).isBlackTeam());
+            //Castling is possible
         }
         return false;
     }
@@ -207,7 +224,7 @@ public class Rules {
             board.getFigure(5, actualPos.getPosY()).setAlreadyMoved(true);
         }
 
-        //perform short castling
+        //perform long castling
         if (targetPos.getPosX() == 2) {
             //set King
             board.setFigure(targetPos, actualFigure);

@@ -47,13 +47,15 @@ public class Cli {
 
                 String input = scan.nextLine();
                 if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 51) {
-                    coreGame = new CoreGame(input.charAt(0) - 48);
+                    //coreGame = new CoreGame(input.charAt(0) - 48);
+                    coreGame = new CoreGame();
                     break;
                 }
             } while (true);
             //Enter simpleMode
         } else {
-            coreGame = new CoreGame(1);
+            //coreGame = new CoreGame(1);
+            coreGame = new CoreGame();
         }
     }
 

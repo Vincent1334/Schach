@@ -75,34 +75,44 @@ public class Board {
         internalBoard = new Figure[8][8];
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                switch (sourceClass.getFigure(x, y).getFigureID()) {
-                    case 0:
-                        internalBoard[x][y] = new None((None) sourceClass.getFigure(x, y));
-                        break;
-                    case 1:
-                        internalBoard[x][y] = new Pawn((Pawn) sourceClass.getFigure(x, y));
-                        break;
-                    case 2:
-                        internalBoard[x][y] = new Rook((Rook) sourceClass.getFigure(x, y));
-                        break;
-                    case 3:
-                        internalBoard[x][y] = new Knight((Knight) sourceClass.getFigure(x, y));
-                        break;
-                    case 4:
-                        internalBoard[x][y] = new Bishop((Bishop) sourceClass.getFigure(x, y));
-                        break;
-                    case 5:
-                        internalBoard[x][y] = new Queen((Queen) sourceClass.getFigure(x, y));
-                        break;
-                    case 6:
-                        internalBoard[x][y] = new King((King) sourceClass.getFigure(x, y));
-                        break;
-                }
+                copyFigures(sourceClass.getFigure(x, y), x, y);
             }
         }
         // beatenFigures wird allerdings nicht verwendet
         beatenFigures = new ArrayList<>();
         beatenFigures.addAll(sourceClass.getBeatenFigures());
+    }
+
+    /**
+     * copies figures from one board to another
+     * @param figure
+     * @param x
+     * @param y
+     */
+    private void copyFigures(Figure figure, int x, int y){
+        switch (figure.getFigureID()) {
+            case 0:
+                internalBoard[x][y] = new None((None) figure);
+                break;
+            case 1:
+                internalBoard[x][y] = new Pawn((Pawn) figure);
+                break;
+            case 2:
+                internalBoard[x][y] = new Rook((Rook) figure);
+                break;
+            case 3:
+                internalBoard[x][y] = new Knight((Knight) figure);
+                break;
+            case 4:
+                internalBoard[x][y] = new Bishop((Bishop) figure);
+                break;
+            case 5:
+                internalBoard[x][y] = new Queen((Queen) figure);
+                break;
+            case 6:
+                internalBoard[x][y] = new King((King) figure);
+                break;
+        }
     }
 
     /**
@@ -227,19 +237,32 @@ public class Board {
             // test all possible moves and check whether your king is still in check
             for (int y = 0; y < 8; y++) {                                           // for all your own figures on the board
                 for (int x = 0; x < 8; x++) {
-                    if (!(board.getFigure(new Position(x, y)) instanceof None) && board.getFigure(new Position(x, y)).isBlackTeam() == blackTeam) {
-                        for (int newX = 0; newX < 8; newX++) {                      // test all possible moves to every possible targetField
-                            for (int newY = 0; newY < 8; newY++) {
-                                Board tmpBoard = new Board(board);                  // on a copy of the board
-                                if (possibleSolution(new Position(x, y), new Position(newX, newY), tmpBoard, blackTeam))
-                                    return false;
-                            }
-                        }
+                    if (!(board.getFigure(new Position(x, y)) instanceof None) && board.getFigure(new Position(x, y)).isBlackTeam() == blackTeam && checkPossibleTarget(board, x, y, blackTeam)) {
+                        return false;
                     }
                 }
             }
             System.out.println("You are checkmate");
             return true;
+        }
+        return false;
+    }
+
+    /**
+     * copies figures from one board to another
+     * @param board
+     * @param x
+     * @param y
+     * @param blackTeam
+     * @return
+     */
+    private static boolean checkPossibleTarget(Board board, int x, int y, boolean blackTeam){
+        for (int newX = 0; newX < 8; newX++) {                      // test all possible moves to every possible targetField
+            for (int newY = 0; newY < 8; newY++) {
+                Board tmpBoard = new Board(board);                  // on a copy of the board
+                if (possibleSolution(new Position(x, y), new Position(newX, newY), tmpBoard, blackTeam))
+                    return true;
+            }
         }
         return false;
     }
@@ -260,7 +283,6 @@ public class Board {
             Rules.performDefaultMove(actualPos, targetPos, tmpBoard);
         }
         //All other moves are not allowed in this case!
-
         return !kingInCheck(tmpBoard, blackTeam);
     }
 

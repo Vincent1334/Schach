@@ -16,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class PawnTest {
 
-    CoreGame game = new CoreGame(0);
+    //CoreGame game = new CoreGame(0);
+    CoreGame game = new CoreGame();
     Board board = new Board();
     Figure pawnWhite = new Pawn(false);
     Figure pawnBlack = new Pawn(true);

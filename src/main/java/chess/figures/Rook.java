@@ -45,23 +45,30 @@ public class Rook extends Figure {
         // don't stay at the same place
         if (actualPos.getPosX() != targetPos.getPosX() && actualPos.getPosY() != targetPos.getPosY()) return false;
 
-        //is between the old position and the new position a figure
-        int directionX = 1;
-        int directionY = 1;
-        if(actualPos.getPosX() > targetPos.getPosX()) directionX = -1;
-        if(actualPos.getPosY() > targetPos.getPosY()) directionY = -1;
-
         if(actualPos.getPosX() == targetPos.getPosX()){
             for(int i = 1; i < Math.abs(actualPos.getPosY()- targetPos.getPosY()); i++){
-                if(!(board.getFigure(actualPos.getPosX(), actualPos.getPosY()+i*directionY) instanceof None)) return false;
+                if(!(board.getFigure(actualPos.getPosX(), actualPos.getPosY()+i*getDirection(actualPos, targetPos, true)) instanceof None)) return false;
             }
         }else{
             for(int i = 1; i < Math.abs(actualPos.getPosX()- targetPos.getPosX()); i++){
-                if(!(board.getFigure(actualPos.getPosX()+i*directionX, actualPos.getPosY()) instanceof None)) return false;
+                if(!(board.getFigure(actualPos.getPosX()+i*getDirection(actualPos, targetPos, false), actualPos.getPosY()) instanceof None)) return false;
             }
         }
 
         return true;
+    }
+
+    /**
+     * return Direction
+     * @param actualPos
+     * @param targetPos
+     * @param axis true = y, false = x
+     * @return
+     */
+    private int getDirection(Position actualPos, Position targetPos, boolean axis){
+        if(actualPos.getPosX() > targetPos.getPosX() && !axis) return -1;
+        if(actualPos.getPosY() > targetPos.getPosY() && axis) return -1;
+        return 1;
     }
 
     /**

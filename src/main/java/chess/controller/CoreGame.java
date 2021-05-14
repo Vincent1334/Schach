@@ -17,19 +17,17 @@ public class CoreGame {
 
     private Board currentBoard;
     private boolean activePlayer = false;
-    private int gameMode = 0;
+    //private int gameMode = 0;
     private boolean gameOver = false;
 
     private List<Board> moveHistory = new ArrayList<>();
 
     /**
      * the constructor of CoreGame
-     *
-     * @param gameMode mode like local game, network game or a.i game
      */
-    public CoreGame(int gameMode) {
+    public CoreGame() {
         currentBoard = new Board();
-        this.gameMode = gameMode;
+        //this.gameMode = gameMode;
     }
 
     /**
