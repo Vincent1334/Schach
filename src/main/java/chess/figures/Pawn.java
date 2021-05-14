@@ -108,14 +108,13 @@ public class Pawn extends Figure {
      * @return whether the pawn moves in correct direction
      */
     public boolean checkRightDirection(Position actualPos, Position targetPos) {
-        if ((!blackTeam && targetPos.getPosY() > actualPos.getPosY())
-            ||(blackTeam && targetPos.getPosY() < actualPos.getPosY())) return true;
-        return false;
+        return !blackTeam && targetPos.getPosY() > actualPos.getPosY()
+                || blackTeam && targetPos.getPosY() < actualPos.getPosY();
     }
 
     /**
-     * Set enpassant status
-     * @param enPassant
+     * Set enPassant status
+     * @param enPassant the new enPassant status
      */
     public void setEnPassant(boolean enPassant) {
         this.enPassant = enPassant;
@@ -123,7 +122,7 @@ public class Pawn extends Figure {
 
     /**
      * return Symbol
-     * @return
+     * @return Symbol of the pawn
      */
     @Override
     public char getSymbol() {

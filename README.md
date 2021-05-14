@@ -6,39 +6,23 @@ Dokumentation Überblick
 
 ## Vorgehensplan
 
-Der Vorgehensplan beinhaltet aktuelle ToDos und einen Überblick der geplanten Features.
-
-[Vorgehensplan](documentation/Vorgehensplan.pdf)
+Der [Vorgehensplan](documentation/Vorgehensplan.pdf) beinhaltet aktuelle To-dos und einen Überblick der geplanten Features.
 
 ## Anleitung
 
-Die Anleitung beinhaltet einen einfachen Einstieg für die Verwendung unseres Programmes.
-
-[Spielanleitung](documentation/Anleitung.pdf)
+Die [Anleitung](documentation/Anleitung.pdf) beinhaltet einen einfachen Einstieg für die Verwendung unseres Programmes.
 
 ## StoryCards
 
-Alle erstellten StoryCards zu unserem Projekt
-
-[Storycards](documentation/Story%20Cards)
+Die [Storycards](documentation/Story%20Cards) zeigen die Anwendungsfälle bzw. Funktionen des Projekts auf.
 
 ## Diagramme
 
-Erstellte Diagramme wie UML- und Anwendungsfalldiagramm werden hier aufgelistet
+Das [UML-Klassen-Diagramm](documentation/Klassendiagramm.vpd.png) bietet eine Übersicht über das Zusammenspiel der einzelnen Klassen.
 
-[aktuelles UML-Klassen-Diagramm](documentation/uml-class-diagramm 2.png)
+Das [Use-Case-Diagramm](documentation/Use_Case_Diagramm.PNG) stellt die Leistungen des Systems aus Benutzersicht dar.
 
-[aktuelles Use-Case-Diagramm](https://projects.isp.uni-luebeck.de/gruppe-10/schach/-/blob/main/documentation/Use_Case_Diagramm.PNG)
-
-## Statische Variabeln
-
-Identifikation der Teams:
-
-| Team | ID |
-| ---      |  ------  |
-| Weiß     | 0        |
-| Schwarz  | 1        |
-| None     | 2        |
+## Statische Variablen
 
 Identifikation der Figuren:
 
@@ -51,7 +35,7 @@ Identifikation der Figuren:
 | Dame      | 5        |
 | König     | 6        |
 
-Diese festen Zuordnungen werden von einigen teilen des Programms verwendet, um Figuren und Spieler einordnen zu können.
+Diese festen Zuordnungen werden von einigen Teilen des Programms verwendet, um Figuren einordnen zu können.
 
 # Maven
 
@@ -59,7 +43,7 @@ Kurzübersicht nützlicher Maven-Befehle. Weitere Informationen finden sich im T
 
 * `mvn clean` löscht alle generierten Dateien
 * `mvn compile` übersetzt den Code
-* `mvn javafx:jlink` packt den gebauten Code als modulare Laufzeit-Image. Das Projekt kann danach gestartet werden mit `target/chess/bin/chess`
+* `mvn javafx:jlink` packt den gebauten Code als modulare Laufzeit-Image. Das Projekt kann danach gestartet werden. Mit `target/chess/bin/chess`
 * `mvn test` führt die Tests aus
 * `mvn compile site` baut den Code, die Dokumentation und die Tests und führt alle Tests, sowie JaCoCo und PMD inklusive CPD aus. Die Datei `target/site/index.html` bietet eine Übersicht über alle Reports.
 * `mvn javafx:run` führt das Projekt aus
