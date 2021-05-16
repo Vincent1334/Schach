@@ -10,19 +10,24 @@ Der [Vorgehensplan](documentation/Vorgehensplan.pdf) beinhaltet aktuelle To-dos 
 
 ## Anleitung
 
-Die [Anleitung](documentation/Anleitung.pdf) beinhaltet einen einfachen Einstieg für die Verwendung unseres Programmes.
+Die [Anleitung](documentation/Bedienungsanleitung.pdf) beinhaltet einen einfachen Einstieg für die Verwendung unseres Programmes.
+
+## Architektur
+
+Das [Architektur-Dokument](documentation/Architekturdokumentation.pdf) stellt die Architektur des Systems aus Nutzersicht sowie aus statischer und dynamischer Sicht dar.
 
 ## StoryCards
 
-Die [Storycards](documentation/Story%20Cards) zeigen die Anwendungsfälle bzw. Funktionen des Projekts auf.
+Die [Storycards](documentation/Anforderungsdokumentation/Story%20Cards) zeigen die Anwendungsfälle bzw. Funktionen des Projekts auf.
 
 ## Diagramme
 
-Das [UML-Klassen-Diagramm](documentation/Klassendiagramm.vpd.png) bietet eine Übersicht über das Zusammenspiel der einzelnen Klassen.
+Das [UML-Klassen-Diagramm](documentation/Diagramme/Klassendiagramm.png) bietet eine Übersicht über das Zusammenspiel der einzelnen Klassen.
 
-Das [Use-Case-Diagramm](documentation/Use_Case_Diagramm.PNG) stellt die Leistungen des Systems aus Benutzersicht dar.
+Das [Use-Case-Diagramm](documentation/Anforderungsdokumentation/Use_Case_Diagramm.PNG) stellt die Leistungen des Systems aus Benutzersicht dar.
 
-Der [Programmablaufplan](documentation/Programmablaufplan.png) stellt den grundlegenden Ablauf des Programms dar.
+Der [Programmablaufplan](documentation/Diagramme/Programmablaufplan.png) stellt den grundlegenden Ablauf des Programms dar.
+
 ## Statische Variablen
 
 Identifikation der Figuren:
