@@ -22,6 +22,7 @@ Das [UML-Klassen-Diagramm](documentation/Klassendiagramm.vpd.png) bietet eine Ü
 
 Das [Use-Case-Diagramm](documentation/Use_Case_Diagramm.PNG) stellt die Leistungen des Systems aus Benutzersicht dar.
 
+Der [Programmablaufplan](documentation/Programmablaufplan.png) stellt den grundlegenden Ablauf des Programms dar.
 ## Statische Variablen
 
 Identifikation der Figuren:
