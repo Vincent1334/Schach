@@ -51,7 +51,7 @@ public class Knight extends Figure {
 
     /**
      * return Symbol
-     * @return
+     * @return the Symbol of a knight
      */
     @Override
     public char getSymbol() {

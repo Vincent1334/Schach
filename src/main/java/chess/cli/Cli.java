@@ -108,7 +108,7 @@ public class Cli {
         System.out.println("");
     }
 
-    /**
+    /*
      * <--System------------------------------------------------------------------------------------------------------->
      */
 
@@ -133,7 +133,7 @@ public class Cli {
     }
 
     private static boolean checkLength(String input) {
-        return input.length() == 5 || input.length() == 6 && !input.isEmpty();
+        return input.length() == 5 || input.length() == 6;
     }
 
     private static boolean checkHyphen(String input) {

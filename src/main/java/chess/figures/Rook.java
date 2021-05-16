@@ -60,10 +60,10 @@ public class Rook extends Figure {
 
     /**
      * return Direction
-     * @param actualPos
-     * @param targetPos
+     * @param actualPos actual position of the Rook
+     * @param targetPos new input position for Rook
      * @param axis true = y, false = x
-     * @return
+     * @return 1 or -1
      */
     private int getDirection(Position actualPos, Position targetPos, boolean axis){
         if(actualPos.getPosX() > targetPos.getPosX() && !axis) return -1;
@@ -73,7 +73,7 @@ public class Rook extends Figure {
 
     /**
      * return Symbol
-     * @return
+     * @return the symbol of a Rook
      */
     @Override
     public char getSymbol() {

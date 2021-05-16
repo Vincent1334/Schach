@@ -134,7 +134,7 @@ public class Rules {
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move
      * @param board     the current chessboard
-     * @return 0 if castling is not possible, 1 if a queenside castling is possible, 2 if a kingside castling is possible
+     * @return 0 if castling is not possible, 1 if a queenSide castling is possible, 2 if a kingSide castling is possible
      */
     public static boolean checkCastling(Position actualPos, Position targetPos, Board board) {
         //King
@@ -145,20 +145,20 @@ public class Rules {
 
         if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved())) {
             if(checkShortCastling(board, actualPos, targetPos)) return true;
-            if(checkLongCastling(board, actualPos, targetPos)) return true;
+            return checkLongCastling(board, actualPos, targetPos);
         }
         return false;
     }
 
     /**
      * check long castling
-     * @param board
-     * @param actualPos
-     * @param targetPos
-     * @return
+     * @param board the board you are playing on
+     * @param actualPos the actual position of the figure you want to test
+     * @param targetPos the target position of the figure you want to test
+     * @return true, if the figure can perform a long castling
      */
     private static boolean checkLongCastling(Board board, Position actualPos, Position targetPos){
-        //check long castling left (queenside)
+        //check long castling left (queenSide)
         if (targetPos.getPosX() == 2 && board.getFigure(0, actualPos.getPosY()) instanceof Rook
                 && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved())) {
             //check, whether all field between are empty and are not threatened
@@ -177,13 +177,13 @@ public class Rules {
 
     /**
      * check short castling
-     * @param board
-     * @param actualPos
-     * @param targetPos
-     * @return
+     * @param board the board you are playing on
+     * @param actualPos the actual position of the figure you want to test
+     * @param targetPos the target position of the figure you want to test
+     * @return true, if the figure can perform a short castling
      */
     private static boolean checkShortCastling(Board board, Position actualPos, Position targetPos){
-        //check short castling right (kingside)
+        //check short castling right (kingSide)
         if (targetPos.getPosX() == 6 && board.getFigure(7, actualPos.getPosY()) instanceof Rook
                 && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved())) {
             //check, whether all field between are empty and are not threatened
@@ -201,7 +201,7 @@ public class Rules {
     }
 
     /**
-     * executes a queenside (left) castling move on the board
+     * executes a queenSide (left) castling move on the board
      *
      * @param actualPos current position of the figure you want to move
      * @param targetPos target position of the figure you want to move

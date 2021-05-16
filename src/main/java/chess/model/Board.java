@@ -85,9 +85,9 @@ public class Board {
 
     /**
      * copies figures from one board to another
-     * @param figure
-     * @param x
-     * @param y
+     * @param figure the figure
+     * @param x the x position
+     * @param y the y position
      */
     private void copyFigures(Figure figure, int x, int y){
         switch (figure.getFigureID()) {
@@ -249,12 +249,12 @@ public class Board {
     }
 
     /**
-     * copies figures from one board to another
-     * @param board
-     * @param x
-     * @param y
-     * @param blackTeam
-     * @return
+     * tests if a figure can make any move
+     * @param board the chess-board you play on
+     * @param x the x Position of the Figure you want to test
+     * @param y the y Position of the Figure you want to test
+     * @param blackTeam the team of the Figure you want to test
+     * @return true, if the figure on the position x,y of the board can makes any move
      */
     private static boolean checkPossibleTarget(Board board, int x, int y, boolean blackTeam){
         for (int newX = 0; newX < 8; newX++) {                      // test all possible moves to every possible targetField
@@ -269,11 +269,11 @@ public class Board {
 
     /**
      * Check if target figure can perform a possible move
-     * @param actualPos
-     * @param targetPos
-     * @param tmpBoard
-     * @param blackTeam
-     * @return
+     * @param actualPos the actual position of the figure
+     * @param targetPos the target position of the figure
+     * @param tmpBoard the temporary board for testing
+     * @param blackTeam the team of the figure
+     * @return true, if the figure can make a move that doesn't makes the king in check
      */
     private static boolean possibleSolution(Position actualPos, Position targetPos, Board tmpBoard, boolean blackTeam) {
         if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {             // check EnPassant and eventually perform it on the temporary board
@@ -289,8 +289,8 @@ public class Board {
 
     /**
      * Important for copy constructor
-     * @param other
-     * @return
+     * @param other the other board
+     * @return true, if the other board and the actual board are the same
      */
     @Override
     public boolean equals(Object other) {
@@ -302,7 +302,7 @@ public class Board {
 
     /**
      * return hashCode
-     * @return
+     * @return the hash code of the board
      */
     @Override
     public int hashCode() {

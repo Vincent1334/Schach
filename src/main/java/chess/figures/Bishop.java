@@ -60,7 +60,7 @@ public class Bishop extends Figure {
 
     /**
      * return Symbol
-     * @return
+     * @return the Symbol of a Bishop
      */
     @Override
     public char getSymbol() {

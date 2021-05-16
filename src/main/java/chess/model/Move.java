@@ -91,7 +91,7 @@ public class Move {
     /**
      * Override hashCode
      *
-     * @return
+     * @return the hash code of a move
      */
     @Override
     public int hashCode() {

@@ -69,8 +69,8 @@ public class CoreGame {
 
     /**
      * check special move for pawn
-     * @param move
-     * @return
+     * @param move consists out of the actual and target position and the ID of the conversion figure
+     * @return true if a pawn makes a conversion or an en passant
      */
     private boolean pawnMove(Move move) {
         //check EnPassant
@@ -94,8 +94,8 @@ public class CoreGame {
 
     /**
      * Check special moves for King
-     * @param move
-     * @return
+     * @param move consists out of the actual and target position and the ID of the conversion figure
+     * @return true if the king performs castling
      */
     private boolean kingMove(Move move) {
         if (Rules.checkCastling(move.getActualPosition(), move.getTargetPosition(), currentBoard)) {
@@ -133,7 +133,7 @@ public class CoreGame {
     /**
      * resets EnPassant
      *
-     * @param targetPos
+     * @param targetPos the target position
      */
     private void resetEnPassant(Position targetPos) {
         for (int y = 0; y < 8; y++) {
@@ -172,7 +172,7 @@ public class CoreGame {
 
     /**
      * Set active player manual. Important for JUnit test
-     * @param activePlayer
+     * @param activePlayer the active player
      */
     public void setActivePlayer(boolean activePlayer) {
         this.activePlayer = activePlayer;

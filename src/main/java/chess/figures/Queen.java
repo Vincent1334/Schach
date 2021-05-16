@@ -53,7 +53,7 @@ public class Queen extends Figure {
 
     /**
      * return Symbol
-     * @return
+     * @return the symbol of a queen
      */
     @Override
     public char getSymbol() {
