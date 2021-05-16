@@ -171,7 +171,7 @@ public class BoardTest {
         // king can move out of chess
         board.setFigure(3,4,whiteKing);
         board.setFigure(3,1,new Rook(true));
-        assertFalse(Board.checkChessMate(board,false), "return checkmate even if the king could move away");
+        assertFalse(Board.checkChessAndStaleMate(board,false), "return checkmate even if the king could move away");
 
         // any figure can beat the figure that threatens the king
         board.setFigure(3,4,new None());
@@ -180,12 +180,12 @@ public class BoardTest {
         board.setFigure(2,0,new Queen(true));
         board.setFigure(6,7,new Bishop(true));
         board.setFigure(7,6,new Pawn(false));
-        assertFalse(Board.checkChessMate(board,false), "return checkmate even if the threatening figure can be beaten");
+        assertFalse(Board.checkChessAndStaleMate(board,false), "return checkmate even if the threatening figure can be beaten");
 
         // any figure except the king can protect the king
         board.setFigure(7,6,new None());
         board.setFigure(3,7,new Rook(false));
-        assertFalse(Board.checkChessMate(board,false), "return checkmate even if a figure could block the attack");
+        assertFalse(Board.checkChessAndStaleMate(board,false), "return checkmate even if a figure could block the attack");
 
         // a pawn can block the king by performing enPassant
         board.setFigure(3,7,new None());
@@ -198,7 +198,7 @@ public class BoardTest {
         enPassantBlack.setEnPassant(true);
         board.setFigure(4,4,enPassantBlack);
 
-        assertFalse(Board.checkChessMate(board,false), "return checkmate even if a pawn could block the king by performing EnPassant");
+        assertFalse(Board.checkChessAndStaleMate(board,false), "return checkmate even if a pawn could block the king by performing EnPassant");
 
     }
 
@@ -218,7 +218,7 @@ public class BoardTest {
         board.setFigure(6,0,new Rook(true));
         board.setFigure(3,3,new Bishop(true));
 
-        assertTrue(Board.checkChessMate(board,false), "checkmate is not recognized");
+        assertTrue(Board.checkChessAndStaleMate(board,false), "checkmate is not recognized");
     }
 
 }

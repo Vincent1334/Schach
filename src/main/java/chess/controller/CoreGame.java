@@ -157,7 +157,7 @@ public class CoreGame {
         switchPlayer();
         resetEnPassant(move.getTargetPosition());
         moveHistory.add(new Board(currentBoard));
-        if (Board.checkChessMate(currentBoard, activePlayer)) {
+        if (Board.checkChessAndStaleMate(currentBoard, activePlayer)) {
             gameOver = true;
         }
     }

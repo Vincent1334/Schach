@@ -60,4 +60,3 @@ public class Queen extends Figure {
         return !blackTeam ? 'Q' : 'q';
     }
 }
-

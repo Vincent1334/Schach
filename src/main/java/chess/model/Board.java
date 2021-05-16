@@ -226,26 +226,29 @@ public class Board {
     }
 
     /**
-     * Check chessMate
+     * Check chessmate and stalemate
      * @param board     current chessboard
      * @param blackTeam the team of the target king
-     * @return whether the king of "team"-color is in checkmate
+     * @return whether the king of "team"-color is in checkmate or stalemate
      */
-    public static boolean checkChessMate(Board board, boolean blackTeam) {
-        //Is king in check?
-        if (kingInCheck(board, blackTeam)) {
-            // test all possible moves and check whether your king is still in check
-            for (int y = 0; y < 8; y++) {                                           // for all your own figures on the board
-                for (int x = 0; x < 8; x++) {
-                    if (!(board.getFigure(new Position(x, y)) instanceof None) && board.getFigure(new Position(x, y)).isBlackTeam() == blackTeam && checkPossibleTarget(board, x, y, blackTeam)) {
-                        return false;
-                    }
+    public static boolean checkChessAndStaleMate(Board board, boolean blackTeam) {
+        // test all possible moves and check whether your king is still in check
+        for (int y = 0; y < 8; y++) {                                           // for all your own figures on the board
+            for (int x = 0; x < 8; x++) {
+                if (!(board.getFigure(new Position(x, y)) instanceof None) && board.getFigure(new Position(x, y)).isBlackTeam() == blackTeam && checkPossibleTarget(board, x, y, blackTeam)) {
+                    return false;
                 }
             }
-            System.out.println("You are checkmate");
-            return true;
         }
-        return false;
+
+        //check chessMate or staleMate
+        if(Board.kingInCheck(board, blackTeam)){
+            System.out.println("Player " + (blackTeam ? "black" : "white") + " is checkmate!");
+        }else{
+            System.out.println("Game ends because stalemate!");
+        }
+
+        return true;
     }
 
     /**
@@ -285,7 +288,6 @@ public class Board {
         //All other moves are not allowed in this case!
         return !kingInCheck(tmpBoard, blackTeam);
     }
-
 
     /**
      * Important for copy constructor
