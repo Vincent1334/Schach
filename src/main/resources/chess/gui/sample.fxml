@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<GridPane fx:id="gridPain" alignment="center" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.SampleController">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Rectangle fx:id="field07" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" />
+      <Rectangle fx:id="field17" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" />
+      <Rectangle fx:id="field27" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" />
+      <Rectangle fx:id="field37" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" />
+      <Rectangle fx:id="field47" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" />
+      <Rectangle fx:id="field57" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" />
+      <Rectangle fx:id="field67" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" />
+      <Rectangle fx:id="field77" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" />
+      <Rectangle fx:id="field06" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.rowIndex="1" />
+      <Rectangle fx:id="field16" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Rectangle fx:id="field26" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Rectangle fx:id="field36" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <Rectangle fx:id="field46" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <Rectangle fx:id="field56" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <Rectangle fx:id="field66" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+      <Rectangle fx:id="field76" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+      <Rectangle fx:id="field05" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.rowIndex="2" />
+      <Rectangle fx:id="field15" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Rectangle fx:id="field25" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Rectangle fx:id="field35" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <Rectangle fx:id="field45" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+      <Rectangle fx:id="field55" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+      <Rectangle fx:id="field65" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+      <Rectangle fx:id="field75" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+      <Rectangle fx:id="field04" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.rowIndex="3" />
+      <Rectangle fx:id="field14" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Rectangle fx:id="field24" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Rectangle fx:id="field34" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Rectangle fx:id="field44" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <Rectangle fx:id="field54" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+      <Rectangle fx:id="field64" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+      <Rectangle fx:id="field74" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+      <Rectangle fx:id="field03" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.rowIndex="4" />
+      <Rectangle fx:id="field13" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Rectangle fx:id="field23" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <Rectangle fx:id="field33" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="2.0" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+      <Rectangle fx:id="field43" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      <Rectangle fx:id="field53" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+      <Rectangle fx:id="field63" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+      <Rectangle fx:id="field73" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+      <Rectangle fx:id="field02" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.rowIndex="5" />
+      <Rectangle fx:id="field12" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Rectangle fx:id="field22" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Rectangle fx:id="field32" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <Rectangle fx:id="field42" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+      <Rectangle fx:id="field52" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="2.0" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+      <Rectangle fx:id="field62" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+      <Rectangle fx:id="field72" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+      <Rectangle fx:id="field01" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.rowIndex="6" />
+      <Rectangle fx:id="field11" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Rectangle fx:id="field21" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Rectangle fx:id="field31" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <Rectangle fx:id="field41" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+      <Rectangle fx:id="field51" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+      <Rectangle fx:id="field61" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+      <Rectangle fx:id="field71" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" GridPane.rowIndex="6" />
+      <Rectangle fx:id="field00" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.rowIndex="7" />
+      <Rectangle fx:id="field10" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Rectangle fx:id="field20" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Rectangle fx:id="field30" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+      <Rectangle fx:id="field40" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+      <Rectangle fx:id="field50" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+      <Rectangle fx:id="field60" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+      <Rectangle fx:id="field70" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+   </children>
+
+</GridPane>

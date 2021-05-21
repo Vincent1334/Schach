@@ -38,6 +38,11 @@
             <artifactId>javafx-controls</artifactId>
             <version>16</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>16</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -108,7 +113,7 @@
                     <!-- Create a zip of the resulting runtime image -->
                     <jlinkZipName>chess</jlinkZipName>
                     <!-- The main class, fully qualified name -->
-                    <mainClass>chess/chess.Main</mainClass>
+                    <mainClass>chess/chess.Gui.Main</mainClass>
                     <!-- Make command line arguments setable with -Dargs="" -->
                     <commandlineArgs>{args}</commandlineArgs>
                 </configuration>
