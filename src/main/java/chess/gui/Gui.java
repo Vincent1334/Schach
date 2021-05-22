@@ -1,6 +1,7 @@
 package chess.gui;
 
 import chess.controller.CoreGame;
+import chess.figures.Figure;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -46,11 +47,36 @@ public class Gui extends Application {
 
         coreGame = new CoreGame();
 
-        while(!coreGame.isGameOver()){
+        while (!coreGame.isGameOver()) {
             MouseEvent event = null;
-            if(controller.handleFieldClick(event) != null){
+            if (controller.handleFieldClick(event) != null) {
                 coreGame.chessMove(controller.handleFieldClick(event));
+            }
+            updateScene();
+        }
+    }
+
+    private void updateScene() {
+        //drawBoard();
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                drawFigure(x, y);
             }
         }
     }
+
+    private void drawFigure(int x, int y) {
+        //Image image = getImage(coreGame.getCurrentBoard().getFigure(x,y).getSymbol);
+        //scene.grid(x+1,y+1).setImage(image);
+    }
+
+    /*
+    private Image getImage(char symbol){
+    switch(symbol){
+        case p:
+            return ImageOfWhitePawn;
+            ...
+        }
+    }
+    */
 }
