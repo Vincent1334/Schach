@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<GridPane fx:id="gridPain" alignment="center" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.SampleController">
+<GridPane fx:id="gridPain" alignment="center" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.SampleController">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -89,6 +96,358 @@
       <Rectangle fx:id="field50" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="5" GridPane.rowIndex="7" />
       <Rectangle fx:id="field60" arcHeight="5.0" arcWidth="5.0" fill="#fece9e" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="6" GridPane.rowIndex="7" />
       <Rectangle fx:id="field70" arcHeight="5.0" arcWidth="5.0" fill="#d18b46" height="70.0" onMouseClicked="#handleFieldClick" stroke="TRANSPARENT" strokeType="INSIDE" width="70.0" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+      <Text fx:id="wKing1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="♔" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+         <image>
+            <Image url="@../../../../../images/KnightBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+         <image>
+            <Image url="@../../../../../images/KnightWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER">
+         <image>
+            <Image url="@../../../../../images/KnightBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+         <image>
+            <Image url="@../../../../../images/KnightWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+         <image>
+            <Image url="@../../../../../images/RookBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER">
+         <image>
+            <Image url="@../../../../../images/RookBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+         <image>
+            <Image url="@../../../../../images/RookWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+         <image>
+            <Image url="@../../../../../images/RookWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+         <image>
+            <Image url="@../../../../../images/BishopBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER">
+         <image>
+            <Image url="@../../../../../images/BishopBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+         <image>
+            <Image url="@../../../../../images/BishopWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+         <image>
+            <Image url="@../../../../../images/BishopWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+         <image>
+            <Image url="@../../../../../images/KingBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+         <image>
+            <Image url="@../../../../../images/KingWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+         <image>
+            <Image url="@../../../../../images/QueenBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+         <image>
+            <Image url="@../../../../../images/QueenWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../../../../../images/PawnBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../../../../../images/PawnBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../../../../../images/PawnBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../../../../../images/PawnBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../../../../../images/PawnBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../../../../../images/PawnBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../../../../../images/PawnBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../../../../../images/PawnBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <image>
+            <Image url="@../../../../../images/PawnWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <image>
+            <Image url="@../../../../../images/PawnWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <image>
+            <Image url="@../../../../../images/PawnWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <image>
+            <Image url="@../../../../../images/PawnWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <image>
+            <Image url="@../../../../../images/PawnWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <image>
+            <Image url="@../../../../../images/PawnWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <image>
+            <Image url="@../../../../../images/PawnWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <image>
+            <Image url="@../../../../../images/PawnWhite.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Text fx:id="wKing11" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="♕" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="4" GridPane.rowIndex="2">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
+      <Text fx:id="wKing111" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="♖" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="7" GridPane.rowIndex="2">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
+      <Text fx:id="wKing112" strokeType="OUTSIDE" strokeWidth="0.0" text="♛" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="4" GridPane.rowIndex="3">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
+      <Text fx:id="wKing12" strokeType="OUTSIDE" strokeWidth="0.0" text="♚" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="3" GridPane.rowIndex="3">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
+      <Text fx:id="wKing1111" layoutX="503.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="♜" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="7" GridPane.rowIndex="3">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
+      <Text fx:id="wKing113" strokeType="OUTSIDE" strokeWidth="0.0" text="♞" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="6" GridPane.rowIndex="3">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
+      <Text fx:id="wKing114" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="♘" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="6" GridPane.rowIndex="2">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
+      <Text fx:id="wKing115" strokeType="OUTSIDE" strokeWidth="0.0" text="♝" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="5" GridPane.rowIndex="3">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
+      <Text fx:id="wKing116" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="♗" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="5" GridPane.rowIndex="2">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
+      <Text fx:id="wKing13" strokeType="OUTSIDE" strokeWidth="0.0" text="♟" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="2" GridPane.rowIndex="3">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
+      <Text fx:id="wKing14" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="♙" textAlignment="CENTER" wrappingWidth="69.4000244140625" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Text>
    </children>
 
 </GridPane>
