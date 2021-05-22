@@ -10,11 +10,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
         Parent root = fxmlLoader.load();
 
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 700, 700));
+        primaryStage.setTitle("Schach");
+        primaryStage.setScene(new Scene(root, 900, 1000));
         primaryStage.show();
     }
 
