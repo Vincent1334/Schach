@@ -1,0 +1,1406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.SepiaTone?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="1500.0" maxWidth="900.0" minHeight="1000.0" minWidth="900.0" prefHeight="1000.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+      <ButtonBar nodeOrientation="RIGHT_TO_LEFT">
+         <buttons>
+            <Label alignment="TOP_RIGHT" contentDisplay="TOP" prefHeight="17.0" text="Geschlagene Figuren" textFill="#686868">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <ToggleButton alignment="TOP_CENTER" mnemonicParsing="false" text="Drehen" textAlignment="CENTER" textFill="#686868">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+               <effect>
+                  <Blend />
+               </effect>
+            </ToggleButton>
+         </buttons>
+         <effect>
+            <Glow level="0.24" />
+         </effect>
+      </ButtonBar>
+      <GridPane gridLinesVisible="true" maxHeight="900.0" maxWidth="900.0" minHeight="900.0" minWidth="900.0" prefHeight="900.0" prefWidth="900.0">
+         <columnConstraints>
+            <ColumnConstraints maxWidth="50.0" minWidth="0.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="0.0" prefWidth="50.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="8">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="110.0" layoutY="110.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="110.0" layoutY="110.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="310.0" layoutY="310.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="110.0" layoutY="510.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="210.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="510.0" layoutY="310.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="607.0" layoutY="210.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="7">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="6">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="410.0" layoutY="610.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="7">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="8">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="110.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="8">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="210.0" layoutY="510.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="5">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="310.0" layoutY="210.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="7">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="110.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="6">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="8">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="610.0" layoutY="310.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="8">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="6">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="3">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="7">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="61.0" layoutY="260.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="61.0" layoutY="160.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="161.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="361.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="561.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="20.0" radius="27.0" width="90.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="61.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="261.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="461.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="90.0" radius="27.0" width="20.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0">
+               <effect>
+                  <InnerShadow height="40.0" radius="19.5" width="40.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="50.0" layoutX="11.0" layoutY="10.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" GridPane.rowIndex="9">
+               <effect>
+                  <InnerShadow height="40.0" radius="19.5" width="40.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" GridPane.columnIndex="9" GridPane.rowIndex="9">
+               <effect>
+                  <InnerShadow height="40.0" radius="19.5" width="40.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="50.0" layoutX="11.0" layoutY="10.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" GridPane.columnIndex="9">
+               <effect>
+                  <InnerShadow height="40.0" radius="19.5" width="40.0" />
+               </effect>
+            </Rectangle>
+            <VBox prefHeight="100.0" prefWidth="50.0" GridPane.rowIndex="1">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="8" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="7" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="43.0" GridPane.rowIndex="3">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="6" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="100.0" prefWidth="50.0" GridPane.rowIndex="4">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="5" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="100.0" prefWidth="50.0" GridPane.rowIndex="5">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="4" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="6">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="3" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="100.0" prefWidth="50.0" GridPane.rowIndex="7">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="2" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="50.0" prefWidth="50.0" GridPane.rowIndex="8">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="1" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <Group GridPane.columnIndex="1">
+               <children>
+                  <VBox layoutX="1.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="A" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="101.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="B" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="201.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="C" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="301.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="D" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="401.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="E" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="501.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="F" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="601.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="G" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="701.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="H" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+               </children>
+            </Group>
+            <Group layoutX="60.0" layoutY="9.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+               <children>
+                  <VBox layoutX="1.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="A" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="101.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="B" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="201.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="C" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="301.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="D" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="401.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="E" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="501.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="F" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="601.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="G" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+                  <VBox layoutX="701.0" layoutY="1.0" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="H" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                           </graphic>
+                           <effect>
+                              <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Label>
+                     </children>
+                     <effect>
+                        <InnerShadow height="53.37" radius="18.0925" />
+                     </effect>
+                  </VBox>
+               </children>
+            </Group>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="1">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="8" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="2">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="7" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="3">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="6" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="4">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="5" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="5">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="4" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="6">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="3" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="7">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="2" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="50.0" GridPane.columnIndex="9" GridPane.rowIndex="8">
+               <children>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="1" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <InnerShadow height="53.37" radius="18.0925" />
+               </effect>
+            </VBox>
+         </children>
+      </GridPane>
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="900.0" text="Spielverlauf" textAlignment="CENTER" textFill="#686868">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <graphic>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffcf1" height="30.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="900.0">
+               <effect>
+                  <InnerShadow height="192.98" radius="89.3175" width="166.29">
+                     <color>
+                        <Color red="0.7894737124443054" green="0.7392178177833557" blue="0.6688596606254578" />
+                     </color>
+                  </InnerShadow>
+               </effect>
+            </Rectangle>
+         </graphic>
+      </Label>
+      <ListView prefHeight="200.0" prefWidth="200.0" />
+  </children>
+   <effect>
+      <SepiaTone level="0.14">
+         <input>
+            <InnerShadow />
+         </input>
+      </SepiaTone>
+   </effect>
+</VBox>
