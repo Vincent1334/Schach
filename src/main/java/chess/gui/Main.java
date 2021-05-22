@@ -14,7 +14,7 @@ public class Main extends Application {
         Parent root = fxmlLoader.load();
 
         primaryStage.setTitle("Schach");
-        primaryStage.setScene(new Scene(root, 900, 1000));
+        primaryStage.setScene(new Scene(root, 700, 700));
         primaryStage.show();
     }
 
