@@ -6,26 +6,34 @@ import chess.model.Position;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 
-import static javafx.scene.paint.Color.BLACK;
+import static javafx.scene.paint.Color.*;
 
 public class SampleController {
 
     private static CoreGame coreGame;
+    private Rectangle actualPos;
 
-    public void handleFieldClick(MouseEvent mouseEvent) {
+    public Move handleFieldClick(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
             Rectangle r = (Rectangle) mouseEvent.getTarget();
-            r.setStroke(BLACK);
+            if(actualPos==null){
+                actualPos = r;
+                actualPos.setStroke(CYAN);
+                actualPos.setStrokeWidth(5);
+                actualPos.setStrokeType(StrokeType.INSIDE);
+
+            }else{
+                Move move = new Move(new Position((int)actualPos.getX()-1,(int)actualPos.getY()-1),new Position((int)r.getX()-1,(int)r.getY()-1));
+                actualPos.setStroke(color(0.97,0.69,0.53));
+                actualPos.setStrokeWidth(1);
+                actualPos.setStrokeType(StrokeType.OUTSIDE);
+                actualPos = null;
+                return move;
+            }
         }
+        return null;
     }
-
-    /*public static void enterGame() {
-
-        Move move = new Move(new Position(posX, posY), new Position(newX, newY));
-
-        coreGame = new CoreGame();
-        coreGame.chessMove();
-    }*/
 
 }

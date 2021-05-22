@@ -32,18 +32,24 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -52,7 +58,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1500.0" maxWidth="900.0" minHeight="1000.0" minWidth="900.0" prefHeight="1000.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1500.0" maxWidth="900.0" minHeight="1000.0" minWidth="900.0" prefHeight="1000.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.SampleController">
   <children>
       <ButtonBar nodeOrientation="RIGHT_TO_LEFT">
          <buttons>
@@ -100,322 +106,322 @@
             <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="8">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="8">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="110.0" layoutY="110.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="110.0" layoutY="110.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="110.0" layoutY="110.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="110.0" layoutY="110.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="310.0" layoutY="310.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="310.0" layoutY="310.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="4">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="110.0" layoutY="510.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="110.0" layoutY="510.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="210.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="210.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="510.0" layoutY="310.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="510.0" layoutY="310.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="607.0" layoutY="210.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="607.0" layoutY="210.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="8">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="7">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="6">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="410.0" layoutY="610.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="410.0" layoutY="610.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="7">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="8">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="8">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="110.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="8">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="110.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="8">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="210.0" layoutY="510.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="210.0" layoutY="510.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="5">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="310.0" layoutY="210.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="310.0" layoutY="210.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="7">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="110.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="6">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="110.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="8">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="8">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="610.0" layoutY="310.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="8">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="610.0" layoutY="310.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="8">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="6">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="6">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="3">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="3">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="7">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="7">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="61.0" layoutY="260.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="61.0" layoutY="260.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="61.0" layoutY="160.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="61.0" layoutY="160.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="161.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="161.0" layoutY="60.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="361.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="361.0" layoutY="60.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="561.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" layoutX="561.0" layoutY="60.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow height="20.0" radius="27.0" width="90.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="61.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="61.0" layoutY="60.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="261.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="261.0" layoutY="60.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
             </Rectangle>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="461.0" layoutY="60.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="100.0" layoutX="461.0" layoutY="60.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
                <effect>
                   <InnerShadow height="90.0" radius="27.0" width="20.0" />
                </effect>
@@ -1376,6 +1382,426 @@
                   <InnerShadow height="53.37" radius="18.0925" />
                </effect>
             </VBox>
+            <ImageView fitHeight="150.0" fitWidth="40.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/RookBlack.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="70.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/RookBlack.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/KnightBlack.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="188.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/KnightBlack.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/BishopBlack.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="39.0" layoutX="293.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/BishopBlack.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/QueenBlack.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/KingBlack.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnBlack.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="89.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnBlack.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnBlack.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnBlack.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnBlack.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnBlack.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnBlack.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnBlack.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.22" contrast="0.02" saturation="0.31" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="70.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+               <image>
+                  <Image url="@../../images/RookWhite.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="770.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/RookWhite.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/KnightWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="185.0" layoutY="769.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/KnightWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/BishopWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="39.0" layoutX="291.0" layoutY="768.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/BishopWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/QueenWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/KingWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="89.0" layoutY="672.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="160.0" layoutY="672.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../images/PawnWhite.png" />
+               </image>
+               <effect>
+                  <Reflection fraction="0.15" topOpacity="0.48">
+                     <input>
+                        <ColorAdjust brightness="0.31" contrast="0.02" saturation="-0.57" />
+                     </input>
+                  </Reflection>
+               </effect>
+            </ImageView>
          </children>
       </GridPane>
       <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="900.0" text="Spielverlauf" textAlignment="CENTER" textFill="#686868">
