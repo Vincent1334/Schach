@@ -42,41 +42,4 @@ public class Gui extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-    public void enterGame() {
-
-        coreGame = new CoreGame();
-
-        while (!coreGame.isGameOver()) {
-            MouseEvent event = null;
-            if (controller.handleFieldClick(event) != null) {
-                coreGame.chessMove(controller.handleFieldClick(event));
-            }
-            updateScene();
-        }
-    }
-
-    private void updateScene() {
-        //drawBoard();
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                drawFigure(x, y);
-            }
-        }
-    }
-
-    private void drawFigure(int x, int y) {
-        //Image image = getImage(coreGame.getCurrentBoard().getFigure(x,y).getSymbol);
-        //scene.grid(x+1,y+1).setImage(image);
-    }
-
-    /*
-    private Image getImage(char symbol){
-    switch(symbol){
-        case p:
-            return ImageOfWhitePawn;
-            ...
-        }
-    }
-    */
 }

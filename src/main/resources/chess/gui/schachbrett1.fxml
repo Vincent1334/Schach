@@ -106,7 +106,7 @@
       </Text>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7">
          <image>
-            <Image url="@../../images/KnightWhite.png" />
+            <Image url="@KnightWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -114,7 +114,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER">
          <image>
-            <Image url="@../../images/KnightBlack.png" />
+            <Image url="@KnightBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -122,7 +122,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="7">
          <image>
-            <Image url="@../../images/KnightWhite.png" />
+            <Image url="@KnightWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -130,7 +130,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
          <image>
-            <Image url="@../../images/RookBlack.png" />
+            <Image url="@RookBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -138,7 +138,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER">
          <image>
-            <Image url="@../../images/RookBlack.png" />
+            <Image url="@RookBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -146,7 +146,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="7">
          <image>
-            <Image url="@../../images/RookWhite.png" />
+            <Image url="@RookWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -154,7 +154,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="7">
          <image>
-            <Image url="@../../images/RookWhite.png" />
+            <Image url="@RookWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -162,7 +162,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
          <image>
-            <Image url="@../../images/BishopBlack.png" />
+            <Image url="@BishopBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -170,7 +170,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER">
          <image>
-            <Image url="@../../images/BishopBlack.png" />
+            <Image url="@BishopBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -178,7 +178,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7">
          <image>
-            <Image url="@../../images/BishopWhite.png" />
+            <Image url="@BishopWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -186,7 +186,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="7">
          <image>
-            <Image url="@../../images/BishopWhite.png" />
+            <Image url="@BishopWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -194,7 +194,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER">
          <image>
-            <Image url="@../../images/KingBlack.png" />
+            <Image url="@KingBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -202,7 +202,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7">
          <image>
-            <Image url="@../../images/KingWhite.png" />
+            <Image url="@KingWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -210,7 +210,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER">
          <image>
-            <Image url="@../../images/QueenBlack.png" />
+            <Image url="@QueenBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -218,7 +218,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7">
          <image>
-            <Image url="@../../images/QueenWhite.png" />
+            <Image url="@QueenWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -226,7 +226,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <image>
-            <Image url="@../../images/PawnBlack.png" />
+            <Image url="@PawnBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -234,7 +234,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <image>
-            <Image url="@../../images/PawnBlack.png" />
+            <Image url="@PawnBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -242,7 +242,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <image>
-            <Image url="@../../images/PawnBlack.png" />
+            <Image url="@PawnBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -250,7 +250,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <image>
-            <Image url="@../../images/PawnBlack.png" />
+            <Image url="@PawnBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -258,7 +258,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <image>
-            <Image url="@../../images/PawnBlack.png" />
+            <Image url="@PawnBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -266,7 +266,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <image>
-            <Image url="@../../images/PawnBlack.png" />
+            <Image url="@PawnBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -274,7 +274,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <image>
-            <Image url="@../../images/PawnBlack.png" />
+            <Image url="@PawnBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -282,7 +282,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <image>
-            <Image url="@../../images/PawnBlack.png" />
+            <Image url="@PawnBlack.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -290,7 +290,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <image>
-            <Image url="@../../images/PawnWhite.png" />
+            <Image url="@PawnWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -298,7 +298,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <image>
-            <Image url="@../../images/PawnWhite.png" />
+            <Image url="@PawnWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -306,7 +306,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <image>
-            <Image url="@../../images/PawnWhite.png" />
+            <Image url="@PawnWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -314,7 +314,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <image>
-            <Image url="@../../images/PawnWhite.png" />
+            <Image url="@PawnWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -322,7 +322,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <image>
-            <Image url="@../../images/PawnWhite.png" />
+            <Image url="@PawnWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -330,7 +330,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <image>
-            <Image url="@../../images/PawnWhite.png" />
+            <Image url="@PawnWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -338,7 +338,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <image>
-            <Image url="@../../images/PawnWhite.png" />
+            <Image url="@PawnWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -346,7 +346,7 @@
       </ImageView>
       <ImageView id="bKnight" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <image>
-            <Image url="@../../images/PawnWhite.png" />
+            <Image url="@PawnWhite.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />

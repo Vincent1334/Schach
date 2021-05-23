@@ -35,6 +35,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -75,12 +76,13 @@
                   <Blend />
                </effect>
             </ToggleButton>
+            <Button mnemonicParsing="false" onAction="#init" prefHeight="26.0" text="Start Game" />
          </buttons>
          <effect>
             <Glow level="0.24" />
          </effect>
       </ButtonBar>
-      <GridPane gridLinesVisible="true" maxHeight="900.0" maxWidth="900.0" minHeight="900.0" minWidth="900.0" prefHeight="900.0" prefWidth="900.0">
+      <GridPane fx:id="gridPane" gridLinesVisible="true" maxHeight="900.0" maxWidth="900.0" minHeight="900.0" minWidth="900.0" prefHeight="900.0" prefWidth="900.0">
          <columnConstraints>
             <ColumnConstraints maxWidth="50.0" minWidth="0.0" prefWidth="50.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
@@ -1384,7 +1386,7 @@
             </VBox>
             <ImageView fitHeight="150.0" fitWidth="40.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/RookBlack.png" />
+                  <Image url="@RookBlack.png" />
                </image>
                <viewport>
                   <Rectangle2D />
@@ -1402,7 +1404,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="70.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/RookBlack.png" />
+                  <Image url="@RookBlack.png" />
                </image>
                <viewport>
                   <Rectangle2D />
@@ -1420,7 +1422,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/KnightBlack.png" />
+                  <Image url="@KnightBlack.png" />
                </image>
                <GridPane.margin>
                   <Insets />
@@ -1435,7 +1437,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="188.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/KnightBlack.png" />
+                  <Image url="@KnightBlack.png" />
                </image>
                <GridPane.margin>
                   <Insets />
@@ -1450,7 +1452,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/BishopBlack.png" />
+                  <Image url="@BishopBlack.png" />
                </image>
                <GridPane.margin>
                   <Insets />
@@ -1465,7 +1467,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="39.0" layoutX="293.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/BishopBlack.png" />
+                  <Image url="@BishopBlack.png" />
                </image>
                <GridPane.margin>
                   <Insets />
@@ -1480,7 +1482,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/QueenBlack.png" />
+                  <Image url="@QueenBlack.png" />
                </image>
                <GridPane.margin>
                   <Insets />
@@ -1495,7 +1497,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/KingBlack.png" />
+                  <Image url="@KingBlack.png" />
                </image>
                <GridPane.margin>
                   <Insets />
@@ -1510,7 +1512,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnBlack.png" />
+                  <Image url="@PawnBlack.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1522,7 +1524,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="89.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnBlack.png" />
+                  <Image url="@PawnBlack.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1534,7 +1536,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnBlack.png" />
+                  <Image url="@PawnBlack.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1546,7 +1548,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnBlack.png" />
+                  <Image url="@PawnBlack.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1558,7 +1560,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnBlack.png" />
+                  <Image url="@PawnBlack.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1570,7 +1572,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnBlack.png" />
+                  <Image url="@PawnBlack.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1582,7 +1584,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnBlack.png" />
+                  <Image url="@PawnBlack.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1594,7 +1596,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnBlack.png" />
+                  <Image url="@PawnBlack.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1606,7 +1608,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="70.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <image>
-                  <Image url="@../../images/RookWhite.png" />
+                  <Image url="@RookWhite.png" />
                </image>
                <viewport>
                   <Rectangle2D />
@@ -1621,7 +1623,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="770.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/RookWhite.png" />
+                  <Image url="@RookWhite.png" />
                </image>
                <viewport>
                   <Rectangle2D />
@@ -1636,7 +1638,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/KnightWhite.png" />
+                  <Image url="@KnightWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1648,7 +1650,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="185.0" layoutY="769.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/KnightWhite.png" />
+                  <Image url="@KnightWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1660,7 +1662,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/BishopWhite.png" />
+                  <Image url="@BishopWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1672,7 +1674,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="39.0" layoutX="291.0" layoutY="768.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/BishopWhite.png" />
+                  <Image url="@BishopWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1684,7 +1686,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/QueenWhite.png" />
+                  <Image url="@QueenWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1696,7 +1698,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/KingWhite.png" />
+                  <Image url="@KingWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1708,7 +1710,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnWhite.png" />
+                  <Image url="@PawnWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1720,7 +1722,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="89.0" layoutY="672.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnWhite.png" />
+                  <Image url="@PawnWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1732,7 +1734,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="160.0" layoutY="672.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnWhite.png" />
+                  <Image url="@PawnWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1744,7 +1746,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnWhite.png" />
+                  <Image url="@PawnWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1756,7 +1758,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnWhite.png" />
+                  <Image url="@PawnWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1768,7 +1770,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnWhite.png" />
+                  <Image url="@PawnWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1780,7 +1782,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnWhite.png" />
+                  <Image url="@PawnWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
@@ -1792,7 +1794,7 @@
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../images/PawnWhite.png" />
+                  <Image url="@PawnWhite.png" />
                </image>
                <effect>
                   <Reflection fraction="0.15" topOpacity="0.48">
