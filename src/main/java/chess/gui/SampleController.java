@@ -4,7 +4,6 @@ import chess.controller.CoreGame;
 import chess.model.Move;
 import chess.model.Position;
 import javafx.event.ActionEvent;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,8 +31,8 @@ public class SampleController {
                 startField.setStrokeType(StrokeType.INSIDE);
             } else {
                 // Problem: Grid Pane Koordinatenursprung ist oben links, Board Koordinatenursprung ist unten links
-                Position startPosition = new Position(GridPane.getColumnIndex(startField)-1, 8-GridPane.getRowIndex(startField));
-                Position targetPosition = new Position(GridPane.getColumnIndex(r)-1, 8-GridPane.getRowIndex(r));
+                Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
+                Position targetPosition = new Position(GridPane.getColumnIndex(r) - 1, 8 - GridPane.getRowIndex(r));
 
                 Move move = new Move(startPosition, targetPosition);
                 coreGame.chessMove(move);
@@ -51,7 +50,7 @@ public class SampleController {
     }
 
     public void updateScene() {
-        //drawBoard();
+        // TODO: alle Bilder entfernen / clearBoard
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 drawFigure(x, y);
@@ -63,21 +62,45 @@ public class SampleController {
         Image image = getImage(coreGame.getCurrentBoard().getFigure(x, y).getSymbol());
         //controller.gridPane(x+1,y+1).setImage(image);
         //gridPane.add(image,x+1,y+1);
+        if (image != null) {
+            ImageView iv = new ImageView();
+            iv.setImage(image);
+            iv.setScaleX(0.3);
+            iv.setScaleY(0.3);
+            //gridPane.getChildren().add(iv);
+            gridPane.add(iv, x+1, 8-y);
+        }
 
-        ImageView iv = new ImageView();
-        iv.setImage(image);
-        gridPane.getChildren().add(iv);
     }
 
     private Image getImage(char symbol) {
         switch (symbol) {
+            case 'P':
+                return ImageHandler.getInstance().getImage("PawnWhite");
+            case 'B':
+                return ImageHandler.getInstance().getImage("BishopWhite");
+            case 'K':
+                return ImageHandler.getInstance().getImage("KingWhite");
+            case 'Q':
+                return ImageHandler.getInstance().getImage("QueenWhite");
+            case 'N':
+                return ImageHandler.getInstance().getImage("KnightWhite");
+            case 'R':
+                return ImageHandler.getInstance().getImage("RookWhite");
             case 'p':
                 return ImageHandler.getInstance().getImage("PawnBlack");
             case 'b':
                 return ImageHandler.getInstance().getImage("BishopBlack");
-            //...
-            default:
+            case 'k':
                 return ImageHandler.getInstance().getImage("KingBlack");
+            case 'q':
+                return ImageHandler.getInstance().getImage("QueenBlack");
+            case 'n':
+                return ImageHandler.getInstance().getImage("KnightBlack");
+            case 'r':
+                return ImageHandler.getInstance().getImage("RookBlack");
+            default:
+                return null;
         }
     }
 
