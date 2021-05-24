@@ -288,7 +288,6 @@ public class Rules extends Observable {
             //to knight
             case 3: {
                 board.setFigure(targetPos, new Knight(board.getFigure(actualPos).isBlackTeam()));
-                notifyObserversForChange(actualPos.getPosX(), actualPos.getPosY(), figureID, board.getFigure(actualPos).isBlackTeam());
                 break;
             }
             //to bishop
@@ -310,7 +309,6 @@ public class Rules extends Observable {
 
         board.getFigure(targetPos).setAlreadyMoved(true);
         board.setFigure(actualPos, new None());
-        notifyObserversForDelete(actualPos.getPosX(), actualPos.getPosY());
-
+        notifyObserversForChange(actualPos.getPosX(), actualPos.getPosY(), figureID, board.getFigure(actualPos).isBlackTeam());
     }
 }
