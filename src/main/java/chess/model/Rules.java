@@ -1,6 +1,7 @@
 package chess.model;
 
 import chess.figures.*;
+import chess.util.Observable;
 
 /**
  * This class contains the information about all allowed chess moves
@@ -8,7 +9,7 @@ import chess.figures.*;
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-05-05
  */
-public class Rules {
+public class Rules extends Observable {
 
     /*
      * <------DefaultMove----------------------------------------------------------------------------------------------->
@@ -57,6 +58,7 @@ public class Rules {
 
         if (!(targetFigure instanceof None)) {
             board.getBeatenFigures().add(targetFigure);
+            notifyObserversForDelete(targetPos.getPosX(), targetPos.getPosY());
         }
 
         //Update Board
@@ -119,6 +121,8 @@ public class Rules {
         Figure targetFigure = board.getFigure(targetPos.getPosX(), actualPos.getPosY());
 
         board.getBeatenFigures().add(targetFigure);
+        notifyObserversForDelete(targetPos.getPosX(), actualPos.getPosY());
+
         board.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
         board.setFigure(targetPos, actualFigure);
         board.setFigure(actualPos, new None());
@@ -221,6 +225,8 @@ public class Rules {
             //set Rook
             board.setFigure(5, actualPos.getPosY(), board.getFigure(7, actualPos.getPosY()));
             board.setFigure(7, actualPos.getPosY(), new None());
+            notifyObserversForMovement(7, actualPos.getPosY(), 5,  actualPos.getPosY());
+
             board.getFigure(5, actualPos.getPosY()).setAlreadyMoved(true);
         }
 
@@ -234,6 +240,8 @@ public class Rules {
             //set Rook
             board.setFigure(3, actualPos.getPosY(), board.getFigure(0, actualPos.getPosY()));
             board.setFigure(0, actualPos.getPosY(), new None());
+            notifyObserversForMovement(0, actualPos.getPosY(), 3,  actualPos.getPosY());
+
             board.getFigure(3, actualPos.getPosY()).setAlreadyMoved(true);
         }
     }
@@ -280,6 +288,7 @@ public class Rules {
             //to knight
             case 3: {
                 board.setFigure(targetPos, new Knight(board.getFigure(actualPos).isBlackTeam()));
+                notifyObserversForChange(actualPos.getPosX(), actualPos.getPosY(), figureID, board.getFigure(actualPos).isBlackTeam());
                 break;
             }
             //to bishop
@@ -301,5 +310,7 @@ public class Rules {
 
         board.getFigure(targetPos).setAlreadyMoved(true);
         board.setFigure(actualPos, new None());
+        notifyObserversForDelete(actualPos.getPosX(), actualPos.getPosY());
+
     }
 }

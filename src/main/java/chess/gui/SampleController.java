@@ -1,8 +1,11 @@
 package chess.gui;
 
 import chess.controller.CoreGame;
+import chess.figures.Figure;
 import chess.model.Move;
 import chess.model.Position;
+import chess.model.Rules;
+import chess.util.Observer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -15,7 +18,7 @@ import javafx.scene.shape.StrokeType;
 
 import static javafx.scene.paint.Color.*;
 
-public class SampleController {
+public class SampleController implements Observer {
 
     private static CoreGame coreGame;
     private Rectangle startField;
@@ -103,13 +106,56 @@ public class SampleController {
         tt.play();*/
     }
 
+    @Override
+    public void updateBeatenFigures(int posX, int posY) {
+        ImageView iv = (ImageView) getImageByRowColumnIndex(posX + 1, 8 - posY);
+        gridPane.getChildren().remove(iv);
+    }
+
+    @Override
+    public void updateExtraMoves(int posX, int posY, int newX, int newY) {
+        // Castling
+        ImageView iv = (ImageView) getImageByRowColumnIndex(posX + 1, 8 - posY);
+        GridPane.setColumnIndex(iv, newX + 1);
+        GridPane.setRowIndex(iv, 8 - newY);
+    }
+
+    @Override
+    public void updateChange(int posX, int posY, int changeTo, boolean isBlackTeam) {
+        // PawnConversion
+        ImageView iv = (ImageView) getImageByRowColumnIndex(posX + 1, 8 - posY);
+        iv.setImage(getImage(changeTo, isBlackTeam));
+    }
+
     // zu Testzwecken
     public void removeFigure(ActionEvent actionEvent) {
         ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
         gridPane.getChildren().remove(iv);
     }
 
-    private void drawFigure(int x, int y) {
+    private Image getImage(int symbol, boolean isBlackTeam) {
+        switch (symbol) {
+            // Rook
+            case 2:
+                return isBlackTeam ? ImageHandler.getInstance().getImage("RookBlack") : ImageHandler.getInstance().getImage("RookWhite");
+            // Knight
+            case 3:
+                return isBlackTeam ? ImageHandler.getInstance().getImage("KnightBlack") : ImageHandler.getInstance().getImage("KnightWhite");
+            // Bishop
+            case 4:
+                return isBlackTeam ? ImageHandler.getInstance().getImage("BishopBlack") : ImageHandler.getInstance().getImage("BishopWhite");
+            // Queen
+            default:
+                return isBlackTeam ? ImageHandler.getInstance().getImage("QueenBlack") : ImageHandler.getInstance().getImage("QueenWhite");
+        }
+    }
+
+    public void init(ActionEvent actionEvent) {
+        coreGame = new CoreGame();
+        Rules.addObserver(this);
+    }
+
+    /*private void drawFigure(int x, int y) {
         Image image = getImage(coreGame.getCurrentBoard().getFigure(x, y).getSymbol());
         //controller.gridPane(x+1,y+1).setImage(image);
         //gridPane.add(image,x+1,y+1);
@@ -121,10 +167,9 @@ public class SampleController {
             //gridPane.getChildren().add(iv);
             gridPane.add(iv, x + 1, 8 - y);
         }
+    }*/
 
-    }
-
-    private Image getImage(char symbol) {
+    /*private Image getImage(char symbol) {
         switch (symbol) {
             case 'P':
                 return ImageHandler.getInstance().getImage("PawnWhite");
@@ -153,9 +198,5 @@ public class SampleController {
             default:
                 return null;
         }
-    }
-
-    public void init(ActionEvent actionEvent) {
-        coreGame = new CoreGame();
-    }
+    }*/
 }
