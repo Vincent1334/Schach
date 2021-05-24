@@ -3,7 +3,9 @@ package chess.gui;
 import chess.controller.CoreGame;
 import chess.model.Move;
 import chess.model.Position;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,42 +22,91 @@ public class SampleController {
 
     public GridPane gridPane;
 
-    public Move handleFieldClick(MouseEvent mouseEvent) {
+    /*private Node getFieldByRowColumnIndex(int row, int column) {
+        Node result = null;
+        ObservableList<Node> children = gridPane.getChildren();
+
+        for (Node node : children) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                result = node;
+                break;
+            }
+        }
+        return result;
+    }*/
+
+    private Node getImageByRowColumnIndex(int column, int row) {
+        Node result = null;
+        ObservableList<Node> children = gridPane.getChildren();
+
+        for (Node node : children) {
+            if (GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) != null &&
+                    GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column && node instanceof ImageView) {
+                result = node;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public void handleFieldClick(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
 
-            Rectangle r = (Rectangle) mouseEvent.getTarget();
+            Rectangle targetField = (Rectangle) mouseEvent.getTarget();
+
+            // erstes Feld angeklickt
             if (startField == null) {
-                startField = r;
+                startField = targetField;
                 startField.setStroke(CYAN);
                 startField.setStrokeWidth(5);
                 startField.setStrokeType(StrokeType.INSIDE);
-            } else {
-                // Problem: Grid Pane Koordinatenursprung ist oben links, Board Koordinatenursprung ist unten links
-                Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
-                Position targetPosition = new Position(GridPane.getColumnIndex(r) - 1, 8 - GridPane.getRowIndex(r));
+            }
 
-                Move move = new Move(startPosition, targetPosition);
-                coreGame.chessMove(move);
-                updateScene();
+            // zweites Feld angeklickt
+            else {
+                // auf dem ersten Feld stand eine Figur
+                if (getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField)) != null) {
 
+                    Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
+                    Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
+
+                    Move move = new Move(startPosition, targetPosition);
+                    if (coreGame.chessMove(move)) {
+                        updateScene(targetField);
+                    }
+                }
                 startField.setStroke(color(0.97, 0.69, 0.53));
                 startField.setStrokeWidth(1);
                 startField.setStrokeType(StrokeType.OUTSIDE);
                 startField = null;
-
-                return move;
             }
         }
-        return null;
     }
 
-    public void updateScene() {
-        // TODO: alle Bilder entfernen / clearBoard
+    public void updateScene(Rectangle targetField) {
+        /*// alle Bilder entfernen / clearBoard
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 drawFigure(x, y);
             }
-        }
+        }*/
+
+        // get image on clicked field
+        ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
+        GridPane.setColumnIndex(iv, GridPane.getColumnIndex(targetField));
+        GridPane.setRowIndex(iv, GridPane.getRowIndex(targetField));
+
+        /*// Animation funktioniert noch nicht (Zielposition falsch?)
+        TranslateTransition tt = new TranslateTransition(Duration.millis(1000), iv);
+        tt.setToX(targetField.localToScene(targetField.getBoundsInLocal()).getMinX());
+        tt.setToY(targetField.localToScene(targetField.getBoundsInLocal()).getMinY());
+        tt.play();*/
+    }
+
+    // zu Testzwecken
+    public void removeFigure(ActionEvent actionEvent) {
+        ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
+        gridPane.getChildren().remove(iv);
     }
 
     private void drawFigure(int x, int y) {
@@ -68,7 +119,7 @@ public class SampleController {
             iv.setScaleX(0.3);
             iv.setScaleY(0.3);
             //gridPane.getChildren().add(iv);
-            gridPane.add(iv, x+1, 8-y);
+            gridPane.add(iv, x + 1, 8 - y);
         }
 
     }
