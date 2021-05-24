@@ -871,117 +871,7 @@
             </ImageView>
             <VBox GridPane.rowIndex="1" GridPane.valignment="TOP">
                <children>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="1" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
-                     </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="2" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
-                     </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="3" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
-                     </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="4" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
-                     </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="5" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
-                     </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="6" textFill="WHITE" textOverrun="CLIP">
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="8" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -1025,7 +915,117 @@
                         </Lighting>
                      </effect>
                   </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="8" textFill="WHITE" textOverrun="CLIP">
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="6" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="5" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="4" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="3" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="2" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="1" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -1240,13 +1240,10 @@
                   <InnerShadow height="53.37" radius="18.0925" />
                </effect>
                <children>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="1" textFill="WHITE" textOverrun="CLIP">
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="8" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
-                     </graphic>
                      <effect>
                         <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
                            <bumpInput>
@@ -1261,74 +1258,11 @@
                            </light>
                         </Lighting>
                      </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="2" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
                      <graphic>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
                      </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
                   </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="3" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
-                     </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="4" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
-                     </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="5" textFill="WHITE" textOverrun="CLIP">
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="7" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -1372,7 +1306,7 @@
                         </Lighting>
                      </effect>
                   </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="7" textFill="WHITE" textOverrun="CLIP">
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="5" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -1394,10 +1328,13 @@
                         </Lighting>
                      </effect>
                   </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="8" textFill="WHITE" textOverrun="CLIP">
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="4" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
                      <effect>
                         <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
                            <bumpInput>
@@ -1412,125 +1349,78 @@
                            </light>
                         </Lighting>
                      </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="3" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
                      <graphic>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
                      </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="2" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="1" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="100.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="50.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
                   </Label>
                </children>
             </VBox>
             <HBox GridPane.columnIndex="1" GridPane.rowIndex="9">
                <children>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="H" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
-                     </graphic>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="G" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
-                     </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="F" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
-                     </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="E" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
-                     </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="D" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                     <graphic>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
-                     </graphic>
-                     <effect>
-                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
-                           <bumpInput>
-                              <Shadow />
-                           </bumpInput>
-                           <light>
-                              <Light.Distant>
-                                 <color>
-                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
-                                 </color>
-                              </Light.Distant>
-                           </light>
-                        </Lighting>
-                     </effect>
-                  </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="C" textFill="WHITE" textOverrun="CLIP">
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="A" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -1574,7 +1464,7 @@
                         </Lighting>
                      </effect>
                   </Label>
-                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="A" textFill="WHITE" textOverrun="CLIP">
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="C" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -1595,6 +1485,116 @@
                            </light>
                         </Lighting>
                      </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="D" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="E" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="F" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="G" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                     </graphic>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="H" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <effect>
+                        <Lighting specularConstant="0.37" specularExponent="13.49" surfaceScale="5.12">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant>
+                                 <color>
+                                    <Color red="0.7368420958518982" green="0.6149447560310364" blue="0.5082846283912659" />
+                                 </color>
+                              </Light.Distant>
+                           </light>
+                        </Lighting>
+                     </effect>
+                     <graphic>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                     </graphic>
                   </Label>
                </children>
                <effect>
