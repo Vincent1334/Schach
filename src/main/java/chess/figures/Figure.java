@@ -3,6 +3,7 @@ package chess.figures;
 import chess.model.Board;
 import chess.model.Position;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -47,6 +48,18 @@ public abstract class Figure {
      */
     public boolean isBlackTeam() {
         return this.blackTeam;
+    }
+
+    public ArrayList<Position> possibleTargetFields(Position actualPos, Board board) {
+        ArrayList<Position> fields = new ArrayList<>();
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if (validMove(actualPos, new Position(x,y), board)) {
+                    fields.add(new Position(x,y));
+                }
+            }
+        }
+        return fields;
     }
 
     /**

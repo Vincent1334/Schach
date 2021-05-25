@@ -1,10 +1,8 @@
 package chess.gui;
 
-import chess.controller.CoreGame;
-import chess.figures.Figure;
-import chess.model.Move;
-import chess.model.Position;
-import chess.model.Rules;
+import chess.controller.*;
+import chess.figures.*;
+import chess.model.*;
 import chess.util.Observer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,8 +11,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import static javafx.scene.paint.Color.*;
 
@@ -25,7 +27,7 @@ public class SampleController implements Observer {
 
     public GridPane gridPane;
 
-    /*private Node getFieldByRowColumnIndex(int row, int column) {
+    private Node getFieldByRowColumnIndex(int row, int column) {
         Node result = null;
         ObservableList<Node> children = gridPane.getChildren();
 
@@ -36,7 +38,7 @@ public class SampleController implements Observer {
             }
         }
         return result;
-    }*/
+    }
 
     private Node getImageByRowColumnIndex(int column, int row) {
         Node result = null;
@@ -60,9 +62,14 @@ public class SampleController implements Observer {
             // erstes Feld angeklickt
             if (startField == null) {
                 startField = targetField;
-                startField.setStroke(CYAN);
-                startField.setStrokeWidth(5);
-                startField.setStrokeType(StrokeType.INSIDE);
+                markField(startField, CYAN);
+
+                // auf dem Feld steht eine Figur
+                if (getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField)) != null) {
+                    for (Rectangle field : getPossibleFields(startField)) {
+                        markField(field, BLUEVIOLET);
+                    }
+                }
             }
 
             // zweites Feld angeklickt
@@ -73,37 +80,95 @@ public class SampleController implements Observer {
                     Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
                     Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
 
+                    for (Rectangle field : getPossibleFields(startField)) {
+                        unmarkField(field);
+                    }
+
                     Move move = new Move(startPosition, targetPosition);
                     if (coreGame.chessMove(move)) {
                         updateScene(targetField);
                     }
+
                 }
-                startField.setStroke(color(0.97, 0.69, 0.53));
-                startField.setStrokeWidth(1);
-                startField.setStrokeType(StrokeType.OUTSIDE);
+                unmarkField(startField);
                 startField = null;
             }
         }
     }
 
+    private ArrayList<Rectangle> getPossibleFields(Rectangle actualField) {
+
+        Figure figure = getFigureOnField(actualField);
+        Position actualPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
+        Board board = coreGame.getCurrentBoard();
+
+        ArrayList<Position> positions = figure.possibleTargetFields(actualPosition, board);
+        ArrayList<Rectangle> fields = new ArrayList<>();
+
+        for (Position position : positions) {
+            fields.add((Rectangle) getFieldByRowColumnIndex(8 - position.getPosY(), position.getPosX() + 1));
+        }
+
+        return fields;
+    }
+
+    private void markField(Rectangle field, Color color) {
+        field.setStroke(color);
+        field.setStrokeWidth(5);
+        field.setStrokeType(StrokeType.INSIDE);
+    }
+    private void unmarkField(Rectangle field) {
+        field.setStroke(color(0.97, 0.69, 0.53));
+        field.setStrokeWidth(1);
+        field.setStrokeType(StrokeType.OUTSIDE);
+    }
+
+
+    private Figure getFigureOnField(Rectangle actualField) {
+        ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(actualField), GridPane.getRowIndex(actualField));
+        if (iv == null) {
+            return new None();
+        }
+        Image image = iv.getImage();
+        if (ImageHandler.getInstance().getImage("RookBlack").getUrl().equals(image.getUrl())) {
+            return new Rook(true);
+        } else if (ImageHandler.getInstance().getImage("RookWhite").getUrl().equals(image.getUrl())) {
+            return new Rook(false);
+        } else if (ImageHandler.getInstance().getImage("KnightBlack").getUrl().equals(image.getUrl())) {
+            return new Knight(true);
+        } else if (ImageHandler.getInstance().getImage("KnightWhite").getUrl().equals(image.getUrl())) {
+            return new Knight(false);
+        } else if (ImageHandler.getInstance().getImage("BishopBlack").getUrl().equals(image.getUrl())) {
+            return new Bishop(true);
+        } else if (ImageHandler.getInstance().getImage("BishopWhite").getUrl().equals(image.getUrl())) {
+            return new Bishop(false);
+        } else if (ImageHandler.getInstance().getImage("KingBlack").getUrl().equals(image.getUrl())) {
+            return new King(true);
+        } else if (ImageHandler.getInstance().getImage("KingWhite").getUrl().equals(image.getUrl())) {
+            return new King(false);
+        } else if (ImageHandler.getInstance().getImage("QueenBlack").getUrl().equals(image.getUrl())) {
+            return new Queen(true);
+        } else if (ImageHandler.getInstance().getImage("QueenWhite").getUrl().equals(image.getUrl())) {
+            return new Queen(false);
+        } else if (ImageHandler.getInstance().getImage("PawnBlack").getUrl().equals(image.getUrl())) {
+            return new Pawn(true);
+        } else {
+            return new Pawn(false);
+        }
+    }
+
     public void updateScene(Rectangle targetField) {
+        // get image on clicked field
+        ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
+        GridPane.setColumnIndex(iv, GridPane.getColumnIndex(targetField));
+        GridPane.setRowIndex(iv, GridPane.getRowIndex(targetField));
+
         /*// alle Bilder entfernen / clearBoard
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 drawFigure(x, y);
             }
         }*/
-
-        // get image on clicked field
-        ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
-        GridPane.setColumnIndex(iv, GridPane.getColumnIndex(targetField));
-        GridPane.setRowIndex(iv, GridPane.getRowIndex(targetField));
-
-        /*// Animation funktioniert noch nicht (Zielposition falsch?)
-        TranslateTransition tt = new TranslateTransition(Duration.millis(1000), iv);
-        tt.setToX(targetField.localToScene(targetField.getBoundsInLocal()).getMinX());
-        tt.setToY(targetField.localToScene(targetField.getBoundsInLocal()).getMinY());
-        tt.play();*/
     }
 
     @Override
