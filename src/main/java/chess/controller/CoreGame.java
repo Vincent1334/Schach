@@ -17,7 +17,6 @@ public class CoreGame {
 
     private Board currentBoard;
     private boolean activePlayer = false;
-    //private int gameMode = 0;
     private boolean gameOver = false;
 
     private List<Board> moveHistory = new ArrayList<>();
@@ -27,7 +26,6 @@ public class CoreGame {
      */
     public CoreGame() {
         currentBoard = new Board();
-        //this.gameMode = gameMode;
     }
 
     /**

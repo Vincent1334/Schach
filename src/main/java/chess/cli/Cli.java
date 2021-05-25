@@ -1,6 +1,7 @@
 package chess.cli;
 
 import chess.controller.CoreGame;
+import chess.ki.Computer;
 import chess.model.Move;
 import chess.model.Position;
 import java.util.Arrays;
@@ -13,6 +14,8 @@ public class Cli {
 
     private static Scanner scan;
     private static CoreGame coreGame;
+    private static int gameMode = 0;
+    private static Computer computer;
 
     /**
      * The entry point of the CLI application.
@@ -47,15 +50,19 @@ public class Cli {
 
                 String input = scan.nextLine();
                 if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 51) {
-                    //coreGame = new CoreGame(input.charAt(0) - 48);
+                    gameMode = input.charAt(0)-48;
                     coreGame = new CoreGame();
                     break;
                 }
             } while (true);
             //Enter simpleMode
         } else {
-            //coreGame = new CoreGame(1);
             coreGame = new CoreGame();
+        }
+
+        //create Computer
+        if(gameMode == 2){
+            computer = new Computer(true);
         }
     }
 
@@ -81,6 +88,10 @@ public class Cli {
             // Check syntax and make move
             if (validSyntax(input)) {
                 coreGame.chessMove(parse(input));
+            }
+            // Check computer move
+            if(gameMode == 2){
+                coreGame.chessMove(computer.makeMove(coreGame.getCurrentBoard()));
             }
         } while (!coreGame.isGameOver());
     }
