@@ -1,10 +1,8 @@
 package chess.gui;
 
 import chess.controller.*;
-import chess.figures.*;
 import chess.model.*;
 import chess.util.Observer;
-
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -15,9 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-
 import java.util.ArrayList;
-
 import static javafx.scene.paint.Color.*;
 
 public class SampleController implements Observer {
@@ -122,52 +118,11 @@ public class SampleController implements Observer {
         field.setStrokeType(StrokeType.OUTSIDE);
     }
 
-
-    /*private Figure getFigureOnField(Rectangle actualField) {
-        ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(actualField), GridPane.getRowIndex(actualField));
-        if (iv == null) {
-            return new None();
-        }
-        Image image = iv.getImage();
-        if (ImageHandler.getInstance().getImage("RookBlack").getUrl().equals(image.getUrl())) {
-            return new Rook(true);
-        } else if (ImageHandler.getInstance().getImage("RookWhite").getUrl().equals(image.getUrl())) {
-            return new Rook(false);
-        } else if (ImageHandler.getInstance().getImage("KnightBlack").getUrl().equals(image.getUrl())) {
-            return new Knight(true);
-        } else if (ImageHandler.getInstance().getImage("KnightWhite").getUrl().equals(image.getUrl())) {
-            return new Knight(false);
-        } else if (ImageHandler.getInstance().getImage("BishopBlack").getUrl().equals(image.getUrl())) {
-            return new Bishop(true);
-        } else if (ImageHandler.getInstance().getImage("BishopWhite").getUrl().equals(image.getUrl())) {
-            return new Bishop(false);
-        } else if (ImageHandler.getInstance().getImage("KingBlack").getUrl().equals(image.getUrl())) {
-            return new King(true);
-        } else if (ImageHandler.getInstance().getImage("KingWhite").getUrl().equals(image.getUrl())) {
-            return new King(false);
-        } else if (ImageHandler.getInstance().getImage("QueenBlack").getUrl().equals(image.getUrl())) {
-            return new Queen(true);
-        } else if (ImageHandler.getInstance().getImage("QueenWhite").getUrl().equals(image.getUrl())) {
-            return new Queen(false);
-        } else if (ImageHandler.getInstance().getImage("PawnBlack").getUrl().equals(image.getUrl())) {
-            return new Pawn(true);
-        } else {
-            return new Pawn(false);
-        }
-    }*/
-
     public void updateScene(Rectangle targetField) {
         // get image on clicked field
         ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
         GridPane.setColumnIndex(iv, GridPane.getColumnIndex(targetField));
         GridPane.setRowIndex(iv, GridPane.getRowIndex(targetField));
-
-        /*// alle Bilder entfernen / clearBoard
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                drawFigure(x, y);
-            }
-        }*/
     }
 
     @Override
@@ -218,49 +173,4 @@ public class SampleController implements Observer {
         coreGame = new CoreGame();
         Rules.addObserver(this);
     }
-
-    /*private void drawFigure(int x, int y) {
-        Image image = getImage(coreGame.getCurrentBoard().getFigure(x, y).getSymbol());
-        //controller.gridPane(x+1,y+1).setImage(image);
-        //gridPane.add(image,x+1,y+1);
-        if (image != null) {
-            ImageView iv = new ImageView();
-            iv.setImage(image);
-            iv.setScaleX(0.3);
-            iv.setScaleY(0.3);
-            //gridPane.getChildren().add(iv);
-            gridPane.add(iv, x + 1, 8 - y);
-        }
-    }*/
-
-    /*private Image getImage(char symbol) {
-        switch (symbol) {
-            case 'P':
-                return ImageHandler.getInstance().getImage("PawnWhite");
-            case 'B':
-                return ImageHandler.getInstance().getImage("BishopWhite");
-            case 'K':
-                return ImageHandler.getInstance().getImage("KingWhite");
-            case 'Q':
-                return ImageHandler.getInstance().getImage("QueenWhite");
-            case 'N':
-                return ImageHandler.getInstance().getImage("KnightWhite");
-            case 'R':
-                return ImageHandler.getInstance().getImage("RookWhite");
-            case 'p':
-                return ImageHandler.getInstance().getImage("PawnBlack");
-            case 'b':
-                return ImageHandler.getInstance().getImage("BishopBlack");
-            case 'k':
-                return ImageHandler.getInstance().getImage("KingBlack");
-            case 'q':
-                return ImageHandler.getInstance().getImage("QueenBlack");
-            case 'n':
-                return ImageHandler.getInstance().getImage("KnightBlack");
-            case 'r':
-                return ImageHandler.getInstance().getImage("RookBlack");
-            default:
-                return null;
-        }
-    }*/
 }

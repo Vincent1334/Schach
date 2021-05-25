@@ -1,45 +1,34 @@
 package chess.gui;
 
 import chess.controller.CoreGame;
-import chess.figures.Figure;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-/**
- * Starting point of the JavaFX GUI
- */
 public class Gui extends Application {
-    private static CoreGame coreGame;
-    private SampleController controller;
 
-    /**
-     * This method is called by the Application to start the GUI.
-     *
-     * @param primaryStage The initial root stage of the application.
-     */
+
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello World!");
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(event -> System.out.println("Hello World!"));
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));
+        Parent root = fxmlLoader.load();
 
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        primaryStage.setScene(new Scene(root, 300, 250));
+        primaryStage.setTitle("Schach");
+
+        primaryStage.setScene(new Scene(root, 900, 1000));
         primaryStage.show();
     }
 
-    /**
-     * The entry point of the GUI application.
-     *
-     * @param args The command line arguments passed to the application
-     */
     public static void main(String[] args) {
         launch(args);
     }
+
 }
