@@ -4,6 +4,7 @@ import chess.controller.*;
 import chess.figures.*;
 import chess.model.*;
 import chess.util.Observer;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -15,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static javafx.scene.paint.Color.*;
@@ -98,11 +98,10 @@ public class SampleController implements Observer {
 
     private ArrayList<Rectangle> getPossibleFields(Rectangle actualField) {
 
-        Figure figure = getFigureOnField(actualField);
         Position actualPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
         Board board = coreGame.getCurrentBoard();
 
-        ArrayList<Position> positions = figure.possibleTargetFields(actualPosition, board);
+        ArrayList<Position> positions = Rules.possibleTargetFields(actualPosition, board);
         ArrayList<Rectangle> fields = new ArrayList<>();
 
         for (Position position : positions) {
@@ -124,7 +123,7 @@ public class SampleController implements Observer {
     }
 
 
-    private Figure getFigureOnField(Rectangle actualField) {
+    /*private Figure getFigureOnField(Rectangle actualField) {
         ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(actualField), GridPane.getRowIndex(actualField));
         if (iv == null) {
             return new None();
@@ -155,7 +154,7 @@ public class SampleController implements Observer {
         } else {
             return new Pawn(false);
         }
-    }
+    }*/
 
     public void updateScene(Rectangle targetField) {
         // get image on clicked field

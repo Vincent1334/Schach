@@ -51,22 +51,6 @@ public abstract class Figure {
         return this.blackTeam;
     }
 
-    public ArrayList<Position> possibleTargetFields(Position actualPos, Board board) {
-        ArrayList<Position> fields = new ArrayList<>();
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                Position targetPos = new Position(x,y);
-                if (Rules.checkDefaultMove(actualPos, targetPos, board) ||
-                        Rules.checkCastling(actualPos, targetPos, board) ||
-                        Rules.checkEnPassant(actualPos, targetPos, board) ||
-                        Rules.checkPawnConversion(actualPos, targetPos, board)) {
-                    fields.add(new Position(x,y));
-                }
-            }
-        }
-        return fields;
-    }
-
     /**
      * The getter for the figures symbol
      *
