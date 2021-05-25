@@ -2,6 +2,7 @@ package chess.figures;
 
 import chess.model.Board;
 import chess.model.Position;
+import chess.model.Rules;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -54,7 +55,11 @@ public abstract class Figure {
         ArrayList<Position> fields = new ArrayList<>();
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (validMove(actualPos, new Position(x,y), board)) {
+                Position targetPos = new Position(x,y);
+                if (Rules.checkDefaultMove(actualPos, targetPos, board) ||
+                        Rules.checkCastling(actualPos, targetPos, board) ||
+                        Rules.checkEnPassant(actualPos, targetPos, board) ||
+                        Rules.checkPawnConversion(actualPos, targetPos, board)) {
                     fields.add(new Position(x,y));
                 }
             }
