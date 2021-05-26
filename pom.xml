@@ -59,7 +59,6 @@
             </plugin>
             <plugin>
                 <!-- The Surefire Plugin is used during the test phase of the build lifecycle to execute the unit tests of an application. It generates XML reports in target/surefire-reports -->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
             </plugin>
@@ -115,7 +114,7 @@
                     <!-- The main class, fully qualified name -->
                     <mainClass>chess/chess.Main</mainClass>
                     <!-- Make command line arguments setable with -Dargs="" -->
-                    <commandlineArgs>{args}</commandlineArgs>
+                    <commandlineArgs>${args}</commandlineArgs>
                 </configuration>
             </plugin>
         </plugins>
@@ -154,8 +153,8 @@
                     <!-- Ignore module definition to avoid module related issues -->
                     <sourceFileExcludes>module-info.java</sourceFileExcludes>
                     <additionalOptions>
-                      <option>--show-module-contents all</option>
-                      <option>--show-packages all</option>
+                        <option>--show-module-contents all</option>
+                        <option>--show-packages all</option>
                     </additionalOptions>
                 </configuration>
                 <reportSets>

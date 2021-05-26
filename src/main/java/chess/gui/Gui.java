@@ -11,8 +11,8 @@ public class Gui extends Application {
 //Kommentar
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));
-        Parent root = fxmlLoader.load();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett1.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
 
         primaryStage.setTitle("Schach");
 

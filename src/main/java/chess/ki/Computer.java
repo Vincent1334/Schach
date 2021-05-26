@@ -38,16 +38,7 @@ public class Computer {
         //generate possible moves
         ArrayList<Move> possibleMove = getPossibleMoves(board, playerMax);
 
-        //set Score for all possible moves
-        Board tmpBoard = new Board(board);
-        for(int i = 0; i < possibleMove.size(); i++){
-            performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
-            possibleMove.get(i).setScore(heuristic(board, possibleMove, playerMax));
-            board = new Board(tmpBoard);
-        }
 
-        //sort possible Move
-       // Collections.sort(possibleMove);
 
 
         if(depth == 0) return heuristic(board, possibleMove, playerMax);
