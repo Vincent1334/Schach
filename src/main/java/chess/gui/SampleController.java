@@ -5,7 +5,9 @@ import chess.model.*;
 import chess.util.Observer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,36 +22,21 @@ public class SampleController implements Observer {
 
     private static CoreGame coreGame;
     private Rectangle startField;
+    private boolean black = true;
+    @FXML
+    private Label player;
+    @FXML
+    private GridPane gridPane;
 
-    public GridPane gridPane;
 
-    private Node getFieldByRowColumnIndex(int row, int column) {
-        Node result = null;
-        ObservableList<Node> children = gridPane.getChildren();
 
-        for (Node node : children) {
-            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-                result = node;
-                break;
-            }
-        }
-        return result;
+    public void init(ActionEvent actionEvent) {
+        coreGame = new CoreGame();
+        Rules.addObserver(this);
     }
 
-    private Node getImageByRowColumnIndex(int column, int row) {
-        Node result = null;
-        ObservableList<Node> children = gridPane.getChildren();
 
-        for (Node node : children) {
-            if (GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) != null &&
-                    GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column && node instanceof ImageView) {
-                result = node;
-                break;
-            }
-        }
-        return result;
-    }
-
+    //--------------------------------------Field----------------------------------------------------------------------------------------------
     public void handleFieldClick(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
 
@@ -112,17 +99,41 @@ public class SampleController implements Observer {
         field.setStrokeWidth(5);
         field.setStrokeType(StrokeType.INSIDE);
     }
+
     private void unmarkField(Rectangle field) {
         field.setStroke(color(0.97, 0.69, 0.53));
         field.setStrokeWidth(1);
         field.setStrokeType(StrokeType.OUTSIDE);
     }
 
+    private Node getFieldByRowColumnIndex(int row, int column) {
+        Node result = null;
+        ObservableList<Node> children = gridPane.getChildren();
+
+        for (Node node : children) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                result = node;
+                break;
+            }
+        }
+        return result;
+    }
+//----------------------------------Update----------------------------------------------------------------------------------------------
     public void updateScene(Rectangle targetField) {
         // get image on clicked field
         ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
         GridPane.setColumnIndex(iv, GridPane.getColumnIndex(targetField));
         GridPane.setRowIndex(iv, GridPane.getRowIndex(targetField));
+        updatePlayer(black);
+        black = !black;
+    }
+
+    private void updatePlayer(boolean black){
+        if(black){
+            player.setText("black");
+        }else{
+            player.setText("white");
+        }
     }
 
     @Override
@@ -146,10 +157,20 @@ public class SampleController implements Observer {
         iv.setImage(getImage(changeTo, isBlackTeam));
     }
 
-    // zu Testzwecken
-    public void removeFigure(ActionEvent actionEvent) {
-        ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
-        gridPane.getChildren().remove(iv);
+//--------------------------------Image----------------------------------------------------------------------------------------------
+
+    private Node getImageByRowColumnIndex(int column, int row) {
+        Node result = null;
+        ObservableList<Node> children = gridPane.getChildren();
+
+        for (Node node : children) {
+            if (GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) != null &&
+                    GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column && node instanceof ImageView) {
+                result = node;
+                break;
+            }
+        }
+        return result;
     }
 
     private Image getImage(int symbol, boolean isBlackTeam) {
@@ -169,8 +190,11 @@ public class SampleController implements Observer {
         }
     }
 
-    public void init(ActionEvent actionEvent) {
-        coreGame = new CoreGame();
-        Rules.addObserver(this);
+//----------------------------------Sonstiges------------------------------------------------------------------------------
+    // zu Testzwecken
+    public void removeFigure(ActionEvent actionEvent) {
+        ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
+        gridPane.getChildren().remove(iv);
     }
+
 }

@@ -59,25 +59,23 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.SampleController">
+<VBox prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.SampleController">
   <children>
       <ButtonBar maxHeight="70.0" minHeight="70.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="70.0">
          <buttons>
-            <Label alignment="TOP_RIGHT" contentDisplay="TOP" prefHeight="17.0" text="Geschlagene Figuren" textAlignment="CENTER" textFill="#686868">
+            <Label fx:id="player" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="white">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font size="22.0" />
                </font>
             </Label>
-            <ToggleButton alignment="TOP_CENTER" mnemonicParsing="false" text="Drehen" textAlignment="CENTER" textFill="#686868">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
+            <Label alignment="TOP_RIGHT" minWidth="2.0" prefHeight="17.0" prefWidth="40.0" text="Player:" />
+            <ToggleButton alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Drehen" textAlignment="CENTER">
                <effect>
                   <Blend />
                </effect>
             </ToggleButton>
-            <Button mnemonicParsing="false" onAction="#init" text="Start Game" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" onAction="#removeFigure" text="remove" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#init" text="Start Game" textAlignment="CENTER" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#removeFigure" text="remove" textAlignment="CENTER" />
          </buttons>
          <effect>
             <Glow level="0.24" />
@@ -449,7 +447,7 @@
                   <InnerShadow height="40.0" radius="19.5" width="40.0" />
                </effect>
             </Rectangle>
-            <ImageView fitHeight="150.0" fitWidth="40.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="40.0" mouseTransparent="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@RookBlack.png" />
                </image>
@@ -467,7 +465,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="70.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="70.0" mouseTransparent="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@RookBlack.png" />
                </image>
@@ -485,7 +483,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="50.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@KnightBlack.png" />
                </image>
@@ -500,7 +498,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="188.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="188.0" layoutY="68.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@KnightBlack.png" />
                </image>
@@ -515,7 +513,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@BishopBlack.png" />
                </image>
@@ -530,7 +528,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="39.0" layoutX="293.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="39.0" layoutX="293.0" layoutY="66.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@BishopBlack.png" />
                </image>
@@ -545,7 +543,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@QueenBlack.png" />
                </image>
@@ -560,7 +558,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="40.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@KingBlack.png" />
                </image>
@@ -575,7 +573,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnBlack.png" />
                </image>
@@ -587,7 +585,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="89.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="89.0" layoutY="171.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnBlack.png" />
                </image>
@@ -599,7 +597,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnBlack.png" />
                </image>
@@ -611,7 +609,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnBlack.png" />
                </image>
@@ -623,7 +621,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnBlack.png" />
                </image>
@@ -635,7 +633,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnBlack.png" />
                </image>
@@ -647,7 +645,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnBlack.png" />
                </image>
@@ -659,7 +657,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-4.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnBlack.png" />
                </image>
@@ -671,7 +669,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="70.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+            <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="70.0" mouseTransparent="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <image>
                   <Image url="@RookWhite.png" />
                </image>
@@ -686,7 +684,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="770.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="40.0" layoutX="90.0" layoutY="770.0" mouseTransparent="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
                   <Image url="@RookWhite.png" />
                </image>
@@ -701,7 +699,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="50.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
                   <Image url="@KnightWhite.png" />
                </image>
@@ -713,7 +711,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="185.0" layoutY="769.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="185.0" layoutY="769.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
                   <Image url="@KnightWhite.png" />
                </image>
@@ -725,7 +723,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="39.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
                   <Image url="@BishopWhite.png" />
                </image>
@@ -737,7 +735,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="39.0" layoutX="291.0" layoutY="768.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="39.0" layoutX="291.0" layoutY="768.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
                   <Image url="@BishopWhite.png" />
                </image>
@@ -749,7 +747,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="45.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
                   <Image url="@QueenWhite.png" />
                </image>
@@ -761,7 +759,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="42.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                <image>
                   <Image url="@KingWhite.png" />
                </image>
@@ -773,7 +771,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnWhite.png" />
                </image>
@@ -785,7 +783,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="89.0" layoutY="672.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="89.0" layoutY="672.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnWhite.png" />
                </image>
@@ -797,7 +795,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="160.0" layoutY="672.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="160.0" layoutY="672.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnWhite.png" />
                </image>
@@ -809,7 +807,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnWhite.png" />
                </image>
@@ -821,7 +819,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnWhite.png" />
                </image>
@@ -833,7 +831,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnWhite.png" />
                </image>
@@ -845,7 +843,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnWhite.png" />
                </image>
@@ -857,7 +855,7 @@
                   </Reflection>
                </effect>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <ImageView fitHeight="150.0" fitWidth="43.0" layoutX="10.0" layoutY="-3.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <image>
                   <Image url="@PawnWhite.png" />
                </image>
@@ -1603,23 +1601,250 @@
             </HBox>
          </children>
       </GridPane>
-      <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="900.0" text="Spielverlauf" textAlignment="CENTER" textFill="#686868">
+      <Label alignment="TOP_LEFT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="900.0" text="Beaten Figures:" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="16.0" />
          </font>
          <graphic>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffcf1" height="30.0" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="900.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="30.0" stroke="#362817" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="900.0">
                <effect>
-                  <InnerShadow height="192.98" radius="89.3175" width="166.29">
-                     <color>
-                        <Color red="0.7894737124443054" green="0.7392178177833557" blue="0.6688596606254578" />
-                     </color>
-                  </InnerShadow>
+                  <InnerShadow height="47.69" radius="11.4225" width="0.0" />
                </effect>
             </Rectangle>
          </graphic>
       </Label>
-      <ListView prefHeight="200.0" prefWidth="200.0" />
+      <GridPane alignment="TOP_CENTER">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="2">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#a47658" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="3">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="4">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="5">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="6">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="7">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="8">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="9">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="10">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="11">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="12">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="13">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="14">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="15">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="16">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="17">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="70.0" stroke="#8d654c" strokeType="INSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="1">
+               <effect>
+                  <InnerShadow height="86.24" radius="21.06" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="16" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="15" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="14" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="13" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="12" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="11" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="10" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="9" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="8" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="17" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff3d6" height="70.0" layoutX="35.0" layoutY="80.0" stroke="#fff3d6" strokeType="OUTSIDE" strokeWidth="2.0" width="50.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow height="43.12" radius="10.28" width="0.0" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="70.0" stroke="#362817" strokeType="OUTSIDE" width="25.0">
+               <effect>
+                  <InnerShadow blurType="ONE_PASS_BOX" height="0.0" radius="16.6125" width="68.45" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="70.0" stroke="#362817" strokeType="OUTSIDE" width="25.0" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow blurType="ONE_PASS_BOX" height="0.0" radius="16.6125" width="68.45" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="70.0" stroke="#362817" strokeType="OUTSIDE" width="25.0" GridPane.columnIndex="18">
+               <effect>
+                  <InnerShadow blurType="ONE_PASS_BOX" height="0.0" radius="16.6125" width="68.45" />
+               </effect>
+            </Rectangle>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="70.0" stroke="#362817" strokeType="OUTSIDE" width="25.0" GridPane.columnIndex="18" GridPane.rowIndex="1">
+               <effect>
+                  <InnerShadow blurType="ONE_PASS_BOX" height="0.0" radius="16.6125" width="68.45" />
+               </effect>
+            </Rectangle>
+         </children>
+      </GridPane>
+      <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="10.0" layoutY="980.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="900.0" text="Gamehistory:" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <graphic>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="30.0" stroke="#362817" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="900.0">
+               <effect>
+                  <InnerShadow height="47.69" radius="11.4225" width="0.0" />
+               </effect>
+            </Rectangle>
+         </graphic>
+      </Label>
+      <ListView />
   </children>
    <effect>
       <SepiaTone level="0.14">
