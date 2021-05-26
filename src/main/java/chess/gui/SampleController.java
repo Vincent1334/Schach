@@ -53,6 +53,8 @@ public class SampleController implements Observer {
     private HBox columnsBottom;
     @FXML
     private ToggleButton turnBoard;
+    @FXML
+    private ToggleButton possibleFieldsButton;
 
 
     public void init(ActionEvent actionEvent) {
@@ -73,7 +75,8 @@ public class SampleController implements Observer {
                 markField(startField, CYAN);
 
                 // auf dem Feld steht eine Figur
-                if (getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField)) != null) {
+                if (getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField)) != null
+                        && possibleFieldsButton.isSelected()) {
                     for (Rectangle field : getPossibleFields(startField)) {
                         markField(field, BLUEVIOLET);
                     }

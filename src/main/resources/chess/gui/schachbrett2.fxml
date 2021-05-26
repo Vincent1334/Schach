@@ -67,6 +67,11 @@
                      </font>
                   </Label>
                   <Label alignment="TOP_RIGHT" minWidth="2.0" prefHeight="17.0" prefWidth="40.0" text="Player:" />
+                  <ToggleButton fx:id="possibleFieldsButton" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="mögliche Felder anzeigen" textAlignment="CENTER">
+                     <effect>
+                        <Blend />
+                     </effect>
+                  </ToggleButton>
                   <ToggleButton fx:id="turnBoard" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Drehen" textAlignment="CENTER">
                      <effect>
                         <Blend />
