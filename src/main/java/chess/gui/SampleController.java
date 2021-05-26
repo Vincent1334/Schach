@@ -23,10 +23,14 @@ public class SampleController implements Observer {
     private static CoreGame coreGame;
     private Rectangle startField;
     private boolean black = true;
+    private int indexBeatenFiguresBlack=1;
+    private int indexBeatenFiguresWhite=1;
     @FXML
     private Label player;
     @FXML
     private GridPane gridPane;
+    @FXML
+    private GridPane beatenFigures;
 
 
 
@@ -136,9 +140,24 @@ public class SampleController implements Observer {
         }
     }
 
+
     @Override
     public void updateBeatenFigures(int posX, int posY) {
         ImageView iv = (ImageView) getImageByRowColumnIndex(posX + 1, 8 - posY);
+        iv.setFitHeight(65.0);
+        iv.setFitWidth(45.0);
+        beatenFigures.getChildren().add(iv);
+
+        if(black){
+            GridPane.setColumnIndex(iv,indexBeatenFiguresBlack);
+            GridPane.setRowIndex(iv,1);
+            indexBeatenFiguresBlack += 1;
+        }else{
+            GridPane.setColumnIndex(iv,indexBeatenFiguresWhite);
+            GridPane.setRowIndex(iv,0);
+            indexBeatenFiguresWhite += 1;
+        }
+
         gridPane.getChildren().remove(iv);
     }
 

@@ -1613,7 +1613,7 @@
             </Rectangle>
          </graphic>
       </Label>
-      <GridPane alignment="TOP_CENTER">
+      <GridPane fx:id="beatenFigures" alignment="TOP_CENTER">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
