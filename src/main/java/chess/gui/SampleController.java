@@ -7,21 +7,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+
 import static javafx.scene.paint.Color.*;
 
 public class SampleController implements Observer {
@@ -29,8 +26,8 @@ public class SampleController implements Observer {
     private static CoreGame coreGame;
     private Rectangle startField;
     private boolean black = true;
-    private int indexBeatenFiguresBlack=1;
-    private int indexBeatenFiguresWhite=1;
+    private int indexBeatenFiguresBlack = 1;
+    private int indexBeatenFiguresWhite = 1;
     private int indexHistory = 0;
     @FXML
     private Label player;
@@ -42,12 +39,10 @@ public class SampleController implements Observer {
     private GridPane history;
 
 
-
     public void init(ActionEvent actionEvent) {
         coreGame = new CoreGame();
         Rules.addObserver(this);
     }
-
 
 
     //--------------------------------------Field----------------------------------------------------------------------------------------------
@@ -83,7 +78,7 @@ public class SampleController implements Observer {
 
                     Move move = new Move(startPosition, targetPosition);
                     if (coreGame.chessMove(move)) {
-                        updateScene(targetField);
+                        updateScene(targetField, move);
                     }
 
                 }
@@ -132,28 +127,29 @@ public class SampleController implements Observer {
         }
         return result;
     }
-//----------------------------------Update----------------------------------------------------------------------------------------------
-    public void updateScene(Rectangle targetField) {
+
+    //----------------------------------Update----------------------------------------------------------------------------------------------
+    public void updateScene(Rectangle targetField, Move move) {
         // get image on clicked field
         ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
         GridPane.setColumnIndex(iv, GridPane.getColumnIndex(targetField));
         GridPane.setRowIndex(iv, GridPane.getRowIndex(targetField));
-        updateHistory();
+        updateHistory(move);
         updatePlayer(black);
         black = !black;
     }
 
-    public void updateHistory(){
-        Text t = new Text("Spielzug");
-        history.add(t,1,indexHistory);
-        history.add(new Text(" "+ (indexHistory + 1)),0,indexHistory);
+    public void updateHistory(Move move) {
+        Text t = new Text(move.toString());
+        history.add(t, 1, indexHistory);
+        history.add(new Text(" " + (indexHistory + 1)), 0, indexHistory);
         indexHistory += 1;
     }
 
-    private void updatePlayer(boolean black){
-        if(black){
+    private void updatePlayer(boolean black) {
+        if (black) {
             player.setText("black");
-        }else{
+        } else {
             player.setText("white");
         }
     }
@@ -166,13 +162,13 @@ public class SampleController implements Observer {
         iv.setFitWidth(45.0);
         beatenFigures.getChildren().add(iv);
 
-        if(black){
-            GridPane.setColumnIndex(iv,indexBeatenFiguresBlack);
-            GridPane.setRowIndex(iv,1);
+        if (black) {
+            GridPane.setColumnIndex(iv, indexBeatenFiguresBlack);
+            GridPane.setRowIndex(iv, 1);
             indexBeatenFiguresBlack += 1;
-        }else{
-            GridPane.setColumnIndex(iv,indexBeatenFiguresWhite);
-            GridPane.setRowIndex(iv,0);
+        } else {
+            GridPane.setColumnIndex(iv, indexBeatenFiguresWhite);
+            GridPane.setRowIndex(iv, 0);
             indexBeatenFiguresWhite += 1;
         }
 
@@ -226,12 +222,4 @@ public class SampleController implements Observer {
                 return isBlackTeam ? ImageHandler.getInstance().getImage("QueenBlack") : ImageHandler.getInstance().getImage("QueenWhite");
         }
     }
-
-//----------------------------------Sonstiges------------------------------------------------------------------------------
-    // zu Testzwecken
-    public void removeFigure(ActionEvent actionEvent) {
-        ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
-        gridPane.getChildren().remove(iv);
-    }
-
 }
