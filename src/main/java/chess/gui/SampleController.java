@@ -30,7 +30,7 @@ public class SampleController implements Observer {
 
     private static CoreGame coreGame;
     private Rectangle startField;
-    private boolean black = true;
+    private boolean blacksTurn = false;
     private int indexBeatenFiguresBlack = 1;
     private int indexBeatenFiguresWhite = 1;
     private int indexHistory = 0;
@@ -55,6 +55,8 @@ public class SampleController implements Observer {
     private ToggleButton turnBoard;
     @FXML
     private ToggleButton possibleFieldsButton;
+    @FXML
+    private ToggleButton choseAgain;
 
 
     public void init(ActionEvent actionEvent) {
@@ -69,14 +71,14 @@ public class SampleController implements Observer {
 
             Rectangle targetField = (Rectangle) mouseEvent.getTarget();
 
-            // erstes Feld angeklickt
+            // erstes Feld angeklickt: markiere Feld
             if (startField == null) {
                 startField = targetField;
+                ImageView selectedFigure = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
                 markField(startField, CYAN);
 
-                // auf dem Feld steht eine Figur
-                if (getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField)) != null
-                        && possibleFieldsButton.isSelected()) {
+                // auf dem Feld steht eine eigene Figur und AnzeigeMöglicherFelder ist eingeschaltet: markiere mögliche Felder
+                if (selectedFigure != null && imageIsBlack(selectedFigure) == blacksTurn && possibleFieldsButton.isSelected()) {
                     for (Rectangle field : getPossibleFields(startField)) {
                         markField(field, BLUEVIOLET);
                     }
@@ -85,31 +87,40 @@ public class SampleController implements Observer {
 
             // zweites Feld angeklickt
             else {
-                // auf dem ersten Feld stand eine Figur
-                if (getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField)) != null) {
+                ImageView selectedFigure = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
+                // auf dem ersten Feld stand eine eigene Figur
+                if (selectedFigure != null && imageIsBlack(selectedFigure) == blacksTurn) {
 
-                    Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
-                    Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
-
+                    // demarkiere mögliche Felder (muss vor dem Ausführen des Zuges aufgerufen werden)
                     for (Rectangle field : getPossibleFields(startField)) {
                         unmarkField(field);
                     }
-
+                    // führe Zug aus (wenn möglich) und update Scene
+                    Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
+                    Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
                     Move move = new Move(startPosition, targetPosition);
                     if (coreGame.chessMove(move)) {
                         updateScene(targetField, move);
                     }
-
                 }
-                unmarkField(startField);
-                startField = null;
+                // eigene Figur ist ausgewählt und MehrfachAuswahl ist nicht erlaubt: demarkiere nicht und schalte kein neues Feld frei
+                if (!(selectedFigure != null && imageIsBlack(selectedFigure) == blacksTurn && !choseAgain.isSelected())) {
+                    unmarkField(startField);
+                    startField = null;
+                }
+                // aktuelles Feld ist noch vorhanden (und markiert) und AnzeigeMöglicherFelder ist eingeschaltet: markiere mögliche Felder
+                if (startField != null && possibleFieldsButton.isSelected()) {
+                    for (Rectangle field : getPossibleFields(startField)) {
+                        markField(field, BLUEVIOLET);
+                    }
+                }
             }
         }
     }
 
     private ArrayList<Rectangle> getPossibleFields(Rectangle actualField) {
 
-        Position actualPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
+        Position actualPosition = new Position(GridPane.getColumnIndex(actualField) - 1, 8 - GridPane.getRowIndex(actualField));
         Board board = coreGame.getCurrentBoard();
 
         ArrayList<Position> positions = Rules.possibleTargetFields(actualPosition, board);
@@ -154,8 +165,8 @@ public class SampleController implements Observer {
         GridPane.setColumnIndex(iv, GridPane.getColumnIndex(targetField));
         GridPane.setRowIndex(iv, GridPane.getRowIndex(targetField));
         updateHistory(move);
-        updatePlayer(black);
-        black = !black;
+        blacksTurn = !blacksTurn;
+        updatePlayer(blacksTurn);
         if (turnBoard.isSelected()) {
             turnBoard();
         }
@@ -211,7 +222,7 @@ public class SampleController implements Observer {
         iv.setFitWidth(45.0);
         beatenFigures.getChildren().add(iv);
 
-        if (black) {
+        if (blacksTurn) {
             GridPane.setColumnIndex(iv, indexBeatenFiguresBlack);
             GridPane.setRowIndex(iv, 1);
             indexBeatenFiguresBlack += 1;
@@ -270,5 +281,14 @@ public class SampleController implements Observer {
             default:
                 return isBlackTeam ? ImageHandler.getInstance().getImage("QueenBlack") : ImageHandler.getInstance().getImage("QueenWhite");
         }
+    }
+
+    private boolean imageIsBlack(ImageView iv) {
+        return iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("RookBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KnightBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("BishopBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KingBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("QueenBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("PawnBlack").getUrl());
     }
 }
