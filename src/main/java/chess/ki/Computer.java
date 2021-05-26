@@ -46,10 +46,6 @@ public class Computer {
             board = new Board(tmpBoard);
         }
 
-        //sort possible Move
-        // Collections.sort(possibleMove);
-
-
         if(depth == 0) return heuristic(board, possibleMove, playerMax);
         float maxValue = alpha;
 
