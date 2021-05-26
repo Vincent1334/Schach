@@ -108,6 +108,18 @@ public class Move {
         return Objects.hash(actualPosition, targetPosition, pawnConversionTo);
     }
 
+<<<<<<< HEAD
+=======
+    //@Override
+    public int compareTo(Move compareScore) {
+        float compareage=((Move)compareScore).getScore();
+        /* For Ascending order*/
+        if(this.score-compareage < 0) return -1;
+        if(this.score-compareage > 0) return 1;
+        return 0;
+    }
+
+>>>>>>> 4f6d60870a49406eaa09d322c309f5f2be20b438
 
     /**
      * Return Figure Letter

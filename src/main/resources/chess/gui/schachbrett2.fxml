@@ -43,7 +43,6 @@
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.effect.SepiaTone?>
@@ -59,7 +58,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <ScrollPane prefHeight="1144.0" prefWidth="1114.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.SampleController">
    <content>
       <VBox>
@@ -72,7 +70,6 @@
                      </font>
                   </Label>
                   <Label alignment="TOP_RIGHT" minWidth="2.0" prefHeight="17.0" prefWidth="40.0" text="Player:" />
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#removeFigure" text="remove" textAlignment="CENTER" />
                   <ToggleButton alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Drehen" textAlignment="CENTER">
                      <effect>
                         <Blend />
