@@ -7,14 +7,20 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Text;
+
 import java.util.ArrayList;
 import static javafx.scene.paint.Color.*;
 
@@ -25,12 +31,15 @@ public class SampleController implements Observer {
     private boolean black = true;
     private int indexBeatenFiguresBlack=1;
     private int indexBeatenFiguresWhite=1;
+    private int indexHistory = 0;
     @FXML
     private Label player;
     @FXML
     private GridPane gridPane;
     @FXML
     private GridPane beatenFigures;
+    @FXML
+    private GridPane history;
 
 
 
@@ -38,6 +47,7 @@ public class SampleController implements Observer {
         coreGame = new CoreGame();
         Rules.addObserver(this);
     }
+
 
 
     //--------------------------------------Field----------------------------------------------------------------------------------------------
@@ -128,8 +138,16 @@ public class SampleController implements Observer {
         ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
         GridPane.setColumnIndex(iv, GridPane.getColumnIndex(targetField));
         GridPane.setRowIndex(iv, GridPane.getRowIndex(targetField));
+        updateHistory();
         updatePlayer(black);
         black = !black;
+    }
+
+    public void updateHistory(){
+        Text t = new Text("Spielzug");
+        history.add(t,1,indexHistory);
+        history.add(new Text(" "+ (indexHistory + 1)),0,indexHistory);
+        indexHistory += 1;
     }
 
     private void updatePlayer(boolean black){

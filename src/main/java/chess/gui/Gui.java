@@ -23,7 +23,7 @@ public class Gui extends Application {
 
         primaryStage.setTitle("Schach");
 
-        primaryStage.setScene(new Scene(root, 900, 1150));
+        primaryStage.setScene(new Scene(root, 1115, 1148));
         primaryStage.show();
     }
 
