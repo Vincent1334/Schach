@@ -43,11 +43,8 @@
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.effect.Light.Distant?>
-<?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.effect.SepiaTone?>
-<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -55,7 +52,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -71,7 +67,7 @@
                      </font>
                   </Label>
                   <Label alignment="TOP_RIGHT" minWidth="2.0" prefHeight="17.0" prefWidth="40.0" text="Player:" />
-                  <ToggleButton alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Drehen" textAlignment="CENTER">
+                  <ToggleButton fx:id="turnBoard" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Drehen" textAlignment="CENTER">
                      <effect>
                         <Blend />
                      </effect>
@@ -872,7 +868,7 @@
                                     </Reflection>
                                  </effect>
                               </ImageView>
-                              <VBox GridPane.rowIndex="1" GridPane.valignment="TOP">
+                              <VBox fx:id="rowsLeft" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <children>
                                     <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="100.0" maxWidth="50.0" minHeight="100.0" minWidth="50.0" prefHeight="100.0" prefWidth="50.0" text="8" textFill="WHITE" textOverrun="CLIP">
                                        <font>
@@ -943,7 +939,7 @@
                                     <InnerShadow height="53.37" radius="18.0925" />
                                  </effect>
                               </VBox>
-                              <HBox GridPane.columnIndex="1">
+                              <HBox fx:id="columnsTop" GridPane.columnIndex="1">
                                  <children>
                                     <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="A" textFill="WHITE" textOverrun="CLIP">
                                        <font>
@@ -1014,7 +1010,7 @@
                                     <InnerShadow />
                                  </effect>
                               </HBox>
-                              <VBox GridPane.columnIndex="9" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                              <VBox fx:id="rowsRight" GridPane.columnIndex="9" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <effect>
                                     <InnerShadow height="53.37" radius="18.0925" />
                                  </effect>
@@ -1085,7 +1081,7 @@
                                     </Label>
                                  </children>
                               </VBox>
-                              <HBox GridPane.columnIndex="1" GridPane.rowIndex="9">
+                              <HBox fx:id="columnsBottom" GridPane.columnIndex="1" GridPane.rowIndex="9">
                                  <children>
                                     <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="A" textFill="WHITE" textOverrun="CLIP">
                                        <font>

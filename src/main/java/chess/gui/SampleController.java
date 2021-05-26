@@ -3,21 +3,26 @@ package chess.gui;
 import chess.controller.*;
 import chess.model.*;
 import chess.util.Observer;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static javafx.scene.paint.Color.*;
 
@@ -29,6 +34,7 @@ public class SampleController implements Observer {
     private int indexBeatenFiguresBlack = 1;
     private int indexBeatenFiguresWhite = 1;
     private int indexHistory = 0;
+    private boolean even = true;
     @FXML
     private Label player;
     @FXML
@@ -37,6 +43,16 @@ public class SampleController implements Observer {
     private GridPane beatenFigures;
     @FXML
     private GridPane history;
+    @FXML
+    private VBox rowsLeft;
+    @FXML
+    private VBox rowsRight;
+    @FXML
+    private HBox columnsTop;
+    @FXML
+    private HBox columnsBottom;
+    @FXML
+    private ToggleButton turnBoard;
 
 
     public void init(ActionEvent actionEvent) {
@@ -137,6 +153,36 @@ public class SampleController implements Observer {
         updateHistory(move);
         updatePlayer(black);
         black = !black;
+        if (turnBoard.isSelected()) {
+            turnBoard();
+        }
+    }
+
+    private void turnBoard() {
+        gridPane.setRotate(even ? 180 : 0);
+        columnsTop.setRotate(even ? 180 : 0);
+        columnsBottom.setRotate(even ? 180 : 0);
+        rowsLeft.setRotate(even ? 180 : 0);
+        rowsRight.setRotate(even ? 180 : 0);
+        ObservableList<Node> children = gridPane.getChildren();
+        for (Node node : children) {
+            node.setRotate(even ? 180 : 0);
+        }
+        even = !even;
+
+        swap(rowsRight.getChildren());
+        swap(rowsLeft.getChildren());
+        swap(columnsBottom.getChildren());
+        swap(columnsTop.getChildren());
+    }
+
+    private void swap(ObservableList<Node> children) {
+        ObservableList<Node> workingCollection = FXCollections.observableArrayList(children);
+        Collections.swap(workingCollection, 0, 7);
+        Collections.swap(workingCollection, 1, 6);
+        Collections.swap(workingCollection, 2, 5);
+        Collections.swap(workingCollection, 3, 4);
+        children.setAll(workingCollection);
     }
 
     public void updateHistory(Move move) {
