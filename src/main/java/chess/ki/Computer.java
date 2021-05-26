@@ -34,21 +34,21 @@ public class Computer {
         return bestMove;
     }
 
+    /*
+    <---Alpha-Beta-Pruning--------------------------------------------------------------------------------------------->
+     */
+
     private float max(int depth, float alpha, float beta){
         //generate possible moves
         ArrayList<Move> possibleMove = getPossibleMoves(board, playerMax);
 
-        //set Score for all possible moves
-        Board tmpBoard = new Board(board);
-        for(int i = 0; i < possibleMove.size(); i++){
-            performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
-            possibleMove.get(i).setScore(heuristic(board, possibleMove, playerMax));
-            board = new Board(tmpBoard);
-        }
+        //sort moves
+        possibleMove = sortMove(possibleMove, playerMax);
 
         if(depth == 0) return heuristic(board, possibleMove, playerMax);
         float maxValue = alpha;
 
+        Board tmpBoard = new Board(board);
         for(int i = 0; i < possibleMove.size(); i++){
             performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
             float value = min(depth-1, maxValue, beta);
@@ -70,6 +70,9 @@ public class Computer {
         //generate possible moves
         ArrayList<Move> possibleMove = getPossibleMoves(board, playerMin);
 
+        //sort moves
+        possibleMove = sortMove(possibleMove, playerMin);
+
         if(depth == 0) return heuristic(board, possibleMove, playerMin);
         float minValue = beta;
 
@@ -87,6 +90,10 @@ public class Computer {
         }
         return minValue;
     }
+
+    /*
+    <---Heuristic------------------------------------------------------------------------------------------------------>
+     */
 
     private float heuristic(Board board, ArrayList<Move> possibleMove, boolean isBlack) {
 
@@ -125,6 +132,34 @@ public class Computer {
                 - 0.3f*((bestMove.getActualPosition() == lastMove.getTargetPosition() && bestMove.getTargetPosition() == lastMove.getActualPosition()) ? 1 : 0)
                 //castling
                 + 3*((board.getCastlingFlag(isBlack) ? 1 : 0) - (board.getCastlingFlag(!isBlack) ? 1 : 0));
+    }
+
+    /*
+    <---Move-Sort------------------------------------------------------------------------------------------------------>
+     */
+
+    private ArrayList<Move> sortMove(ArrayList<Move> moves, boolean isBlack){
+        ArrayList<Move> tmpMove = new ArrayList<Move>();
+
+        //get sortet moves
+        for(int i = 0; i < moves.size(); i=i+5){
+            tmpMove.add(moves.get(i));
+        }
+        //delete moves
+        for(int i = 0; i < moves.size(); i=i+5){
+            moves.remove(i);
+        }
+        //score moves
+        for(int i = 0; i < tmpMove.size(); i++){
+            tmpMove.get(i).setScore(heuristic(board, tmpMove, isBlack));
+        }
+
+        Collections.sort(tmpMove, new SortByScore());
+
+        tmpMove.addAll(moves);
+        return tmpMove;
+
+
     }
 
     /*
