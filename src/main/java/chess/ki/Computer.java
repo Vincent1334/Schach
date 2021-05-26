@@ -47,7 +47,7 @@ public class Computer {
         }
 
         //sort possible Move
-        Collections.sort(possibleMove);
+//        Collections.sort(possibleMove);
 
 
         if(depth == 0) return heuristic(board, possibleMove, playerMax);
