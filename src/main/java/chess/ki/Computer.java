@@ -17,18 +17,21 @@ public class Computer {
     private Move bestMove;
     private Move lastMove;
 
+    private int[] mobility = new int[2];
+
     public Computer(boolean isBlack) {
         this.playerMax = isBlack;
         this.playerMin = !isBlack;
 
         bestMove = new Move(new Position(0, 0), new Position(0, 0));
         lastMove = new Move(new Position(1, 1), new Position(1, 1));
+
     }
 
     public Move makeMove(Board board) {
         this.board = new Board(board);
 
-        float score = max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
+        max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
         System.out.println(bestMove.toString());
         lastMove = new Move(bestMove.getActualPosition(), bestMove.getTargetPosition());
         return bestMove;
@@ -39,19 +42,19 @@ public class Computer {
      */
 
     private float max(int depth, float alpha, float beta){
+
+        if(depth == 0) return heuristic(board, playerMax);
+        float maxValue = alpha;
+
         //generate possible moves
         ArrayList<Move> possibleMove = getPossibleMoves(board, playerMax);
-
-        //sort moves
-        possibleMove = sortMove(possibleMove, playerMax);
-
-        if(depth == 0) return heuristic(board, possibleMove, playerMax);
-        float maxValue = alpha;
+        sortMove(possibleMove, playerMax);
 
         Board tmpBoard = new Board(board);
         for(int i = 0; i < possibleMove.size(); i++){
             performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
             float value = min(depth-1, maxValue, beta);
+            mobility[0] = possibleMove.size();
             board = new Board(tmpBoard);
             if(value > maxValue){
                 maxValue = value;
@@ -67,19 +70,18 @@ public class Computer {
     }
 
     private float min(int depth, float alpha, float beta){
+
+        if(depth == 0) return heuristic(board, playerMin);
+        float minValue = beta;
         //generate possible moves
         ArrayList<Move> possibleMove = getPossibleMoves(board, playerMin);
-
-        //sort moves
-        possibleMove = sortMove(possibleMove, playerMin);
-
-        if(depth == 0) return heuristic(board, possibleMove, playerMin);
-        float minValue = beta;
+        sortMove(possibleMove, playerMin);
 
         Board tmpBoard = new Board(board);
         for(int i = 0; i < possibleMove.size(); i++){
             performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
             float value = max(depth-1, alpha, minValue);
+            mobility[1] = possibleMove.size();
             board = new Board(tmpBoard);
             if(value < minValue){
                 minValue = value;
@@ -95,7 +97,7 @@ public class Computer {
     <---Heuristic------------------------------------------------------------------------------------------------------>
      */
 
-    private float heuristic(Board board, ArrayList<Move> possibleMove, boolean isBlack) {
+    private float heuristic(Board board, boolean isBlack) {
 
         //check Material
         int[][] material = new int[2][6];
@@ -127,7 +129,7 @@ public class Computer {
                 //pawn material
                 + (material[isBlack ? 1 : 0][0]-material[isBlack ? 0 : 1][0])
                 //mobility
-                + 0.1f*(possibleMove.size()-getPossibleMoves(board, !isBlack).size())
+                + 0.01f*(mobility[isBlack ? 1 : 0] - mobility[!isBlack ? 1 : 0])
                 //repeat
                 - 0.3f*((bestMove.getActualPosition() == lastMove.getTargetPosition() && bestMove.getTargetPosition() == lastMove.getActualPosition()) ? 1 : 0)
                 //castling
@@ -138,28 +140,13 @@ public class Computer {
     <---Move-Sort------------------------------------------------------------------------------------------------------>
      */
 
-    private ArrayList<Move> sortMove(ArrayList<Move> moves, boolean isBlack){
-        ArrayList<Move> tmpMove = new ArrayList<Move>();
-
-        //get sortet moves
-        for(int i = 0; i < moves.size(); i=i+5){
-            tmpMove.add(moves.get(i));
-        }
-        //delete moves
-        for(int i = 0; i < moves.size(); i=i+5){
-            moves.remove(i);
-        }
-        //score moves
-        for(int i = 0; i < tmpMove.size(); i++){
-            tmpMove.get(i).setScore(heuristic(board, tmpMove, isBlack));
+    private void sortMove(ArrayList<Move> moves, boolean isBlack){
+        for(int i = 0; i < moves.size(); i++){
+            if(i%5 == 0) moves.get(i).setScore(heuristic(board, isBlack));
+            else moves.get(i).setScore(Float.NEGATIVE_INFINITY);
         }
 
-        Collections.sort(tmpMove, new SortByScore());
-
-        tmpMove.addAll(moves);
-        return tmpMove;
-
-
+        moves.sort(new SortByScore());
     }
 
     /*
