@@ -9,6 +9,7 @@ public class Move {
 
     private Position actualPosition;
     private Position targetPosition;
+    private float score;
     private int pawnConversionTo = 5;
 
     /**
@@ -22,6 +23,7 @@ public class Move {
         this.actualPosition = actualPosition;
         this.targetPosition = targetPosition;
         this.pawnConversionTo = pawnConversionTo;
+        this.score = 0;
     }
 
     /**
@@ -74,6 +76,14 @@ public class Move {
         return pawnConversionTo;
     }
 
+    public void setScore(float score){
+        this.score = score;
+    }
+
+    public float getScore(){
+        return score;
+    }
+
     /**
      * Override equals
      *
@@ -97,6 +107,16 @@ public class Move {
     public int hashCode() {
         return Objects.hash(actualPosition, targetPosition, pawnConversionTo);
     }
+
+    @Override
+    public int compareTo(Move compareScore) {
+        float compareage=((Move)compareScore).getScore();
+        /* For Ascending order*/
+        if(this.score-compareage < 0) return -1;
+        if(this.score-compareage > 0) return 1;
+        return 0;
+    }
+
 
     /**
      * Return Figure Letter

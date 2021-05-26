@@ -54,6 +54,4 @@ public class King extends Figure {
     public char getSymbol() {
         return !blackTeam ? 'K' : 'k';
     }
-
-
 }

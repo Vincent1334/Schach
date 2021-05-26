@@ -222,6 +222,7 @@ public class Rules extends Observable {
             //set King
             board.setFigure(targetPos, actualFigure);
             board.setFigure(actualPos, new None());
+            board.setCastlingFlag(true, board.getFigure(targetPos).isBlackTeam());
             board.getFigure(targetPos).setAlreadyMoved(true);
 
             //set Rook
@@ -237,6 +238,7 @@ public class Rules extends Observable {
             //set King
             board.setFigure(targetPos, actualFigure);
             board.setFigure(actualPos, new None());
+            board.setCastlingFlag(true, board.getFigure(targetPos).isBlackTeam());
             board.getFigure(targetPos).setAlreadyMoved(true);
 
             //set Rook
