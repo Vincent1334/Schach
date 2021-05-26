@@ -13,7 +13,7 @@ public class Computer {
 
     private boolean playerMax, playerMin;
     private Board board;
-    private int targetDepth = 3;
+    private int targetDepth = 4;
     private Move bestMove;
     private Move lastMove;
 
@@ -53,7 +53,7 @@ public class Computer {
         if(depth == 0) return heuristic(board, possibleMove, playerMax);
         float maxValue = alpha;
 
-
+        Board tmpBoard = new Board(board);
         for(int i = 0; i < possibleMove.size(); i++){
             performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
             float value = min(depth-1, maxValue, beta);
