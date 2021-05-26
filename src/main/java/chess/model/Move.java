@@ -108,7 +108,7 @@ public class Move {
         return Objects.hash(actualPosition, targetPosition, pawnConversionTo);
     }
 
-    @Override
+    //@Override
     public int compareTo(Move compareScore) {
         float compareage=((Move)compareScore).getScore();
         /* For Ascending order*/
