@@ -1,45 +1,62 @@
 package chess.ki;
 
-import chess.figures.Figure;
 import chess.figures.None;
 import chess.model.Board;
 import chess.model.Move;
 import chess.model.Position;
 import chess.model.Rules;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 public class Computer {
 
     private boolean playerMax, playerMin;
     private Board board;
-    private int targetDepth = 4;
+    private int targetDepth = 3;
     private Move bestMove;
+    private Move lastMove;
 
     public Computer(boolean isBlack) {
         this.playerMax = isBlack;
         this.playerMin = !isBlack;
+
+        bestMove = new Move(new Position(0, 0), new Position(0, 0));
+        lastMove = new Move(new Position(1, 1), new Position(1, 1));
     }
 
     public Move makeMove(Board board) {
         this.board = new Board(board);
 
-        int score = max(targetDepth, -10000, 10000);
+        float score = max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
         System.out.println(bestMove.toString());
+        lastMove = new Move(bestMove.getActualPosition(), bestMove.getTargetPosition());
         return bestMove;
     }
 
-    private int max(int depth, int alpha, int beta){
-        if(depth == 0) return heuristic(board, playerMax);
-        int maxValue = alpha;
+    private float max(int depth, float alpha, float beta){
         //generate possible moves
         ArrayList<Move> possibleMove = getPossibleMoves(board, playerMax);
+
+        //set Score for all possible moves
         Board tmpBoard = new Board(board);
         for(int i = 0; i < possibleMove.size(); i++){
             performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
-            int value = min(depth-1, maxValue, beta);
+            possibleMove.get(i).setScore(heuristic(board, possibleMove, playerMax));
+            board = new Board(tmpBoard);
+        }
+
+        //sort possible Move
+        Collections.sort(possibleMove);
+
+
+        if(depth == 0) return heuristic(board, possibleMove, playerMax);
+        float maxValue = alpha;
+
+
+        for(int i = 0; i < possibleMove.size(); i++){
+            performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
+            float value = min(depth-1, maxValue, beta);
             board = new Board(tmpBoard);
             if(value > maxValue){
                 maxValue = value;
@@ -54,15 +71,17 @@ public class Computer {
         return maxValue;
     }
 
-    private int min(int depth, int alpha, int beta){
-        if(depth == 0) return heuristic(board, playerMin);
-        int minValue = beta;
+    private float min(int depth, float alpha, float beta){
         //generate possible moves
         ArrayList<Move> possibleMove = getPossibleMoves(board, playerMin);
+
+        if(depth == 0) return heuristic(board, possibleMove, playerMin);
+        float minValue = beta;
+
         Board tmpBoard = new Board(board);
         for(int i = 0; i < possibleMove.size(); i++){
             performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
-            int value = max(depth-1, alpha, minValue);
+            float value = max(depth-1, alpha, minValue);
             board = new Board(tmpBoard);
             if(value < minValue){
                 minValue = value;
@@ -74,7 +93,7 @@ public class Computer {
         return minValue;
     }
 
-    private int heuristic(Board board, boolean isBlack) {
+    private float heuristic(Board board, ArrayList<Move> possibleMove, boolean isBlack) {
 
         //check Material
         int[][] material = new int[2][6];
@@ -94,6 +113,7 @@ public class Computer {
             }
         }
 
+
                 //King material
         return 200*(material[isBlack ? 1 : 0][5]-material[isBlack ? 0 : 1][5])
                 //Queen material
@@ -103,7 +123,13 @@ public class Computer {
                 //Bishop and knight material
                 + 3*((material[isBlack ? 1 : 0][2]-material[isBlack ? 0 : 1][2]) + (material[isBlack ? 1 : 0][3]-material[isBlack ? 0 : 1][3]))
                 //pawn material
-                + (material[isBlack ? 1 : 0][0]-material[isBlack ? 0 : 1][0]);
+                + (material[isBlack ? 1 : 0][0]-material[isBlack ? 0 : 1][0])
+                //mobility
+                + 0.1f*(possibleMove.size()-getPossibleMoves(board, !isBlack).size())
+                //repeat
+                - 0.3f*((bestMove.getActualPosition() == lastMove.getTargetPosition() && bestMove.getTargetPosition() == lastMove.getActualPosition()) ? 1 : 0)
+                //castling
+                + 3*((board.getCastlingFlag(isBlack) ? 1 : 0) - (board.getCastlingFlag(!isBlack) ? 1 : 0));
     }
 
     /*

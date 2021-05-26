@@ -18,6 +18,9 @@ public class Board {
     private Figure[][] internalBoard;
     private List<Figure> beatenFigures = new ArrayList<>();
 
+    //flags
+    private boolean[] castling = new boolean[2];
+
     /**
      * Creates a new board with the standard figure setup
      */
@@ -311,5 +314,13 @@ public class Board {
         int result = Objects.hash(beatenFigures);
         result = 31 * result + Arrays.deepHashCode(internalBoard);
         return result;
+    }
+
+    public void setCastlingFlag(boolean castling, boolean isBlack){
+        this.castling[isBlack ? 1 : 0] = castling;
+    }
+
+    public boolean getCastlingFlag(boolean isBlack){
+        return castling[isBlack ? 1 : 0];
     }
 }
