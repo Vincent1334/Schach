@@ -72,22 +72,22 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <ToggleButton fx:id="choseAgain" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Figuren erneut auswählbar" textAlignment="CENTER">
+                  <ToggleButton fx:id="choseAgain" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" stylesheets="@Style.css" text="Figuren erneut auswählbar" textAlignment="CENTER">
                      <effect>
                         <Blend />
                      </effect>
                   </ToggleButton>
-                  <ToggleButton fx:id="possibleFieldsButton" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="mögliche Felder anzeigen" textAlignment="CENTER">
+                  <ToggleButton fx:id="possibleFieldsButton" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" stylesheets="@Style.css" text="mögliche Felder anzeigen" textAlignment="CENTER">
                      <effect>
                         <Blend />
                      </effect>
                   </ToggleButton>
-                  <ToggleButton fx:id="turnBoard" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Drehen" textAlignment="CENTER">
+                  <ToggleButton fx:id="turnBoard" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" stylesheets="@Style.css" text="Drehen" textAlignment="CENTER">
                      <effect>
                         <Blend />
                      </effect>
                   </ToggleButton>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#init" text="Spiel starten" textAlignment="CENTER" />
+                  <Button contentDisplay="CENTER" minWidth="0.0" mnemonicParsing="false" onAction="#init" prefHeight="57.0" stylesheets="@Style.css" text="Spiel starten" textAlignment="CENTER" />
                </buttons>
                <effect>
                   <Glow level="0.24" />
