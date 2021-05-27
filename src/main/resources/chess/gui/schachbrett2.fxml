@@ -54,19 +54,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<ScrollPane prefHeight="1144.0" prefWidth="1114.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.SampleController">
+<ScrollPane prefHeight="1120.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.SampleController">
    <content>
       <VBox>
          <children>
-            <ButtonBar maxHeight="70.0" minHeight="70.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="70.0">
+            <ButtonBar nodeOrientation="RIGHT_TO_LEFT">
                <buttons>
-                  <Label fx:id="player" alignment="CENTER_RIGHT" contentDisplay="RIGHT" text="white">
+                  <Label fx:id="player" alignment="TOP_LEFT" contentDisplay="RIGHT" maxWidth="60.0" prefHeight="32.0" text="weiß" textAlignment="RIGHT">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_RIGHT" minWidth="2.0" prefHeight="17.0" prefWidth="40.0" text="Player:" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=":Spieler">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
                   <ToggleButton fx:id="choseAgain" alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Figuren erneut auswählbar" textAlignment="CENTER">
                      <effect>
                         <Blend />
@@ -82,7 +87,7 @@
                         <Blend />
                      </effect>
                   </ToggleButton>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#init" text="Start Game" textAlignment="CENTER" />
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#init" text="Spiel starten" textAlignment="CENTER" />
                </buttons>
                <effect>
                   <Glow level="0.24" />
@@ -90,32 +95,32 @@
             </ButtonBar>
             <HBox>
                <children>
-                  <VBox prefWidth="900.0">
+                  <VBox>
                     <children>
-                        <GridPane fx:id="gridPane" gridLinesVisible="true" maxHeight="900.0" maxWidth="900.0" minHeight="900.0" minWidth="900.0" prefHeight="900.0" prefWidth="900.0">
+                        <GridPane fx:id="gridPane" gridLinesVisible="true">
                            <columnConstraints>
-                              <ColumnConstraints maxWidth="50.0" minWidth="0.0" prefWidth="50.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="0.0" prefWidth="50.0" />
+                              <ColumnConstraints minWidth="25.5" prefWidth="50.0" />
+                              <ColumnConstraints minWidth="50.0" prefWidth="100.0" />
+                              <ColumnConstraints minWidth="50.0" prefWidth="100.0" />
+                              <ColumnConstraints minWidth="50.0" prefWidth="100.0" />
+                              <ColumnConstraints minWidth="50.0" prefWidth="100.0" />
+                              <ColumnConstraints minWidth="50.0" prefWidth="100.0" />
+                              <ColumnConstraints minWidth="50.0" prefWidth="100.0" />
+                              <ColumnConstraints minWidth="50.0" prefWidth="100.0" />
+                              <ColumnConstraints minWidth="50.0" prefWidth="100.0" />
+                              <ColumnConstraints minWidth="25.5" prefWidth="50.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="25.5" prefHeight="50.0" />
+                              <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="50.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="25.5" prefHeight="50.0" />
                            </rowConstraints>
                            <children>
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a47658" height="100.0" onMouseClicked="#handleFieldClick" stroke="#614535" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -949,70 +954,70 @@
                                     <InnerShadow height="53.37" radius="18.0925" />
                                  </effect>
                               </VBox>
-                              <HBox fx:id="columnsTop" GridPane.columnIndex="1">
+                              <HBox fx:id="columnsTop" GridPane.columnIndex="1" GridPane.columnSpan="8">
                                  <children>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="A" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="A" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="B" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="B" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="C" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="C" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="D" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="D" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="E" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="E" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="F" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="F" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="G" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="G" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="H" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="H" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
                                  </children>
@@ -1091,80 +1096,80 @@
                                     </Label>
                                  </children>
                               </VBox>
-                              <HBox fx:id="columnsBottom" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                              <HBox fx:id="columnsBottom" prefWidth="781.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                                  <children>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="A" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="A" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="B" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="B" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="C" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="C" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="D" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="D" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="E" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="E" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="F" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="F" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="G" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="G" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxHeight="50.0" maxWidth="100.0" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="100.0" text="H" textFill="WHITE" textOverrun="CLIP">
+                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="H" textFill="WHITE" textOverrun="CLIP">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <graphic>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="100.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b5141" height="50.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" width="98.0" />
                                        </graphic>
                                     </Label>
                                  </children>
                                  <effect>
-                                    <Reflection />
+                                    <InnerShadow />
                                  </effect>
                               </HBox>
                            </children>
                         </GridPane>
-                        <Label alignment="TOP_LEFT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="900.0" text="Beaten Figures:" textFill="WHITE">
+                        <Label alignment="TOP_LEFT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" text="Geschlagene Figuren:" textFill="WHITE">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -1397,9 +1402,9 @@
                         </GridPane>
                     </children>
                   </VBox>
-                  <VBox prefHeight="1072.0" prefWidth="193.0">
+                  <VBox>
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="History:">
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Züge:">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -1410,7 +1415,10 @@
                               <Insets left="5.0" />
                            </VBox.margin>
                            <graphic>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b9854163" height="50.0" stroke="#432d0a" strokeType="INSIDE" width="200.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7daad63" height="50.0" stroke="#432d0a" strokeType="INSIDE" width="60.0">
+                                 <effect>
+                                    <Reflection />
+                                 </effect></Rectangle>
                            </graphic>
                         </Label>
                         <GridPane fx:id="history">
