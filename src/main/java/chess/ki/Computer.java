@@ -16,7 +16,6 @@ public class Computer {
     private Move bestMove;
     private Move lastMove;
 
-
     private int[] mobility = new int[2];
 
     public Computer(boolean isBlack) {
@@ -138,11 +137,15 @@ public class Computer {
                 //pawn material
                 + (material[isBlack ? 1 : 0][0]-material[isBlack ? 0 : 1][0])
                 //mobility
-                + 0.005f*(mobility[isBlack ? 1 : 0] - mobility[!isBlack ? 1 : 0])
+                + 0.01f*(mobility[isBlack ? 1 : 0] - mobility[!isBlack ? 1 : 0])
                 //repeat
-                - 0.5f*((bestMove.getActualPosition() == lastMove.getTargetPosition() && bestMove.getTargetPosition() == lastMove.getActualPosition()) ? 1 : 0)
+                - 2*((bestMove.getActualPosition() == lastMove.getTargetPosition() && bestMove.getTargetPosition() == lastMove.getActualPosition()) ? 1 : 0)
                 //castling
-                + 9*((board.getCastlingFlag(isBlack) ? 1 : 0) - (board.getCastlingFlag(!isBlack) ? 1 : 0));
+                + 10*((board.getCastlingFlag(isBlack) ? 1 : 0) - (board.getCastlingFlag(!isBlack) ? 1 : 0))
+                //check Chess and StaleMate
+                -300*(Board.checkChessAndStaleMate(board, isBlack) ? 1 : 0)
+                //check chess
+                -3*((board.getCheckFlag(isBlack) ? 1 : 0));
     }
 
     /*

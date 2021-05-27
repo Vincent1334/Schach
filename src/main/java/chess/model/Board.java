@@ -20,6 +20,9 @@ public class Board {
 
     //flags
     private boolean[] castling = new boolean[2];
+    private boolean[] check = new boolean[2];
+    private boolean[] checkMate = new boolean[2];
+    private boolean staleMate;
 
     /**
      * Creates a new board with the standard figure setup
@@ -225,7 +228,12 @@ public class Board {
      * @return Whether the king is in check or not
      */
     public static boolean kingInCheck(Board board, boolean blackTeam) {
-        return isThreatened(board, Board.getKingPos(board, blackTeam), !blackTeam);
+        if(isThreatened(board, Board.getKingPos(board, blackTeam), !blackTeam)){
+            board.setCheckFlag(true, blackTeam);
+            return true;
+        }
+        board.setCheckFlag(false, blackTeam);
+        return false;
     }
 
     /**
@@ -246,11 +254,10 @@ public class Board {
 
         //check chessMate or staleMate
         if(Board.kingInCheck(board, blackTeam)){
-            System.out.println("Player " + (blackTeam ? "black" : "white") + " is checkmate!");
+            board.setCheckMateFlag(true, blackTeam);
         }else{
-            System.out.println("Game ends because stalemate!");
+            board.setStaleMateFlag(true);
         }
-
         return true;
     }
 
@@ -322,5 +329,29 @@ public class Board {
 
     public boolean getCastlingFlag(boolean isBlack){
         return castling[isBlack ? 1 : 0];
+    }
+
+    public void setCheckMateFlag(boolean checkMate, boolean isBlack){
+        this.checkMate[isBlack ? 1 : 0] = checkMate;
+    }
+
+    public boolean getCheckMateFlag(boolean isBlack){
+        return checkMate[isBlack ? 1 : 0];
+    }
+
+    public void setStaleMateFlag(boolean staleMate){
+            this.staleMate = staleMate;
+    }
+
+    public boolean getStaleMateFlag(){
+        return staleMate;
+    }
+    
+    public void setCheckFlag(boolean check, boolean isBlack){
+        this.check[isBlack ? 1 : 0] = check;
+    }
+    
+    public boolean getCheckFlag(boolean isBlack){
+        return check[isBlack ? 1 : 0];
     }
 }

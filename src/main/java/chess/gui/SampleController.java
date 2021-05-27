@@ -1,6 +1,7 @@
 package chess.gui;
 
 import chess.controller.*;
+import chess.ki.Computer;
 import chess.model.*;
 import chess.util.Observer;
 import javafx.collections.FXCollections;
@@ -35,6 +36,7 @@ public class SampleController implements Observer {
     private int indexBeatenFiguresWhite = 1;
     private int indexHistory = 0;
     private boolean even = true;
+
     @FXML
     private Label player;
     @FXML
@@ -60,7 +62,7 @@ public class SampleController implements Observer {
 
 
     public void init(ActionEvent actionEvent) {
-        coreGame = new CoreGame();
+        coreGame = new CoreGame();        
         Rules.addObserver(this);
     }
 
@@ -99,7 +101,7 @@ public class SampleController implements Observer {
                     Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
                     Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
                     Move move = new Move(startPosition, targetPosition);
-                    if (coreGame.chessMove(move)) {
+                    if (coreGame.chessMove(move)) {                        
                         updateScene(targetField, move);
                     }
                 }
