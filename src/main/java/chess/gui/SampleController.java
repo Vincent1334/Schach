@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -54,11 +55,11 @@ public class SampleController implements Observer {
     @FXML
     private HBox columnsBottom;
     @FXML
-    private ToggleButton turnBoard;
+    private CheckBox turnBoard;
     @FXML
-    private ToggleButton possibleFieldsButton;
+    private CheckBox possibleFieldsButton;
     @FXML
-    private ToggleButton choseAgain;
+    private CheckBox choseAgain;
 
 
     public void init(ActionEvent actionEvent) {
@@ -210,9 +211,9 @@ public class SampleController implements Observer {
 
     private void updatePlayer(boolean black) {
         if (black) {
-            player.setText("black");
+            player.setText("schwarz");
         } else {
-            player.setText("white");
+            player.setText("weiss");
         }
     }
 

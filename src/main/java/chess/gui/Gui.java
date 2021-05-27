@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 public class Gui extends Application {
 
-//Kommentar
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));
@@ -16,7 +15,7 @@ public class Gui extends Application {
 
         primaryStage.setTitle("Schach");
 
-        primaryStage.setScene(new Scene(root, 975, 1120));
+        primaryStage.setScene(new Scene(root, 1100, 1120));
         primaryStage.show();
     }
 
