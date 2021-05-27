@@ -7,7 +7,6 @@ import chess.model.Position;
 import chess.model.Rules;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Computer {
 
@@ -16,6 +15,7 @@ public class Computer {
     private int targetDepth = 4;
     private Move bestMove;
     private Move lastMove;
+
 
     private int[] mobility = new int[2];
 
@@ -29,9 +29,10 @@ public class Computer {
     }
 
     public Move makeMove(Board board) {
-        this.board = new Board(board);
 
-        max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY);
+        this.board = new Board(board);
+        changeDepth();
+        max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new ArrayList<Move>());
         System.out.println(bestMove.toString());
         lastMove = new Move(bestMove.getActualPosition(), bestMove.getTargetPosition());
         return bestMove;
@@ -41,19 +42,22 @@ public class Computer {
     <---Alpha-Beta-Pruning--------------------------------------------------------------------------------------------->
      */
 
-    private float max(int depth, float alpha, float beta){
+    private float max(int depth, float alpha, float beta, ArrayList<Move> parentCutOff){
 
         if(depth == 0) return heuristic(board, playerMax);
         float maxValue = alpha;
 
         //generate possible moves
         ArrayList<Move> possibleMove = getPossibleMoves(board, playerMax);
-        sortMove(possibleMove, playerMax);
+        sortMove(possibleMove, parentCutOff, playerMax);
+
+        //create CutOff
+        ArrayList<Move> cutOff = new ArrayList<Move>();
 
         Board tmpBoard = new Board(board);
         for(int i = 0; i < possibleMove.size(); i++){
             performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
-            float value = min(depth-1, maxValue, beta);
+            float value = min(depth-1, maxValue, beta, cutOff);
             mobility[0] = possibleMove.size();
             board = new Board(tmpBoard);
             if(value > maxValue){
@@ -62,6 +66,7 @@ public class Computer {
                     bestMove = possibleMove.get(i);
                 }
                 if(maxValue >= beta){
+                    parentCutOff.add(possibleMove.get(i));
                     break;
                 }
             }
@@ -69,23 +74,27 @@ public class Computer {
         return maxValue;
     }
 
-    private float min(int depth, float alpha, float beta){
+    private float min(int depth, float alpha, float beta, ArrayList<Move> parentCutOff){
 
         if(depth == 0) return heuristic(board, playerMin);
         float minValue = beta;
         //generate possible moves
         ArrayList<Move> possibleMove = getPossibleMoves(board, playerMin);
-        sortMove(possibleMove, playerMin);
+        sortMove(possibleMove, parentCutOff, playerMin);
+
+        //create CutOff
+        ArrayList<Move> cutOff = new ArrayList<Move>();
 
         Board tmpBoard = new Board(board);
         for(int i = 0; i < possibleMove.size(); i++){
             performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
-            float value = max(depth-1, alpha, minValue);
+            float value = max(depth-1, alpha, minValue, cutOff);
             mobility[1] = possibleMove.size();
             board = new Board(tmpBoard);
             if(value < minValue){
                 minValue = value;
                 if(minValue <= alpha){
+                    parentCutOff.add(possibleMove.get(i));
                     break;
                 }
             }
@@ -129,24 +138,33 @@ public class Computer {
                 //pawn material
                 + (material[isBlack ? 1 : 0][0]-material[isBlack ? 0 : 1][0])
                 //mobility
-                + 0.01f*(mobility[isBlack ? 1 : 0] - mobility[!isBlack ? 1 : 0])
+                + 0.005f*(mobility[isBlack ? 1 : 0] - mobility[!isBlack ? 1 : 0])
                 //repeat
-                - 0.3f*((bestMove.getActualPosition() == lastMove.getTargetPosition() && bestMove.getTargetPosition() == lastMove.getActualPosition()) ? 1 : 0)
+                - 0.5f*((bestMove.getActualPosition() == lastMove.getTargetPosition() && bestMove.getTargetPosition() == lastMove.getActualPosition()) ? 1 : 0)
                 //castling
-                + 3*((board.getCastlingFlag(isBlack) ? 1 : 0) - (board.getCastlingFlag(!isBlack) ? 1 : 0));
+                + 9*((board.getCastlingFlag(isBlack) ? 1 : 0) - (board.getCastlingFlag(!isBlack) ? 1 : 0));
+    }
+
+    /*
+    <---Change-depth--------------------------------------------------------------------------------------------------->
+    */
+    private void changeDepth(){
+        if(board.getBeatenFigures().size() % 10 == 0 && board.getBeatenFigures().size() != 0){
+            targetDepth = targetDepth + targetDepth / 2;
+        }
     }
 
     /*
     <---Move-Sort------------------------------------------------------------------------------------------------------>
      */
 
-    private void sortMove(ArrayList<Move> moves, boolean isBlack){
-        for(int i = 0; i < moves.size(); i++){
-            if(i%5 == 0) moves.get(i).setScore(heuristic(board, isBlack));
-            else moves.get(i).setScore(Float.NEGATIVE_INFINITY);
+    private void sortMove(ArrayList<Move> moves, ArrayList<Move> cutOff, boolean isBlack){
+        for(int i = 0; i < cutOff.size(); i++){
+            if(moves.contains(cutOff.get(i))){
+                moves.remove(cutOff.get(i));
+                moves.add(0, cutOff.get(i));
+            }
         }
-
-        moves.sort(new SortByScore());
     }
 
     /*
