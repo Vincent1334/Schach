@@ -18,6 +18,14 @@ public class Gui extends Application {
         primaryStage.setScene(new Scene(root, 921, 689));
         primaryStage.setResizable(false);
         primaryStage.show();
+
+       /* FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
+
+        primaryStage.setTitle("Schach");
+
+        primaryStage.setScene(new Scene(root, 1100, 1120));
+        primaryStage.show();*/
     }
 
     public static void main(String[] args) {
