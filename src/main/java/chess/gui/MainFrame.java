@@ -7,9 +7,11 @@ import chess.util.Observer;
 import javafx.beans.NamedArg;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -64,7 +66,10 @@ public class MainFrame implements Initializable {
         figureCanvas.getGraphicsContext2D().clearRect(0, 0, figureCanvas.getWidth(), figureCanvas.getHeight());
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
-                figureCanvas.getGraphicsContext2D().drawImage(getImage(coreGame.getCurrentBoard().getFigure(x, y).getFigureID(), coreGame.getCurrentBoard().getFigure(x, y).isBlackTeam()), x*64+17, (y)*64+13, 30, 50);
+                figureCanvas.getGraphicsContext2D().drawImage(ImageHandler.getInstance().getImage("FiguresTile"), (coreGame.getCurrentBoard().getFigure(x, (rotate ? 7 : 0)+y*(rotate ? -1 : 1)).getFigureID()-1)*64, coreGame.getCurrentBoard().getFigure(x, (rotate ? 7 : 0)+y*(rotate ? -1 : 1)).isBlackTeam() ? 64 : 0, 64, 64, x*64, y*64, 64, 64);
+
+
+
             }
         }
     }
@@ -101,27 +106,15 @@ public class MainFrame implements Initializable {
     <---Tools---------------------------------------------------------------------------------------------------------->
      */
 
-    private Image getImage(int symbol, boolean isBlackTeam) {
-        switch (symbol) {
-            case 1:
-                return isBlackTeam ? ImageHandler.getInstance().getImage("PawnBlack") : ImageHandler.getInstance().getImage("PawnWhite");
-            // Rook
-            case 2:
-                return isBlackTeam ? ImageHandler.getInstance().getImage("RookBlack") : ImageHandler.getInstance().getImage("RookWhite");
-            // Knight
-            case 3:
-                return isBlackTeam ? ImageHandler.getInstance().getImage("KnightBlack") : ImageHandler.getInstance().getImage("KnightWhite");
-            // Bishop
-            case 4:
-                return isBlackTeam ? ImageHandler.getInstance().getImage("BishopBlack") : ImageHandler.getInstance().getImage("BishopWhite");
-            // Queen
-            case 5:
-                return isBlackTeam ? ImageHandler.getInstance().getImage("QueenBlack") : ImageHandler.getInstance().getImage("QueenWhite");
-            case 6:
-                return isBlackTeam ? ImageHandler.getInstance().getImage("KingBlack") : ImageHandler.getInstance().getImage("KingWhite");
-        }
-        return null;
+    public Image getFigureImage(int figureID, boolean isBlack){
+        ImageView figure = new ImageView(ImageHandler.getInstance().getImage("FiguresTile"));
+        figure.setPreserveRatio(true);
+        figure.setSmooth(true);
+        figure.setViewport(new Rectangle2D(0, 0, 20, 20));
+        return figure.getImage();
     }
+
+
 }
 
 
