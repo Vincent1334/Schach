@@ -3,11 +3,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="293.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.MenuFrame">
    <children>
@@ -16,9 +16,12 @@
             <Font name="Times New Roman Bold" size="68.0" />
          </font>
       </Label>
-      <RadioButton layoutX="29.0" layoutY="138.0" mnemonicParsing="false" text="Start a local game against a friend" />
-      <RadioButton layoutX="29.0" layoutY="169.0" mnemonicParsing="false" text="Start a local game against the computer" />
-      <RadioButton layoutX="29.0" layoutY="200.0" mnemonicParsing="false" text="Start a network game against a friend" />
+      <RadioButton fx:id="mode01" layoutX="29.0" layoutY="138.0" mnemonicParsing="false" onMouseClicked="#setMode01" selected="true" text="Start a local game against a friend">
+         <toggleGroup>
+            <ToggleGroup fx:id="menu" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="mode02" layoutX="29.0" layoutY="169.0" mnemonicParsing="false" onMouseClicked="#setMode02" text="Start a local game against the computer" toggleGroup="$menu" />
+      <RadioButton fx:id="mode03" layoutX="29.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#setMode03" text="Start a network game against a friend" toggleGroup="$menu" />
       <Button fx:id="startButton" layoutX="389.0" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="25.0" prefWidth="89.0" text="Start" />
       <Button layoutX="291.0" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#quitGame" prefHeight="25.0" prefWidth="89.0" text="Quit" />
       <ImageView fitHeight="118.0" fitWidth="118.0" layoutX="360.0" layoutY="29.0">

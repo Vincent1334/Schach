@@ -144,6 +144,10 @@ public class CoreGame {
         }
     }
 
+    public boolean getCurrentPlayer(){
+        return activePlayer;
+    }
+
     /**
      * Does the standard tasks after each move.
      * (Prints the latest move and adds it to the history, switches the actual player and proofs if the game is finished)
