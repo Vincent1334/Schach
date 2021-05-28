@@ -31,6 +31,11 @@ public class MainFrame implements Initializable {
 
     private CoreGame coreGame;
 
+    //Flags
+    private boolean rotate = false;
+    private boolean singleSelect = false;
+    private boolean showPossibleMoves = false;
+
     ArrayList<Move> possibleMoves = new ArrayList<Move>();
 
 
@@ -47,18 +52,21 @@ public class MainFrame implements Initializable {
         chessBoard.getGraphicsContext2D().clearRect(0, 0, chessBoard.getWidth(), chessBoard.getHeight());
         chessBoard.getGraphicsContext2D().strokeRect(mousePosition.getPosX()*64, mousePosition.getPosY()*64, 64, 64);
         drawFigures();
-
-
-
     }
 
+
+
+    /*
+    <---Draw-functions------------------------------------------------------------------------------------------------->
+     */
+
     private void drawFigures(){
+        figureCanvas.getGraphicsContext2D().clearRect(0, 0, figureCanvas.getWidth(), figureCanvas.getHeight());
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
-                figureCanvas.getGraphicsContext2D().drawImage(getImage(coreGame.getCurrentBoard().getFigure(x, y).getFigureID(), coreGame.getCurrentBoard().getFigure(x, y).isBlackTeam()), x*64+17, y*64+13, 30, 50);
+                figureCanvas.getGraphicsContext2D().drawImage(getImage(coreGame.getCurrentBoard().getFigure(x, y).getFigureID(), coreGame.getCurrentBoard().getFigure(x, y).isBlackTeam()), x*64+17, (y)*64+13, 30, 50);
             }
         }
-
     }
 
     private void drawPossibleMoves(){
@@ -68,6 +76,30 @@ public class MainFrame implements Initializable {
             markMove.getGraphicsContext2D().fillOval(possibleMoves.get(i).getTargetPosition().getPosX()*64+23, possibleMoves.get(i).getTargetPosition().getPosY()*64+23, 20, 20);
         }
     }
+
+    /*
+    <---Button-events-------------------------------------------------------------------------------------------------->
+     */
+
+    @FXML
+    private void toggleShowPossibleMoves(MouseEvent event) {
+        showPossibleMoves = !showPossibleMoves;
+    }
+
+    @FXML
+    private void toggleSingleSelect(MouseEvent event) {
+        singleSelect = !singleSelect;
+    }
+
+    @FXML
+    private void rotateBoard(MouseEvent event) {
+        rotate = !rotate;
+        drawFigures();
+    }
+
+    /*
+    <---Tools---------------------------------------------------------------------------------------------------------->
+     */
 
     private Image getImage(int symbol, boolean isBlackTeam) {
         switch (symbol) {
