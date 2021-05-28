@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="689.0" prefWidth="921.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.MainFrame">
+<Pane fx:id="mainpanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="689.0" prefWidth="921.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.MainFrame">
    <children>
       <ToolBar layoutY="-2.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="76.0" prefWidth="921.0">
          <items>
-            <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="95.0" prefWidth="87.0" stylesheets="@MainFrame.css" text="new Game" textAlignment="CENTER">
+            <Button contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#startNewGame" prefHeight="95.0" prefWidth="87.0" stylesheets="@MainFrame.css" text="new Game" textAlignment="CENTER">
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="41.0">
                      <image>
@@ -67,9 +67,9 @@
                         <Image url="@board.png" />
                      </image>
                   </ImageView>
+                  <Canvas fx:id="figureCanvas" height="513.0" layoutX="48.0" layoutY="47.0" onMouseMoved="#getSelectedField" width="512.0" />
                   <Canvas fx:id="chessBoard" height="513.0" layoutX="50.0" layoutY="49.0" onMouseMoved="#getSelectedField" width="512.0" />
                   <Canvas fx:id="markMove" height="513.0" layoutX="60.0" layoutY="59.0" onMouseMoved="#getSelectedField" width="512.0" />
-                  <Canvas fx:id="figureCanvas" height="513.0" layoutX="48.0" layoutY="47.0" onMouseMoved="#getSelectedField" width="512.0" />
                   <Label alignment="CENTER" contentDisplay="BOTTOM" layoutX="49.0" layoutY="564.0" prefHeight="17.0" prefWidth="64.0" text="a" textAlignment="CENTER" />
                   <Label alignment="CENTER" contentDisplay="BOTTOM" layoutX="113.0" layoutY="564.0" prefHeight="17.0" prefWidth="64.0" text="b" textAlignment="CENTER" />
                   <Label alignment="CENTER" contentDisplay="BOTTOM" layoutX="177.0" layoutY="564.0" prefHeight="17.0" prefWidth="64.0" text="c" textAlignment="CENTER" />
