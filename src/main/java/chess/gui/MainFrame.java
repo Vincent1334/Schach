@@ -63,7 +63,6 @@ public class MainFrame implements Initializable {
                 if(move.size() == 0 || !singleSelect){
 
                     move.clear();
-                    possibleMoves.clear();
                     move.add(mousePosition);
 
                     renderBoard();
@@ -106,10 +105,10 @@ public class MainFrame implements Initializable {
         //draw possible Moves
         if(move.size() != 0 && showPossibleMoves){
             possibleMoves.clear();
-            possibleMoves = Rules.possibleTargetFields(new Position(getRotatePosition(move.get(0).getPosX()), getRotatePosition(move.get(0).getPosY())), coreGame.getCurrentBoard());
+            possibleMoves = Rules.possibleTargetFields(new Position(move.get(0).getPosX(), move.get(0).getPosY()), coreGame.getCurrentBoard());
             g.setFill(Color.LIGHTBLUE);
             for(int i = 0; i < possibleMoves.size(); i++){
-                g.fillOval(possibleMoves.get(i).getPosX()*64+23, possibleMoves.get(i).getPosY()*64+23, 20, 20);
+                g.fillOval(getRotatePosition(possibleMoves.get(i).getPosX())*64+23, getRotatePosition(possibleMoves.get(i).getPosY())*64+23, 20, 20);
             }
         }
 
