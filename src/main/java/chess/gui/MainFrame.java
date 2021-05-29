@@ -6,26 +6,18 @@ import chess.ki.Computer;
 import chess.model.Move;
 import chess.model.Position;
 import chess.model.Rules;
-import chess.util.Observer;
-import javafx.beans.NamedArg;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,18 +25,12 @@ import java.util.ResourceBundle;
 
 public class MainFrame implements Initializable {
 
-
-
     @FXML
-    private Canvas chessBoard;
-    @FXML
-    private Canvas markMove;
-    @FXML
-    private Canvas figureCanvas;
-    @FXML
-    private Canvas mouseMarker;
+    private Canvas boardCanvas;
     @FXML
     private Pane mainpanel;
+
+    private Image figures;
 
     private CoreGame coreGame;
     private Computer computer;
@@ -56,47 +42,47 @@ public class MainFrame implements Initializable {
     private boolean gameStart = false;
     private int gameMode = 0;
 
-    ArrayList<Position> possibleMoves = new ArrayList<Position>();
+    private ArrayList<Position> possibleMoves = new ArrayList<Position>();
+    private ArrayList<Position> move = new ArrayList<Position>();
     private Position mousePosition;
-    ArrayList<Position> move = new ArrayList<Position>();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         coreGame = new CoreGame();
         computer = new Computer(true);
-        drawFigures();
+
+        mousePosition = new Position(0, 0);
+
+        figures = ImageHandler.getInstance().getImage("FiguresTile");
     }
 
     @FXML
     private void playerInputEvent(MouseEvent event) {
         if(gameStart){
             //set first select
-            if(move.size() == 0 || !singleSelect && coreGame.getCurrentBoard().getFigure(mousePosition).isBlackTeam() == coreGame.getCurrentPlayer() && !(coreGame.getCurrentBoard().getFigure(mousePosition) instanceof None)){
-                move.clear();
-                mouseMarker.getGraphicsContext2D().clearRect(0, 0, mouseMarker.getWidth(), mouseMarker.getHeight());
-                if(coreGame.getCurrentBoard().getFigure(mousePosition).isBlackTeam() == coreGame.getCurrentPlayer() && !(coreGame.getCurrentBoard().getFigure(mousePosition) instanceof None)){
-                    move.add(mousePosition);
-                    mouseMarker.getGraphicsContext2D().setStroke(Color.BLUE);
-                    mouseMarker.getGraphicsContext2D().strokeRect(getRotatePosition(mousePosition.getPosX()*64), getRotatePosition(mousePosition.getPosY()*64), 64, 64);
+            if(coreGame.getCurrentBoard().getFigure(mousePosition).isBlackTeam() == coreGame.getCurrentPlayer() && !(coreGame.getCurrentBoard().getFigure(mousePosition) instanceof None)){
+                if(move.size() == 0 || !singleSelect){
 
-                    //Draw Moves
-                    if(showPossibleMoves) drawPossibleMoves();
+                    move.clear();
+                    move.add(mousePosition);
+
+                    renderBoard();
+
+                //set second select
                 }
             }else if(move.size() == 1){
                 if(coreGame.chessMove(new Move(move.get(0), mousePosition))){
-                    drawFigures();
+                    renderBoard();
                     move.clear();
-                    mouseMarker.getGraphicsContext2D().clearRect(0, 0, mouseMarker.getWidth(), mouseMarker.getHeight());
-
-
                 }else return;
 
-                drawFigures();
+                renderBoard();
 
                 //Check Computer play
                 if(gameMode == 2){
                     coreGame.chessMove(computer.makeMove(coreGame.getCurrentBoard()));
-                    drawFigures();
+                    renderBoard();
                 }
             }
         }
@@ -105,36 +91,43 @@ public class MainFrame implements Initializable {
     @FXML
     private void getSelectedField(MouseEvent event) {
         mousePosition = new Position(getRotatePosition((int)(event.getX()/64)), getRotatePosition(((int)event.getY()/64)));
-        chessBoard.getGraphicsContext2D().setStroke(Color.BLACK);
-        chessBoard.getGraphicsContext2D().clearRect(0, 0, chessBoard.getWidth(), chessBoard.getHeight());
-        chessBoard.getGraphicsContext2D().strokeRect(getRotatePosition(mousePosition.getPosX())*64, getRotatePosition(mousePosition.getPosY())*64, 64, 64);
+        renderBoard();
     }
-
-
 
     /*
     <---Draw-functions------------------------------------------------------------------------------------------------->
      */
 
-    public void drawFigures(){
-        markMove.getGraphicsContext2D().clearRect(0, 0, markMove.getWidth(), markMove.getHeight());
-        figureCanvas.getGraphicsContext2D().clearRect(0, 0, figureCanvas.getWidth(), figureCanvas.getHeight());
-        for(int y = 0; y < 8; y++){
-            for(int x = 0; x < 8; x++){
-                figureCanvas.getGraphicsContext2D().drawImage(ImageHandler.getInstance().getImage("FiguresTile"), (coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).getFigureID()-1)*64, coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).isBlackTeam() ? 64 : 0, 64, 64, x*64, y*64, 64, 64);
+    public void renderBoard(){
+        GraphicsContext g = boardCanvas.getGraphicsContext2D();
+
+        //clear Board
+        g.clearRect(0, 0 , boardCanvas.getWidth(), boardCanvas.getHeight());
+
+        //draw possible Moves
+        if(move.size() != 0 && showPossibleMoves){
+            possibleMoves.clear();
+            possibleMoves = Rules.possibleTargetFields(new Position(move.get(0).getPosX(), move.get(0).getPosY()), coreGame.getCurrentBoard());
+            g.setFill(Color.LIGHTBLUE);
+            for(int i = 0; i < possibleMoves.size(); i++){
+                g.fillOval(getRotatePosition(possibleMoves.get(i).getPosX())*64+23, getRotatePosition(possibleMoves.get(i).getPosY())*64+23, 20, 20);
             }
         }
-    }
 
-    private void drawPossibleMoves(){
-        //mark possible moves
-        if(move.size() != 0){
-            possibleMoves = Rules.possibleTargetFields(new Position(getRotatePosition(move.get(0).getPosX()), getRotatePosition(move.get(0).getPosY())), coreGame.getCurrentBoard());
+        //draw Field select
+        g.setStroke(Color.BLACK);
+        g.strokeRect(getRotatePosition(mousePosition.getPosX())*64, getRotatePosition(mousePosition.getPosY())*64, 64, 64);
 
-            markMove.getGraphicsContext2D().clearRect(0, 0, markMove.getWidth(), markMove.getHeight());
-            markMove.getGraphicsContext2D().setFill(Color.LIGHTBLUE);
-            for(int i = 0; i < possibleMoves.size(); i++){
-                markMove.getGraphicsContext2D().fillOval(possibleMoves.get(i).getPosX()*64+23, possibleMoves.get(i).getPosY()*64+23, 20, 20);
+        if(gameStart){
+            //draw select Rectangle
+            g.setStroke(Color.BLUE);
+            g.strokeRect(getRotatePosition(mousePosition.getPosX()*64), getRotatePosition(mousePosition.getPosY()*64), 64, 64);
+
+            //draw Figures
+            for(int y = 0; y < 8; y++){
+                for(int x = 0; x < 8; x++){
+                    g.drawImage(figures, (coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).getFigureID()-1)*64, coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).isBlackTeam() ? 64 : 0, 64, 64, x*64, y*64, 64, 64);
+                }
             }
         }
     }
@@ -146,11 +139,7 @@ public class MainFrame implements Initializable {
     @FXML
     private void toggleShowPossibleMoves(MouseEvent event) {
         showPossibleMoves = !showPossibleMoves;
-        if(showPossibleMoves){
-            drawPossibleMoves();
-        }else{
-            markMove.getGraphicsContext2D().clearRect(0, 0, markMove.getWidth(), markMove.getHeight());
-        }
+        renderBoard();
     }
 
     @FXML
@@ -161,8 +150,7 @@ public class MainFrame implements Initializable {
     @FXML
     private void rotateBoard(MouseEvent event) {
         rotate = !rotate;
-        drawFigures();
-        if(showPossibleMoves) drawPossibleMoves();
+        renderBoard();
     }
 
     @FXML
@@ -190,14 +178,6 @@ public class MainFrame implements Initializable {
     <---Tools---------------------------------------------------------------------------------------------------------->
      */
 
-    public Image getFigureImage(int figureID, boolean isBlack){
-        ImageView figure = new ImageView(ImageHandler.getInstance().getImage("FiguresTile"));
-        figure.setPreserveRatio(true);
-        figure.setSmooth(true);
-        figure.setViewport(new Rectangle2D(0, 0, 20, 20));
-        return figure.getImage();
-    }
-
     public int getRotatePosition(int pos){
         return (rotate ? 0 : 7)+pos*(rotate ? 1 : -1);
     }
@@ -217,6 +197,9 @@ public class MainFrame implements Initializable {
     public void resetCoreGame(){
         coreGame = new CoreGame();
         computer = new Computer(true);
+
+        possibleMoves.clear();
+        move.clear();
     }
 
     public void setGameMode(int mode){
@@ -226,9 +209,6 @@ public class MainFrame implements Initializable {
     public void setGameStart(boolean gameStart){
         this.gameStart = gameStart;
     }
-
-
-
 }
 
 
