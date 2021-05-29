@@ -52,6 +52,8 @@ public class MainFrame implements Initializable {
         coreGame = new CoreGame();
         computer = new Computer(true);
 
+        mousePosition = new Position(0, 0);
+
         figures = ImageHandler.getInstance().getImage("FiguresTile");
     }
 
