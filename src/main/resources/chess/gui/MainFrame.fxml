@@ -42,16 +42,16 @@
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="41.0">
                      <image>
-                        <Image url="@knight.png" />
+                        <Image url="@possibleMoves.png" />
                      </image>
                   </ImageView>
                </graphic></ToggleButton>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <ToggleButton contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#toggleSingleSelect" prefHeight="70.0" prefWidth="96.0" stylesheets="@MainFrame.css" text="single select">
+            <ToggleButton contentDisplay="TOP" mnemonicParsing="false" onMouseClicked="#toggleSingleSelect" prefHeight="233.0" prefWidth="96.0" stylesheets="@MainFrame.css" text="single select">
                <graphic>
                   <ImageView fitHeight="41.0" fitWidth="41.0">
                      <image>
-                        <Image url="@mouse.png" />
+                        <Image url="@singleSelect.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -116,14 +116,16 @@ public class MainFrame implements Initializable {
         g.setStroke(Color.BLACK);
         g.strokeRect(getRotatePosition(mousePosition.getPosX())*64, getRotatePosition(mousePosition.getPosY())*64, 64, 64);
 
-        //draw select Rectangle
-        g.setStroke(Color.BLUE);
-        g.strokeRect(getRotatePosition(mousePosition.getPosX()*64), getRotatePosition(mousePosition.getPosY()*64), 64, 64);
+        if(gameStart){
+            //draw select Rectangle
+            g.setStroke(Color.BLUE);
+            g.strokeRect(getRotatePosition(mousePosition.getPosX()*64), getRotatePosition(mousePosition.getPosY()*64), 64, 64);
 
-        //draw Figures
-        for(int y = 0; y < 8; y++){
-            for(int x = 0; x < 8; x++){
-                g.drawImage(figures, (coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).getFigureID()-1)*64, coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).isBlackTeam() ? 64 : 0, 64, 64, x*64, y*64, 64, 64);
+            //draw Figures
+            for(int y = 0; y < 8; y++){
+                for(int x = 0; x < 8; x++){
+                    g.drawImage(figures, (coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).getFigureID()-1)*64, coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).isBlackTeam() ? 64 : 0, 64, 64, x*64, y*64, 64, 64);
+                }
             }
         }
     }
