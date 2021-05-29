@@ -10,13 +10,13 @@ public class Gui extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainFrame.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Schachbrett2.fxml"));
         Parent root = (Parent)fxmlLoader.load();
 
         primaryStage.setTitle("Schach");
 
-        primaryStage.setScene(new Scene(root, 921, 689));
-        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(root, 720, 870));
+        //primaryStage.setResizable(false);
         primaryStage.show();
 
        /* FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));

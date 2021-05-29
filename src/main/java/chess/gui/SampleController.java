@@ -63,7 +63,7 @@ public class SampleController implements Observer {
 
 
     public void init(ActionEvent actionEvent) {
-        coreGame = new CoreGame();        
+        coreGame = new CoreGame();
         Rules.addObserver(this);
     }
 
@@ -102,7 +102,7 @@ public class SampleController implements Observer {
                     Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
                     Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
                     Move move = new Move(startPosition, targetPosition);
-                    if (coreGame.chessMove(move)) {                        
+                    if (coreGame.chessMove(move)) {
                         updateScene(targetField, move);
                     }
                 }
@@ -138,14 +138,12 @@ public class SampleController implements Observer {
 
     private void markField(Rectangle field, Color color) {
         field.setStroke(color);
-        field.setStrokeWidth(5);
+        field.setStrokeWidth(3);
         field.setStrokeType(StrokeType.INSIDE);
     }
 
     private void unmarkField(Rectangle field) {
-        field.setStroke(color(0.97, 0.69, 0.53));
-        field.setStrokeWidth(1);
-        field.setStrokeType(StrokeType.OUTSIDE);
+        field.setStrokeWidth(0);
     }
 
     private Node getFieldByRowColumnIndex(int row, int column) {
@@ -204,8 +202,8 @@ public class SampleController implements Observer {
 
     public void updateHistory(Move move) {
         Text t = new Text(move.toString());
-        history.add(t, 1, indexHistory);
-        history.add(new Text(" " + (indexHistory + 1)), 0, indexHistory);
+        history.add(t, 2, indexHistory);
+        history.add((new Text("   " + (indexHistory + 1))), 0, indexHistory);
         indexHistory += 1;
     }
 
@@ -213,7 +211,7 @@ public class SampleController implements Observer {
         if (black) {
             player.setText("schwarz");
         } else {
-            player.setText("weiss");
+            player.setText("weiß");
         }
     }
 
@@ -221,8 +219,8 @@ public class SampleController implements Observer {
     @Override
     public void updateBeatenFigures(int posX, int posY) {
         ImageView iv = (ImageView) getImageByRowColumnIndex(posX + 1, 8 - posY);
-        iv.setFitHeight(65.0);
-        iv.setFitWidth(45.0);
+        iv.setFitHeight(55.0);
+        iv.setFitWidth(25.0);
         beatenFigures.getChildren().add(iv);
 
         if (blacksTurn) {
