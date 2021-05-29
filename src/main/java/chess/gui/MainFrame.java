@@ -6,26 +6,18 @@ import chess.ki.Computer;
 import chess.model.Move;
 import chess.model.Position;
 import chess.model.Rules;
-import chess.util.Observer;
-import javafx.beans.NamedArg;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,16 +25,8 @@ import java.util.ResourceBundle;
 
 public class MainFrame implements Initializable {
 
-
-
     @FXML
-    private Canvas chessBoard;
-    @FXML
-    private Canvas markMove;
-    @FXML
-    private Canvas figureCanvas;
-    @FXML
-    private Canvas mouseMarker;
+    private Canvas boardCanvas;
     @FXML
     private Pane mainpanel;
 
@@ -79,69 +63,68 @@ public class MainFrame implements Initializable {
                 if(move.size() == 0 || !singleSelect){
 
                     move.clear();
+                    possibleMoves.clear();
                     move.add(mousePosition);
 
-                    clearMouseMarker();
-
-                    //draw new Field
-                    mouseMarker.getGraphicsContext2D().setStroke(Color.BLUE);
-                    mouseMarker.getGraphicsContext2D().strokeRect(getRotatePosition(mousePosition.getPosX()*64), getRotatePosition(mousePosition.getPosY()*64), 64, 64);
+                    renderBoard();
 
                 //set second select
                 }
             }else if(move.size() == 1){
                 if(coreGame.chessMove(new Move(move.get(0), mousePosition))){
-                    drawFigures();
+                    renderBoard();
                     move.clear();
-
-                    clearMouseMarker();
                 }else return;
 
-                drawFigures();
+                renderBoard();
 
                 //Check Computer play
                 if(gameMode == 2){
                     coreGame.chessMove(computer.makeMove(coreGame.getCurrentBoard()));
-                    drawFigures();
+                    renderBoard();
                 }
             }
-
-            //Draw Moves
-            if(showPossibleMoves) drawPossibleMoves();
         }
     }
 
     @FXML
     private void getSelectedField(MouseEvent event) {
         mousePosition = new Position(getRotatePosition((int)(event.getX()/64)), getRotatePosition(((int)event.getY()/64)));
-        chessBoard.getGraphicsContext2D().setStroke(Color.BLACK);
-        chessBoard.getGraphicsContext2D().clearRect(0, 0, chessBoard.getWidth(), chessBoard.getHeight());
-        chessBoard.getGraphicsContext2D().strokeRect(getRotatePosition(mousePosition.getPosX())*64, getRotatePosition(mousePosition.getPosY())*64, 64, 64);
+        renderBoard();
     }
 
     /*
     <---Draw-functions------------------------------------------------------------------------------------------------->
      */
 
-    public void drawFigures(){
-        markMove.getGraphicsContext2D().clearRect(0, 0, markMove.getWidth(), markMove.getHeight());
-        figureCanvas.getGraphicsContext2D().clearRect(0, 0, figureCanvas.getWidth(), figureCanvas.getHeight());
-        for(int y = 0; y < 8; y++){
-            for(int x = 0; x < 8; x++){
-                figureCanvas.getGraphicsContext2D().drawImage(figures, (coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).getFigureID()-1)*64, coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).isBlackTeam() ? 64 : 0, 64, 64, x*64, y*64, 64, 64);
+    public void renderBoard(){
+        GraphicsContext g = boardCanvas.getGraphicsContext2D();
+
+        //clear Board
+        g.clearRect(0, 0 , boardCanvas.getWidth(), boardCanvas.getHeight());
+
+        //draw possible Moves
+        if(move.size() != 0 && showPossibleMoves){
+            possibleMoves.clear();
+            possibleMoves = Rules.possibleTargetFields(new Position(getRotatePosition(move.get(0).getPosX()), getRotatePosition(move.get(0).getPosY())), coreGame.getCurrentBoard());
+            g.setFill(Color.LIGHTBLUE);
+            for(int i = 0; i < possibleMoves.size(); i++){
+                g.fillOval(possibleMoves.get(i).getPosX()*64+23, possibleMoves.get(i).getPosY()*64+23, 20, 20);
             }
         }
-    }
 
-    private void drawPossibleMoves(){
-        //mark possible moves
-        if(move.size() != 0){
-            possibleMoves = Rules.possibleTargetFields(new Position(getRotatePosition(move.get(0).getPosX()), getRotatePosition(move.get(0).getPosY())), coreGame.getCurrentBoard());
+        //draw Field select
+        g.setStroke(Color.BLACK);
+        g.strokeRect(getRotatePosition(mousePosition.getPosX())*64, getRotatePosition(mousePosition.getPosY())*64, 64, 64);
 
-            markMove.getGraphicsContext2D().clearRect(0, 0, markMove.getWidth(), markMove.getHeight());
-            markMove.getGraphicsContext2D().setFill(Color.LIGHTBLUE);
-            for(int i = 0; i < possibleMoves.size(); i++){
-                markMove.getGraphicsContext2D().fillOval(possibleMoves.get(i).getPosX()*64+23, possibleMoves.get(i).getPosY()*64+23, 20, 20);
+        //draw select Rectangle
+        g.setStroke(Color.BLUE);
+        g.strokeRect(getRotatePosition(mousePosition.getPosX()*64), getRotatePosition(mousePosition.getPosY()*64), 64, 64);
+
+        //draw Figures
+        for(int y = 0; y < 8; y++){
+            for(int x = 0; x < 8; x++){
+                g.drawImage(figures, (coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).getFigureID()-1)*64, coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).isBlackTeam() ? 64 : 0, 64, 64, x*64, y*64, 64, 64);
             }
         }
     }
@@ -153,11 +136,7 @@ public class MainFrame implements Initializable {
     @FXML
     private void toggleShowPossibleMoves(MouseEvent event) {
         showPossibleMoves = !showPossibleMoves;
-        if(showPossibleMoves){
-            drawPossibleMoves();
-        }else{
-            markMove.getGraphicsContext2D().clearRect(0, 0, markMove.getWidth(), markMove.getHeight());
-        }
+        renderBoard();
     }
 
     @FXML
@@ -168,8 +147,7 @@ public class MainFrame implements Initializable {
     @FXML
     private void rotateBoard(MouseEvent event) {
         rotate = !rotate;
-        drawFigures();
-        if(showPossibleMoves) drawPossibleMoves();
+        renderBoard();
     }
 
     @FXML
@@ -203,10 +181,6 @@ public class MainFrame implements Initializable {
 
     public Position getRotatePosition(Position pos){
         return new Position((rotate ? 0 : 7)+pos.getPosX()*(rotate ? 1 : -1), (rotate ? 0 : 7)+pos.getPosY()*(rotate ? 1 : -1)) ;
-    }
-
-    public void clearMouseMarker(){
-        mouseMarker.getGraphicsContext2D().clearRect(0, 0, mouseMarker.getWidth(), mouseMarker.getHeight());
     }
 
     /*

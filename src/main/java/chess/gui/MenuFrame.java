@@ -28,7 +28,7 @@ public class MenuFrame {
         //unlock Mainframe
         backendInterface.getMainpanel().setDisable(false);
         backendInterface.resetCoreGame();
-        backendInterface.drawFigures();
+        backendInterface.renderBoard();
         backendInterface.setGameStart(true);
 
         //setGameMode
