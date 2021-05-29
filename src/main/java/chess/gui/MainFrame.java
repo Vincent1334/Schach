@@ -46,6 +46,8 @@ public class MainFrame implements Initializable {
     @FXML
     private Pane mainpanel;
 
+    private Image figures;
+
     private CoreGame coreGame;
     private Computer computer;
 
@@ -56,39 +58,43 @@ public class MainFrame implements Initializable {
     private boolean gameStart = false;
     private int gameMode = 0;
 
-    ArrayList<Position> possibleMoves = new ArrayList<Position>();
+    private ArrayList<Position> possibleMoves = new ArrayList<Position>();
+    private ArrayList<Position> move = new ArrayList<Position>();
     private Position mousePosition;
-    ArrayList<Position> move = new ArrayList<Position>();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         coreGame = new CoreGame();
         computer = new Computer(true);
-        drawFigures();
+
+        figures = ImageHandler.getInstance().getImage("FiguresTile");
     }
 
     @FXML
     private void playerInputEvent(MouseEvent event) {
         if(gameStart){
             //set first select
-            if(move.size() == 0 || !singleSelect && coreGame.getCurrentBoard().getFigure(mousePosition).isBlackTeam() == coreGame.getCurrentPlayer() && !(coreGame.getCurrentBoard().getFigure(mousePosition) instanceof None)){
-                move.clear();
-                mouseMarker.getGraphicsContext2D().clearRect(0, 0, mouseMarker.getWidth(), mouseMarker.getHeight());
-                if(coreGame.getCurrentBoard().getFigure(mousePosition).isBlackTeam() == coreGame.getCurrentPlayer() && !(coreGame.getCurrentBoard().getFigure(mousePosition) instanceof None)){
+            if(coreGame.getCurrentBoard().getFigure(mousePosition).isBlackTeam() == coreGame.getCurrentPlayer() && !(coreGame.getCurrentBoard().getFigure(mousePosition) instanceof None)){
+                if(move.size() == 0 || !singleSelect){
+
+                    move.clear();
                     move.add(mousePosition);
+
+                    clearMouseMarker();
+
+                    //draw new Field
                     mouseMarker.getGraphicsContext2D().setStroke(Color.BLUE);
                     mouseMarker.getGraphicsContext2D().strokeRect(getRotatePosition(mousePosition.getPosX()*64), getRotatePosition(mousePosition.getPosY()*64), 64, 64);
 
-                    //Draw Moves
-                    if(showPossibleMoves) drawPossibleMoves();
+                //set second select
                 }
             }else if(move.size() == 1){
                 if(coreGame.chessMove(new Move(move.get(0), mousePosition))){
                     drawFigures();
                     move.clear();
-                    mouseMarker.getGraphicsContext2D().clearRect(0, 0, mouseMarker.getWidth(), mouseMarker.getHeight());
 
-
+                    clearMouseMarker();
                 }else return;
 
                 drawFigures();
@@ -99,6 +105,9 @@ public class MainFrame implements Initializable {
                     drawFigures();
                 }
             }
+
+            //Draw Moves
+            if(showPossibleMoves) drawPossibleMoves();
         }
     }
 
@@ -110,8 +119,6 @@ public class MainFrame implements Initializable {
         chessBoard.getGraphicsContext2D().strokeRect(getRotatePosition(mousePosition.getPosX())*64, getRotatePosition(mousePosition.getPosY())*64, 64, 64);
     }
 
-
-
     /*
     <---Draw-functions------------------------------------------------------------------------------------------------->
      */
@@ -121,7 +128,7 @@ public class MainFrame implements Initializable {
         figureCanvas.getGraphicsContext2D().clearRect(0, 0, figureCanvas.getWidth(), figureCanvas.getHeight());
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
-                figureCanvas.getGraphicsContext2D().drawImage(ImageHandler.getInstance().getImage("FiguresTile"), (coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).getFigureID()-1)*64, coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).isBlackTeam() ? 64 : 0, 64, 64, x*64, y*64, 64, 64);
+                figureCanvas.getGraphicsContext2D().drawImage(figures, (coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).getFigureID()-1)*64, coreGame.getCurrentBoard().getFigure(getRotatePosition(x), getRotatePosition(y)).isBlackTeam() ? 64 : 0, 64, 64, x*64, y*64, 64, 64);
             }
         }
     }
@@ -190,20 +197,16 @@ public class MainFrame implements Initializable {
     <---Tools---------------------------------------------------------------------------------------------------------->
      */
 
-    public Image getFigureImage(int figureID, boolean isBlack){
-        ImageView figure = new ImageView(ImageHandler.getInstance().getImage("FiguresTile"));
-        figure.setPreserveRatio(true);
-        figure.setSmooth(true);
-        figure.setViewport(new Rectangle2D(0, 0, 20, 20));
-        return figure.getImage();
-    }
-
     public int getRotatePosition(int pos){
         return (rotate ? 0 : 7)+pos*(rotate ? 1 : -1);
     }
 
     public Position getRotatePosition(Position pos){
         return new Position((rotate ? 0 : 7)+pos.getPosX()*(rotate ? 1 : -1), (rotate ? 0 : 7)+pos.getPosY()*(rotate ? 1 : -1)) ;
+    }
+
+    public void clearMouseMarker(){
+        mouseMarker.getGraphicsContext2D().clearRect(0, 0, mouseMarker.getWidth(), mouseMarker.getHeight());
     }
 
     /*
@@ -217,6 +220,9 @@ public class MainFrame implements Initializable {
     public void resetCoreGame(){
         coreGame = new CoreGame();
         computer = new Computer(true);
+
+        possibleMoves.clear();
+        move.clear();
     }
 
     public void setGameMode(int mode){
@@ -226,9 +232,6 @@ public class MainFrame implements Initializable {
     public void setGameStart(boolean gameStart){
         this.gameStart = gameStart;
     }
-
-
-
 }
 
 
