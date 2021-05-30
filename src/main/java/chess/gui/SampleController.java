@@ -63,23 +63,19 @@ public class SampleController implements Observer {
     private int gameMode = 0;
 
 
-    /*public void init(ActionEvent actionEvent) {
+    public void init(int gameMode) {
         coreGame = new CoreGame();
-        computer = new Computer(true);
-        Rules.addObserver(this);
-    }*/
-    /*public void init() {
-        coreGame = new CoreGame();
-        *//*computer = new Computer(true);*//*
-        Rules.addObserver(this);
-    }*/
-
-    public SampleController(int gameMode) {
-        coreGame = new CoreGame();
-        /*computer = new Computer(true);*/
+//        computer = new Computer(true);
         Rules.addObserver(this);
         this.gameMode = gameMode;
     }
+
+    /*public SampleController(int gameMode) {
+        coreGame = new CoreGame();
+//        computer = new Computer(true);
+        Rules.addObserver(this);
+        this.gameMode = gameMode;
+    }*/
 
 
     //--------------------------------------Field----------------------------------------------------------------------------------------------
@@ -311,9 +307,4 @@ public class SampleController implements Observer {
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("QueenBlack").getUrl()) ||
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("PawnBlack").getUrl());
     }
-
-
-    /*public void setGameMode(int mode){
-        this.gameMode = mode;
-    }*/
 }

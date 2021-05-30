@@ -50,17 +50,16 @@ public class Menu {
     @FXML
     private void startGame(MouseEvent event) {
         try {
-//            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("path/to/other/view.fxml"), resources);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
+            Parent root = fxmlLoader.load();
+
+            SampleController controller = fxmlLoader.getController();
+            controller.init(gameMode);
 
             Stage stage = new Stage();
             stage.setTitle("Schachspiel");
-
             stage.setScene(new Scene(root));
             stage.show();
-
-            new SampleController(gameMode);
 
             // Hide this current window
             ((Node) (event.getSource())).getScene().getWindow().hide();
