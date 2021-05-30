@@ -1,7 +1,6 @@
 package chess.gui;
 
 import chess.controller.*;
-import chess.ki.Computer;
 import chess.model.*;
 import chess.util.Observer;
 import javafx.collections.FXCollections;
@@ -11,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -59,7 +57,7 @@ public class SampleController implements Observer {
     @FXML
     private CheckBox possibleFieldsButton;
     @FXML
-    private CheckBox choseAgain;
+    private CheckBox singleSelect;
 
 
     public void init(ActionEvent actionEvent) {
@@ -107,7 +105,7 @@ public class SampleController implements Observer {
                     }
                 }
                 // eigene Figur ist ausgewählt und MehrfachAuswahl ist nicht erlaubt: demarkiere nicht und schalte kein neues Feld frei
-                if (!(selectedFigure != null && imageIsBlack(selectedFigure) == blacksTurn && !choseAgain.isSelected())) {
+                if (!(selectedFigure != null && imageIsBlack(selectedFigure) == blacksTurn && singleSelect.isSelected())) {
                     unmarkField(startField);
                     startField = null;
                 }

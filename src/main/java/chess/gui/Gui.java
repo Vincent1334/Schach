@@ -10,22 +10,22 @@ public class Gui extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainFrame.fxml"));
+        /*FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainFrame.fxml"));
         Parent root = (Parent)fxmlLoader.load();
 
         primaryStage.setTitle("Schach");
 
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
-        primaryStage.show();
+        primaryStage.show();*/
 
-       /* FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));
         Parent root = (Parent)fxmlLoader.load();
 
         primaryStage.setTitle("Schach");
 
-        primaryStage.setScene(new Scene(root, 1100, 1120));
-        primaryStage.show();*/
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

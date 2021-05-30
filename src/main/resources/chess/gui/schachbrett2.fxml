@@ -58,9 +58,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane id="figuresBlack" prefHeight="859.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.SampleController">
+<ScrollPane id="figuresBlack" prefHeight="859.0" prefWidth="765.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.SampleController">
    <content>
-      <VBox prefHeight="815.0" prefWidth="652.0">
+      <VBox prefHeight="815.0" prefWidth="723.0">
          <children>
             <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="81.0" prefWidth="626.0">
                <buttons>
@@ -76,7 +76,7 @@
                   </Text>
                   <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="81.0">
                      <children>
-                        <CheckBox fx:id="choseAgain" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Berührt - Geführt">
+                        <CheckBox fx:id="singleSelect" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Berührt - Geführt">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
@@ -106,7 +106,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </ButtonBar>
-            <SplitPane dividerPositions="0.7173051519154557" prefHeight="715.0" prefWidth="653.0">
+            <SplitPane dividerPositions="0.7173051519154557" prefHeight="715.0" prefWidth="766.0">
                <items>
                   <VBox alignment="CENTER" fillWidth="false" maxHeight="795.0" minHeight="375.0" prefHeight="685.0" prefWidth="540.0" SplitPane.resizableWithParent="false">
                     <children>
@@ -983,11 +983,11 @@
                         </GridPane>
                     </children>
                   </VBox>
-                  <ScrollPane prefHeight="724.0" prefWidth="105.0">
+                  <ScrollPane prefHeight="710.0" prefWidth="186.0">
                      <content>
-                        <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="725.0" prefWidth="100.0">
+                        <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="726.0" prefWidth="170.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Züge:" textAlignment="CENTER" textFill="#3c3c3c">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="174.0" text="Züge:" textAlignment="CENTER" textFill="#3c3c3c">
                                  <font>
                                     <Font name="Calibri" size="17.0" />
                                  </font>
@@ -995,12 +995,15 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <graphic>
-                                    <Rectangle fill="#75757563" height="27.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="90.0">
+                                    <Rectangle fill="#75757563" height="27.0" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" width="168.0">
                                        <effect>
                                           <Glow level="0.8" />
                                        </effect>
                                     </Rectangle>
                                  </graphic>
+                                 <padding>
+                                    <Insets bottom="20.0" />
+                                 </padding>
                               </Label>
                               <GridPane fx:id="history" alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="3.0" prefWidth="89.0">
                                 <columnConstraints>
