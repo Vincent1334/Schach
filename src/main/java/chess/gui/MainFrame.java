@@ -210,8 +210,3 @@ public class MainFrame implements Initializable {
         this.gameStart = gameStart;
     }
 }
-
-
-
-
-

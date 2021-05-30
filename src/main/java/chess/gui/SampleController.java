@@ -1,6 +1,7 @@
 package chess.gui;
 
 import chess.controller.*;
+import chess.ki.Computer;
 import chess.model.*;
 import chess.util.Observer;
 import javafx.collections.FXCollections;
@@ -29,6 +30,7 @@ import static javafx.scene.paint.Color.*;
 public class SampleController implements Observer {
 
     private static CoreGame coreGame;
+    /*private Computer computer;*/
     private Rectangle startField;
     private boolean blacksTurn = false;
     private int indexBeatenFiguresBlack = 1;
@@ -58,11 +60,25 @@ public class SampleController implements Observer {
     private CheckBox possibleFieldsButton;
     @FXML
     private CheckBox singleSelect;
+    private int gameMode = 0;
 
 
-    public void init(ActionEvent actionEvent) {
+    /*public void init(ActionEvent actionEvent) {
         coreGame = new CoreGame();
+        computer = new Computer(true);
         Rules.addObserver(this);
+    }*/
+    /*public void init() {
+        coreGame = new CoreGame();
+        *//*computer = new Computer(true);*//*
+        Rules.addObserver(this);
+    }*/
+
+    public SampleController(int gameMode) {
+        coreGame = new CoreGame();
+        /*computer = new Computer(true);*/
+        Rules.addObserver(this);
+        this.gameMode = gameMode;
     }
 
 
@@ -103,6 +119,11 @@ public class SampleController implements Observer {
                     if (coreGame.chessMove(move)) {
                         updateScene(targetField, move);
                     }
+                    /*//Check Computer play
+                    if(gameMode == 2){
+                        coreGame.chessMove(computer.makeMove(coreGame.getCurrentBoard()));
+                        updateScene(targetField, move);
+                    }*/
                 }
                 // eigene Figur ist ausgewählt und MehrfachAuswahl ist nicht erlaubt: demarkiere nicht und schalte kein neues Feld frei
                 if (!(selectedFigure != null && imageIsBlack(selectedFigure) == blacksTurn && singleSelect.isSelected())) {
@@ -290,4 +311,9 @@ public class SampleController implements Observer {
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("QueenBlack").getUrl()) ||
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("PawnBlack").getUrl());
     }
+
+
+    /*public void setGameMode(int mode){
+        this.gameMode = mode;
+    }*/
 }

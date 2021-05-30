@@ -19,7 +19,7 @@ public class Gui extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();*/
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = (Parent)fxmlLoader.load();
 
         primaryStage.setTitle("Schach");
