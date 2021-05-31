@@ -38,6 +38,7 @@ public class SampleController implements Observer {
     private int indexBeatenFiguresWhite = 1;
     private int indexHistory = 0;
     private boolean even = true;
+    private int gameMode = 0;
 
     @FXML
     private Label player;
@@ -63,7 +64,7 @@ public class SampleController implements Observer {
     private CheckBox singleSelect;
     @FXML
     private ChoiceBox conversion;
-    private int gameMode = 0;
+
 
 
     public void init(int gameMode) {
@@ -241,10 +242,7 @@ public class SampleController implements Observer {
         ImageView iv = (ImageView) getImageByRowColumnIndex(posX + 1, 8 - posY);
         iv.setFitHeight(55.0);
         iv.setFitWidth(25.0);
-        if(turnBoard.isSelected() && blacksTurn){
-            iv.setRotate(even ? 180 : 0);
-        }
-
+        iv.setRotate(0);
         beatenFigures.getChildren().add(iv);
 
         if (blacksTurn) {
