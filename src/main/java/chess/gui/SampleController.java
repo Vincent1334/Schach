@@ -1,9 +1,9 @@
 package chess.gui;
 
 import chess.controller.*;
+import chess.figures.Figure;
 import chess.ki.Computer;
 import chess.model.*;
-import chess.util.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,15 +23,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 import static javafx.scene.paint.Color.*;
 
-public class SampleController implements Observer {
+public class SampleController {
 
     private static CoreGame coreGame;
-    /*private Computer computer;*/
+    private Computer computer;
     private Rectangle startField;
     private boolean blacksTurn = false;
     private int indexBeatenFiguresBlack = 1;
@@ -39,6 +38,7 @@ public class SampleController implements Observer {
     private int indexHistory = 0;
     private boolean even = true;
     private int gameMode = 0;
+    private List<Figure> beatenFigureList;
 
     @FXML
     private Label player;
@@ -69,16 +69,17 @@ public class SampleController implements Observer {
 
     public void init(int gameMode) {
         coreGame = new CoreGame();
-//        computer = new Computer(true);
-        Rules.addObserver(this);
+        computer = new Computer(true);
+        beatenFigureList = new ArrayList<>();
+//        Rules.addObserver(this);
         this.gameMode = gameMode;
-        conversion.getItems().addAll("Dame","Läufer","Turm","Springer");
+        conversion.getItems().addAll("Dame", "Läufer", "Turm", "Springer");
         conversion.getSelectionModel().select("Dame");
     }
 
     /*public SampleController(int gameMode) {
         coreGame = new CoreGame();
-//        computer = new Computer(true);
+        computer = new Computer(true);
         Rules.addObserver(this);
         this.gameMode = gameMode;
     }*/
@@ -93,7 +94,7 @@ public class SampleController implements Observer {
             // erstes Feld angeklickt: markiere Feld
             if (startField == null) {
                 startField = targetField;
-                ImageView selectedFigure = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
+                ImageView selectedFigure = (ImageView) getImageViewByIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
                 markField(startField, CYAN);
 
                 // auf dem Feld steht eine eigene Figur und AnzeigeMöglicherFelder ist eingeschaltet: markiere mögliche Felder
@@ -106,7 +107,7 @@ public class SampleController implements Observer {
 
             // zweites Feld angeklickt
             else {
-                ImageView selectedFigure = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
+                ImageView selectedFigure = (ImageView) getImageViewByIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
                 // auf dem ersten Feld stand eine eigene Figur
                 if (selectedFigure != null && imageIsBlack(selectedFigure) == blacksTurn) {
 
@@ -117,15 +118,15 @@ public class SampleController implements Observer {
                     // führe Zug aus (wenn möglich) und update Scene
                     Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
                     Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
-                    Move move = new Move(startPosition, targetPosition,getConversionFigure());
+                    Move move = new Move(startPosition, targetPosition, getConversionFigure());
                     if (coreGame.chessMove(move)) {
                         updateScene(targetField, move);
                     }
-                    /*//Check Computer play
-                    if(gameMode == 2){
+                    //Check Computer play
+                    if (gameMode == 2) {
                         coreGame.chessMove(computer.makeMove(coreGame.getCurrentBoard()));
                         updateScene(targetField, move);
-                    }*/
+                    }
                 }
                 // eigene Figur ist ausgewählt und MehrfachAuswahl ist nicht erlaubt: demarkiere nicht und schalte kein neues Feld frei
                 if (!(selectedFigure != null && imageIsBlack(selectedFigure) == blacksTurn && singleSelect.isSelected())) {
@@ -182,17 +183,30 @@ public class SampleController implements Observer {
 
     //----------------------------------Update----------------------------------------------------------------------------------------------
     public void updateScene(Rectangle targetField, Move move) {
-        // get image on clicked field
-        ImageView iv = (ImageView) getImageByRowColumnIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
-        GridPane.setColumnIndex(iv, GridPane.getColumnIndex(targetField));
-        GridPane.setRowIndex(iv, GridPane.getRowIndex(targetField));
+        drawBoard();
         updateHistory(move);
+        updateBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
         blacksTurn = !blacksTurn;
         updatePlayer(blacksTurn);
         if (turnBoard.isSelected()) {
             turnBoard();
         }
     }
+
+    private void drawBoard() {
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                gridPane.getChildren().remove(getImageViewByIndex(x + 1, 8 - y));
+                if (getImageBySymbol(coreGame.getCurrentBoard().getFigure(x, y).getSymbol()) != null) {
+                    ImageView iv = new ImageView(getImageBySymbol(coreGame.getCurrentBoard().getFigure(x, y).getSymbol()));
+                    iv.setFitHeight(55.0);
+                    iv.setFitWidth(25.0);
+                    gridPane.add(iv, x + 1, 8 - y);
+                }
+            }
+        }
+    }
+
 
     private void turnBoard() {
         gridPane.setRotate(even ? 180 : 0);
@@ -236,13 +250,116 @@ public class SampleController implements Observer {
         }
     }
 
+    public void updateBeatenFigures(List<Figure> beatenFigures) {
 
-    @Override
+        if (beatenFigures.size() != this.beatenFigureList.size() && beatenFigures.size() > 0) {
+            ImageView iv = new ImageView(getImageBySymbol(beatenFigures.get(beatenFigures.size() - 1).getSymbol()));
+            iv.setFitHeight(55.0);
+            iv.setFitWidth(25.0);
+            iv.setRotate(0);
+            if (!blacksTurn) {
+                GridPane.setColumnIndex(iv, indexBeatenFiguresBlack);
+                GridPane.setRowIndex(iv, 1);
+                indexBeatenFiguresBlack += 1;
+            } else {
+                GridPane.setColumnIndex(iv, indexBeatenFiguresWhite);
+                GridPane.setRowIndex(iv, 0);
+                indexBeatenFiguresWhite += 1;
+            }
+            this.beatenFigures.getChildren().add(iv);
+            this.beatenFigureList.add(beatenFigures.get(beatenFigures.size() - 1));
+        }
+    }
+
+//--------------------------------Image----------------------------------------------------------------------------------------------
+
+    private Node getImageViewByIndex(int column, int row) {
+        Node result = null;
+        ObservableList<Node> children = gridPane.getChildren();
+
+        for (Node node : children) {
+            if (GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) != null &&
+                    GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column && node instanceof ImageView) {
+                result = node;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private Image getImageBySymbol(char symbol) {
+        switch (symbol) {
+            // Rook
+            case 'R':
+                return ImageHandler.getInstance().getImage("RookWhite");
+            case 'r':
+                return ImageHandler.getInstance().getImage("RookBlack");
+            // Knight
+            case 'N':
+                return ImageHandler.getInstance().getImage("KnightWhite");
+            case 'n':
+                return ImageHandler.getInstance().getImage("KnightBlack");
+            // Bishop
+            case 'B':
+                return ImageHandler.getInstance().getImage("BishopWhite");
+            case 'b':
+                return ImageHandler.getInstance().getImage("BishopBlack");
+            // Queen
+            case 'Q':
+                return ImageHandler.getInstance().getImage("QueenWhite");
+            case 'q':
+                return ImageHandler.getInstance().getImage("QueenBlack");
+            // King
+            case 'K':
+                return ImageHandler.getInstance().getImage("KingWhite");
+            case 'k':
+                return ImageHandler.getInstance().getImage("KingBlack");
+            // Pawn
+            case 'P':
+                return ImageHandler.getInstance().getImage("PawnWhite");
+            case 'p':
+                return ImageHandler.getInstance().getImage("PawnBlack");
+            // None
+            default:
+                return null;
+        }
+    }
+
+    private boolean imageIsBlack(ImageView iv) {
+        return iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("RookBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KnightBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("BishopBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KingBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("QueenBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("PawnBlack").getUrl());
+    }
+
+    //--------------getter/setter---------------------------------------------------------------------------------------------------------------
+    private int getConversionFigure() {
+        String item = (String) conversion.getSelectionModel().getSelectedItem();
+        if (item.equals("Dame")) {
+            return 5;
+        }
+        if (item.equals("Läufer")) {
+            return 4;
+        }
+        if (item.equals("Turm")) {
+            return 2;
+        }
+        if (item.equals("Springer")) {
+            return 3;
+        }
+        return 5;
+    }
+
+
+
+
+    /*@Override
     public void updateBeatenFigures(int posX, int posY) {
         ImageView iv = (ImageView) getImageByRowColumnIndex(posX + 1, 8 - posY);
         iv.setFitHeight(55.0);
         iv.setFitWidth(25.0);
-        iv.setRotate(0);
         beatenFigures.getChildren().add(iv);
 
         if (blacksTurn) {
@@ -270,26 +387,10 @@ public class SampleController implements Observer {
     public void updateChange(int posX, int posY, int changeTo, boolean isBlackTeam) {
         // PawnConversion
         ImageView iv = (ImageView) getImageByRowColumnIndex(posX + 1, 8 - posY);
-        iv.setImage(getImage(changeTo, isBlackTeam));
-    }
+        iv.setImage(getImageByInt(changeTo, isBlackTeam));
+    }*/
 
-//--------------------------------Image----------------------------------------------------------------------------------------------
-
-    private Node getImageByRowColumnIndex(int column, int row) {
-        Node result = null;
-        ObservableList<Node> children = gridPane.getChildren();
-
-        for (Node node : children) {
-            if (GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) != null &&
-                    GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column && node instanceof ImageView) {
-                result = node;
-                break;
-            }
-        }
-        return result;
-    }
-
-    private Image getImage(int symbol, boolean isBlackTeam) {
+    /*private Image getImageByInt(int symbol, boolean isBlackTeam) {
         switch (symbol) {
             // Rook
             case 2:
@@ -304,32 +405,5 @@ public class SampleController implements Observer {
             default:
                 return isBlackTeam ? ImageHandler.getInstance().getImage("QueenBlack") : ImageHandler.getInstance().getImage("QueenWhite");
         }
-    }
-
-    private boolean imageIsBlack(ImageView iv) {
-        return iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("RookBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KnightBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("BishopBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KingBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("QueenBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("PawnBlack").getUrl());
-    }
-
-//--------------getter/setter---------------------------------------------------------------------------------------------------------------
-    private int getConversionFigure(){
-        String item = (String) conversion.getSelectionModel().getSelectedItem();
-        if(item.equals("Dame")){
-            return  5;
-        }
-        if(item.equals("Läufer")){
-            return  4;
-        }
-        if(item.equals("Turm")){
-            return  2;
-        }
-        if(item.equals("Springer")){
-            return  3;
-        }
-       return 5;
-    }
+    }*/
 }

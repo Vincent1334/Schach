@@ -1,7 +1,6 @@
 package chess.model;
 
 import chess.figures.*;
-import chess.util.Observable;
 
 import java.util.ArrayList;
 
@@ -11,7 +10,7 @@ import java.util.ArrayList;
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-05-05
  */
-public class Rules extends Observable {
+public class Rules {
 
     /*
      * <------DefaultMove----------------------------------------------------------------------------------------------->
@@ -30,7 +29,9 @@ public class Rules extends Observable {
         Figure actualFigure = board.getFigure(actualPos);
 
         //check target field is valid
-        if (!(board.getFigure(targetPos) instanceof None) && board.getFigure(targetPos).isBlackTeam() == actualFigure.isBlackTeam()) return false;
+        if (!(board.getFigure(targetPos) instanceof None) && board.getFigure(targetPos).isBlackTeam() == actualFigure.isBlackTeam()) {
+            return false;
+        }
 
         //check move is possible
         if (actualFigure.validMove(actualPos, targetPos, board)) {
@@ -60,7 +61,7 @@ public class Rules extends Observable {
 
         if (!(targetFigure instanceof None)) {
             board.getBeatenFigures().add(targetFigure);
-            notifyObserversForDelete(targetPos.getPosX(), targetPos.getPosY());
+//            notifyObserversForDelete(targetPos.getPosX(), targetPos.getPosY());
         }
 
         //Update Board
@@ -123,7 +124,7 @@ public class Rules extends Observable {
         Figure targetFigure = board.getFigure(targetPos.getPosX(), actualPos.getPosY());
 
         board.getBeatenFigures().add(targetFigure);
-        notifyObserversForDelete(targetPos.getPosX(), actualPos.getPosY());
+//        notifyObserversForDelete(targetPos.getPosX(), actualPos.getPosY());
 
         board.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
         board.setFigure(targetPos, actualFigure);
@@ -147,10 +148,11 @@ public class Rules extends Observable {
         Figure actualFigure = board.getFigure(actualPos);
 
         //check chess or wrong input
-        if (actualPos.getPosY() != targetPos.getPosY() || Board.kingInCheck(board, actualFigure.isBlackTeam())) return false;
+        if (actualPos.getPosY() != targetPos.getPosY() || Board.kingInCheck(board, actualFigure.isBlackTeam()))
+            return false;
 
         if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved())) {
-            if(checkShortCastling(board, actualPos, targetPos)) return true;
+            if (checkShortCastling(board, actualPos, targetPos)) return true;
             return checkLongCastling(board, actualPos, targetPos);
         }
         return false;
@@ -158,12 +160,13 @@ public class Rules extends Observable {
 
     /**
      * check long castling
-     * @param board the board you are playing on
+     *
+     * @param board     the board you are playing on
      * @param actualPos the actual position of the figure you want to test
      * @param targetPos the target position of the figure you want to test
      * @return true, if the figure can perform a long castling
      */
-    private static boolean checkLongCastling(Board board, Position actualPos, Position targetPos){
+    private static boolean checkLongCastling(Board board, Position actualPos, Position targetPos) {
         //check long castling left (queenSide)
         if (targetPos.getPosX() == 2 && board.getFigure(0, actualPos.getPosY()) instanceof Rook
                 && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved())) {
@@ -183,12 +186,13 @@ public class Rules extends Observable {
 
     /**
      * check short castling
-     * @param board the board you are playing on
+     *
+     * @param board     the board you are playing on
      * @param actualPos the actual position of the figure you want to test
      * @param targetPos the target position of the figure you want to test
      * @return true, if the figure can perform a short castling
      */
-    private static boolean checkShortCastling(Board board, Position actualPos, Position targetPos){
+    private static boolean checkShortCastling(Board board, Position actualPos, Position targetPos) {
         //check short castling right (kingSide)
         if (targetPos.getPosX() == 6 && board.getFigure(7, actualPos.getPosY()) instanceof Rook
                 && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved())) {
@@ -228,7 +232,7 @@ public class Rules extends Observable {
             //set Rook
             board.setFigure(5, actualPos.getPosY(), board.getFigure(7, actualPos.getPosY()));
             board.setFigure(7, actualPos.getPosY(), new None());
-            notifyObserversForMovement(7, actualPos.getPosY(), 5,  actualPos.getPosY());
+//            notifyObserversForMovement(7, actualPos.getPosY(), 5,  actualPos.getPosY());
 
             board.getFigure(5, actualPos.getPosY()).setAlreadyMoved(true);
         }
@@ -244,7 +248,7 @@ public class Rules extends Observable {
             //set Rook
             board.setFigure(3, actualPos.getPosY(), board.getFigure(0, actualPos.getPosY()));
             board.setFigure(0, actualPos.getPosY(), new None());
-            notifyObserversForMovement(0, actualPos.getPosY(), 3,  actualPos.getPosY());
+//            notifyObserversForMovement(0, actualPos.getPosY(), 3,  actualPos.getPosY());
 
             board.getFigure(3, actualPos.getPosY()).setAlreadyMoved(true);
         }
@@ -313,7 +317,7 @@ public class Rules extends Observable {
 
         board.getFigure(targetPos).setAlreadyMoved(true);
         board.setFigure(actualPos, new None());
-        notifyObserversForChange(actualPos.getPosX(), actualPos.getPosY(), figureID, board.getFigure(actualPos).isBlackTeam());
+//        notifyObserversForChange(actualPos.getPosX(), actualPos.getPosY(), figureID, board.getFigure(actualPos).isBlackTeam());
     }
 
 
@@ -321,12 +325,12 @@ public class Rules extends Observable {
         ArrayList<Position> fields = new ArrayList<>();
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                Position targetPos = new Position(x,y);
+                Position targetPos = new Position(x, y);
                 if (Rules.checkDefaultMove(actualPos, targetPos, board) ||
                         Rules.checkCastling(actualPos, targetPos, board) ||
                         Rules.checkEnPassant(actualPos, targetPos, board) ||
                         Rules.checkPawnConversion(actualPos, targetPos, board)) {
-                    fields.add(new Position(x,y));
+                    fields.add(new Position(x, y));
                 }
             }
         }
