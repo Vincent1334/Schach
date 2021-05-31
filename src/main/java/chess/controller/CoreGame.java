@@ -165,6 +165,8 @@ public class CoreGame {
             if(currentBoard.getStaleMateFlag()) System.out.println("Game ends because stalemate!");
             gameOver = true;
         }
+        Board.kingInCheck(currentBoard, activePlayer);
+        Board.kingInCheck(currentBoard, !activePlayer);
         if(currentBoard.getCheckFlag(false)) System.out.println("Player white is in check!");
         if(currentBoard.getCheckFlag(true)) System.out.println("Player black is in check!");
     }

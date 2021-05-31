@@ -73,6 +73,10 @@ public class SampleController {
     private CheckBox singleSelect;
     @FXML
     private ChoiceBox conversion;
+    @FXML
+    private VBox vbox;
+    @FXML
+    private Label checkLabel;
 
 
     public void init(int gameMode, boolean playerColorBlack) {
@@ -195,10 +199,24 @@ public class SampleController {
         drawBoard();
         updateHistory(move);
         updateBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
+        updateNotifications();
+
         blacksTurn = !blacksTurn;
         updatePlayer(blacksTurn);
         if (turnBoard.isSelected()) {
             turnBoard();
+        }
+    }
+
+    private void updateNotifications() {
+        checkLabel.setVisible(false);
+        if (coreGame.getCurrentBoard().getCheckFlag(true)) {
+            checkLabel.setVisible(true);
+            checkLabel.setText("Black is in check");
+        }
+        if (coreGame.getCurrentBoard().getCheckFlag(false)) {
+            checkLabel.setVisible(true);
+            checkLabel.setText("White is in check");
         }
     }
 
