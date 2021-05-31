@@ -63,6 +63,7 @@ public class Menu {
 
             Stage stage = new Stage();
             stage.setTitle("Schachspiel");
+            stage.setY(20);
             stage.setScene(new Scene(root));
             stage.show();
 

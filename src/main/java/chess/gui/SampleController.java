@@ -218,6 +218,18 @@ public class SampleController {
             checkLabel.setVisible(true);
             checkLabel.setText("White is in check");
         }
+        if (coreGame.getCurrentBoard().getCheckMateFlag(true)) {
+            checkLabel.setVisible(true);
+            checkLabel.setText("Player black is checkmate!");
+        }
+        if (coreGame.getCurrentBoard().getCheckMateFlag(false)) {
+            checkLabel.setVisible(true);
+            checkLabel.setText("Player white is checkmate!");
+        }
+        if (coreGame.getCurrentBoard().getStaleMateFlag()) {
+            checkLabel.setVisible(true);
+            checkLabel.setText("Game ends because stalemate!");
+        }
     }
 
     private void drawBoard() {

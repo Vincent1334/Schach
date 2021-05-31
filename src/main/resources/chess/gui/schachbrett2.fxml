@@ -128,7 +128,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </ButtonBar>
-            <Label fx:id="checkLabel" alignment="CENTER" prefHeight="38.0" prefWidth="198.0" text="check" textFill="#cc0000" visible="false">
+            <Label fx:id="checkLabel" prefHeight="38.0" prefWidth="242.0" text="check" textFill="#cc0000" visible="false">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
