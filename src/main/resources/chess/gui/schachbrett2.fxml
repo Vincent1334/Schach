@@ -129,29 +129,29 @@
                <items>
                   <VBox alignment="CENTER" fillWidth="false" maxHeight="795.0" minHeight="375.0" prefHeight="685.0" prefWidth="540.0" SplitPane.resizableWithParent="false">
                     <children>
-                        <GridPane id="figuresBlack" fx:id="gridPane" alignment="TOP_CENTER" gridLinesVisible="true" prefHeight="718.0" prefWidth="540.0">
+                        <GridPane id="figuresBlack" fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" prefHeight="718.0" prefWidth="540.0">
                            <columnConstraints>
                               <ColumnConstraints minWidth="30.0" prefWidth="30.0" />
-                              <ColumnConstraints minWidth="60.0" prefWidth="60.0" />
-                              <ColumnConstraints minWidth="60.0" prefWidth="60.0" />
-                              <ColumnConstraints minWidth="60.0" prefWidth="60.0" />
-                              <ColumnConstraints minWidth="60.0" prefWidth="60.0" />
-                              <ColumnConstraints minWidth="60.0" prefWidth="60.0" />
-                              <ColumnConstraints minWidth="60.0" prefWidth="60.0" />
-                              <ColumnConstraints minWidth="60.0" prefWidth="60.0" />
-                              <ColumnConstraints minWidth="60.0" prefWidth="60.0" />
+                              <ColumnConstraints halignment="CENTER" minWidth="60.0" prefWidth="60.0" />
+                              <ColumnConstraints halignment="CENTER" minWidth="60.0" prefWidth="60.0" />
+                              <ColumnConstraints halignment="CENTER" minWidth="60.0" prefWidth="60.0" />
+                              <ColumnConstraints halignment="CENTER" minWidth="60.0" prefWidth="60.0" />
+                              <ColumnConstraints halignment="CENTER" minWidth="60.0" prefWidth="60.0" />
+                              <ColumnConstraints halignment="CENTER" minWidth="60.0" prefWidth="60.0" />
+                              <ColumnConstraints halignment="CENTER" minWidth="60.0" prefWidth="60.0" />
+                              <ColumnConstraints halignment="CENTER" minWidth="60.0" prefWidth="60.0" />
                               <ColumnConstraints minWidth="30.0" prefWidth="30.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="30.0" prefHeight="30.0" />
-                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="30.0" prefHeight="30.0" />
                            </rowConstraints>
                            <children>
@@ -824,7 +824,7 @@
                                     </Label>
                                  </children>
                               </VBox>
-                              <HBox fx:id="columnsBottom" prefWidth="781.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                              <HBox fx:id="columnsBottom" prefWidth="781.0" GridPane.columnIndex="1" GridPane.columnSpan="8" GridPane.rowIndex="9">
                                  <children>
                                     <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="A" textFill="WHITE" textOverrun="CLIP">
                                        <font>

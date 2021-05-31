@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -204,8 +206,10 @@ public class SampleController {
                 gridPane.getChildren().remove(getImageViewByIndex(x + 1, 8 - y));
                 if (getImageBySymbol(coreGame.getCurrentBoard().getFigure(x, y).getSymbol()) != null) {
                     ImageView iv = new ImageView(getImageBySymbol(coreGame.getCurrentBoard().getFigure(x, y).getSymbol()));
-                    iv.setFitHeight(55.0);
-                    iv.setFitWidth(25.0);
+                    iv.setFitHeight(50.0);
+                    iv.setFitWidth(27);
+                    iv.setMouseTransparent(true);
+                    iv.setEffect(new Reflection(0.0,0.12,0.24,0.0));
                     gridPane.add(iv, x + 1, 8 - y);
                 }
             }
@@ -259,8 +263,8 @@ public class SampleController {
 
         if (beatenFigures.size() != this.beatenFigureList.size() && beatenFigures.size() > 0) {
             ImageView iv = new ImageView(getImageBySymbol(beatenFigures.get(beatenFigures.size() - 1).getSymbol()));
-            iv.setFitHeight(55.0);
-            iv.setFitWidth(25.0);
+            iv.setFitHeight(50.0);
+            iv.setFitWidth(27);
             iv.setRotate(0);
             if (!blacksTurn) {
                 GridPane.setColumnIndex(iv, indexBeatenFiguresBlack);
