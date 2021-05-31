@@ -6,7 +6,6 @@ import chess.ki.Computer;
 import chess.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -27,6 +26,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -46,6 +47,7 @@ public class SampleController {
     private boolean even = true;
     private int gameMode = 0;
     private List<Figure> beatenFigureList;
+    private boolean playerColorBlack = false;
 
     @FXML
     private Label player;
@@ -73,34 +75,33 @@ public class SampleController {
     private ChoiceBox conversion;
 
 
+    public void init(int gameMode, boolean playerColorBlack) {
+        this.playerColorBlack = playerColorBlack;
+        this.gameMode = gameMode;
 
-    public void init(int gameMode) {
         coreGame = new CoreGame();
         computer = new Computer(true);
         beatenFigureList = new ArrayList<>();
-//        Rules.addObserver(this);
-        this.gameMode = gameMode;
+
         conversion.getItems().addAll("Dame", "Läufer", "Turm", "Springer");
         conversion.getSelectionModel().select("Dame");
+
+        /*if (gameMode == 2 && this.playerColorBlack) {
+            Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
+            coreGame.chessMove(computerMove);
+            updateScene(computerMove);
+        }*/
     }
-
-    /*public SampleController(int gameMode) {
-        coreGame = new CoreGame();
-        computer = new Computer(true);
-        Rules.addObserver(this);
-        this.gameMode = gameMode;
-    }*/
-
 
     //--------------------------------------Field----------------------------------------------------------------------------------------------
     public void handleFieldClick(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
 
-            Rectangle targetField = (Rectangle) mouseEvent.getTarget();
+            Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
 
             // erstes Feld angeklickt: markiere Feld
             if (startField == null) {
-                startField = targetField;
+                startField = clickedField;
                 ImageView selectedFigure = (ImageView) getImageViewByIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
                 markField(startField, CYAN);
 
@@ -124,15 +125,16 @@ public class SampleController {
                     }
                     // führe Zug aus (wenn möglich) und update Scene
                     Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
-                    Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
+                    Position targetPosition = new Position(GridPane.getColumnIndex(clickedField) - 1, 8 - GridPane.getRowIndex(clickedField));
                     Move move = new Move(startPosition, targetPosition, getConversionFigure());
                     if (coreGame.chessMove(move)) {
-                        updateScene(targetField, move);
+                        updateScene(move);
                     }
-                    //Check Computer play
+                    // wenn Spiel gegen den Computer
                     if (gameMode == 2) {
-                        coreGame.chessMove(computer.makeMove(coreGame.getCurrentBoard()));
-                        updateScene(targetField, move);
+                        Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
+                        coreGame.chessMove(computerMove);
+                        updateScene(computerMove);
                     }
                 }
                 // eigene Figur ist ausgewählt und MehrfachAuswahl ist nicht erlaubt: demarkiere nicht und schalte kein neues Feld frei
@@ -189,7 +191,7 @@ public class SampleController {
     }
 
     //----------------------------------Update----------------------------------------------------------------------------------------------
-    public void updateScene(Rectangle targetField, Move move) {
+    public void updateScene(Move move) {
         drawBoard();
         updateHistory(move);
         updateBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
@@ -209,7 +211,7 @@ public class SampleController {
                     iv.setFitHeight(50.0);
                     iv.setFitWidth(27);
                     iv.setMouseTransparent(true);
-                    iv.setEffect(new Reflection(0.0,0.12,0.24,0.0));
+                    iv.setEffect(new Reflection(0.0, 0.12, 0.24, 0.0));
                     gridPane.add(iv, x + 1, 8 - y);
                 }
             }

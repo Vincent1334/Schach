@@ -15,6 +15,7 @@ import java.io.IOException;
 public class Menu {
 
     private int gameMode = 1;
+    private boolean playerColorBlack;
 
     @FXML
     void quitGame(MouseEvent event) {
@@ -58,7 +59,7 @@ public class Menu {
             Parent root = fxmlLoader.load();
 
             SampleController controller = fxmlLoader.getController();
-            controller.init(gameMode);
+            controller.init(gameMode, playerColorBlack);
 
             Stage stage = new Stage();
             stage.setTitle("Schachspiel");
@@ -87,7 +88,11 @@ public class Menu {
         gameMode = 3;
     }
 
-    /*public void setControllerInterface(MainFrame backendInterface) {
-        this.backendInterface = backendInterface;
-    }*/
+    public void setBlack(MouseEvent mouseEvent) {
+        playerColorBlack = true;
+    }
+
+    public void setWhite(MouseEvent mouseEvent) {
+        playerColorBlack = false;
+    }
 }

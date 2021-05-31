@@ -21,7 +21,14 @@
             <ToggleGroup fx:id="menu" />
          </toggleGroup></RadioButton>
       <RadioButton fx:id="mode02" layoutX="29.0" layoutY="169.0" mnemonicParsing="false" onMouseClicked="#setMode02" text="Start a local game against the computer" toggleGroup="$menu" />
-      <RadioButton fx:id="mode03" layoutX="29.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#setMode03" text="Start a network game against a friend" toggleGroup="$menu" />
+      <Label layoutX="57.0" layoutY="197.0" text="Farbe:" />
+      <RadioButton fx:id="modeBlack" layoutX="165.0" layoutY="197.0" mnemonicParsing="false" onMouseClicked="#setBlack" text="black">
+         <toggleGroup>
+            <ToggleGroup fx:id="menu1" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="modeWhite" layoutX="104.0" layoutY="197.0" mnemonicParsing="false" onMouseClicked="#setMode02" selected="true" text="white" toggleGroup="$menu1" />
+      <RadioButton fx:id="mode03" layoutX="29.0" layoutY="231.0" mnemonicParsing="false" onMouseClicked="#setMode03" text="Start a network game against a friend" toggleGroup="$menu" />
       <Button fx:id="startButton" layoutX="389.0" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="25.0" prefWidth="89.0" text="Start" />
       <Button layoutX="291.0" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#quitGame" prefHeight="25.0" prefWidth="89.0" text="Quit" />
       <ImageView fitHeight="118.0" fitWidth="118.0" layoutX="360.0" layoutY="29.0">
