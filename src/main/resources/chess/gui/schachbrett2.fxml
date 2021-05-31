@@ -112,7 +112,7 @@
                         </CheckBox>
                      </children>
                   </VBox>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" snapToPixel="false" text="Spiel starten" textAlignment="CENTER">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#backToMenu" prefHeight="70.0" prefWidth="200.0" snapToPixel="false" text="zurück zum Menü" textAlignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
