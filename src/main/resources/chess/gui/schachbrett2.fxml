@@ -37,6 +37,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -62,18 +63,36 @@
    <content>
       <VBox prefHeight="815.0" prefWidth="723.0">
          <children>
-            <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="81.0" prefWidth="626.0">
+            <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="81.0" prefWidth="707.0">
                <buttons>
-                  <Label fx:id="player" minWidth="58.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" text="weiß" textFill="#5e5e5e">
-                     <font>
-                        <Font name="Calibri Light" size="32.0" />
-                     </font>
-                  </Label>
-                  <Text fill="#434242" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="Spieler:">
-                     <font>
-                        <Font name="Corbel Light" size="36.0" />
-                     </font>
-                  </Text>
+                  <VBox minWidth="0.0" prefHeight="81.0" prefWidth="1005.0">
+                     <children>
+                        <HBox nodeOrientation="LEFT_TO_RIGHT">
+                           <children>
+                              <Text fill="#434242" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="Spieler:  " wrappingWidth="122.2734375">
+                                 <font>
+                                    <Font name="Corbel Light" size="36.0" />
+                                 </font>
+                              </Text>
+                              <Label fx:id="player" alignment="TOP_LEFT" contentDisplay="CENTER" minWidth="58.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="19.0" prefWidth="105.0" text="weiß" textAlignment="RIGHT" textFill="#5e5e5e">
+                                 <font>
+                                    <Font name="Calibri Light" size="32.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="295.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="87.0" text="Umwandlung:" textAlignment="CENTER" textFill="#4a4a4a">
+                                 <font>
+                                    <Font name="Calibri" size="12.0" />
+                                 </font>
+                              </Label>
+                              <ChoiceBox fx:id="conversion" prefHeight="25.0" prefWidth="149.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                   <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="81.0">
                      <children>
                         <CheckBox fx:id="singleSelect" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Berührt - Geführt">

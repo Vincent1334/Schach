@@ -33,7 +33,11 @@ public class Menu {
         backendInterface.setGameMode(gameMode);
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
+
+            //SampleController controller = new SampleController(gameMode);
+            //fxmlLoader.setController(controller);
+
+            Parent root = fxmlLoader.load();
 
             Stage stage = new Stage();
             stage.setTitle("Schach");

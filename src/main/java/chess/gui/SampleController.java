@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -60,6 +61,8 @@ public class SampleController implements Observer {
     private CheckBox possibleFieldsButton;
     @FXML
     private CheckBox singleSelect;
+    @FXML
+    private ChoiceBox conversion;
     private int gameMode = 0;
 
 
@@ -68,6 +71,8 @@ public class SampleController implements Observer {
 //        computer = new Computer(true);
         Rules.addObserver(this);
         this.gameMode = gameMode;
+        conversion.getItems().addAll("Dame","Läufer","Turm","Springer");
+        conversion.getSelectionModel().select("Dame");
     }
 
     /*public SampleController(int gameMode) {
@@ -111,7 +116,7 @@ public class SampleController implements Observer {
                     // führe Zug aus (wenn möglich) und update Scene
                     Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
                     Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
-                    Move move = new Move(startPosition, targetPosition);
+                    Move move = new Move(startPosition, targetPosition,getConversionFigure());
                     if (coreGame.chessMove(move)) {
                         updateScene(targetField, move);
                     }
@@ -306,5 +311,23 @@ public class SampleController implements Observer {
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KingBlack").getUrl()) ||
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("QueenBlack").getUrl()) ||
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("PawnBlack").getUrl());
+    }
+
+//--------------getter/setter---------------------------------------------------------------------------------------------------------------
+    private int getConversionFigure(){
+        String item = (String) conversion.getSelectionModel().getSelectedItem();
+        if(item.equals("Dame")){
+            return  5;
+        }
+        if(item.equals("Läufer")){
+            return  4;
+        }
+        if(item.equals("Turm")){
+            return  2;
+        }
+        if(item.equals("Springer")){
+            return  3;
+        }
+       return 5;
     }
 }
