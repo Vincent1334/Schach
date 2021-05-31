@@ -129,12 +129,12 @@ public class SampleController {
                     Move move = new Move(startPosition, targetPosition, getConversionFigure());
                     if (coreGame.chessMove(move)) {
                         updateScene(move);
-                    }
-                    // wenn Spiel gegen den Computer
-                    if (gameMode == 2) {
-                        Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
-                        coreGame.chessMove(computerMove);
-                        updateScene(computerMove);
+                        // wenn Spiel gegen den Computer
+                        if (gameMode == 2) {
+                            Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
+                            coreGame.chessMove(computerMove);
+                            updateScene(computerMove);
+                        }
                     }
                 }
                 // eigene Figur ist ausgewählt und MehrfachAuswahl ist nicht erlaubt: demarkiere nicht und schalte kein neues Feld frei
