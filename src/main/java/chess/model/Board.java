@@ -323,34 +323,67 @@ public class Board {
         return result;
     }
 
+    /**
+     * sets a flag when castling is true
+     * @param castling, isBlack
+     */
     public void setCastlingFlag(boolean castling, boolean isBlack){
         this.castling[isBlack ? 1 : 0] = castling;
     }
 
+    /**
+     * getter for the castling flag
+     * @param isBlack
+     * @return flag
+     */
     public boolean getCastlingFlag(boolean isBlack){
         return castling[isBlack ? 1 : 0];
     }
 
+    /**
+     * sets a flag when checkMate is true
+     * @param checkMate, isBlack
+     */
     public void setCheckMateFlag(boolean checkMate, boolean isBlack){
         this.checkMate[isBlack ? 1 : 0] = checkMate;
     }
-
+    /**
+     * getter for the checkMate flag flag
+     * @param isBlack
+     * @return flag
+     */
     public boolean getCheckMateFlag(boolean isBlack){
         return checkMate[isBlack ? 1 : 0];
     }
-
+    /**
+     * sets a flag when staleMate is true
+     * @param staleMate
+     */
     public void setStaleMateFlag(boolean staleMate){
             this.staleMate = staleMate;
     }
 
+    /**
+     * getter for the staleMate flag
+     * @return flag
+     */
     public boolean getStaleMateFlag(){
         return staleMate;
     }
-    
+
+    /**
+     * sets a flag when check is true
+     * @param check, isBlack
+     */
     public void setCheckFlag(boolean check, boolean isBlack){
         this.check[isBlack ? 1 : 0] = check;
     }
-    
+
+    /**
+     * getter for the check flag
+     * @param isBlack
+     * @return flag
+     */
     public boolean getCheckFlag(boolean isBlack){
         return check[isBlack ? 1 : 0];
     }

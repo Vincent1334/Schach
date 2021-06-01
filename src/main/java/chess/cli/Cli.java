@@ -88,7 +88,8 @@ public class Cli {
             // Check syntax and make move
             if (validSyntax(input)) {
                 if(!coreGame.chessMove(parse(input))) continue;
-            }else continue;
+            }else { continue; }
+
             // Check computer move
             if(gameMode == 2){
                 coreGame.chessMove(computer.makeMove(coreGame.getCurrentBoard()));

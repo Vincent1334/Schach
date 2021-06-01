@@ -8,6 +8,14 @@ import chess.model.Rules;
 
 import java.util.ArrayList;
 
+/**
+ * This class contains the information about the processes when the computer does a chess move.
+ * It will determine the best move with alpha beta pruning and return the move
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-06-01
+ */
+
 public class Computer {
 
     private boolean playerMax, playerMin;
@@ -18,6 +26,10 @@ public class Computer {
 
     private int[] mobility = new int[2];
 
+    /**
+     *the construcot of the computer
+     * @param isBlack
+     */
     public Computer(boolean isBlack) {
         this.playerMax = isBlack;
         this.playerMin = !isBlack;
@@ -27,6 +39,12 @@ public class Computer {
 
     }
 
+    /**
+     * calls the alpha beta pruning to determine the best move and executes it
+     * saves the move in lastMove
+     * @param board
+     * @return best move for the computer
+     */
     public Move makeMove(Board board) {
 
         this.board = new Board(board);
@@ -41,6 +59,11 @@ public class Computer {
     <---Alpha-Beta-Pruning--------------------------------------------------------------------------------------------->
      */
 
+    /**
+     * calculates the max values of the search tree
+     * @param depth, alpha, beta, parentCutOff
+     * @return maxValue
+     */
     private float max(int depth, float alpha, float beta, ArrayList<Move> parentCutOff){
 
         if(depth == 0) return heuristic(board, playerMax);
@@ -73,6 +96,11 @@ public class Computer {
         return maxValue;
     }
 
+    /**
+     * calculates the min values of the search tree
+     * @param depth, alpha, beta, parentCutOff
+     * @return minValue
+     */
     private float min(int depth, float alpha, float beta, ArrayList<Move> parentCutOff){
 
         if(depth == 0) return heuristic(board, playerMin);
@@ -105,6 +133,11 @@ public class Computer {
     <---Heuristic------------------------------------------------------------------------------------------------------>
      */
 
+    /**
+     * determines the value of the move
+     * @param board, isBlack
+     * @return the value of the searched move
+     */
     private float heuristic(Board board, boolean isBlack) {
 
         //check Material
@@ -139,7 +172,7 @@ public class Computer {
                 //mobility
                 + 0.01f*(mobility[isBlack ? 1 : 0] - mobility[!isBlack ? 1 : 0])
                 //repeat
-                - 2*((bestMove.getActualPosition() == lastMove.getTargetPosition() && bestMove.getTargetPosition() == lastMove.getActualPosition()) ? 1 : 0)
+                - 0.5f*((bestMove.getActualPosition() == lastMove.getTargetPosition() && bestMove.getTargetPosition() == lastMove.getActualPosition()) ? 1 : 0)
                 //castling
                 + 10*((board.getCastlingFlag(isBlack) ? 1 : 0) - (board.getCastlingFlag(!isBlack) ? 1 : 0))
                 //check Chess and StaleMate
@@ -151,6 +184,10 @@ public class Computer {
     /*
     <---Change-depth--------------------------------------------------------------------------------------------------->
     */
+
+    /**
+     * increases the search depth
+     */
     private void changeDepth(){
         if(board.getBeatenFigures().size() % 10 == 0 && board.getBeatenFigures().size() != 0){
             targetDepth = targetDepth + targetDepth / 2;
@@ -161,6 +198,10 @@ public class Computer {
     <---Move-Sort------------------------------------------------------------------------------------------------------>
      */
 
+    /**
+     * pre-sorts the moves
+     * @param moves, cutOff, isBlack
+     */
     private void sortMove(ArrayList<Move> moves, ArrayList<Move> cutOff, boolean isBlack){
         for(int i = 0; i < cutOff.size(); i++){
             if(moves.contains(cutOff.get(i))){
