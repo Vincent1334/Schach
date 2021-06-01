@@ -33,7 +33,7 @@
       <Button layoutX="291.0" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#quitGame" prefHeight="25.0" prefWidth="89.0" text="Quit" />
       <ImageView fitHeight="118.0" fitWidth="118.0" layoutX="360.0" layoutY="29.0">
          <image>
-            <Image url="@knight.png" />
+            <Image url="@menu.png" />
          </image>
       </ImageView>
    </children>
