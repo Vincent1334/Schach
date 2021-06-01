@@ -15,6 +15,7 @@ public class Gui extends Application {
 
         primaryStage.setTitle("chess menu");
 
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.show();

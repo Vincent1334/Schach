@@ -18,6 +18,7 @@ public class Menu {
 
     @FXML
     void quitGame() {
+
         System.exit(0);
     }
 
@@ -45,25 +46,25 @@ public class Menu {
     }
 
     @FXML
-    private void setMode01(MouseEvent event) {
+    private void setMode01() {
         gameMode = 1;
     }
 
     @FXML
-    private void setMode02(MouseEvent event) {
+    private void setMode02() {
         gameMode = 2;
     }
 
     @FXML
-    private void setMode03(MouseEvent event) {
+    private void setMode03() {
         gameMode = 3;
     }
 
-    public void setBlack(MouseEvent mouseEvent) {
+    public void setBlack() {
         playerColorBlack = true;
     }
 
-    public void setWhite(MouseEvent mouseEvent) {
+    public void setWhite() {
         playerColorBlack = false;
     }
 }
