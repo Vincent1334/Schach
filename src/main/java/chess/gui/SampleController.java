@@ -85,8 +85,8 @@ public class SampleController {
         computer = new Computer(!playerColorBlack);
         beatenFigureList = new ArrayList<>();
 
-        conversion.getItems().addAll("Dame", "Läufer", "Turm", "Springer");
-        conversion.getSelectionModel().select("Dame");
+        conversion.getItems().addAll("Queen", "Bishop", "Rook", "Knight");
+        conversion.getSelectionModel().select("Queen");
 
         if (gameMode == 2) {
             rotateBoard.setDisable(true);
@@ -380,9 +380,9 @@ public class SampleController {
      */
     private void updatePlayer(boolean black) {
         if (black) {
-            player.setText("schwarz");
+            player.setText("black");
         } else {
-            player.setText("weiß");
+            player.setText("white");
         }
     }
 
@@ -491,16 +491,16 @@ public class SampleController {
      */
     private int getConversionFigure() {
         String item = (String) conversion.getSelectionModel().getSelectedItem();
-        if (item.equals("Dame")) {
+        if (item.equals("Queen")) {
             return 5;
         }
-        if (item.equals("Läufer")) {
+        if (item.equals("Bishop")) {
             return 4;
         }
-        if (item.equals("Turm")) {
+        if (item.equals("Rook")) {
             return 2;
         }
-        if (item.equals("Springer")) {
+        if (item.equals("Knight")) {
             return 3;
         }
         return 5;
