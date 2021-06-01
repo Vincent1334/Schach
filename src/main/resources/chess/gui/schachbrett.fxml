@@ -233,42 +233,6 @@
                               <Rectangle id="fieldWhite" fill="WHITE" height="60.0" layoutX="61.0" layoutY="60.0" onMouseClicked="#handleFieldClick" stroke="#7c7c7c" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                               <Rectangle id="fieldWhite" fill="WHITE" height="60.0" layoutX="261.0" layoutY="60.0" onMouseClicked="#handleFieldClick" stroke="#7c7c7c" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                               <Rectangle id="fieldWhite" fill="WHITE" height="60.0" layoutX="461.0" layoutY="60.0" onMouseClicked="#handleFieldClick" stroke="#7c7c7c" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-                              <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0">
-                                 <effect>
-                                    <Lighting bumpInput="$null" diffuseConstant="0.77" specularConstant="2.0" specularExponent="40.0" surfaceScale="4.41">
-                                       <light>
-                                          <Light.Distant />
-                                       </light>
-                                    </Lighting>
-                                 </effect>
-                              </Rectangle>
-                              <Rectangle id="frame" fill="#515151" height="30.0" layoutX="11.0" layoutY="10.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.rowIndex="9">
-                                 <effect>
-                                    <Lighting bumpInput="$null" diffuseConstant="0.77" specularConstant="2.0" specularExponent="40.0" surfaceScale="4.41">
-                                       <light>
-                                          <Light.Distant />
-                                       </light>
-                                    </Lighting>
-                                 </effect>
-                              </Rectangle>
-                              <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="9" GridPane.rowIndex="9">
-                                 <effect>
-                                    <Lighting bumpInput="$null" diffuseConstant="0.77" specularConstant="2.0" specularExponent="40.0" surfaceScale="4.41">
-                                       <light>
-                                          <Light.Distant />
-                                       </light>
-                                    </Lighting>
-                                 </effect>
-                              </Rectangle>
-                              <Rectangle id="frame" fill="#515151" height="30.0" layoutX="11.0" layoutY="10.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="9">
-                                 <effect>
-                                    <Lighting bumpInput="$null" diffuseConstant="0.77" specularConstant="2.0" specularExponent="40.0" surfaceScale="4.41">
-                                       <light>
-                                          <Light.Distant />
-                                       </light>
-                                    </Lighting>
-                                 </effect>
-                              </Rectangle>
                               <ImageView id="figuresBlack" fitHeight="50.0" mouseTransparent="true" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <image>
                                     <Image url="@RookBlack.png" />

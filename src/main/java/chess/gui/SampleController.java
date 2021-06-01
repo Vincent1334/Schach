@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Effect;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,8 +25,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -85,17 +82,20 @@ public class SampleController {
         this.gameMode = gameMode;
 
         coreGame = new CoreGame();
-        computer = new Computer(true);
+        computer = new Computer(!playerColorBlack);
         beatenFigureList = new ArrayList<>();
 
         conversion.getItems().addAll("Dame", "Läufer", "Turm", "Springer");
         conversion.getSelectionModel().select("Dame");
 
-        /*if (gameMode == 2 && this.playerColorBlack) {
-            Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
-            coreGame.chessMove(computerMove);
-            updateScene(computerMove);
-        }*/
+        if (gameMode == 2) {
+            turnBoard.setDisable(true);
+            if (playerColorBlack) {
+                Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
+                coreGame.chessMove(computerMove);
+                updateScene(computerMove);
+            }
+        }
     }
 
     //--------------------------------------Field----------------------------------------------------------------------------------------------

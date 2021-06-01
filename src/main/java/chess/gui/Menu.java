@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -18,44 +17,15 @@ public class Menu {
     private boolean playerColorBlack;
 
     @FXML
-    void quitGame(MouseEvent event) {
+    void quitGame() {
         System.exit(0);
     }
 
-    /*@FXML
-    void startGame(MouseEvent event) {
-        //unlock Mainframe
-        backendInterface.getMainpanel().setDisable(false);
-        backendInterface.resetCoreGame();
-        backendInterface.setGameStart(true);
-        backendInterface.renderBoard();
-
-        //setGameMode
-        backendInterface.setGameMode(gameMode);
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));
-
-            //SampleController controller = new SampleController(gameMode);
-            //fxmlLoader.setController(controller);
-
-            Parent root = fxmlLoader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Schach");
-
-            stage.setScene(new Scene(root));
-            stage.show();
-
-        //Close window
-        Stage stage = (Stage) startButton.getScene().getWindow();
-        stage.close();
-
-    }*/
 
     @FXML
     private void startGame(MouseEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett2.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
             Parent root = fxmlLoader.load();
 
             SampleController controller = fxmlLoader.getController();
