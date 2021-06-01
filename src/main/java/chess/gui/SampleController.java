@@ -85,17 +85,20 @@ public class SampleController {
         this.gameMode = gameMode;
 
         coreGame = new CoreGame();
-        computer = new Computer(true);
+        computer = new Computer(!playerColorBlack);
         beatenFigureList = new ArrayList<>();
 
         conversion.getItems().addAll("Dame", "Läufer", "Turm", "Springer");
         conversion.getSelectionModel().select("Dame");
 
-        /*if (gameMode == 2 && this.playerColorBlack) {
-            Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
-            coreGame.chessMove(computerMove);
-            updateScene(computerMove);
-        }*/
+        if (gameMode == 2) {
+            turnBoard.setDisable(true);
+            if (playerColorBlack) {
+                Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
+                coreGame.chessMove(computerMove);
+                updateScene(computerMove);
+            }
+        }
     }
 
     //--------------------------------------Field----------------------------------------------------------------------------------------------
