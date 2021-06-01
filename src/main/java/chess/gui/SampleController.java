@@ -44,10 +44,11 @@ public class SampleController {
     private int indexBeatenFiguresBlack = 1;
     private int indexBeatenFiguresWhite = 1;
     private int indexHistory = 0;
-    private boolean even = true;
     private int gameMode = 0;
     private List<Figure> beatenFigureList;
     private boolean playerColorBlack = false;
+    private boolean firstTurn = true;
+    private boolean blackDown = false;
 
     @FXML
     private Label player;
@@ -201,11 +202,24 @@ public class SampleController {
         updateBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
         updateNotifications();
 
-        blacksTurn = !blacksTurn;
-        updatePlayer(blacksTurn);
+
         if (turnBoard.isSelected()) {
             turnBoard();
+            if(firstTurn){
+                firstTurn = false;
+            }
+        }else{
+            if(!firstTurn){
+                firstTurn = true;
+                blackDown = blacksTurn;
+            }
+            if(blackDown){
+                turnFigures(180);
+            }
         }
+
+        blacksTurn = !blacksTurn;
+        updatePlayer(blacksTurn);
     }
 
     private void updateNotifications() {
@@ -238,8 +252,8 @@ public class SampleController {
                 gridPane.getChildren().remove(getImageViewByIndex(x + 1, 8 - y));
                 if (getImageBySymbol(coreGame.getCurrentBoard().getFigure(x, y).getSymbol()) != null) {
                     ImageView iv = new ImageView(getImageBySymbol(coreGame.getCurrentBoard().getFigure(x, y).getSymbol()));
+                    iv.preserveRatioProperty().setValue(true);
                     iv.setFitHeight(50.0);
-                    iv.setFitWidth(27);
                     iv.setMouseTransparent(true);
                     iv.setEffect(new Reflection(0.0, 0.12, 0.24, 0.0));
                     gridPane.add(iv, x + 1, 8 - y);
@@ -249,18 +263,34 @@ public class SampleController {
     }
 
 
+
     private void turnBoard() {
-        gridPane.setRotate(even ? 180 : 0);
-        columnsTop.setRotate(even ? 180 : 0);
-        columnsBottom.setRotate(even ? 180 : 0);
-        rowsLeft.setRotate(even ? 180 : 0);
-        rowsRight.setRotate(even ? 180 : 0);
+        int angle;
+        if(blacksTurn){
+            angle = 0;
+        }else{
+            angle = 180;
+        }
+        if(gridPane.getRotate() != angle){
+            swapLabeling();
+        }
+        gridPane.setRotate(angle);
+        columnsTop.setRotate(angle);
+        columnsBottom.setRotate(angle);
+        rowsLeft.setRotate(angle);
+        rowsRight.setRotate(angle);
+        turnFigures(angle);
+
+    }
+
+    private  void turnFigures(int angle){
         ObservableList<Node> children = gridPane.getChildren();
         for (Node node : children) {
-            node.setRotate(even ? 180 : 0);
+            node.setRotate(angle);
         }
-        even = !even;
+    }
 
+    private void swapLabeling(){
         swap(rowsRight.getChildren());
         swap(rowsLeft.getChildren());
         swap(columnsBottom.getChildren());
@@ -295,8 +325,8 @@ public class SampleController {
 
         if (beatenFigures.size() != this.beatenFigureList.size() && beatenFigures.size() > 0) {
             ImageView iv = new ImageView(getImageBySymbol(beatenFigures.get(beatenFigures.size() - 1).getSymbol()));
+            iv.preserveRatioProperty().setValue(true);
             iv.setFitHeight(50.0);
-            iv.setFitWidth(27);
             iv.setRotate(0);
             if (!blacksTurn) {
                 GridPane.setColumnIndex(iv, indexBeatenFiguresBlack);
