@@ -144,6 +144,11 @@ public class CoreGame {
         }
     }
 
+    /**
+     *getter for the current player
+     *
+     * @return the current active player
+     */
     public boolean getCurrentPlayer(){
         return activePlayer;
     }
