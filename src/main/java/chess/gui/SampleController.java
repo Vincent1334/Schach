@@ -28,6 +28,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.*;
 
 import static javafx.scene.paint.Color.*;
@@ -37,6 +38,7 @@ public class SampleController {
     private static CoreGame coreGame;
     private Computer computer;
     private Rectangle startField;
+    private Rectangle targetField;
     private boolean blacksTurn = false;
     private int indexBeatenFiguresBlack = 1;
     private int indexBeatenFiguresWhite = 1;
@@ -99,64 +101,99 @@ public class SampleController {
     }
 
     //--------------------------------------Field----------------------------------------------------------------------------------------------
+
+    /**
+     * performs a move if first the start position is clicked and second the target position and if the move is allowed
+     * @param mouseEvent the clicked field
+     */
     public void handleFieldClick(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
-
             Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
-
-            // erstes Feld angeklickt: markiere Feld
-            if (startField == null) {
+            if (startField == null && getFigure(clickedField)!= null && imageIsBlack(getFigure(clickedField)) == blacksTurn) {
                 startField = clickedField;
-                ImageView selectedFigure = (ImageView) getImageViewByIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
-                markField(startField, CYAN);
-
-                // auf dem Feld steht eine eigene Figur und AnzeigeMöglicherFelder ist eingeschaltet: markiere mögliche Felder
-                if (selectedFigure != null && imageIsBlack(selectedFigure) == blacksTurn && possibleFieldsButton.isSelected()) {
-                    for (Rectangle field : getPossibleFields(startField)) {
-                        markField(field, BLUEVIOLET);
-                    }
-                }
+                mark(startField);
             }
-
-            // zweites Feld angeklickt
-            else {
-                ImageView selectedFigure = (ImageView) getImageViewByIndex(GridPane.getColumnIndex(startField), GridPane.getRowIndex(startField));
-                // auf dem ersten Feld stand eine eigene Figur
-                if (selectedFigure != null && imageIsBlack(selectedFigure) == blacksTurn) {
-
-                    // demarkiere mögliche Felder (muss vor dem Ausführen des Zuges aufgerufen werden)
-                    for (Rectangle field : getPossibleFields(startField)) {
-                        unmarkField(field);
-                    }
-                    // führe Zug aus (wenn möglich) und update Scene
-                    Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
-                    Position targetPosition = new Position(GridPane.getColumnIndex(clickedField) - 1, 8 - GridPane.getRowIndex(clickedField));
-                    Move move = new Move(startPosition, targetPosition, getConversionFigure());
-                    if (coreGame.chessMove(move)) {
-                        updateScene(move);
-                        // wenn Spiel gegen den Computer
-                        if (gameMode == 2) {
-                            Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
-                            coreGame.chessMove(computerMove);
-                            updateScene(computerMove);
-                        }
-                    }
-                }
-                // eigene Figur ist ausgewählt und MehrfachAuswahl ist nicht erlaubt: demarkiere nicht und schalte kein neues Feld frei
-                if (!(selectedFigure != null && imageIsBlack(selectedFigure) == blacksTurn && singleSelect.isSelected())) {
+            else if(startField != null && getFigure(startField) != null ){
+                    targetField = clickedField;
+                    unmarkPossibleFields(startField);
                     unmarkField(startField);
-                    startField = null;
-                }
-                // aktuelles Feld ist noch vorhanden (und markiert) und AnzeigeMöglicherFelder ist eingeschaltet: markiere mögliche Felder
-                if (startField != null && possibleFieldsButton.isSelected()) {
-                    for (Rectangle field : getPossibleFields(startField)) {
-                        markField(field, BLUEVIOLET);
+                    if(performMove(getMove(startField,targetField))){
+                        startField = null;
+                    }else if(singleSelect.isSelected() && !getPossibleFields(startField).isEmpty()){
+                        mark(startField);
+                    }else{
+                        startField = null;
                     }
-                }
             }
         }
     }
 
+    /**
+     * unmarks the possible target fields of the Figure
+     * @param field of the Figure
+     */
+    private void unmarkPossibleFields(Rectangle field){
+        for (Rectangle f: getPossibleFields(field)) {
+            unmarkField(f);
+        }
+    }
+
+
+    /**
+     * performs the move if possible and updates scene
+     * @param move the move which should be performed
+     */
+    private boolean performMove(Move move) {
+        if(coreGame.chessMove(move)){
+            updateScene(move);
+            // wenn Spiel gegen den Computer
+            if (gameMode == 2) {
+                Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
+                coreGame.chessMove(computerMove);
+                updateScene(computerMove);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns the move from the startField to the targetField
+     * @return move from the startField to the targetField
+     */
+    private Move getMove(Rectangle startField, Rectangle targetField){
+        Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
+        Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
+        return new Move(startPosition, targetPosition, getConversionFigure());
+    }
+
+    /**
+     * Marks the field and if selected the possible moves of the figure on the field
+     * @param field the field you want to mark
+     */
+    private void mark(Rectangle field){
+        markField(field, CYAN);
+        if (possibleFieldsButton.isSelected()) {
+            for (Rectangle f : getPossibleFields(field)) {
+                markField(f, BLUE);
+            }
+        }
+    }
+
+    /**
+     * returns the figure of the field
+     * @param field of the figure you want to get
+     * @return the figure of the field
+     */
+    private ImageView getFigure(Rectangle field){
+        return (ImageView) getImageViewByIndex(GridPane.getColumnIndex(field), GridPane.getRowIndex(field));
+    }
+
+    /**
+     * returns a array list with all possible fields the figure of the actualField can move
+     * @param actualField the field of the figure you want to know the possible moves
+     * @return a array list with all possible fields the figure of the actualField can move
+     */
     private ArrayList<Rectangle> getPossibleFields(Rectangle actualField) {
 
         Position actualPosition = new Position(GridPane.getColumnIndex(actualField) - 1, 8 - GridPane.getRowIndex(actualField));
@@ -172,16 +209,31 @@ public class SampleController {
         return fields;
     }
 
+    /**
+     * marks a field
+     * @param field the field you want to mark
+     * @param color the color in which you want to mark the field
+     */
     private void markField(Rectangle field, Color color) {
         field.setStroke(color);
         field.setStrokeWidth(3);
         field.setStrokeType(StrokeType.INSIDE);
     }
 
+    /**
+     * unmarks a field
+     * @param field the field you want to unmark
+     */
     private void unmarkField(Rectangle field) {
         field.setStrokeWidth(0);
     }
 
+    /**
+     * returns the field with the rowIndex row and the columnIndex column
+     * @param row rowIndex of the field you want to get
+     * @param column columnIndex of the field you want to get
+     * @return the field with the rowIndex row and the columnIndex column
+     */
     private Node getFieldByRowColumnIndex(int row, int column) {
         Node result = null;
         ObservableList<Node> children = gridPane.getChildren();
@@ -196,6 +248,11 @@ public class SampleController {
     }
 
     //----------------------------------Update----------------------------------------------------------------------------------------------
+
+    /**
+     * updates the scene
+     * @param move ,the move you want to make
+     */
     public void updateScene(Move move) {
         drawBoard();
         updateHistory(move);
@@ -222,6 +279,9 @@ public class SampleController {
         updatePlayer(blacksTurn);
     }
 
+    /**
+     * Sets a label if a player is in check or checkmate or stalemate
+     */
     private void updateNotifications() {
         checkLabel.setVisible(false);
         if (coreGame.getCurrentBoard().getCheckFlag(true)) {
@@ -246,6 +306,9 @@ public class SampleController {
         }
     }
 
+    /**
+     * draws the chessboard
+     */
     private void drawBoard() {
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
@@ -263,7 +326,9 @@ public class SampleController {
     }
 
 
-
+    /**
+     * turns the chessboard that the figures of the actualPlayer are always on the bottom
+     */
     private void turnBoard() {
         int angle;
         if(blacksTurn){
@@ -283,6 +348,10 @@ public class SampleController {
 
     }
 
+    /**
+     * rotates the figures with the angle angle
+     * @param angle the angle around which the figures are rotated
+     */
     private  void turnFigures(int angle){
         ObservableList<Node> children = gridPane.getChildren();
         for (Node node : children) {
@@ -290,6 +359,9 @@ public class SampleController {
         }
     }
 
+    /**
+     * swaps the labeling of the rows and columns
+     */
     private void swapLabeling(){
         swap(rowsRight.getChildren());
         swap(rowsLeft.getChildren());
@@ -297,6 +369,10 @@ public class SampleController {
         swap(columnsTop.getChildren());
     }
 
+    /**
+     * swaps every node of the given list
+     * @param children you want to swap
+     */
     private void swap(ObservableList<Node> children) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(children);
         Collections.swap(workingCollection, 0, 7);
@@ -306,6 +382,10 @@ public class SampleController {
         children.setAll(workingCollection);
     }
 
+    /**
+     * updates the history
+     * @param move the move you want to add to the history
+     */
     public void updateHistory(Move move) {
         Text t = new Text(move.toString());
         history.add(t, 2, indexHistory);
@@ -313,6 +393,10 @@ public class SampleController {
         indexHistory += 1;
     }
 
+    /**
+     * updates the label with the actual player
+     * @param black should be true if the actual player is black
+     */
     private void updatePlayer(boolean black) {
         if (black) {
             player.setText("schwarz");
@@ -321,6 +405,10 @@ public class SampleController {
         }
     }
 
+    /**
+     * updates the beaten figures
+     * @param beatenFigures a list with all beaten figures
+     */
     public void updateBeatenFigures(List<Figure> beatenFigures) {
 
         if (beatenFigures.size() != this.beatenFigureList.size() && beatenFigures.size() > 0) {
@@ -344,6 +432,12 @@ public class SampleController {
 
 //--------------------------------Image----------------------------------------------------------------------------------------------
 
+    /**
+     * returns the ImageView with the columnIndex column and the rowIndex row in the gridPane
+     * @param column of the ImageView you want to get
+     * @param row of the ImageView you want to get
+     * @return the ImageView with the columnIndex column and the rowIndex row in the gridPane
+     */
     private Node getImageViewByIndex(int column, int row) {
         Node result = null;
         ObservableList<Node> children = gridPane.getChildren();
@@ -358,6 +452,11 @@ public class SampleController {
         return result;
     }
 
+    /**
+     * returns the Image of a figure
+     * @param symbol of the figure you want the image from
+     * @return the image of the figure
+     */
     private Image getImageBySymbol(char symbol) {
         switch (symbol) {
             // Rook
@@ -396,6 +495,11 @@ public class SampleController {
         }
     }
 
+    /**
+     * returns if the image iv shows a black figure
+     * @param iv the image of the figure you want to know th colour
+     * @return if the image iv shows a black figure
+     */
     private boolean imageIsBlack(ImageView iv) {
         return iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("RookBlack").getUrl()) ||
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KnightBlack").getUrl()) ||
@@ -406,6 +510,11 @@ public class SampleController {
     }
 
     //--------------getter/setter---------------------------------------------------------------------------------------------------------------
+
+    /**
+     * returns the ID-number of the conversionFigure
+     * @return the ID-number of the conversionFigure
+     */
     private int getConversionFigure() {
         String item = (String) conversion.getSelectionModel().getSelectedItem();
         if (item.equals("Dame")) {
@@ -423,6 +532,10 @@ public class SampleController {
         return 5;
     }
 
+    /**
+     * loads the menu
+     * @param event the window you want to hide
+     */
     public void backToMenu(MouseEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
@@ -440,58 +553,4 @@ public class SampleController {
         }
     }
 
-
-
-
-    /*@Override
-    public void updateBeatenFigures(int posX, int posY) {
-        ImageView iv = (ImageView) getImageByRowColumnIndex(posX + 1, 8 - posY);
-        iv.setFitHeight(55.0);
-        iv.setFitWidth(25.0);
-        beatenFigures.getChildren().add(iv);
-
-        if (blacksTurn) {
-            GridPane.setColumnIndex(iv, indexBeatenFiguresBlack);
-            GridPane.setRowIndex(iv, 1);
-            indexBeatenFiguresBlack += 1;
-        } else {
-            GridPane.setColumnIndex(iv, indexBeatenFiguresWhite);
-            GridPane.setRowIndex(iv, 0);
-            indexBeatenFiguresWhite += 1;
-        }
-
-        gridPane.getChildren().remove(iv);
-    }
-
-    @Override
-    public void updateExtraMoves(int posX, int posY, int newX, int newY) {
-        // Castling
-        ImageView iv = (ImageView) getImageByRowColumnIndex(posX + 1, 8 - posY);
-        GridPane.setColumnIndex(iv, newX + 1);
-        GridPane.setRowIndex(iv, 8 - newY);
-    }
-
-    @Override
-    public void updateChange(int posX, int posY, int changeTo, boolean isBlackTeam) {
-        // PawnConversion
-        ImageView iv = (ImageView) getImageByRowColumnIndex(posX + 1, 8 - posY);
-        iv.setImage(getImageByInt(changeTo, isBlackTeam));
-    }*/
-
-    /*private Image getImageByInt(int symbol, boolean isBlackTeam) {
-        switch (symbol) {
-            // Rook
-            case 2:
-                return isBlackTeam ? ImageHandler.getInstance().getImage("RookBlack") : ImageHandler.getInstance().getImage("RookWhite");
-            // Knight
-            case 3:
-                return isBlackTeam ? ImageHandler.getInstance().getImage("KnightBlack") : ImageHandler.getInstance().getImage("KnightWhite");
-            // Bishop
-            case 4:
-                return isBlackTeam ? ImageHandler.getInstance().getImage("BishopBlack") : ImageHandler.getInstance().getImage("BishopWhite");
-            // Queen
-            default:
-                return isBlackTeam ? ImageHandler.getInstance().getImage("QueenBlack") : ImageHandler.getInstance().getImage("QueenWhite");
-        }
-    }*/
 }

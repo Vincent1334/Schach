@@ -13,7 +13,7 @@ public class Gui extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = fxmlLoader.load();
 
-        primaryStage.setTitle("Schach");
+        primaryStage.setTitle("chess menu");
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

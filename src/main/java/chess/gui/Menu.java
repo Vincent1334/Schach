@@ -32,7 +32,7 @@ public class Menu {
             controller.init(gameMode, playerColorBlack);
 
             Stage stage = new Stage();
-            stage.setTitle("Schachspiel");
+            stage.setTitle("chess");
             stage.setY(20);
             stage.setScene(new Scene(root));
             stage.show();
