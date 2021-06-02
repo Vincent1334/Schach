@@ -18,10 +18,13 @@ import java.util.List;
  * 2021-06-01
  */
 
-public class Computer extends Thread{
+public class Computer implements Runnable{
+
+    private Thread thread;
 
     private boolean playerMax, playerMin;
-    private boolean isFinish = false;
+    private boolean isTerminate = false;
+    private boolean isThinking = false;
     private Board board;
     private int targetDepth = 5;
     private Move bestMove;
@@ -31,10 +34,16 @@ public class Computer extends Thread{
      * @param isBlack
      */
     public Computer(boolean isBlack) {
+
+        //setup Player
         this.playerMax = isBlack;
         this.playerMin = !isBlack;
 
+        //define default best move
         bestMove = new Move(new Position(0, 0), new Position(0, 0));
+
+        //setup Thread
+        thread = new Thread(this);
     }
 
     /**
@@ -44,24 +53,23 @@ public class Computer extends Thread{
      * @return best move for the computer
      */
     public void makeMove(Board board) {
-        this.board = new Board(board);
-        this.isFinish = false;
-        changeDepth();
-
-        //start Thread
-        this.run();
+        if(!isThinking){
+            this.board = new Board(board);
+            changeDepth();
+            isThinking = true;
+            thread = new Thread(this);
+            thread.start();
+        }
     }
 
     public Move getMove(){
-        if(isFinish) return bestMove;
-        return null;
+        return bestMove;
     }
 
     @Override
     public void run(){
         max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new ArrayList<Move>());
-        this.isFinish = true;
-        System.out.println(bestMove.toString());
+        isThinking = false;
     }
 
     /*
@@ -296,6 +304,10 @@ public class Computer extends Thread{
         if (Rules.checkDefaultMove(actualPos, targetPos, tmpBoard)) {
             Rules.performDefaultMove(actualPos, targetPos, tmpBoard);
         }
+    }
+
+    public boolean isFinish(){
+         return !isThinking;
     }
 }
 

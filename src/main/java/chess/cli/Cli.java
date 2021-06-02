@@ -87,13 +87,23 @@ public class Cli {
 
             // Check syntax and make move
             if (validSyntax(input)) {
-                if(!coreGame.chessMove(parse(input))) continue;
+                if(!coreGame.chessMove(parse(input))){
+                    continue;
+                }
             }else { continue; }
 
             // Check computer move
-            if(gameMode == 2){
-                coreGame.chessMove(computer.makeMove(coreGame.getCurrentBoard()));
+            if(gameMode == 2) {
+                //draw human input
+                drawBoard();
+                computer.makeMove(coreGame.getCurrentBoard());
+                //waiting for computer
+                do{
+                }while (computer.isFinish());
+                //perform computer move
+                coreGame.chessMove(computer.getMove());
             }
+
         } while (!coreGame.isGameOver());
     }
 

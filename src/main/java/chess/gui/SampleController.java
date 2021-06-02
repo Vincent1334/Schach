@@ -162,7 +162,7 @@ public class SampleController {
      */
     private void computerMove(){
         computer.makeMove(coreGame.getCurrentBoard());
-        while(computer.getMove() == null){
+        while(!computer.isFinish()){
             calculating.setVisible(true);
             gridPane.setDisable(true);
         }
