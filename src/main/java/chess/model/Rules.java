@@ -321,6 +321,12 @@ public class Rules {
     }
 
 
+    /**
+     * determines a list of possible target fields on the board
+     * @param actualPos
+     * @param board
+     * @return a list of poosible target fields
+     */
     public static ArrayList<Position> possibleTargetFields(Position actualPos, Board board) {
         ArrayList<Position> fields = new ArrayList<>();
         for (int y = 0; y < 8; y++) {

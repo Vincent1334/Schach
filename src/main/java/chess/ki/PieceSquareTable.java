@@ -1,9 +1,16 @@
 package chess.ki;
-
+/**
+ * This class contains information about the strategic positions of the figures king, knight, bishop and pawn
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-06-02
+ */
 public class PieceSquareTable {
 
-
-    //Standard für weiß
+    /**
+     *piece square table for a white pawn
+     * contains information about clever positions for a pawn
+     */
     public final static short[][] pawnTable = new short[][]
             {
                 {0,  0,  0,  0,  0,  0,  0,  0},
@@ -16,6 +23,11 @@ public class PieceSquareTable {
                 {0,  0,  0,  0,  0,  0,  0,  0}
             };
 
+
+    /**
+     *piece square table for a white knight
+     * contains information about clever positions for a knight
+     */
     public final static short[][] knightTable = new short[][]
             {
                 {-50,-40,-30,-30,-30,-30,-40,-50},
@@ -28,6 +40,11 @@ public class PieceSquareTable {
                 {-50,-40,-20,-30,-30,-20,-40,-50},
             };
 
+
+    /**
+     *piece square table for a white bishop
+     * contains information about clever positions for a bishop
+     */
     public final static short[][] bishopTable = new short[][]
             {
                 {-20,-10,-10,-10,-10,-10,-10,-20},
@@ -40,6 +57,11 @@ public class PieceSquareTable {
                 {-20,-10,-40,-10,-10,-40,-10,-20},
             };
 
+
+    /**
+     *piece square table for a white king
+     * contains information about clever positions for a king
+     */
     public final static short[][] kingTable = new short[][]
             {
                 {-30, -40, -40, -50, -50, -40, -40, -30},
@@ -52,6 +74,11 @@ public class PieceSquareTable {
                 { 20,  30,  10,   0,   0,  10,  30,  20}
             };
 
+
+    /**
+     *piece square table for a white king in the endgame
+     * contains information about clever positions for a king in the end game
+     */
     public final static short[][] kingTableEndGame = new short[][]
             {
                 {-50,-40,-30,-20,-20,-30,-40,-50},

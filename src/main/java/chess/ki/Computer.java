@@ -8,6 +8,7 @@ import chess.model.Rules;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * This class contains the information about the processes when the computer does a chess move.
@@ -25,7 +26,7 @@ public class Computer {
     private Move bestMove;
 
     /**
-     *the construcot of the computer
+     *the constructor of the computer
      * @param isBlack
      */
     public Computer(boolean isBlack) {
@@ -72,17 +73,17 @@ public class Computer {
         ArrayList<Move> cutOff = new ArrayList<Move>();
 
         Board tmpBoard = new Board(board);
-        for(int i = 0; i < possibleMove.size(); i++){
-            performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
-            float value = min(depth-1, maxValue, beta, cutOff);
+        for (Move move : possibleMove) {
+            performMove(move.getActualPosition(), move.getTargetPosition(), board);
+            float value = min(depth - 1, maxValue, beta, cutOff);
             board = new Board(tmpBoard);
-            if(value > maxValue){
+            if (value > maxValue) {
                 maxValue = value;
-                if(depth == targetDepth){
-                    bestMove = possibleMove.get(i);
+                if (depth == targetDepth) {
+                    bestMove = move;
                 }
-                if(maxValue >= beta){
-                    parentCutOff.add(possibleMove.get(i));
+                if (maxValue >= beta) {
+                    parentCutOff.add(move);
                     break;
                 }
             }

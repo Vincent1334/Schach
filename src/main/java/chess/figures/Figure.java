@@ -2,9 +2,6 @@ package chess.figures;
 
 import chess.model.Board;
 import chess.model.Position;
-import chess.model.Rules;
-
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
