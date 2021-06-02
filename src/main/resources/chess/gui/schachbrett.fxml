@@ -89,6 +89,11 @@
                               <ChoiceBox fx:id="conversion" prefHeight="25.0" prefWidth="149.0" />
                            </children>
                         </HBox>
+                        <Label fx:id="calculating" alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="17.0" prefWidth="261.0" text="....computer is calculating" textFill="CORNFLOWERBLUE" visible="false">
+                           <font>
+                              <Font name="Calibri" size="20.0" />
+                           </font>
+                        </Label>
                         <Label fx:id="checkLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="38.0" prefWidth="242.0" text="check" textFill="CORNFLOWERBLUE" visible="false">
                            <padding>
                               <Insets bottom="10.0" />

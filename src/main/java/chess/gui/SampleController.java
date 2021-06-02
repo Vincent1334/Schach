@@ -72,6 +72,8 @@ public class SampleController {
     private ChoiceBox conversion;
     @FXML
     private Label checkLabel;
+    @FXML
+    private Label calculating;
 
     /**
      * initializes gameMode,coreGame,computer,beatenFigureList and conversion
@@ -91,9 +93,7 @@ public class SampleController {
         if (gameMode == 2) {
             rotateBoard.setDisable(true);
             if (playerColorBlack) {
-                Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
-                coreGame.chessMove(computerMove);
-                updateScene(computerMove);
+                computerMove();
             }
         }
     }
@@ -147,18 +147,31 @@ public class SampleController {
         unmark(startField);
         if(coreGame.chessMove(move)){
             updateScene(move);
-            // if game against the computer
-            if (gameMode == 2) {
-                Move computerMove = computer.makeMove(coreGame.getCurrentBoard());
-                coreGame.chessMove(computerMove);
-                updateScene(computerMove);
-            }
             startField = null;
+            if (gameMode == 2) {
+                computerMove();
+            }
         }else if(singleSelect.isSelected() && !getPossibleFields(startField).isEmpty()){
             mark(startField);
         }else{
             startField = null;
         }
+    }
+
+    /**
+     * waits until the computer makes a move
+     */
+    private void computerMove(){
+        computer.makeMove(coreGame.getCurrentBoard());
+        while(computer.getMove() == null){
+            calculating.setVisible(true);
+            gridPane.setDisable(true);
+        }
+        calculating.setVisible(false);
+        gridPane.setDisable(false);
+        Move computerMove = computer.getMove();
+        coreGame.chessMove(computerMove);
+        updateScene(computerMove);
     }
 
     /**

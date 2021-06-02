@@ -49,12 +49,10 @@ public class Menu {
     private void setMode01() {
         gameMode = 1;
     }
-
     @FXML
     private void setMode02() {
         gameMode = 2;
     }
-
     @FXML
     private void setMode03() {
         gameMode = 3;
