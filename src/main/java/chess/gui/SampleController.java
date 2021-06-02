@@ -21,7 +21,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
@@ -129,9 +128,9 @@ public class SampleController {
     public void handleFieldClick(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
             Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
-            if (startField == null && getFigure(clickedField)!= null && imageIsBlack(getFigure(clickedField)) == blacksTurn) {
+            if (startField == null && getFigure(clickedField)!= null && isImageBlack(getFigure(clickedField)) == blacksTurn) {
                 startField = clickedField;
-                mark(startField);
+                setMark(startField,true);
             }
             else if(startField != null && getFigure(startField) != null ) {
                 performMove(getMove(startField, clickedField));
@@ -144,7 +143,7 @@ public class SampleController {
      * @param move the move which should be performed
      */
     private void performMove(Move move) {
-        unmark(startField);
+        setMark(startField,false);
         if(coreGame.chessMove(move)){
             updateScene(move);
             startField = null;
@@ -152,7 +151,7 @@ public class SampleController {
                 computerMove();
             }
         }else if(singleSelect.isSelected() && !getPossibleFields(startField).isEmpty()){
-            mark(startField);
+            setMark(startField,true);
         }else{
             startField = null;
         }
@@ -204,43 +203,29 @@ public class SampleController {
     }
 
     /**
-     * Marks the field and if selected the possible moves of the figure on the field
+     * Marks or unmarks the field and if selected the possible moves of the figure on the field
      * @param field the field you want to mark
+     * @param mark if the field should be marked or unmarked
      */
-    private void mark(Rectangle field){
-        markField(field, CORNFLOWERBLUE);
-        if (possibleFieldsButton.isSelected()) {
-            for (Rectangle f : getPossibleFields(field)) {
-                markField(f, CYAN);
+    private void setMark(Rectangle field,boolean mark){
+        if(mark){
+            field.setStroke(CORNFLOWERBLUE);
+            field.setStrokeWidth(4);
+            field.setStrokeType(StrokeType.INSIDE);
+            if (possibleFieldsButton.isSelected()) {
+                for (Rectangle f : getPossibleFields(field)) {
+                    f.setStroke(CYAN);
+                    f.setStrokeWidth(6);
+                    f.setStrokeType(StrokeType.INSIDE);
+                }
+            }
+        }else{
+            field.setStrokeWidth(0);
+            for (Rectangle f: getPossibleFields(field)) {
+                f.setStrokeWidth(0);
             }
         }
     }
-
-    /**
-     * unmarks field and the possible target fields of the Figure
-     * @param field of the Figure
-     */
-    private void unmark(Rectangle field){
-        field.setStrokeWidth(0);
-        for (Rectangle f: getPossibleFields(field)) {
-            f.setStrokeWidth(0);
-        }
-    }
-
-    /**
-     * marks a field
-     * @param field the field you want to mark
-     * @param color the color in which you want to mark the field
-     */
-    private void markField(Rectangle field, Color color) {
-        field.setStroke(color);
-        field.setStrokeWidth(4);
-        field.setStrokeType(StrokeType.INSIDE);
-    }
-
-
-
-
     //----------------------------------Update----------------------------------------------------------------------------------------------
 
     /**
@@ -251,7 +236,7 @@ public class SampleController {
         drawBoard();
         updateHistory(move);
         updateBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
-        updateNotifications();
+        updateNotifications(coreGame.getCurrentBoard());
 
 
         if (rotateBoard.isSelected()) {
@@ -270,31 +255,31 @@ public class SampleController {
         }
 
         blacksTurn = !blacksTurn;
-        updatePlayer(blacksTurn);
+        setPlayer(blacksTurn);
     }
 
     /**
      * Sets a label if a player is in check or checkmate or stalemate
      */
-    private void updateNotifications() {
+    private void updateNotifications(Board board) {
         checkLabel.setVisible(false);
-        if (coreGame.getCurrentBoard().getCheckFlag(true)) {
+        if (board.getCheckFlag(true)) {
             checkLabel.setVisible(true);
             checkLabel.setText("Black is in check");
         }
-        if (coreGame.getCurrentBoard().getCheckFlag(false)) {
+        if (board.getCheckFlag(false)) {
             checkLabel.setVisible(true);
             checkLabel.setText("White is in check");
         }
-        if (coreGame.getCurrentBoard().getCheckMateFlag(true)) {
+        if (board.getCheckMateFlag(true)) {
             checkLabel.setVisible(true);
             checkLabel.setText("Player black is checkmate!");
         }
-        if (coreGame.getCurrentBoard().getCheckMateFlag(false)) {
+        if (board.getCheckMateFlag(false)) {
             checkLabel.setVisible(true);
             checkLabel.setText("Player white is checkmate!");
         }
-        if (coreGame.getCurrentBoard().getStaleMateFlag()) {
+        if (board.getStaleMateFlag()) {
             checkLabel.setVisible(true);
             checkLabel.setText("Game ends because stalemate!");
         }
@@ -318,7 +303,6 @@ public class SampleController {
             }
         }
     }
-
 
     /**
      * turns the chessboard that the figures of the actualPlayer are always on the bottom
@@ -391,7 +375,7 @@ public class SampleController {
      * updates the label with the actual player
      * @param black should be true if the actual player is black
      */
-    private void updatePlayer(boolean black) {
+    private void setPlayer(boolean black) {
         if (black) {
             player.setText("black");
         } else {
@@ -487,7 +471,7 @@ public class SampleController {
      * @param iv the image of the figure you want to know th color
      * @return if the image iv shows a black figure
      */
-    private boolean imageIsBlack(ImageView iv) {
+    private boolean isImageBlack(ImageView iv) {
         return iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("RookBlack").getUrl()) ||
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KnightBlack").getUrl()) ||
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("BishopBlack").getUrl()) ||
