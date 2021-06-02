@@ -22,7 +22,6 @@ public class Computer {
     private Board board;
     private int targetDepth = 4;
     private Move bestMove;
-    private Move lastMove;
 
     private int[] mobility = new int[2];
 
@@ -35,7 +34,6 @@ public class Computer {
         this.playerMin = !isBlack;
 
         bestMove = new Move(new Position(0, 0), new Position(0, 0));
-        lastMove = new Move(new Position(1, 1), new Position(1, 1));
 
     }
 
@@ -51,7 +49,6 @@ public class Computer {
         changeDepth();
         max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new ArrayList<Move>());
         System.out.println(bestMove.toString());
-        lastMove = new Move(bestMove.getActualPosition(), bestMove.getTargetPosition());
         return bestMove;
     }
 
@@ -70,7 +67,7 @@ public class Computer {
         float maxValue = alpha;
 
         //generate possible moves
-        ArrayList<Move> possibleMove = getPossibleMoves(board, playerMax);
+        ArrayList<Move> possibleMove = generatePossibleMove(playerMax);
         sortMove(possibleMove, parentCutOff, playerMax);
 
         //create CutOff
@@ -105,9 +102,15 @@ public class Computer {
 
         if(depth == 0) return heuristic(board, playerMin);
         float minValue = beta;
-        //generate possible moves
-        ArrayList<Move> possibleMove = getPossibleMoves(board, playerMin);
+
+        //create Possible Moves
+        ArrayList<Move> possibleMove = generatePossibleMove(playerMin);
+
         sortMove(possibleMove, parentCutOff, playerMin);
+
+
+
+
 
         //create CutOff
         ArrayList<Move> cutOff = new ArrayList<Move>();
@@ -169,10 +172,6 @@ public class Computer {
                 + 3*((material[isBlack ? 1 : 0][2]-material[isBlack ? 0 : 1][2]) + (material[isBlack ? 1 : 0][3]-material[isBlack ? 0 : 1][3]))
                 //pawn material
                 + (material[isBlack ? 1 : 0][0]-material[isBlack ? 0 : 1][0])
-                //mobility
-                + 0.01f*(mobility[isBlack ? 1 : 0] - mobility[!isBlack ? 1 : 0])
-                //repeat
-                - 0.5f*((bestMove.getActualPosition() == lastMove.getTargetPosition() && bestMove.getTargetPosition() == lastMove.getActualPosition()) ? 1 : 0)
                 //castling
                 + 10*((board.getCastlingFlag(isBlack) ? 1 : 0) - (board.getCastlingFlag(!isBlack) ? 1 : 0))
                 //check Chess and StaleMate
@@ -203,10 +202,10 @@ public class Computer {
      * @param moves, cutOff, isBlack
      */
     private void sortMove(ArrayList<Move> moves, ArrayList<Move> cutOff, boolean isBlack){
-        for(int i = 0; i < cutOff.size(); i++){
-            if(moves.contains(cutOff.get(i))){
-                moves.remove(cutOff.get(i));
-                moves.add(0, cutOff.get(i));
+        for (Move move : cutOff) {
+            if (moves.contains(move)) {
+                moves.remove(move);
+                moves.add(0, move);
             }
         }
     }
@@ -215,54 +214,39 @@ public class Computer {
     <---Generate-possible-moves---------------------------------------------------------------------------------------->
      */
 
-    private ArrayList<Move> getPossibleMoves(Board board, boolean blackTeam){
-        ArrayList<Move> possibleMove = new ArrayList<Move>();
+     private ArrayList<Move> generatePossibleMove(boolean player){
+         //generate possible moves
+         ArrayList<Move> possibleMove = new ArrayList<Move>();
+         for(int y = 0; y < 8; y++){
+             for(int x = 0; x < 8; x++){
+                 if(board.getFigure(x, y).isBlackTeam() == player && !(board.getFigure(x, y) instanceof None)){
+                     ArrayList<Position> tmpPos = Rules.possibleTargetFields(new Position(x, y), board);
+                     for (Position tmpPo : tmpPos) {
+                         possibleMove.add(new Move(new Position(x, y), tmpPo));
+                     }
+                 }
+             }
+         }
+         return possibleMove;
+     }
 
-        for(int y = 0; y < 8; y++){
-            for(int x = 0; x < 8; x++){
-                if(!(board.getFigure(x, y) instanceof  None) && board.getFigure(x, y).isBlackTeam() == blackTeam){
-                    checkPossibleTarget(board, possibleMove, x, y, blackTeam);
-                }
-            }
-        }
-        return possibleMove;
-    }
 
-    private void checkPossibleTarget(Board board, ArrayList<Move> possibleMove, int x, int y, boolean blackTeam){
-        for (int newX = 0; newX < 8; newX++) {                      // test all possible moves to every possible targetField
-            for (int newY = 0; newY < 8; newY++) {
-                Board tmpBoard = new Board(board);      // on a copy of the board
-
-                if (possibleSolution(new Position(x, y), new Position(newX, newY), tmpBoard, blackTeam)) {
-                    possibleMove.add(new Move(new Position(x, y), new Position(newX, newY)));
-                }
-            }
-        }
-    }
-
-    private boolean possibleSolution(Position actualPos, Position targetPos, Board tmpBoard, boolean blackTeam) {
-        if(!performMove(actualPos, targetPos, tmpBoard)) return false;
-        return !Board.kingInCheck(tmpBoard, blackTeam);
-    }
-
-    private boolean performMove(Position actualPos, Position targetPos, Board tmpBoard){
+    private void performMove(Position actualPos, Position targetPos, Board tmpBoard){
         if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {
             Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
-            return true;
+            return;
         }
         if (Rules.checkCastling(actualPos, targetPos, tmpBoard)) {
             Rules.performCastlingMove(actualPos, targetPos, tmpBoard);
-            return true;
+            return;
         }
         if (Rules.checkPawnConversion(actualPos, targetPos, tmpBoard)) {
             Rules.performPawnConversion(actualPos, targetPos, 5, tmpBoard);
-            return true;
+            return;
         }
         if (Rules.checkDefaultMove(actualPos, targetPos, tmpBoard)) {
             Rules.performDefaultMove(actualPos, targetPos, tmpBoard);
-            return true;
         }
-        return false;
     }
 }
 
