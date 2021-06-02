@@ -2,8 +2,8 @@ package chess.ki;
 
 public class PieceSquareTable {
 
-    //Standart für schwarz
 
+    //Standard für weiß
     public final static short[][] pawnTable = new short[][]
             {
                 {0,  0,  0,  0,  0,  0,  0,  0},

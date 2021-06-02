@@ -21,7 +21,7 @@ public class Computer {
 
     private boolean playerMax, playerMin;
     private Board board;
-    private int targetDepth = 4;
+    private int targetDepth = 5;
     private Move bestMove;
 
     /**
@@ -47,7 +47,6 @@ public class Computer {
         changeDepth();
         max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new ArrayList<Move>());
         System.out.println(bestMove.toString());
-        System.out.println(PieceSquareTable.pawnTable[2][2]);
         return bestMove;
     }
 
@@ -151,47 +150,36 @@ public class Computer {
                         //pawn
                         case 1:{
                             material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] += PieceSquareTable.pawnTable[board.getFigure(x, y).isBlackTeam() ?  x : 7-x][board.getFigure(x, y).isBlackTeam() ? y : 7-y];
-
+                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] += PieceSquareTable.pawnTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
                              break;
                         }
                         //rook
                         case 2:{
                             material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][1] ++;
-
                              break;
-
                         }
                         //knight
                         case 3:{
                             material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][2] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] += PieceSquareTable.knightTable[board.getFigure(x, y).isBlackTeam() ?  x : 7-x][board.getFigure(x, y).isBlackTeam() ? y : 7-y];
-
+                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][2] += PieceSquareTable.knightTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
                              break;
-
                         }
                         //bishop
                         case 4:{
                             material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][3] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] += PieceSquareTable.bishopTable[board.getFigure(x, y).isBlackTeam() ?  x : 7-x][board.getFigure(x, y).isBlackTeam() ? y : 7-y];
-
+                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][3] += PieceSquareTable.bishopTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
                             break;
-
                         }
                         //queen
                         case 5:{
                             material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][4] ++;
-
                             break;
-
                         }
                         //king
                         case 6:{
                             material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] += PieceSquareTable.kingTable[board.getFigure(x, y).isBlackTeam() ?  x : 7-x][board.getFigure(x, y).isBlackTeam() ? y : 7-y];
-
+                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] += PieceSquareTable.kingTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
                             break;
-
                         }
                     }
                 }
@@ -199,29 +187,27 @@ public class Computer {
         }
 
 
-
-
-        //King material
-        return 200*(material[isBlack ? 1 : 0][5]-material[isBlack ? 0 : 1][5])
+        return
                 //Queen material
-                + 9*(material[isBlack ? 1 : 0][4]-material[isBlack ? 0 : 1][4])
+                 975*(material[isBlack ? 1 : 0][4]-material[isBlack ? 0 : 1][4])
                 //Rook material
-                + 5*(material[isBlack ? 1 : 0][1]-material[isBlack ? 0 : 1][1])
-                //Bishop and knight material
-                + 3*((material[isBlack ? 1 : 0][2]-material[isBlack ? 0 : 1][2]) + (material[isBlack ? 1 : 0][3]-material[isBlack ? 0 : 1][3]))
+                + 500*(material[isBlack ? 1 : 0][1]-material[isBlack ? 0 : 1][1])
+                //Bishop material
+                + 320*((material[isBlack ? 1 : 0][2]-material[isBlack ? 0 : 1][2])
+                //knight material
+                + 325*(material[isBlack ? 1 : 0][3]-material[isBlack ? 0 : 1][3]))
                 //pawn material
-                + (material[isBlack ? 1 : 0][0]-material[isBlack ? 0 : 1][0])
-                //SquareTable
-
-
-
-
-                //castling
-                + 10*((board.getCastlingFlag(isBlack) ? 1 : 0) - (board.getCastlingFlag(!isBlack) ? 1 : 0))
-                //check Chess and StaleMate
-                -300*(Board.checkChessAndStaleMate(board, isBlack) ? 1 : 0)
-                //check chess
-                -3*((board.getCheckFlag(isBlack) ? 1 : 0));
+                + 100*(material[isBlack ? 1 : 0][0]-material[isBlack ? 0 : 1][0])
+                //Pawn Table
+                + (fieldScore[isBlack ? 1 : 0][0]-fieldScore[isBlack ? 0 : 1][0])
+                //knight table
+                + (fieldScore[isBlack ? 1 : 0][2]-fieldScore[isBlack ? 0 : 1][2])
+                //bishop table
+                + (fieldScore[isBlack ? 1 : 0][3]-fieldScore[isBlack ? 0 : 1][3])
+                //king table
+                + (fieldScore[isBlack ? 1 : 0][5]-fieldScore[isBlack ? 0 : 1][0])
+                //check Mate
+                +10000*((board.getCheckMateFlag(!isBlack) ? 1 : 0)-(board.getCheckMateFlag(isBlack) ? 1 : 0));
     }
 
     /*
@@ -232,8 +218,8 @@ public class Computer {
      * increases the search depth
      */
     private void changeDepth(){
-        if(board.getBeatenFigures().size() % 10 == 0 && board.getBeatenFigures().size() != 0){
-            targetDepth = targetDepth + targetDepth / 2;
+        if(board.getBeatenFigures().size() % 12 == 0 && board.getBeatenFigures().size() != 0){
+            targetDepth = targetDepth + targetDepth / 4;
         }
     }
 
