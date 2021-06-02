@@ -7,6 +7,7 @@ import chess.model.Position;
 import chess.model.Rules;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * This class contains the information about the processes when the computer does a chess move.
@@ -23,8 +24,6 @@ public class Computer {
     private int targetDepth = 4;
     private Move bestMove;
 
-    private int[] mobility = new int[2];
-
     /**
      *the construcot of the computer
      * @param isBlack
@@ -34,7 +33,6 @@ public class Computer {
         this.playerMin = !isBlack;
 
         bestMove = new Move(new Position(0, 0), new Position(0, 0));
-
     }
 
     /**
@@ -49,6 +47,7 @@ public class Computer {
         changeDepth();
         max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new ArrayList<Move>());
         System.out.println(bestMove.toString());
+        System.out.println(PieceSquareTable.pawnTable[2][2]);
         return bestMove;
     }
 
@@ -77,7 +76,6 @@ public class Computer {
         for(int i = 0; i < possibleMove.size(); i++){
             performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
             float value = min(depth-1, maxValue, beta, cutOff);
-            mobility[0] = possibleMove.size();
             board = new Board(tmpBoard);
             if(value > maxValue){
                 maxValue = value;
@@ -116,15 +114,14 @@ public class Computer {
         ArrayList<Move> cutOff = new ArrayList<Move>();
 
         Board tmpBoard = new Board(board);
-        for(int i = 0; i < possibleMove.size(); i++){
-            performMove(possibleMove.get(i).getActualPosition(), possibleMove.get(i).getTargetPosition(), board);
-            float value = max(depth-1, alpha, minValue, cutOff);
-            mobility[1] = possibleMove.size();
+        for (Move move : possibleMove) {
+            performMove(move.getActualPosition(), move.getTargetPosition(), board);
+            float value = max(depth - 1, alpha, minValue, cutOff);
             board = new Board(tmpBoard);
-            if(value < minValue){
+            if (value < minValue) {
                 minValue = value;
-                if(minValue <= alpha){
-                    parentCutOff.add(possibleMove.get(i));
+                if (minValue <= alpha) {
+                    parentCutOff.add(move);
                     break;
                 }
             }
@@ -145,21 +142,63 @@ public class Computer {
 
         //check Material
         int[][] material = new int[2][6];
+        int[][] fieldScore = new int[2][6];
 
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
                 if(!(board.getFigure(x, y) instanceof None)){
                     switch(board.getFigure(x, y).getFigureID()){
-                        case 1: material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] ++; break;
-                        case 2: material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][1] ++; break;
-                        case 3: material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][2] ++; break;
-                        case 4: material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][3] ++; break;
-                        case 5: material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][4] ++; break;
-                        case 6: material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] ++; break;
+                        //pawn
+                        case 1:{
+                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] ++;
+                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] += PieceSquareTable.pawnTable[board.getFigure(x, y).isBlackTeam() ?  x : 7-x][board.getFigure(x, y).isBlackTeam() ? y : 7-y];
+
+                             break;
+                        }
+                        //rook
+                        case 2:{
+                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][1] ++;
+
+                             break;
+
+                        }
+                        //knight
+                        case 3:{
+                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][2] ++;
+                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] += PieceSquareTable.knightTable[board.getFigure(x, y).isBlackTeam() ?  x : 7-x][board.getFigure(x, y).isBlackTeam() ? y : 7-y];
+
+                             break;
+
+                        }
+                        //bishop
+                        case 4:{
+                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][3] ++;
+                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] += PieceSquareTable.bishopTable[board.getFigure(x, y).isBlackTeam() ?  x : 7-x][board.getFigure(x, y).isBlackTeam() ? y : 7-y];
+
+                            break;
+
+                        }
+                        //queen
+                        case 5:{
+                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][4] ++;
+
+                            break;
+
+                        }
+                        //king
+                        case 6:{
+                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] ++;
+                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] += PieceSquareTable.kingTable[board.getFigure(x, y).isBlackTeam() ?  x : 7-x][board.getFigure(x, y).isBlackTeam() ? y : 7-y];
+
+                            break;
+
+                        }
                     }
                 }
             }
         }
+
+
 
 
         //King material
@@ -172,6 +211,11 @@ public class Computer {
                 + 3*((material[isBlack ? 1 : 0][2]-material[isBlack ? 0 : 1][2]) + (material[isBlack ? 1 : 0][3]-material[isBlack ? 0 : 1][3]))
                 //pawn material
                 + (material[isBlack ? 1 : 0][0]-material[isBlack ? 0 : 1][0])
+                //SquareTable
+
+
+
+
                 //castling
                 + 10*((board.getCastlingFlag(isBlack) ? 1 : 0) - (board.getCastlingFlag(!isBlack) ? 1 : 0))
                 //check Chess and StaleMate
