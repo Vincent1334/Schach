@@ -520,13 +520,13 @@ public class SampleController {
      * @param actualField the field of the figure you want to know the possible moves
      * @return a array list with all possible fields the figure of the actualField can move
      */
-    private ArrayList<Rectangle> getPossibleFields(Rectangle actualField) {
+    private List<Rectangle> getPossibleFields(Rectangle actualField) {
 
         Position actualPosition = new Position(GridPane.getColumnIndex(actualField) - 1, 8 - GridPane.getRowIndex(actualField));
         Board board = coreGame.getCurrentBoard();
 
-        ArrayList<Position> positions = Rules.possibleTargetFields(actualPosition, board);
-        ArrayList<Rectangle> fields = new ArrayList<>();
+        List<Position> positions = Rules.possibleTargetFields(actualPosition, board);
+        List<Rectangle> fields = new ArrayList<>();
 
         for (Position position : positions) {
             fields.add((Rectangle) getFieldByRowColumnIndex(8 - position.getPosY(), position.getPosX() + 1));
