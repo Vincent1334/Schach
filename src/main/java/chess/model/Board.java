@@ -34,11 +34,6 @@ public class Board {
         for (int i = 0; i <= 1; i++) {
             // set team
             blackTeam = i != 0;
-            /*if (i == 0) {
-                team = false;
-            } else {
-                team = true;
-            }*/
 
             //create Pawns
             for (int j = 0; j < 8; j++) {
@@ -255,7 +250,9 @@ public class Board {
         //check chessMate or staleMate
         if(Board.kingInCheck(board, blackTeam)){
             board.setCheckMateFlag(true, blackTeam);
+            board.setStaleMateFlag(false);
         }else{
+            board.setCheckMateFlag(false, blackTeam);
             board.setStaleMateFlag(true);
         }
         return true;

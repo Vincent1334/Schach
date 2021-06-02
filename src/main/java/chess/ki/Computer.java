@@ -18,9 +18,10 @@ import java.util.List;
  * 2021-06-01
  */
 
-public class Computer {
+public class Computer extends Thread{
 
     private boolean playerMax, playerMin;
+    private boolean isFinish = false;
     private Board board;
     private int targetDepth = 5;
     private Move bestMove;
@@ -42,13 +43,25 @@ public class Computer {
      * @param board
      * @return best move for the computer
      */
-    public Move makeMove(Board board) {
-
+    public void makeMove(Board board) {
         this.board = new Board(board);
+        this.isFinish = false;
         changeDepth();
+
+        //start Thread
+        this.run();
+    }
+
+    public Move getMove(){
+        if(isFinish) return bestMove;
+        return null;
+    }
+
+    @Override
+    public void run(){
         max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new ArrayList<Move>());
+        this.isFinish = true;
         System.out.println(bestMove.toString());
-        return bestMove;
     }
 
     /*
@@ -68,6 +81,9 @@ public class Computer {
         //generate possible moves
         ArrayList<Move> possibleMove = generatePossibleMove(playerMax);
         sortMove(possibleMove, parentCutOff, playerMax);
+
+        //Game over?
+        if (possibleMove.size() == 0) return 0;
 
         //create CutOff
         ArrayList<Move> cutOff = new ArrayList<Move>();
@@ -103,8 +119,10 @@ public class Computer {
 
         //create Possible Moves
         ArrayList<Move> possibleMove = generatePossibleMove(playerMin);
-
         sortMove(possibleMove, parentCutOff, playerMin);
+
+        //Game over?
+        if (possibleMove.size() == 0) return 0;
 
 
 
@@ -200,13 +218,13 @@ public class Computer {
                 //pawn material
                 + 100*(material[isBlack ? 1 : 0][0]-material[isBlack ? 0 : 1][0])
                 //Pawn Table
-                + (fieldScore[isBlack ? 1 : 0][0]-fieldScore[isBlack ? 0 : 1][0])
+                + (fieldScore[isBlack ? 1 : 0][0])
                 //knight table
-                + (fieldScore[isBlack ? 1 : 0][2]-fieldScore[isBlack ? 0 : 1][2])
+                + (fieldScore[isBlack ? 1 : 0][2])
                 //bishop table
-                + (fieldScore[isBlack ? 1 : 0][3]-fieldScore[isBlack ? 0 : 1][3])
+                + (fieldScore[isBlack ? 1 : 0][3])
                 //king table
-                + (fieldScore[isBlack ? 1 : 0][5]-fieldScore[isBlack ? 0 : 1][0])
+                + (fieldScore[isBlack ? 1 : 0][5])
                 //check Mate
                 +10000*((board.getCheckMateFlag(!isBlack) ? 1 : 0)-(board.getCheckMateFlag(isBlack) ? 1 : 0));
     }
