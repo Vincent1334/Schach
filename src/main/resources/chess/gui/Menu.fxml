@@ -52,16 +52,16 @@
             <ToggleGroup fx:id="menu1" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="modeWhite" layoutX="113.0" layoutY="241.0" mnemonicParsing="false" onMouseClicked="#setMode02" selected="true" text="white" toggleGroup="$menu1" />
+      <RadioButton fx:id="modeWhite" layoutX="113.0" layoutY="241.0" mnemonicParsing="false" onMouseClicked="#setWhite" selected="true" text="white" toggleGroup="$menu1" />
       <RadioButton fx:id="mode03" layoutX="12.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#setMode03" text="Start a network game against a friend" toggleGroup="$menu">
          <font>
             <Font name="Calibri" size="14.0" />
          </font></RadioButton>
-      <Button fx:id="startButton" layoutX="148.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="25.0" prefWidth="89.0" text="Start" textFill="#404040">
+      <Button fx:id="startButton" layoutX="273.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="25.0" prefWidth="89.0" text="Start" textFill="#404040">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font></Button>
-      <Button layoutX="254.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#quitGame" prefHeight="25.0" prefWidth="89.0" text="Quit" textFill="#404040">
+      <Button layoutX="16.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#quitGame" prefHeight="25.0" prefWidth="89.0" text="Quit" textFill="#404040">
          <font>
             <Font name="Times New Roman Bold" size="14.0" />
          </font></Button>
