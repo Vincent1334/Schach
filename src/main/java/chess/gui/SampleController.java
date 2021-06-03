@@ -4,6 +4,7 @@ import chess.controller.*;
 import chess.figures.Figure;
 import chess.ki.Computer;
 import chess.model.*;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,7 +32,7 @@ import java.util.*;
 
 import static javafx.scene.paint.Color.*;
 
-public class SampleController {
+public class SampleController implements Runnable{
 
     private static CoreGame coreGame;
     private Computer computer;
@@ -83,7 +84,7 @@ public class SampleController {
         this.gameMode = gameMode;
 
         coreGame = new CoreGame();
-        computer = new Computer(!playerColorBlack);
+        computer = new Computer(!playerColorBlack, this);
         beatenFigureList = new ArrayList<>();
 
         conversion.getItems().addAll("Queen", "Bishop", "Rook", "Knight");
@@ -162,12 +163,18 @@ public class SampleController {
      */
     private void computerMove(){
         computer.makeMove(coreGame.getCurrentBoard());
-        while(!computer.isFinish()){
-            calculating.setVisible(true);
-            gridPane.setDisable(true);
-        }
-        calculating.setVisible(false);
+        calculating.setVisible(true);
+        gridPane.setDisable(true);
+    }
+
+    public void computerIsFinish(){
+        Platform.runLater(this);
+    }
+
+    @Override
+    public void run() {
         gridPane.setDisable(false);
+        calculating.setVisible(false);
         Move computerMove = computer.getMove();
         coreGame.chessMove(computerMove);
         updateScene(computerMove);
@@ -531,4 +538,7 @@ public class SampleController {
 
         return fields;
     }
+
+
+
 }

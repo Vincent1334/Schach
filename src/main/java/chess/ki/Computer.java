@@ -1,6 +1,7 @@
 package chess.ki;
 
 import chess.figures.None;
+import chess.gui.SampleController;
 import chess.model.Board;
 import chess.model.Move;
 import chess.model.Position;
@@ -21,6 +22,7 @@ import java.util.List;
 public class Computer implements Runnable{
 
     private Thread thread;
+    private SampleController gui;
 
     private boolean playerMax, playerMin;
     private boolean isTerminate = false;
@@ -38,6 +40,21 @@ public class Computer implements Runnable{
         //setup Player
         this.playerMax = isBlack;
         this.playerMin = !isBlack;
+
+        //define default best move
+        bestMove = new Move(new Position(0, 0), new Position(0, 0));
+
+        //setup Thread
+        thread = new Thread(this);
+    }
+
+    public Computer(boolean isBlack, SampleController gui){
+        //setup Player
+        this.playerMax = isBlack;
+        this.playerMin = !isBlack;
+
+        //set GUI controller
+        this.gui = gui;
 
         //define default best move
         bestMove = new Move(new Position(0, 0), new Position(0, 0));
@@ -70,6 +87,7 @@ public class Computer implements Runnable{
     public void run(){
         max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new ArrayList<Move>());
         isThinking = false;
+        if(gui != null) gui.computerIsFinish();
     }
 
     /*
