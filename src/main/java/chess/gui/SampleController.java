@@ -159,7 +159,7 @@ public class SampleController implements Runnable{
     }
 
     /**
-     * waits until the computer makes a move
+     * start a computer move
      */
     private void computerMove(){
         computer.makeMove(coreGame.getCurrentBoard());
@@ -167,10 +167,16 @@ public class SampleController implements Runnable{
         gridPane.setDisable(true);
     }
 
+    /**
+     * Turn the task into thread if the computer thread is terminated
+     */
     public void computerIsFinish(){
         Platform.runLater(this);
     }
 
+    /**
+     * execute computer move
+     */
     @Override
     public void run() {
         gridPane.setDisable(false);
