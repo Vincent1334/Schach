@@ -31,6 +31,7 @@ public class Cli {
 
     /**
      * User interface to initial the Gamemode
+     * @param args
      */
     public static void init(String[] args) {
         if (!Arrays.asList(args).contains("--simple")) {

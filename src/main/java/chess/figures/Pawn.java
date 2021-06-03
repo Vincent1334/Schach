@@ -17,6 +17,7 @@ public class Pawn extends Figure {
     /**
      * The constructor of a pawn
      * The pawns team and figure ID are initialized here.
+     * @param blackTeam
      */
     public Pawn(boolean blackTeam) {
         super(blackTeam);
