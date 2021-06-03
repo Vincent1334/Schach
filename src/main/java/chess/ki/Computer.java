@@ -1,15 +1,13 @@
 package chess.ki;
 
 import chess.figures.None;
-import chess.gui.SampleController;
+import chess.gui.Logic;
 import chess.model.Board;
 import chess.model.Move;
 import chess.model.Position;
 import chess.model.Rules;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * This class contains the information about the processes when the computer does a chess move.
@@ -22,7 +20,7 @@ import java.util.List;
 public class Computer implements Runnable{
 
     private Thread thread;
-    private SampleController gui;
+    private Logic gui;
 
     private boolean playerMax, playerMin;
     private boolean isTerminate = false;
@@ -48,7 +46,7 @@ public class Computer implements Runnable{
         thread = new Thread(this);
     }
 
-    public Computer(boolean isBlack, SampleController gui){
+    public Computer(boolean isBlack, Logic gui){
         //setup Player
         this.playerMax = isBlack;
         this.playerMin = !isBlack;
