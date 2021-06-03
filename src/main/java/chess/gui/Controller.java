@@ -31,15 +31,13 @@ import java.util.*;
 import static javafx.scene.paint.Color.*;
 
 public class Controller {
-
+    private boolean firstTurn = true;
     private boolean blacksTurn = false;
+    private boolean blackDown = false;
     private int indexBeatenFiguresBlack = 1;
     private int indexBeatenFiguresWhite = 1;
     private int indexHistory = 0;
     private List<Figure> beatenFigureList;
-    private boolean firstTurn = true;
-    private boolean blackDown = false;
-
     private Logic logic;
 
     @FXML
@@ -474,10 +472,10 @@ public class Controller {
     protected void setCalculating(boolean isCalculating){
         if(isCalculating){
             calculating.setVisible(true);
-            gridPane.setDisable(true);
+            gridPane.setMouseTransparent(true);
         }else{
             calculating.setVisible(false);
-            gridPane.setDisable(false);
+            gridPane.setMouseTransparent(false);
         }
 
     }
