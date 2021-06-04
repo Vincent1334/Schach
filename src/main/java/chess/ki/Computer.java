@@ -150,10 +150,6 @@ public class Computer implements Runnable{
         //Game over?
         if (possibleMove.size() == 0) return 0;
 
-
-
-
-
         //create CutOff
         ArrayList<Move> cutOff = new ArrayList<Move>();
 
@@ -250,9 +246,7 @@ public class Computer implements Runnable{
                 //bishop table
                 + (fieldScore[isBlack ? 1 : 0][3])
                 //king table
-                + (fieldScore[isBlack ? 1 : 0][5])
-                //check Mate
-                +10000*((board.getCheckMateFlag(!isBlack) ? 1 : 0)-(board.getCheckMateFlag(isBlack) ? 1 : 0));
+                + (fieldScore[isBlack ? 1 : 0][5]);
     }
 
     /*
