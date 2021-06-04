@@ -1,5 +1,6 @@
 package chess.ki;
 
+import chess.figures.Figure;
 import chess.figures.None;
 import chess.gui.Logic;
 import chess.model.Board;
@@ -19,15 +20,17 @@ import java.util.ArrayList;
 
 public class Computer implements Runnable{
 
+    //System
     private Thread thread;
     private Logic gui;
 
+    //a-b pruning
     private boolean playerMax, playerMin;
-    private boolean isTerminate = false;
     private boolean isThinking = false;
     private Board board;
     private int targetDepth = 5;
     private Move bestMove;
+    private boolean endGame = false;
 
     /**
      *the constructor of the computer
@@ -101,7 +104,7 @@ public class Computer implements Runnable{
      */
     private float max(int depth, float alpha, float beta, ArrayList<Move> parentCutOff, Move lastMove){
 
-        if(depth == 0) return heuristic(board, playerMax, lastMove);
+        if(depth == 0) return heuristic(board, lastMove);
         float maxValue = alpha;
 
         //generate possible moves
@@ -143,7 +146,7 @@ public class Computer implements Runnable{
      */
     private float min(int depth, float alpha, float beta, ArrayList<Move> parentCutOff, Move lastMove){
 
-        if(depth == 0) return heuristic(board, playerMin, lastMove);
+        if(depth == 0) return heuristic(board, lastMove);
         float minValue = beta;
 
         //create Possible Moves
@@ -179,10 +182,9 @@ public class Computer implements Runnable{
     /**
      * determines the value of the move
      * @param board the current board
-     * @param isBlack color of the player
      * @return the value of the searched move
      */
-    private float heuristic(Board board, boolean isBlack, Move move) {
+    private float heuristic(Board board, Move move) {
 
         //check Material
         int[][] material = new int[2][6];
@@ -200,7 +202,7 @@ public class Computer implements Runnable{
                         }
                         //rook
                         case 2:{
-                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][1] ++;
+                             material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][1] ++;
                              break;
                         }
                         //knight
@@ -234,37 +236,51 @@ public class Computer implements Runnable{
         //set figure bonus
         float figureScore = 0;
         switch(board.getFigure(move.getTargetPosition()).getFigureID()){
-            case 1: figureScore = 10; break;
-            case 2: figureScore = 50; break;
-            case 3: figureScore = 40; break;
-            case 4: figureScore = 45; break;
+            case 1: figureScore = 100; break;
+            case 2: figureScore = 500; break;
+            case 3: figureScore = 325; break;
+            case 4: figureScore = 320; break;
             case 5: figureScore = 0; break;
             case 6: figureScore = 13; break;
         }
 
+        if(board.getFigure(move.getTargetPosition()).isBlackTeam()) figureScore = figureScore *(-1);
+
 
         return  //king
-                10000*(material[isBlack ? 1 : 0][5]-material[isBlack ? 0 : 1][5])
+                10000*(material[0][5]-material[1][5])
                 //Queen material
-                + 975*(material[isBlack ? 1 : 0][4]-material[isBlack ? 0 : 1][4])
+                + 975*(material[0][4]-material[1][4])
                 //Rook material
-                + 500*(material[isBlack ? 1 : 0][1]-material[isBlack ? 0 : 1][1])
+                + 500*(material[0][1]-material[1][1])
                 //Bishop material
-                + 320*((material[isBlack ? 1 : 0][2]-material[isBlack ? 0 : 1][2])
+                + 320*((material[0][2]-material[1][2])
                 //knight material
-                + 325*(material[isBlack ? 1 : 0][3]-material[isBlack ? 0 : 1][3]))
+                + 325*(material[0][3]-material[1][3]))
                 //pawn material
-                + 100*(material[isBlack ? 1 : 0][0]-material[isBlack ? 0 : 1][0])
+                + 100*(material[0][0]-material[1][0])
                 //Pawn Table
-                + (fieldScore[isBlack ? 1 : 0][0])
+                + fieldScore[0][0]-fieldScore[1][0]
                 //knight table
-                + (fieldScore[isBlack ? 1 : 0][2])
+                + fieldScore[0][2]-fieldScore[1][2]
                 //bishop table
-                + (fieldScore[isBlack ? 1 : 0][3])
+                + fieldScore[0][3]-fieldScore[1][3]
                 //king table
-                + (fieldScore[isBlack ? 1 : 0][5])
+                + fieldScore[0][5]-fieldScore[1][5];
                 //Figure Score
-                + figureScore;
+
+    }
+
+    public int checkCastling(){
+        return (board.getCastlingFlag(playerMax) ? 20 : 0) - (board.getCastlingFlag(playerMin) ? 20 : 0);
+    }
+
+    public int checkChessMate(){
+        return (board.getCheckMateFlag(playerMax) ? -100000 : 0) + (board.getCastlingFlag(playerMin) ? 100000 : 0);
+    }
+
+    public int checkChess(){
+        return (board.getCheckFlag(playerMax) ? - 300 : 0) + (board.getCheckFlag(playerMin) ? 10 : 0);
     }
 
     /*
@@ -303,6 +319,11 @@ public class Computer implements Runnable{
     <---Generate-possible-moves---------------------------------------------------------------------------------------->
      */
 
+    /**
+     * Generate a list with all possible moves. Also add used figure and attack Figure
+     * @param player the checked team
+     * @return
+     */
      private ArrayList<Move> generatePossibleMove(boolean player){
          //generate possible moves
          ArrayList<Move> possibleMove = new ArrayList<Move>();
@@ -311,7 +332,10 @@ public class Computer implements Runnable{
                  if(board.getFigure(x, y).isBlackTeam() == player && !(board.getFigure(x, y) instanceof None)){
                      ArrayList<Position> tmpPos = Rules.possibleTargetFields(new Position(x, y), board);
                      for (Position tmpPo : tmpPos) {
-                         possibleMove.add(new Move(new Position(x, y), tmpPo));
+                         Move move = new Move(new Position(x, y), tmpPo);
+                         move.setActualFigure(board.getFigure(x, y));
+                         move.setTargetFigure(board.getFigure(tmpPo));
+                         possibleMove.add(move);
                      }
                  }
              }
@@ -336,6 +360,10 @@ public class Computer implements Runnable{
         if (Rules.checkDefaultMove(actualPos, targetPos, tmpBoard)) {
             Rules.performDefaultMove(actualPos, targetPos, tmpBoard);
         }
+
+        //update Flags
+        Board.kingInCheck(board, playerMax);
+        Board.kingInCheck(board, playerMin);
     }
 
     public boolean isFinish(){
