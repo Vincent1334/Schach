@@ -2,9 +2,7 @@ package chess.gui;
 
 import chess.controller.*;
 import chess.figures.Figure;
-import chess.ki.Computer;
 import chess.model.*;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,19 +30,15 @@ import java.util.*;
 
 import static javafx.scene.paint.Color.*;
 
-public class SampleController implements Runnable{
-
-    private static CoreGame coreGame;
-    private Computer computer;
-    private Rectangle startField;
+public class Controller {
+    private boolean firstTurn = true;
     private boolean blacksTurn = false;
+    private boolean blackDown = false;
     private int indexBeatenFiguresBlack = 1;
     private int indexBeatenFiguresWhite = 1;
     private int indexHistory = 0;
-    private int gameMode = 0;
     private List<Figure> beatenFigureList;
-    private boolean firstTurn = true;
-    private boolean blackDown = false;
+    private Logic logic;
 
     @FXML
     private Label player;
@@ -75,27 +69,12 @@ public class SampleController implements Runnable{
     @FXML
     private Label calculating;
 
-    /**
-     * initializes gameMode,coreGame,computer,beatenFigureList and conversion
-     * @param gameMode against a local friend (0) or a networkegame (1) or against the computer (2)
-     * @param playerColorBlack the colour you want to play
-     */
-    public void init(int gameMode, boolean playerColorBlack) {
-        this.gameMode = gameMode;
-
-        coreGame = new CoreGame();
-        computer = new Computer(!playerColorBlack, this);
+    public void init(int gameMode, boolean playerColorBlack){
         beatenFigureList = new ArrayList<>();
-
         conversion.getItems().addAll("Queen", "Bishop", "Rook", "Knight");
         conversion.getSelectionModel().select("Queen");
 
-        if (gameMode == 2) {
-            rotateBoard.setDisable(true);
-            if (playerColorBlack) {
-                computerMove();
-            }
-        }
+        logic = new Logic(gameMode, playerColorBlack,this);
     }
 
     /**
@@ -119,136 +98,29 @@ public class SampleController implements Runnable{
         }
     }
 
-
-    //--------------------------------------Field----------------------------------------------------------------------------------------------
+    //--------------------------------------Move----------------------------------------------------------------------------------------------
 
     /**
      * performs a move if first the start position is clicked and second the target position and if the move is allowed
      * @param mouseEvent the clicked field
      */
-    public void handleFieldClick(MouseEvent mouseEvent) {
+    public void isFieldClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
             Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
-            if (startField == null && getFigure(clickedField)!= null && isImageBlack(getFigure(clickedField)) == blacksTurn) {
-                startField = clickedField;
-                setMark(startField,true);
-            }
-            else if(startField != null && getFigure(startField) != null ) {
-                performMove(getMove(startField, clickedField));
-            }
+            logic.handleFieldClick(clickedField,blacksTurn);
         }
     }
 
-    /**
-     * performs the move if possible and updates scene
-     * @param move the move which should be performed
-     */
-    private void performMove(Move move) {
-        setMark(startField,false);
-        if(coreGame.chessMove(move)){
-            updateScene(move);
-            startField = null;
-            if (gameMode == 2) {
-                computerMove();
-            }
-        }else if(singleSelect.isSelected() && !getPossibleFields(startField).isEmpty()){
-            setMark(startField,true);
-        }else{
-            startField = null;
-        }
-    }
-
-    /**
-     * start a computer move
-     */
-    private void computerMove(){
-        computer.makeMove(coreGame.getCurrentBoard());
-        calculating.setVisible(true);
-        gridPane.setDisable(true);
-    }
-
-    /**
-     * Turn the task into thread if the computer thread is terminated
-     */
-    public void computerIsFinish(){
-        Platform.runLater(this);
-    }
-
-    /**
-     * execute computer move
-     */
-    @Override
-    public void run() {
-        gridPane.setDisable(false);
-        calculating.setVisible(false);
-        Move computerMove = computer.getMove();
-        coreGame.chessMove(computerMove);
-        updateScene(computerMove);
-    }
-
-    /**
-     * Returns the move from the startField to the targetField
-     * @return move from the startField to the targetField
-     */
-    private Move getMove(Rectangle startField, Rectangle targetField){
-        Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
-        Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
-        return new Move(startPosition, targetPosition, getConversionFigure());
-    }
-
-    /**
-     * returns the field with the rowIndex row and the columnIndex column
-     * @param row rowIndex of the field you want to get
-     * @param column columnIndex of the field you want to get
-     * @return the field with the rowIndex row and the columnIndex column
-     */
-    private Node getFieldByRowColumnIndex(int row, int column) {
-        Node result = null;
-        ObservableList<Node> children = gridPane.getChildren();
-
-        for (Node node : children) {
-            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-                result = node;
-                break;
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Marks or unmarks the field and if selected the possible moves of the figure on the field
-     * @param field the field you want to mark
-     * @param mark if the field should be marked or unmarked
-     */
-    private void setMark(Rectangle field,boolean mark){
-        if(mark){
-            field.setStroke(CORNFLOWERBLUE);
-            field.setStrokeWidth(4);
-            field.setStrokeType(StrokeType.INSIDE);
-            if (possibleFieldsButton.isSelected()) {
-                for (Rectangle f : getPossibleFields(field)) {
-                    f.setStroke(CYAN);
-                    f.setStrokeWidth(6);
-                    f.setStrokeType(StrokeType.INSIDE);
-                }
-            }
-        }else{
-            field.setStrokeWidth(0);
-            for (Rectangle f: getPossibleFields(field)) {
-                f.setStrokeWidth(0);
-            }
-        }
-    }
     //----------------------------------Update----------------------------------------------------------------------------------------------
 
     /**
      * updates the scene
      * @param move ,the move you want to make
      */
-    public void updateScene(Move move) {
-        drawBoard();
+    public void updateScene(Move move,CoreGame coreGame) {
+        drawBoard(coreGame.getCurrentBoard());
         updateHistory(move);
-        updateBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
+        setBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
         updateNotifications(coreGame.getCurrentBoard());
 
 
@@ -268,7 +140,7 @@ public class SampleController implements Runnable{
         }
 
         blacksTurn = !blacksTurn;
-        setPlayer(blacksTurn);
+        setPlayerLabel(blacksTurn);
     }
 
     /**
@@ -299,14 +171,25 @@ public class SampleController implements Runnable{
     }
 
     /**
+     * updates the history
+     * @param move the move you want to add to the history
+     */
+    public void updateHistory(Move move) {
+        Text t = new Text(move.toString());
+        history.add(t, 2, indexHistory);
+        history.add((new Text("   " + indexHistory + 1)), 0, indexHistory);
+        indexHistory += 1;
+    }
+
+    /**
      * draws the chessboard
      */
-    private void drawBoard() {
+    private void drawBoard(Board board) {
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 gridPane.getChildren().remove(getImageViewByIndex(x + 1, 8 - y));
-                if (getImageBySymbol(coreGame.getCurrentBoard().getFigure(x, y).getSymbol()) != null) {
-                    ImageView iv = new ImageView(getImageBySymbol(coreGame.getCurrentBoard().getFigure(x, y).getSymbol()));
+                if (getImageBySymbol(board.getFigure(x, y).getSymbol()) != null) {
+                    ImageView iv = new ImageView(getImageBySymbol(board.getFigure(x, y).getSymbol()));
                     iv.preserveRatioProperty().setValue(true);
                     iv.setFitHeight(50.0);
                     iv.setMouseTransparent(true);
@@ -374,21 +257,10 @@ public class SampleController implements Runnable{
     }
 
     /**
-     * updates the history
-     * @param move the move you want to add to the history
-     */
-    public void updateHistory(Move move) {
-        Text t = new Text(move.toString());
-        history.add(t, 2, indexHistory);
-        history.add((new Text("   " + (indexHistory + 1))), 0, indexHistory);
-        indexHistory += 1;
-    }
-
-    /**
      * updates the label with the actual player
      * @param black should be true if the actual player is black
      */
-    private void setPlayer(boolean black) {
+    private void setPlayerLabel(boolean black) {
         if (black) {
             player.setText("black");
         } else {
@@ -400,7 +272,7 @@ public class SampleController implements Runnable{
      * updates the beaten figures
      * @param beatenFigures a list with all beaten figures
      */
-    public void updateBeatenFigures(List<Figure> beatenFigures) {
+    public void setBeatenFigures(List<Figure> beatenFigures) {
 
         if (beatenFigures.size() != this.beatenFigureList.size() && beatenFigures.size() > 0) {
             ImageView iv = new ImageView(getImageBySymbol(beatenFigures.get(beatenFigures.size() - 1).getSymbol()));
@@ -421,7 +293,7 @@ public class SampleController implements Runnable{
         }
     }
 
-//--------------------------------Image----------------------------------------------------------------------------------------------
+    //--------------------------------Image----------------------------------------------------------------------------------------------
 
     /**
      * returns the ImageView with the columnIndex column and the rowIndex row in the gridPane
@@ -484,7 +356,7 @@ public class SampleController implements Runnable{
      * @param iv the image of the figure you want to know th color
      * @return if the image iv shows a black figure
      */
-    private boolean isImageBlack(ImageView iv) {
+    protected boolean isImageBlack(ImageView iv) {
         return iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("RookBlack").getUrl()) ||
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KnightBlack").getUrl()) ||
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("BishopBlack").getUrl()) ||
@@ -499,7 +371,7 @@ public class SampleController implements Runnable{
      * returns the ID-number of the conversionFigure
      * @return the ID-number of the conversionFigure
      */
-    private int getConversionFigure() {
+    protected int getConversionFigure() {
         String item = (String) conversion.getSelectionModel().getSelectedItem();
         if (item.equals("Queen")) {
             return 5;
@@ -521,7 +393,7 @@ public class SampleController implements Runnable{
      * @param field of the figure you want to get
      * @return the figure of the field
      */
-    private ImageView getFigure(Rectangle field){
+    protected ImageView getFigure(Rectangle field){
         return (ImageView) getImageViewByIndex(GridPane.getColumnIndex(field), GridPane.getRowIndex(field));
     }
 
@@ -530,10 +402,9 @@ public class SampleController implements Runnable{
      * @param actualField the field of the figure you want to know the possible moves
      * @return a array list with all possible fields the figure of the actualField can move
      */
-    private List<Rectangle> getPossibleFields(Rectangle actualField) {
+    protected List<Rectangle> getPossibleFields(Rectangle actualField,Board board) {
 
         Position actualPosition = new Position(GridPane.getColumnIndex(actualField) - 1, 8 - GridPane.getRowIndex(actualField));
-        Board board = coreGame.getCurrentBoard();
 
         List<Position> positions = Rules.possibleTargetFields(actualPosition, board);
         List<Rectangle> fields = new ArrayList<>();
@@ -543,6 +414,70 @@ public class SampleController implements Runnable{
         }
 
         return fields;
+    }
+
+    /**
+     * returns the field with the rowIndex row and the columnIndex column
+     * @param row rowIndex of the field you want to get
+     * @param column columnIndex of the field you want to get
+     * @return the field with the rowIndex row and the columnIndex column
+     */
+    private Node getFieldByRowColumnIndex(int row, int column) {
+        Node result = null;
+        ObservableList<Node> children = gridPane.getChildren();
+
+        for (Node node : children) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                result = node;
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Marks or unmarks the field and if selected the possible moves of the figure on the field
+     * @param field the field you want to mark
+     * @param mark if the field should be marked or unmarked
+     */
+    protected void setMark(Rectangle field,boolean mark,Board board){
+        if(mark){
+            field.setStroke(CORNFLOWERBLUE);
+            field.setStrokeWidth(4);
+            field.setStrokeType(StrokeType.INSIDE);
+            if (possibleFieldsButton.isSelected()) {
+                for (Rectangle f : getPossibleFields(field,board)) {
+                    f.setStroke(CYAN);
+                    f.setStrokeWidth(6);
+                    f.setStrokeType(StrokeType.INSIDE);
+                }
+            }
+        }else{
+            field.setStrokeWidth(0);
+            for (Rectangle f: getPossibleFields(field,board)) {
+                f.setStrokeWidth(0);
+            }
+        }
+    }
+
+
+    protected CheckBox getRotateBoard(){
+        return rotateBoard;
+    }
+
+    protected boolean isSingleSelect(){
+        return singleSelect.isSelected();
+    }
+
+    protected void setCalculating(boolean isCalculating){
+        if(isCalculating){
+            calculating.setVisible(true);
+            gridPane.setMouseTransparent(true);
+        }else{
+            calculating.setVisible(false);
+            gridPane.setMouseTransparent(false);
+        }
+
     }
 
 

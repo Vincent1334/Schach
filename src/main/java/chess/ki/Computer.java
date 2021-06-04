@@ -1,15 +1,13 @@
 package chess.ki;
 
 import chess.figures.None;
-import chess.gui.SampleController;
+import chess.gui.Logic;
 import chess.model.Board;
 import chess.model.Move;
 import chess.model.Position;
 import chess.model.Rules;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * This class contains the information about the processes when the computer does a chess move.
@@ -22,7 +20,7 @@ import java.util.List;
 public class Computer implements Runnable{
 
     private Thread thread;
-    private SampleController gui;
+    private Logic gui;
 
     private boolean playerMax, playerMin;
     private boolean isTerminate = false;
@@ -33,7 +31,7 @@ public class Computer implements Runnable{
 
     /**
      *the constructor of the computer
-     * @param isBlack
+     * @param isBlack color of the player
      */
     public Computer(boolean isBlack) {
 
@@ -48,7 +46,7 @@ public class Computer implements Runnable{
         thread = new Thread(this);
     }
 
-    public Computer(boolean isBlack, SampleController gui){
+    public Computer(boolean isBlack, Logic gui){
         //setup Player
         this.playerMax = isBlack;
         this.playerMin = !isBlack;
@@ -66,8 +64,7 @@ public class Computer implements Runnable{
     /**
      * calls the alpha beta pruning to determine the best move and executes it
      * saves the move in lastMove
-     * @param board
-     * @return best move for the computer
+     * @param board the current board
      */
     public void makeMove(Board board) {
         if(!isThinking){
@@ -85,7 +82,7 @@ public class Computer implements Runnable{
 
     @Override
     public void run(){
-        max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new ArrayList<Move>());
+        max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new ArrayList<Move>(), null);
         isThinking = false;
         if(gui != null) gui.computerIsFinish();
     }
@@ -96,12 +93,15 @@ public class Computer implements Runnable{
 
     /**
      * calculates the max values of the search tree
-     * @param depth, alpha, beta, parentCutOff
+     * @param depth depth of the search tree
+     * @param alpha alpha value
+     * @param beta beta value
+     * @param parentCutOff the parent cut off
      * @return maxValue
      */
-    private float max(int depth, float alpha, float beta, ArrayList<Move> parentCutOff){
+    private float max(int depth, float alpha, float beta, ArrayList<Move> parentCutOff, Move lastMove){
 
-        if(depth == 0) return heuristic(board, playerMax);
+        if(depth == 0) return heuristic(board, playerMax, lastMove);
         float maxValue = alpha;
 
         //generate possible moves
@@ -109,7 +109,7 @@ public class Computer implements Runnable{
         sortMove(possibleMove, parentCutOff, playerMax);
 
         //Game over?
-        if (possibleMove.size() == 0) return 0;
+        if (possibleMove.size() == 0) return Float.NEGATIVE_INFINITY;
 
         //create CutOff
         ArrayList<Move> cutOff = new ArrayList<Move>();
@@ -117,7 +117,7 @@ public class Computer implements Runnable{
         Board tmpBoard = new Board(board);
         for (Move move : possibleMove) {
             performMove(move.getActualPosition(), move.getTargetPosition(), board);
-            float value = min(depth - 1, maxValue, beta, cutOff);
+            float value = min(depth - 1, maxValue, beta, cutOff, move);
             board = new Board(tmpBoard);
             if (value > maxValue) {
                 maxValue = value;
@@ -135,12 +135,15 @@ public class Computer implements Runnable{
 
     /**
      * calculates the min values of the search tree
-     * @param depth, alpha, beta, parentCutOff
+     * @param depth depth of the search tree
+     * @param alpha alpha value
+     * @param beta beta value
+     * @param parentCutOff the parent cut off
      * @return minValue
      */
-    private float min(int depth, float alpha, float beta, ArrayList<Move> parentCutOff){
+    private float min(int depth, float alpha, float beta, ArrayList<Move> parentCutOff, Move lastMove){
 
-        if(depth == 0) return heuristic(board, playerMin);
+        if(depth == 0) return heuristic(board, playerMin, lastMove);
         float minValue = beta;
 
         //create Possible Moves
@@ -148,7 +151,7 @@ public class Computer implements Runnable{
         sortMove(possibleMove, parentCutOff, playerMin);
 
         //Game over?
-        if (possibleMove.size() == 0) return 0;
+        if (possibleMove.size() == 0) return Float.POSITIVE_INFINITY;
 
         //create CutOff
         ArrayList<Move> cutOff = new ArrayList<Move>();
@@ -156,7 +159,7 @@ public class Computer implements Runnable{
         Board tmpBoard = new Board(board);
         for (Move move : possibleMove) {
             performMove(move.getActualPosition(), move.getTargetPosition(), board);
-            float value = max(depth - 1, alpha, minValue, cutOff);
+            float value = max(depth - 1, alpha, minValue, cutOff, move);
             board = new Board(tmpBoard);
             if (value < minValue) {
                 minValue = value;
@@ -175,10 +178,11 @@ public class Computer implements Runnable{
 
     /**
      * determines the value of the move
-     * @param board, isBlack
+     * @param board the current board
+     * @param isBlack color of the player
      * @return the value of the searched move
      */
-    private float heuristic(Board board, boolean isBlack) {
+    private float heuristic(Board board, boolean isBlack, Move move) {
 
         //check Material
         int[][] material = new int[2][6];
@@ -227,10 +231,22 @@ public class Computer implements Runnable{
             }
         }
 
+        //set figure bonus
+        float figureScore = 0;
+        switch(board.getFigure(move.getTargetPosition()).getFigureID()){
+            case 1: figureScore = 10; break;
+            case 2: figureScore = 50; break;
+            case 3: figureScore = 40; break;
+            case 4: figureScore = 45; break;
+            case 5: figureScore = 0; break;
+            case 6: figureScore = 13; break;
+        }
 
-        return
+
+        return  //king
+                10000*(material[isBlack ? 1 : 0][5]-material[isBlack ? 0 : 1][5])
                 //Queen material
-                 975*(material[isBlack ? 1 : 0][4]-material[isBlack ? 0 : 1][4])
+                + 975*(material[isBlack ? 1 : 0][4]-material[isBlack ? 0 : 1][4])
                 //Rook material
                 + 500*(material[isBlack ? 1 : 0][1]-material[isBlack ? 0 : 1][1])
                 //Bishop material
@@ -246,7 +262,9 @@ public class Computer implements Runnable{
                 //bishop table
                 + (fieldScore[isBlack ? 1 : 0][3])
                 //king table
-                + (fieldScore[isBlack ? 1 : 0][5]);
+                + (fieldScore[isBlack ? 1 : 0][5])
+                //Figure Score
+                + figureScore;
     }
 
     /*
@@ -268,7 +286,9 @@ public class Computer implements Runnable{
 
     /**
      * pre-sorts the moves
-     * @param moves, cutOff, isBlack
+     * @param moves
+     * @param cutOff
+     * @param isBlack
      */
     private void sortMove(ArrayList<Move> moves, ArrayList<Move> cutOff, boolean isBlack){
         for (Move move : cutOff) {

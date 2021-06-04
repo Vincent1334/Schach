@@ -15,6 +15,7 @@ public class Knight extends Figure {
     /**
      * The constructor of a knight
      * The knights team and figure ID are is initialized here.
+     * @param blackTeam
      */
     public Knight(boolean blackTeam) {
         super(blackTeam);

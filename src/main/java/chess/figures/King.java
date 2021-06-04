@@ -15,6 +15,7 @@ public class King extends Figure {
     /**
      * The constructor of a king
      * The kings team and figure ID are initialized here.
+     * @param blackTeam the black team
      */
     public King(boolean blackTeam) {
         super(blackTeam);

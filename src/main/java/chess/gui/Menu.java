@@ -26,10 +26,11 @@ public class Menu {
     @FXML
     private void startGame(MouseEvent event) {
         try {
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
             Parent root = fxmlLoader.load();
 
-            SampleController controller = fxmlLoader.getController();
+            Controller controller = fxmlLoader.getController();
             controller.init(gameMode, playerColorBlack);
 
             Stage stage = new Stage();
