@@ -32,6 +32,19 @@ public class Computer implements Runnable{
     private Move bestMove;
     private boolean endGame = false;
 
+    //Points
+    private final float pawnMaterial = 100;
+    private final float rookMaterial = 500;
+    private final float bishopMaterial = 320;
+    private final float knightMaterial = 325;
+    private final float queenMaterial = 975;
+    private final float kingMaterial = 32000;
+
+    private final float castlingPoints = 20;
+    private final float checkMatePoints = 100000;
+    private final float checkPoints = 50;
+
+
     /**
      *the constructor of the computer
      * @param isBlack color of the player
@@ -271,16 +284,47 @@ public class Computer implements Runnable{
 
     }
 
-    public int checkCastling(){
-        return (board.getCastlingFlag(playerMax) ? 20 : 0) - (board.getCastlingFlag(playerMin) ? 20 : 0);
+    public float checkFigureScore(Move move){
+        float figureScore = 0;
+        switch(move.getActualFigure().getFigureID()){
+            case 1: figureScore = pawnMaterial; break;
+            case 2: figureScore = rookMaterial; break;
+            case 3: figureScore = bishopMaterial; break;
+            case 4: figureScore = knightMaterial; break;
+            case 5: figureScore = queenMaterial; break;
+            case 6: figureScore = kingMaterial; break;
+        }
+        if(move.getActualFigure().isBlackTeam() != playerMax){
+            figureScore = figureScore * (-1);
+        }
+        return figureScore;
     }
 
-    public int checkChessMate(){
-        return (board.getCheckMateFlag(playerMax) ? -100000 : 0) + (board.getCastlingFlag(playerMin) ? 100000 : 0);
+    public float checkMaterial(int[][] material){
+        return//king
+                kingMaterial*material[playerMax ? 1 : 0][5]-kingMaterial*material[playerMin ? 1 : 0][5]
+                //Queen material
+                + queenMaterial*material[playerMax ? 1 : 0][4]-queenMaterial*material[playerMin ? 1 : 0][4]
+                //Rook material
+                + rookMaterial*material[playerMax ? 1 : 0][1]-rookMaterial*material[playerMin ? 1 : 0][1]
+                //Bishop material
+                + bishopMaterial*material[playerMax ? 1 : 0][2]-bishopMaterial*material[playerMin ? 1 : 0][2]
+                //knight material
+                + knightMaterial*material[playerMax ? 1 : 0][3]-knightMaterial*material[playerMin ? 1 : 0][3]
+                //pawn material
+                + pawnMaterial*material[playerMax ? 1 : 0][0]-pawnMaterial*material[playerMin ? 1 : 0][0];
     }
 
-    public int checkChess(){
-        return (board.getCheckFlag(playerMax) ? - 300 : 0) + (board.getCheckFlag(playerMin) ? 10 : 0);
+    public float checkCastling(){
+        return (board.getCastlingFlag(playerMax) ? castlingPoints : 0) - (board.getCastlingFlag(playerMin) ? castlingPoints : 0);
+    }
+
+    public float checkChessMate(){
+        return (board.getCheckMateFlag(playerMax) ? -checkMatePoints : 0) + (board.getCastlingFlag(playerMin) ? checkMatePoints : 0);
+    }
+
+    public float checkChess(){
+        return (board.getCheckFlag(playerMax) ? -checkPoints : 0) + (board.getCheckFlag(playerMin) ? checkPoints : 0);
     }
 
     /*
