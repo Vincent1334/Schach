@@ -232,7 +232,6 @@ public class Rules {
             //set Rook
             board.setFigure(5, actualPos.getPosY(), board.getFigure(7, actualPos.getPosY()));
             board.setFigure(7, actualPos.getPosY(), new None());
-//            notifyObserversForMovement(7, actualPos.getPosY(), 5,  actualPos.getPosY());
 
             board.getFigure(5, actualPos.getPosY()).setAlreadyMoved(true);
         }
@@ -248,7 +247,6 @@ public class Rules {
             //set Rook
             board.setFigure(3, actualPos.getPosY(), board.getFigure(0, actualPos.getPosY()));
             board.setFigure(0, actualPos.getPosY(), new None());
-//            notifyObserversForMovement(0, actualPos.getPosY(), 3,  actualPos.getPosY());
 
             board.getFigure(3, actualPos.getPosY()).setAlreadyMoved(true);
         }

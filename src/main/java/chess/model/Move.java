@@ -1,5 +1,7 @@
 package chess.model;
 
+import chess.figures.Figure;
+
 import java.util.Objects;
 
 /**
@@ -9,8 +11,10 @@ public class Move {
 
     private Position actualPosition;
     private Position targetPosition;
-    private float score;
+
     private int pawnConversionTo = 5;
+
+    private Figure actualFigure, targetFigure;
 
     /**
      * Manage move parameters with custom pawn conversion
@@ -23,7 +27,6 @@ public class Move {
         this.actualPosition = actualPosition;
         this.targetPosition = targetPosition;
         this.pawnConversionTo = pawnConversionTo;
-        this.score = 0;
     }
 
     /**
@@ -76,12 +79,36 @@ public class Move {
         return pawnConversionTo;
     }
 
-    public void setScore(float score){
-        this.score = score;
+    /**
+     * Set the used figure
+     * @param figure the figure
+     */
+    public void setActualFigure(Figure figure){
+        this.actualFigure = figure;
     }
 
-    public float getScore(){
-        return score;
+    /**
+     * Set the target figure
+     * @param figure the figure
+     */
+    public void setTargetFigure(Figure figure){
+        this.targetFigure = figure;
+    }
+
+    /**
+     * returns the used figure
+     * @return the figure
+     */
+    public Figure getActualFigure(){
+        return this.actualFigure;
+    }
+
+    /**
+     * returns the target figure
+     * @return the figure
+     */
+    public Figure getTargetFigure(){
+        return this.targetFigure;
     }
 
     /**
