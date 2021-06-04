@@ -203,6 +203,8 @@ public class Computer implements Runnable{
         int[][] material = new int[2][6];
         int[][] fieldScore = new int[2][6];
 
+        float score = 0;
+
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
                 if(!(board.getFigure(x, y) instanceof None)){
@@ -246,41 +248,15 @@ public class Computer implements Runnable{
             }
         }
 
-        //set figure bonus
-        float figureScore = 0;
-        switch(board.getFigure(move.getTargetPosition()).getFigureID()){
-            case 1: figureScore = 100; break;
-            case 2: figureScore = 500; break;
-            case 3: figureScore = 325; break;
-            case 4: figureScore = 320; break;
-            case 5: figureScore = 0; break;
-            case 6: figureScore = 13; break;
-        }
+        score += checkFigureScore(move);
+        score += checkMaterial(material);
+        score += checkCastling();
+        score += checkChessMate();
+        score += checkChess();
 
-        if(board.getFigure(move.getTargetPosition()).isBlackTeam()) figureScore = figureScore *(-1);
+        return score;
 
 
-        return  //king
-                10000*material[0][5]-10000*material[1][5]
-                //Queen material
-                + 975*material[0][4]-975*material[1][4]
-                //Rook material
-                + 500*material[0][1]-500*material[1][1]
-                //Bishop material
-                + 320*material[0][2]-320*material[1][2]
-                //knight material
-                + 325*material[0][3]-325*material[1][3]
-                //pawn material
-                + 100*material[0][0]-100*material[1][0]
-                //Pawn Table
-                + fieldScore[0][0]-fieldScore[1][0]
-                //knight table
-                + fieldScore[0][2]-fieldScore[1][2]
-                //bishop table
-                + fieldScore[0][3]-fieldScore[1][3]
-                //king table
-                + fieldScore[0][5]-fieldScore[1][5];
-                //Figure Score
 
     }
 
