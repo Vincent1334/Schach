@@ -248,17 +248,17 @@ public class Computer implements Runnable{
 
 
         return  //king
-                10000*(material[0][5]-material[1][5])
+                10000*material[0][5]-10000*material[1][5]
                 //Queen material
-                + 975*(material[0][4]-material[1][4])
+                + 975*material[0][4]-975*material[1][4]
                 //Rook material
-                + 500*(material[0][1]-material[1][1])
+                + 500*material[0][1]-500*material[1][1]
                 //Bishop material
-                + 320*((material[0][2]-material[1][2])
+                + 320*material[0][2]-320*material[1][2]
                 //knight material
-                + 325*(material[0][3]-material[1][3]))
+                + 325*material[0][3]-325*material[1][3]
                 //pawn material
-                + 100*(material[0][0]-material[1][0])
+                + 100*material[0][0]-100*material[1][0]
                 //Pawn Table
                 + fieldScore[0][0]-fieldScore[1][0]
                 //knight table
