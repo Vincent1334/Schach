@@ -29,7 +29,7 @@ public class Computer implements Runnable{
     private boolean isThinking = false;
     private Board board;
     private int targetDepth = 5;
-    private Move bestMove;
+    private Move bestMove, lastMove;
     private boolean endGame = false;
 
     //Points
@@ -40,9 +40,11 @@ public class Computer implements Runnable{
     private final float queenMaterial = 975;
     private final float kingMaterial = 32000;
 
-    private final float castlingPoints = 20;
+    private final float castlingPoints = 80;
     private final float checkMatePoints = 100000;
-    private final float checkPoints = 50;
+    private final float checkPoints = 30;
+
+    private final float repeatPoints = 100;
 
 
     /**
@@ -93,6 +95,9 @@ public class Computer implements Runnable{
     }
 
     public Move getMove(){
+        lastMove = new Move(bestMove.getActualPosition(), bestMove.getTargetPosition());
+        lastMove.setActualFigure(bestMove.getActualFigure());
+        lastMove.setTargetFigure(bestMove.getTargetFigure());
         return bestMove;
     }
 
@@ -248,6 +253,7 @@ public class Computer implements Runnable{
             }
         }
 
+        score += checkRepeat(move);
         score += checkFigureScore(move);
         score += checkMaterial(material);
         score += checkCastling();
@@ -260,6 +266,11 @@ public class Computer implements Runnable{
 
     }
 
+    public float checkRepeat(Move move){
+        if(lastMove != null && move.getActualFigure() == lastMove.getActualFigure()) return -repeatPoints;
+        return 0;
+    }
+
     public float checkFigureScore(Move move){
         float figureScore = 0;
         switch(move.getActualFigure().getFigureID()){
@@ -267,8 +278,7 @@ public class Computer implements Runnable{
             case 2: figureScore = rookMaterial; break;
             case 3: figureScore = bishopMaterial; break;
             case 4: figureScore = knightMaterial; break;
-            case 5: figureScore = queenMaterial; break;
-            case 6: figureScore = kingMaterial; break;
+            case 5: figureScore = queenMaterial/3; break;
         }
         if(move.getActualFigure().isBlackTeam() != playerMax){
             figureScore = figureScore * (-1);
@@ -292,7 +302,7 @@ public class Computer implements Runnable{
     }
 
     public float checkCastling(){
-        return (board.getCastlingFlag(playerMax) ? castlingPoints : 0) - (board.getCastlingFlag(playerMin) ? castlingPoints : 0);
+        return (board.getCastlingFlag(playerMax) ? castlingPoints : 0);
     }
 
     public float checkChessMate(){
