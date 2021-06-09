@@ -63,12 +63,12 @@
          <font>
             <Font name="Calibri Light" size="15.0" />
          </font></RadioButton>
-      <Button fx:id="startButton" layoutX="296.0" layoutY="338.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: #325eab; -fx-border-radius: 2;" text="Start" textFill="WHITE">
+      <Button fx:id="startButton" layoutX="296.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: #325eab; -fx-border-radius: 2;" text="Start" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="16.0" layoutY="338.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Quit" textFill="#363535">
+      <Button layoutX="16.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#quitGame" prefHeight="25.0" prefWidth="60.0" text="Quit" textFill="#363535">
          <font>
             <Font size="15.0" />
          </font>
