@@ -3,6 +3,7 @@ package chess.model;
 import chess.figures.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class contains the information about all allowed chess moves
@@ -325,8 +326,8 @@ public class Rules {
      * @param board
      * @return a list of poosible target fields
      */
-    public static ArrayList<Position> possibleTargetFields(Position actualPos, Board board) {
-        ArrayList<Position> fields = new ArrayList<>();
+    public static List<Position> possibleTargetFields(Position actualPos, Board board) {
+        List<Position> fields = new ArrayList<>();
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 Position targetPos = new Position(x, y);

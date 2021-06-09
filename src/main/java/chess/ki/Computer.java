@@ -1,14 +1,13 @@
 package chess.ki;
 
-import chess.figures.Figure;
 import chess.figures.None;
 import chess.gui.Logic;
 import chess.model.Board;
 import chess.model.Move;
 import chess.model.Position;
 import chess.model.Rules;
-
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class contains the information about the processes when the computer does a chess move.
@@ -25,27 +24,13 @@ public class Computer implements Runnable{
     private Logic gui;
 
     //a-b pruning
-    private boolean playerMax, playerMin;
+    private final boolean playerMax;
+    private final boolean playerMin;
     private boolean isThinking = false;
+
     private Board board;
     private int targetDepth = 5;
     private Move bestMove, lastMove;
-    private boolean endGame = false;
-
-    //Points
-    private final float pawnMaterial = 100;
-    private final float rookMaterial = 500;
-    private final float bishopMaterial = 320;
-    private final float knightMaterial = 325;
-    private final float queenMaterial = 975;
-    private final float kingMaterial = 32000;
-
-    private final float castlingPoints = 80;
-    private final float checkMatePoints = 100000;
-    private final float checkPoints = 30;
-
-    private final float repeatPoints = 100;
-
 
     /**
      *the constructor of the computer
@@ -64,6 +49,11 @@ public class Computer implements Runnable{
         thread = new Thread(this);
     }
 
+    /**
+     * The constructor of the computer
+     * @param isBlack color of the player
+     * @param gui the graphical user interface
+     */
     public Computer(boolean isBlack, Logic gui){
         //setup Player
         this.playerMax = isBlack;
@@ -94,6 +84,10 @@ public class Computer implements Runnable{
         }
     }
 
+    /**
+     * returns the determined move
+     * @return the best move
+     */
     public Move getMove(){
         lastMove = new Move(bestMove.getActualPosition(), bestMove.getTargetPosition());
         lastMove.setActualFigure(bestMove.getActualFigure());
@@ -103,7 +97,7 @@ public class Computer implements Runnable{
 
     @Override
     public void run(){
-        max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new ArrayList<Move>(), null);
+        max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new CutOff(new ArrayList<Move>(), null));
         isThinking = false;
         if(gui != null) gui.computerIsFinish();
     }
@@ -112,22 +106,23 @@ public class Computer implements Runnable{
     <---Alpha-Beta-Pruning--------------------------------------------------------------------------------------------->
      */
 
+
     /**
      * calculates the max values of the search tree
      * @param depth depth of the search tree
      * @param alpha alpha value
      * @param beta beta value
-     * @param parentCutOff the parent cut off
+     * @param ParentCutOff the parent cut off
      * @return maxValue
      */
-    private float max(int depth, float alpha, float beta, ArrayList<Move> parentCutOff, Move lastMove){
+    private float max(int depth, float alpha, float beta, CutOff ParentCutOff){
 
         if(depth == 0) return heuristic(board, lastMove);
         float maxValue = alpha;
 
         //generate possible moves
-        ArrayList<Move> possibleMove = generatePossibleMove(playerMax);
-        sortMove(possibleMove, parentCutOff, playerMax);
+        List<Move> possibleMove = generatePossibleMove(playerMax);
+        sortMove(possibleMove, ParentCutOff.getParentCutOff());
 
         //Game over?
         if (possibleMove.size() == 0) return Float.NEGATIVE_INFINITY;
@@ -138,7 +133,7 @@ public class Computer implements Runnable{
         Board tmpBoard = new Board(board);
         for (Move move : possibleMove) {
             performMove(move.getActualPosition(), move.getTargetPosition(), board);
-            float value = min(depth - 1, maxValue, beta, cutOff, move);
+            float value = min(depth - 1, maxValue, beta, new CutOff(cutOff, move));
             board = new Board(tmpBoard);
             if (value > maxValue) {
                 maxValue = value;
@@ -146,7 +141,7 @@ public class Computer implements Runnable{
                     bestMove = move;
                 }
                 if (maxValue >= beta) {
-                    parentCutOff.add(move);
+                    ParentCutOff.getParentCutOff().add(move);
                     break;
                 }
             }
@@ -159,33 +154,33 @@ public class Computer implements Runnable{
      * @param depth depth of the search tree
      * @param alpha alpha value
      * @param beta beta value
-     * @param parentCutOff the parent cut off
+     * @param ParentCutOff the parent cut off
      * @return minValue
      */
-    private float min(int depth, float alpha, float beta, ArrayList<Move> parentCutOff, Move lastMove){
+    private float min(int depth, float alpha, float beta, CutOff ParentCutOff){
 
         if(depth == 0) return heuristic(board, lastMove);
         float minValue = beta;
 
         //create Possible Moves
-        ArrayList<Move> possibleMove = generatePossibleMove(playerMin);
-        sortMove(possibleMove, parentCutOff, playerMin);
+        List<Move> possibleMove = generatePossibleMove(playerMin);
+        sortMove(possibleMove, ParentCutOff.getParentCutOff());
 
         //Game over?
         if (possibleMove.size() == 0) return Float.POSITIVE_INFINITY;
 
         //create CutOff
-        ArrayList<Move> cutOff = new ArrayList<Move>();
+        List<Move> cutOff = new ArrayList<Move>();
 
         Board tmpBoard = new Board(board);
         for (Move move : possibleMove) {
             performMove(move.getActualPosition(), move.getTargetPosition(), board);
-            float value = max(depth - 1, alpha, minValue, cutOff, move);
+            float value = max(depth - 1, alpha, minValue, new CutOff(cutOff, move));
             board = new Board(tmpBoard);
             if (value < minValue) {
                 minValue = value;
                 if (minValue <= alpha) {
-                    parentCutOff.add(move);
+                    ParentCutOff.getParentCutOff().add(move);
                     break;
                 }
             }
@@ -253,64 +248,14 @@ public class Computer implements Runnable{
             }
         }
 
-        score += checkRepeat(move);
-        score += checkFigureScore(move);
-        score += checkMaterial(material);
-        score += checkCastling();
-        score += checkChessMate();
-        score += checkChess();
+        score += Heuristic.checkRepeat(move, lastMove);
+        score += Heuristic.checkFigureScore(move, playerMax);
+        score += Heuristic.checkMaterial(material, playerMax, playerMin);
+        score += Heuristic.checkCastling(board, playerMax);
+        score += Heuristic.checkChessMate(board, playerMax, playerMin);
+        score += Heuristic.checkChess(board, playerMax, playerMin);
 
         return score;
-
-
-
-    }
-
-    public float checkRepeat(Move move){
-        if(lastMove != null && move.getActualFigure() == lastMove.getActualFigure()) return -repeatPoints;
-        return 0;
-    }
-
-    public float checkFigureScore(Move move){
-        float figureScore = 0;
-        switch(move.getActualFigure().getFigureID()){
-            case 1: figureScore = pawnMaterial; break;
-            case 2: figureScore = rookMaterial; break;
-            case 3: figureScore = bishopMaterial; break;
-            case 4: figureScore = knightMaterial; break;
-            case 5: figureScore = queenMaterial/3; break;
-        }
-        if(move.getActualFigure().isBlackTeam() != playerMax){
-            figureScore = figureScore * (-1);
-        }
-        return figureScore;
-    }
-
-    public float checkMaterial(int[][] material){
-        return//king
-                kingMaterial*material[playerMax ? 1 : 0][5]-kingMaterial*material[playerMin ? 1 : 0][5]
-                //Queen material
-                + queenMaterial*material[playerMax ? 1 : 0][4]-queenMaterial*material[playerMin ? 1 : 0][4]
-                //Rook material
-                + rookMaterial*material[playerMax ? 1 : 0][1]-rookMaterial*material[playerMin ? 1 : 0][1]
-                //Bishop material
-                + bishopMaterial*material[playerMax ? 1 : 0][2]-bishopMaterial*material[playerMin ? 1 : 0][2]
-                //knight material
-                + knightMaterial*material[playerMax ? 1 : 0][3]-knightMaterial*material[playerMin ? 1 : 0][3]
-                //pawn material
-                + pawnMaterial*material[playerMax ? 1 : 0][0]-pawnMaterial*material[playerMin ? 1 : 0][0];
-    }
-
-    public float checkCastling(){
-        return (board.getCastlingFlag(playerMax) ? castlingPoints : 0);
-    }
-
-    public float checkChessMate(){
-        return (board.getCheckMateFlag(playerMax) ? -checkMatePoints : 0) + (board.getCastlingFlag(playerMin) ? checkMatePoints : 0);
-    }
-
-    public float checkChess(){
-        return (board.getCheckFlag(playerMax) ? -checkPoints : 0) + (board.getCheckFlag(playerMin) ? checkPoints : 0);
     }
 
     /*
@@ -332,11 +277,10 @@ public class Computer implements Runnable{
 
     /**
      * pre-sorts the moves
-     * @param moves
-     * @param cutOff
-     * @param isBlack
+     * @param moves list of possible moves
+     * @param cutOff list of cutoff moves
      */
-    private void sortMove(ArrayList<Move> moves, ArrayList<Move> cutOff, boolean isBlack){
+    private void sortMove(List<Move> moves, List<Move> cutOff){
         for (Move move : cutOff) {
             if (moves.contains(move)) {
                 moves.remove(move);
@@ -350,17 +294,17 @@ public class Computer implements Runnable{
      */
 
     /**
-     * Generate a list with all possible moves. Also add used figure and attack Figure
+     * Generate a list with all possible moves. Also add used figure and attacked Figure
      * @param player the checked team
-     * @return
+     * @return list of possible moves
      */
-     private ArrayList<Move> generatePossibleMove(boolean player){
+     private List<Move> generatePossibleMove(boolean player){
          //generate possible moves
-         ArrayList<Move> possibleMove = new ArrayList<Move>();
+         List<Move> possibleMove = new ArrayList<Move>();
          for(int y = 0; y < 8; y++){
              for(int x = 0; x < 8; x++){
                  if(board.getFigure(x, y).isBlackTeam() == player && !(board.getFigure(x, y) instanceof None)){
-                     ArrayList<Position> tmpPos = Rules.possibleTargetFields(new Position(x, y), board);
+                     List<Position> tmpPos = Rules.possibleTargetFields(new Position(x, y), board);
                      for (Position tmpPo : tmpPos) {
                          Move move = new Move(new Position(x, y), tmpPo);
                          move.setActualFigure(board.getFigure(x, y));
@@ -374,6 +318,12 @@ public class Computer implements Runnable{
      }
 
 
+    /**
+     *
+     * @param actualPos the actual position
+     * @param targetPos the target position
+     * @param tmpBoard copy-board
+     */
     private void performMove(Position actualPos, Position targetPos, Board tmpBoard){
         if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {
             Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
@@ -396,6 +346,10 @@ public class Computer implements Runnable{
         Board.kingInCheck(board, playerMin);
     }
 
+    /**
+     * is-finished-flag for the computer
+     * @return whether the computer has finished calculating
+     */
     public boolean isFinish(){
          return !isThinking;
     }

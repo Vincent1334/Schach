@@ -34,8 +34,6 @@ public class Controller {
     private boolean firstTurn = true;
     private boolean blacksTurn = false;
     private boolean blackDown = false;
-    private int indexBeatenFiguresBlack = 1;
-    private int indexBeatenFiguresWhite = 1;
     private int indexHistory = 0;
     private List<Figure> beatenFigureList;
     private Logic logic;
@@ -241,14 +239,25 @@ public class Controller {
             iv.preserveRatioProperty().setValue(true);
             iv.setFitHeight(50.0);
             iv.setRotate(0);
+
             if (!blacksTurn) {
+                int indexBeatenFiguresBlack = 0;
+                for (Figure figure : beatenFigures) {
+                    if (figure.isBlackTeam()) {
+                        indexBeatenFiguresBlack += 1;
+                    }
+                }
                 GridPane.setColumnIndex(iv, indexBeatenFiguresBlack);
                 GridPane.setRowIndex(iv, 1);
-                indexBeatenFiguresBlack += 1;
             } else {
+                int indexBeatenFiguresWhite = 0;
+                for (Figure figure : beatenFigures) {
+                    if (!figure.isBlackTeam()) {
+                        indexBeatenFiguresWhite += 1;
+                    }
+                }
                 GridPane.setColumnIndex(iv, indexBeatenFiguresWhite);
                 GridPane.setRowIndex(iv, 0);
-                indexBeatenFiguresWhite += 1;
             }
             this.beatenFigures.getChildren().add(iv);
             this.beatenFigureList.add(beatenFigures.get(beatenFigures.size() - 1));
