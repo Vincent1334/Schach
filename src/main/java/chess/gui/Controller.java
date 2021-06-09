@@ -49,14 +49,6 @@ public class Controller {
     @FXML
     private GridPane history;
     @FXML
-    private VBox rowsLeft;
-    @FXML
-    private VBox rowsRight;
-    @FXML
-    private HBox columnsTop;
-    @FXML
-    private HBox columnsBottom;
-    @FXML
     private CheckBox rotateBoard;
     @FXML
     private CheckBox possibleFieldsButton;
@@ -210,14 +202,7 @@ public class Controller {
         }else{
             angle = 180;
         }
-        if(gridPane.getRotate() != angle){
-            swapLabeling();
-        }
         gridPane.setRotate(angle);
-        columnsTop.setRotate(angle);
-        columnsBottom.setRotate(angle);
-        rowsLeft.setRotate(angle);
-        rowsRight.setRotate(angle);
         turnFigures(angle);
 
     }
@@ -231,29 +216,6 @@ public class Controller {
         for (Node node : children) {
             node.setRotate(angle);
         }
-    }
-
-    /**
-     * swaps the labeling of the rows and columns
-     */
-    private void swapLabeling(){
-        swap(rowsRight.getChildren());
-        swap(rowsLeft.getChildren());
-        swap(columnsBottom.getChildren());
-        swap(columnsTop.getChildren());
-    }
-
-    /**
-     * swaps every node of the given list
-     * @param children you want to swap
-     */
-    private void swap(ObservableList<Node> children) {
-        ObservableList<Node> workingCollection = FXCollections.observableArrayList(children);
-        Collections.swap(workingCollection, 0, 7);
-        Collections.swap(workingCollection, 1, 6);
-        Collections.swap(workingCollection, 2, 5);
-        Collections.swap(workingCollection, 3, 4);
-        children.setAll(workingCollection);
     }
 
     /**
@@ -410,7 +372,7 @@ public class Controller {
         List<Rectangle> fields = new ArrayList<>();
 
         for (Position position : positions) {
-            fields.add((Rectangle) getFieldByRowColumnIndex(8 - position.getPosY(), position.getPosX() + 1));
+            fields.add((Rectangle) getField(8 - position.getPosY(), position.getPosX() + 1));
         }
 
         return fields;
@@ -422,17 +384,13 @@ public class Controller {
      * @param column columnIndex of the field you want to get
      * @return the field with the rowIndex row and the columnIndex column
      */
-    private Node getFieldByRowColumnIndex(int row, int column) {
-        Node result = null;
-        ObservableList<Node> children = gridPane.getChildren();
-
-        for (Node node : children) {
-            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-                result = node;
-                break;
+    private Node getField(int row, int column) {
+        for (Node node : gridPane.getChildren()) {
+            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                return node;
             }
         }
-        return result;
+        return null;
     }
 
     /**

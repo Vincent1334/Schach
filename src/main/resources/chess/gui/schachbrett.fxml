@@ -42,13 +42,11 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
@@ -580,290 +578,262 @@
                                     <Reflection fraction="0.12" topOpacity="0.24" />
                                  </effect>
                               </ImageView>
-                              <VBox fx:id="rowsLeft" minHeight="60.0" minWidth="30.0" prefHeight="60.0" prefWidth="30.0" GridPane.rowIndex="1" GridPane.rowSpan="8">
-                                 <children>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="8" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="7" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="6" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="5" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="4" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="2" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="1" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                 </children>
-                                 <effect>
-                                    <InnerShadow height="53.37" radius="18.0925" />
-                                 </effect>
-                              </VBox>
-                              <HBox fx:id="columnsTop" GridPane.columnIndex="1" GridPane.columnSpan="8">
-                                 <children>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="A" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="B" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="C" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="D" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="E" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="F" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="G" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="H" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                 </children>
-                                 <effect>
-                                    <InnerShadow />
-                                 </effect>
-                              </HBox>
-                              <VBox fx:id="rowsRight" minHeight="60.0" minWidth="30.0" prefHeight="60.0" prefWidth="30.0" GridPane.columnIndex="9" GridPane.rowIndex="1" GridPane.rowSpan="8">
-                                 <effect>
-                                    <InnerShadow height="53.37" radius="18.0925" />
-                                 </effect>
-                                 <children>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="8" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="7" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="6" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="5" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="4" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="2" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="1" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
-                                       </graphic>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                              <HBox fx:id="columnsBottom" prefWidth="781.0" GridPane.columnIndex="1" GridPane.columnSpan="8" GridPane.rowIndex="9">
-                                 <children>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="A" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="B" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="C" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="D" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="E" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="F" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="G" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                    <Label alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="H" textFill="WHITE" textOverrun="CLIP">
-                                       <font>
-                                          <Font name="Calibri" size="18.0" />
-                                       </font>
-                                       <graphic>
-                                          <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
-                                       </graphic>
-                                    </Label>
-                                 </children>
-                                 <effect>
-                                    <InnerShadow />
-                                 </effect>
-                              </HBox>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="8" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="7" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="6" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="5" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="4" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="2" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.rowIndex="7">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="1" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.rowIndex="8">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="A" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="B" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="C" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="3">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="D" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="4">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="E" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="5">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="F" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="6">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="G" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="7">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="H" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="8">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="8" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="9" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="7" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="6" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="9" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="5" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="9" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="4" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="9" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="9" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="2" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="9" GridPane.rowIndex="7">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="TOP_LEFT" blendMode="SOFT_LIGHT" contentDisplay="CENTER" maxWidth="30.0" minHeight="60.0" minWidth="30.0" prefWidth="30.0" text="1" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="9" GridPane.rowIndex="8">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="60.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="A" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="B" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="C" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="D" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="4" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="E" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="5" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="F" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="6" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="G" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="7" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
+                              <Label accessibleRole="NODE" alignment="CENTER" blendMode="SOFT_LIGHT" contentDisplay="CENTER" text="H" textFill="WHITE" textOverrun="CLIP" GridPane.columnIndex="8" GridPane.rowIndex="9">
+                                 <font>
+                                    <Font name="Calibri" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <Rectangle id="frame" fill="#515151" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="60.0" />
+                                 </graphic>
+                              </Label>
                               <Rectangle id="frame" fill="#3c3c3c" height="30.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" />
                               <Rectangle id="frame" fill="#3c3c3c" height="30.0" layoutX="10.0" layoutY="14.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="9" />
                               <Rectangle id="frame" fill="#3c3c3c" height="30.0" layoutX="520.0" layoutY="14.0" smooth="false" stroke="#614535" strokeLineJoin="BEVEL" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="9" GridPane.rowIndex="9" />
