@@ -20,9 +20,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
@@ -42,8 +39,9 @@ public class Controller {
     private int indexHistory = 0;
     private List<Figure> beatenFigureList;
     private Logic logic;
-    private Paint fieldColor;
 
+    @FXML
+    private Label player;
     @FXML
     private GridPane gridPane;
     @FXML
@@ -70,22 +68,17 @@ public class Controller {
     private Label checkLabel;
     @FXML
     private Label calculating;
-    @FXML
-    private Rectangle whiteBox;
-    @FXML
-    private Rectangle blackBox;
 
-    public void init(int gameMode, boolean playerColorBlack) {
+    public void init(int gameMode, boolean playerColorBlack){
         beatenFigureList = new ArrayList<>();
         conversion.getItems().addAll("Queen", "Bishop", "Rook", "Knight");
         conversion.getSelectionModel().select("Queen");
 
-        logic = new Logic(gameMode, playerColorBlack, this);
+        logic = new Logic(gameMode, playerColorBlack,this);
     }
 
     /**
      * loads the menu
-     *
      * @param event the window you want to hide
      */
     public void backToMenu(MouseEvent event) {
@@ -109,13 +102,12 @@ public class Controller {
 
     /**
      * performs a move if first the start position is clicked and second the target position and if the move is allowed
-     *
      * @param mouseEvent the clicked field
      */
     public void isFieldClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
             Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
-            logic.handleFieldClick(clickedField, blacksTurn);
+            logic.handleFieldClick(clickedField,blacksTurn);
         }
     }
 
@@ -123,10 +115,9 @@ public class Controller {
 
     /**
      * updates the scene
-     *
      * @param move ,the move you want to make
      */
-    public void updateScene(Move move, CoreGame coreGame) {
+    public void updateScene(Move move,CoreGame coreGame) {
         drawBoard(coreGame.getCurrentBoard());
         updateHistory(move);
         setBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
@@ -135,15 +126,15 @@ public class Controller {
 
         if (rotateBoard.isSelected()) {
             turnBoard();
-            if (firstTurn) {
+            if(firstTurn){
                 firstTurn = false;
             }
-        } else {
-            if (!firstTurn) {
+        }else{
+            if(!firstTurn){
                 firstTurn = true;
                 blackDown = blacksTurn;
             }
-            if (blackDown) {
+            if(blackDown){
                 turnFigures(180);
             }
         }
@@ -181,13 +172,12 @@ public class Controller {
 
     /**
      * updates the history
-     *
      * @param move the move you want to add to the history
      */
     public void updateHistory(Move move) {
         Text t = new Text(move.toString());
-        history.add((new Text("   " + (indexHistory + 1))), 0, indexHistory);
         history.add(t, 2, indexHistory);
+        history.add((new Text("   " + indexHistory + 1)), 0, indexHistory);
         indexHistory += 1;
     }
 
@@ -215,12 +205,12 @@ public class Controller {
      */
     private void turnBoard() {
         int angle;
-        if (blacksTurn) {
+        if(blacksTurn){
             angle = 0;
-        } else {
+        }else{
             angle = 180;
         }
-        if (gridPane.getRotate() != angle) {
+        if(gridPane.getRotate() != angle){
             swapLabeling();
         }
         gridPane.setRotate(angle);
@@ -234,10 +224,9 @@ public class Controller {
 
     /**
      * rotates the figures with the angle angle
-     *
      * @param angle the angle around which the figures are rotated
      */
-    private void turnFigures(int angle) {
+    private  void turnFigures(int angle){
         ObservableList<Node> children = gridPane.getChildren();
         for (Node node : children) {
             node.setRotate(angle);
@@ -247,7 +236,7 @@ public class Controller {
     /**
      * swaps the labeling of the rows and columns
      */
-    private void swapLabeling() {
+    private void swapLabeling(){
         swap(rowsRight.getChildren());
         swap(rowsLeft.getChildren());
         swap(columnsBottom.getChildren());
@@ -256,7 +245,6 @@ public class Controller {
 
     /**
      * swaps every node of the given list
-     *
      * @param children you want to swap
      */
     private void swap(ObservableList<Node> children) {
@@ -270,26 +258,18 @@ public class Controller {
 
     /**
      * updates the label with the actual player
-     *
      * @param black should be true if the actual player is black
      */
     private void setPlayerLabel(boolean black) {
         if (black) {
-            blackBox.setStroke(Color.valueOf("#6495ed"));
-            blackBox.setStrokeWidth(3);
-            whiteBox.setStroke(Color.valueOf("#000000"));
-            whiteBox.setStrokeWidth(0.5);
+            player.setText("black");
         } else {
-            whiteBox.setStroke(Color.valueOf("#6495ed"));
-            whiteBox.setStrokeWidth(3);
-            blackBox.setStroke(Color.valueOf("#000000"));
-            blackBox.setStrokeWidth(0.5);
+            player.setText("white");
         }
     }
 
     /**
      * updates the beaten figures
-     *
      * @param beatenFigures a list with all beaten figures
      */
     public void setBeatenFigures(List<Figure> beatenFigures) {
@@ -317,9 +297,8 @@ public class Controller {
 
     /**
      * returns the ImageView with the columnIndex column and the rowIndex row in the gridPane
-     *
      * @param column of the ImageView you want to get
-     * @param row    of the ImageView you want to get
+     * @param row of the ImageView you want to get
      * @return the ImageView with the columnIndex column and the rowIndex row in the gridPane
      */
     private Node getImageViewByIndex(int column, int row) {
@@ -338,19 +317,18 @@ public class Controller {
 
     /**
      * returns the Image of a figure
-     *
      * @param symbol of the figure you want the image from
      * @return the image of the figure
      */
     private Image getImageBySymbol(char symbol) {
         String color = "Black";
-        if (Character.isUpperCase(symbol)) {
+        if(Character.isUpperCase(symbol)){
             color = "White";
         }
 
         switch (Character.toUpperCase(symbol)) {
             // Rook
-            case 'R':
+            case 'R' :
                 return ImageHandler.getInstance().getImage("Rook" + color);
             // Knight
             case 'N':
@@ -375,7 +353,6 @@ public class Controller {
 
     /**
      * returns if the image iv shows a black figure
-     *
      * @param iv the image of the figure you want to know th color
      * @return if the image iv shows a black figure
      */
@@ -392,7 +369,6 @@ public class Controller {
 
     /**
      * returns the ID-number of the conversionFigure
-     *
      * @return the ID-number of the conversionFigure
      */
     protected int getConversionFigure() {
@@ -414,21 +390,19 @@ public class Controller {
 
     /**
      * returns the figure of the field
-     *
      * @param field of the figure you want to get
      * @return the figure of the field
      */
-    protected ImageView getFigure(Rectangle field) {
+    protected ImageView getFigure(Rectangle field){
         return (ImageView) getImageViewByIndex(GridPane.getColumnIndex(field), GridPane.getRowIndex(field));
     }
 
     /**
      * returns a array list with all possible fields the figure of the actualField can move
-     *
      * @param actualField the field of the figure you want to know the possible moves
      * @return a array list with all possible fields the figure of the actualField can move
      */
-    protected List<Rectangle> getPossibleFields(Rectangle actualField, Board board) {
+    protected List<Rectangle> getPossibleFields(Rectangle actualField,Board board) {
 
         Position actualPosition = new Position(GridPane.getColumnIndex(actualField) - 1, 8 - GridPane.getRowIndex(actualField));
 
@@ -444,8 +418,7 @@ public class Controller {
 
     /**
      * returns the field with the rowIndex row and the columnIndex column
-     *
-     * @param row    rowIndex of the field you want to get
+     * @param row rowIndex of the field you want to get
      * @param column columnIndex of the field you want to get
      * @return the field with the rowIndex row and the columnIndex column
      */
@@ -464,48 +437,49 @@ public class Controller {
 
     /**
      * Marks or unmarks the field and if selected the possible moves of the figure on the field
-     *
      * @param field the field you want to mark
-     * @param mark  if the field should be marked or unmarked
+     * @param mark if the field should be marked or unmarked
      */
-    protected void setMark(Rectangle field, boolean mark, Board board) {
-        if (mark) {
-            fieldColor = field.getFill();
-            field.setFill(Color.valueOf("#69ff6ebd"));
+    protected void setMark(Rectangle field,boolean mark,Board board){
+        if(mark){
+            field.setStroke(CORNFLOWERBLUE);
+            field.setStrokeWidth(4);
+            field.setStrokeType(StrokeType.INSIDE);
             if (possibleFieldsButton.isSelected()) {
-                for (Rectangle f : getPossibleFields(field, board)) {
-                    f.setStroke(Color.valueOf("#69ff6ebd"));
-                    f.setStrokeWidth(4);
+                for (Rectangle f : getPossibleFields(field,board)) {
+                    f.setStroke(CYAN);
+                    f.setStrokeWidth(6);
                     f.setStrokeType(StrokeType.INSIDE);
                 }
             }
-        } else {
-            field.setFill(fieldColor);
-            for (Rectangle f : getPossibleFields(field, board)) {
+        }else{
+            field.setStrokeWidth(0);
+            for (Rectangle f: getPossibleFields(field,board)) {
                 f.setStrokeWidth(0);
             }
         }
     }
 
 
-    protected CheckBox getRotateBoard() {
+    protected CheckBox getRotateBoard(){
         return rotateBoard;
     }
 
-    protected boolean isSingleSelect() {
+    protected boolean isSingleSelect(){
         return singleSelect.isSelected();
     }
 
-    protected void setCalculating(boolean isCalculating) {
-        if (isCalculating) {
+    protected void setCalculating(boolean isCalculating){
+        if(isCalculating){
             calculating.setVisible(true);
             gridPane.setMouseTransparent(true);
-        } else {
+        }else{
             calculating.setVisible(false);
             gridPane.setMouseTransparent(false);
         }
 
     }
+
 
 
 }
