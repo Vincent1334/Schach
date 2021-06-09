@@ -199,7 +199,6 @@ public class Controller {
      * @param angle the angle around which the figures are rotated
      */
     private  void turnFigures(int angle){
-        ObservableList<Node> children = gridPane.getChildren();
         for (Node node : gridPane.getChildren()) {
             node.setRotate(angle);
         }

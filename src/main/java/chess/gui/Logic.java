@@ -7,7 +7,12 @@ import javafx.application.Platform;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
-
+/**
+ * transposes the logic of a move
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-06-09
+ */
 public class Logic implements Runnable{
 
     private static CoreGame coreGame;

@@ -11,18 +11,29 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * manages the main menu options
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-06-09
+ */
 public class Menu {
 
     private int gameMode = 1;
     private boolean playerColorBlack;
 
+    /**
+     * quits the game
+     */
     @FXML
     void quitGame() {
-
         System.exit(0);
     }
 
-
+    /**
+     * starts the game
+     * @param event
+     */
     @FXML
     private void startGame(MouseEvent event) {
         try {
@@ -46,24 +57,40 @@ public class Menu {
         }
     }
 
-
+    /**
+     * sets the game mode for a local game against a friend
+     */
     @FXML
     private void setMode01() {
         gameMode = 1;
     }
+
+    /**
+     * sets the game mode for a local game against the computer
+     */
     @FXML
     private void setMode02() {
         gameMode = 2;
     }
+
+    /**
+     * sets the game mode for a network game
+     */
     @FXML
     private void setMode03() {
         gameMode = 3;
     }
 
+    /**
+     * sets the playerColor black
+     */
     public void setBlack() {
         playerColorBlack = true;
     }
 
+    /**
+     * sets the playerColor White
+     */
     public void setWhite() {
         playerColorBlack = false;
     }
