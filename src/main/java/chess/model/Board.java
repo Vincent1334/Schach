@@ -333,7 +333,7 @@ public class Board {
      * @param isBlack
      * @return flag
      */
-    public boolean getCastlingFlag(boolean isBlack){
+    public boolean isCastlingFlag(boolean isBlack){
         return castling[isBlack ? 1 : 0];
     }
 
@@ -349,7 +349,7 @@ public class Board {
      * @param isBlack
      * @return flag
      */
-    public boolean getCheckMateFlag(boolean isBlack){
+    public boolean isCheckMateFlag(boolean isBlack){
         return checkMate[isBlack ? 1 : 0];
     }
     /**
@@ -364,7 +364,7 @@ public class Board {
      * getter for the staleMate flag
      * @return flag
      */
-    public boolean getStaleMateFlag(){
+    public boolean isStaleMateFlag(){
         return staleMate;
     }
 
@@ -381,7 +381,7 @@ public class Board {
      * @param isBlack
      * @return flag
      */
-    public boolean getCheckFlag(boolean isBlack){
+    public boolean isCheckFlag(boolean isBlack){
         return check[isBlack ? 1 : 0];
     }
 }

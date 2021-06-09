@@ -85,7 +85,7 @@ public class Heuristic {
      * @return castling points
      */
     public static float checkCastling(Board board, boolean playerMax){
-        return board.getCastlingFlag(playerMax) ? castlingPoints : 0;
+        return board.isCastlingFlag(playerMax) ? castlingPoints : 0;
     }
 
     /**
@@ -96,7 +96,7 @@ public class Heuristic {
      * @return chess mate points
      */
     public static float checkChessMate(Board board, boolean playerMax, boolean playerMin){
-        return (board.getCheckMateFlag(playerMax) ? -checkMatePoints : 0) + (board.getCastlingFlag(playerMin) ? checkMatePoints : 0);
+        return (board.isCheckMateFlag(playerMax) ? -checkMatePoints : 0) + (board.isCastlingFlag(playerMin) ? checkMatePoints : 0);
     }
 
     /**
@@ -107,6 +107,6 @@ public class Heuristic {
      * @return check points
      */
     public static float checkChess(Board board, boolean playerMax, boolean playerMin){
-        return (board.getCheckFlag(playerMax) ? -checkPoints : 0) + (board.getCheckFlag(playerMin) ? checkPoints : 0);
+        return (board.isCheckFlag(playerMax) ? -checkPoints : 0) + (board.isCheckFlag(playerMin) ? checkPoints : 0);
     }
 }
