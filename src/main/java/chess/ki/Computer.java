@@ -1,6 +1,5 @@
 package chess.ki;
 
-import chess.figures.Figure;
 import chess.figures.None;
 import chess.gui.Logic;
 import chess.model.Board;
@@ -31,20 +30,6 @@ public class Computer implements Runnable{
     private int targetDepth = 5;
     private Move bestMove, lastMove;
     private boolean endGame = false;
-
-    //Points
-    private final float pawnMaterial = 100;
-    private final float rookMaterial = 500;
-    private final float bishopMaterial = 320;
-    private final float knightMaterial = 325;
-    private final float queenMaterial = 975;
-    private final float kingMaterial = 32000;
-
-    private final float castlingPoints = 80;
-    private final float checkMatePoints = 100000;
-    private final float checkPoints = 30;
-
-    private final float repeatPoints = 100;
 
 
     /**
@@ -253,64 +238,14 @@ public class Computer implements Runnable{
             }
         }
 
-        score += checkRepeat(move);
-        score += checkFigureScore(move);
-        score += checkMaterial(material);
-        score += checkCastling();
-        score += checkChessMate();
-        score += checkChess();
+        score += Heuristic.checkRepeat(move, lastMove);
+        score += Heuristic.checkFigureScore(move, playerMax);
+        score += Heuristic.checkMaterial(material, playerMax, playerMin);
+        score += Heuristic.checkCastling(board, playerMax);
+        score += Heuristic.checkChessMate(board, playerMax, playerMin);
+        score += Heuristic.checkChess(board, playerMax, playerMin);
 
         return score;
-
-
-
-    }
-
-    public float checkRepeat(Move move){
-        if(lastMove != null && move.getActualFigure() == lastMove.getActualFigure()) return -repeatPoints;
-        return 0;
-    }
-
-    public float checkFigureScore(Move move){
-        float figureScore = 0;
-        switch(move.getActualFigure().getFigureID()){
-            case 1: figureScore = pawnMaterial; break;
-            case 2: figureScore = rookMaterial; break;
-            case 3: figureScore = bishopMaterial; break;
-            case 4: figureScore = knightMaterial; break;
-            case 5: figureScore = queenMaterial/3; break;
-        }
-        if(move.getActualFigure().isBlackTeam() != playerMax){
-            figureScore = figureScore * (-1);
-        }
-        return figureScore;
-    }
-
-    public float checkMaterial(int[][] material){
-        return//king
-                kingMaterial*material[playerMax ? 1 : 0][5]-kingMaterial*material[playerMin ? 1 : 0][5]
-                //Queen material
-                + queenMaterial*material[playerMax ? 1 : 0][4]-queenMaterial*material[playerMin ? 1 : 0][4]
-                //Rook material
-                + rookMaterial*material[playerMax ? 1 : 0][1]-rookMaterial*material[playerMin ? 1 : 0][1]
-                //Bishop material
-                + bishopMaterial*material[playerMax ? 1 : 0][2]-bishopMaterial*material[playerMin ? 1 : 0][2]
-                //knight material
-                + knightMaterial*material[playerMax ? 1 : 0][3]-knightMaterial*material[playerMin ? 1 : 0][3]
-                //pawn material
-                + pawnMaterial*material[playerMax ? 1 : 0][0]-pawnMaterial*material[playerMin ? 1 : 0][0];
-    }
-
-    public float checkCastling(){
-        return (board.getCastlingFlag(playerMax) ? castlingPoints : 0);
-    }
-
-    public float checkChessMate(){
-        return (board.getCheckMateFlag(playerMax) ? -checkMatePoints : 0) + (board.getCastlingFlag(playerMin) ? checkMatePoints : 0);
-    }
-
-    public float checkChess(){
-        return (board.getCheckFlag(playerMax) ? -checkPoints : 0) + (board.getCheckFlag(playerMin) ? checkPoints : 0);
     }
 
     /*
@@ -350,7 +285,7 @@ public class Computer implements Runnable{
      */
 
     /**
-     * Generate a list with all possible moves. Also add used figure and attack Figure
+     * Generate a list with all possible moves. Also add used figure and attacked Figure
      * @param player the checked team
      * @return
      */
@@ -374,6 +309,12 @@ public class Computer implements Runnable{
      }
 
 
+    /**
+     *
+     * @param actualPos
+     * @param targetPos
+     * @param tmpBoard
+     */
     private void performMove(Position actualPos, Position targetPos, Board tmpBoard){
         if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {
             Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
