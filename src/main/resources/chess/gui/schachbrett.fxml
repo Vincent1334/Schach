@@ -58,7 +58,7 @@
    <content>
       <VBox fx:id="vbox" prefHeight="845.0" prefWidth="716.0">
          <children>
-            <Pane>
+            <Pane fx:id="menu">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -73,16 +73,6 @@
                         <Font name="Calibri Light" size="32.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="378.0" layoutY="50.0" prefHeight="25.0" prefWidth="93.0" text="conversion:" textFill="#4a4a4a">
-                     <font>
-                        <Font name="Calibri" size="12.0" />
-                     </font>
-                  </Label>
-                  <ChoiceBox fx:id="conversion" layoutX="496.0" layoutY="50.0" prefHeight="25.0" prefWidth="216.0">
-                     <opaqueInsets>
-                        <Insets left="10.0" />
-                     </opaqueInsets>
-                  </ChoiceBox>
                   <Label fx:id="calculating" alignment="CENTER" contentDisplay="CENTER" layoutX="496.0" layoutY="103.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="23.0" prefWidth="217.0" text="....computer is calculating" textFill="CORNFLOWERBLUE" visible="false">
                      <font>
                         <Font name="Calibri" size="20.0" />
@@ -99,6 +89,16 @@
                         <Rectangle fill="#d0e9fff7" height="44.0" nodeOrientation="LEFT_TO_RIGHT" stroke="CORNFLOWERBLUE" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="5.0" width="458.0" />
                      </graphic>
                   </Label>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="378.0" layoutY="50.0" prefHeight="25.0" prefWidth="93.0" text="conversion:" textFill="#4a4a4a">
+                     <font>
+                        <Font name="Calibri" size="12.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="conversion" layoutX="496.0" layoutY="50.0" prefHeight="25.0" prefWidth="216.0">
+                     <opaqueInsets>
+                        <Insets left="10.0" />
+                     </opaqueInsets>
+                  </ChoiceBox>
                   <VBox fx:id="settings" layoutX="188.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="123.0" prefWidth="149.0">
                      <children>
                         <CheckBox fx:id="singleSelect" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Touch Move" textFill="#403f3f">

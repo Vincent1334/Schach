@@ -3,7 +3,6 @@ package chess.gui;
 import chess.controller.*;
 import chess.figures.Figure;
 import chess.model.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
@@ -38,26 +37,22 @@ public class Controller {
     private Logic logic;
 
     @FXML
-    private Label player;
-    @FXML
     private GridPane gridPane;
     @FXML
     private GridPane beatenFigures;
     @FXML
     private GridPane history;
     @FXML
+    private Pane menu;
+    @FXML
     private VBox settings;
-    @FXML
-    private ChoiceBox conversion;
-    @FXML
-    private Label checkLabel;
-    @FXML
-    private Label calculating;
+
+
 
     public void init(int gameMode, boolean playerColorBlack){
         beatenFigureList = new ArrayList<>();
-        conversion.getItems().addAll("Queen", "Bishop", "Rook", "Knight");
-        conversion.getSelectionModel().select("Queen");
+        getChoiceBoxConversion().getItems().addAll("Queen", "Bishop", "Rook", "Knight");
+        getChoiceBoxConversion().getSelectionModel().select("Queen");
 
         logic = new Logic(gameMode, playerColorBlack,this);
     }
@@ -131,26 +126,26 @@ public class Controller {
      * Sets a label if a player is in check or checkmate or stalemate
      */
     private void updateNotifications(Board board) {
-        checkLabel.setVisible(false);
+        getLabelCheck().setVisible(false);
         if (board.getCheckFlag(true)) {
-            checkLabel.setVisible(true);
-            checkLabel.setText("Black is in check");
+            getLabelCheck().setVisible(true);
+            getLabelCheck().setText("Black is in check");
         }
         if (board.getCheckFlag(false)) {
-            checkLabel.setVisible(true);
-            checkLabel.setText("White is in check");
+            getLabelCheck().setVisible(true);
+            getLabelCheck().setText("White is in check");
         }
         if (board.getCheckMateFlag(true)) {
-            checkLabel.setVisible(true);
-            checkLabel.setText("Player black is checkmate!");
+            getLabelCheck().setVisible(true);
+            getLabelCheck().setText("Player black is checkmate!");
         }
         if (board.getCheckMateFlag(false)) {
-            checkLabel.setVisible(true);
-            checkLabel.setText("Player white is checkmate!");
+            getLabelCheck().setVisible(true);
+            getLabelCheck().setText("Player white is checkmate!");
         }
         if (board.getStaleMateFlag()) {
-            checkLabel.setVisible(true);
-            checkLabel.setText("Game ends because stalemate!");
+            getLabelCheck().setVisible(true);
+            getLabelCheck().setText("Game ends because stalemate!");
         }
     }
 
@@ -216,9 +211,9 @@ public class Controller {
      */
     private void setPlayerLabel(boolean black) {
         if (black) {
-            player.setText("black");
+            getLabelPlayer().setText("black");
         } else {
-            player.setText("white");
+            getLabelPlayer().setText("white");
         }
     }
 
@@ -337,7 +332,7 @@ public class Controller {
      * @return the ID-number of the conversionFigure
      */
     protected int getConversionFigure() {
-        String item = (String) conversion.getSelectionModel().getSelectedItem();
+        String item = (String) getChoiceBoxConversion().getSelectionModel().getSelectedItem();
         if (item.equals("Queen")) {
             return 5;
         }
@@ -432,14 +427,31 @@ public class Controller {
 
     protected void setCalculating(boolean isCalculating){
         if(isCalculating){
-            calculating.setVisible(true);
+            getLabelCalculating().setVisible(true);
             gridPane.setMouseTransparent(true);
         }else{
-            calculating.setVisible(false);
+            getLabelCalculating().setVisible(false);
             gridPane.setMouseTransparent(false);
         }
 
     }
+
+    private ChoiceBox getChoiceBoxConversion(){
+        return (ChoiceBox) menu.getChildren().get(5);
+    }
+
+    private Label getLabelCheck(){
+        return (Label) menu.getChildren().get(3);
+    }
+
+    private Label getLabelCalculating(){
+        return (Label) menu.getChildren().get(2);
+    }
+
+    private Label getLabelPlayer(){
+        return (Label) menu.getChildren().get(1);
+    }
+
 
 
 
