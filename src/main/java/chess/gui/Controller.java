@@ -46,11 +46,7 @@ public class Controller {
     @FXML
     private GridPane history;
     @FXML
-    private CheckBox rotateBoard;
-    @FXML
-    private CheckBox possibleFieldsButton;
-    @FXML
-    private CheckBox singleSelect;
+    private VBox settings;
     @FXML
     private ChoiceBox conversion;
     @FXML
@@ -112,8 +108,7 @@ public class Controller {
         setBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
         updateNotifications(coreGame.getCurrentBoard());
 
-
-        if (rotateBoard.isSelected()) {
+        if (getRotateBoard().isSelected()) {
             turnBoard();
             if(firstTurn){
                 firstTurn = false;
@@ -411,7 +406,7 @@ public class Controller {
             field.setStroke(CORNFLOWERBLUE);
             field.setStrokeWidth(4);
             field.setStrokeType(StrokeType.INSIDE);
-            if (possibleFieldsButton.isSelected()) {
+            if (((CheckBox) settings.getChildren().get(1)).isSelected()) {
                 for (Rectangle f : getPossibleFields(field,board)) {
                     f.setStroke(CYAN);
                     f.setStrokeWidth(6);
@@ -428,11 +423,11 @@ public class Controller {
 
 
     protected CheckBox getRotateBoard(){
-        return rotateBoard;
+        return (CheckBox) settings.getChildren().get(2);
     }
 
     protected boolean isSingleSelect(){
-        return singleSelect.isSelected();
+        return ((CheckBox) settings.getChildren().get(0)).isSelected();
     }
 
     protected void setCalculating(boolean isCalculating){

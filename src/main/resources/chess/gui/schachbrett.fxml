@@ -99,7 +99,7 @@
                         <Rectangle fill="#d0e9fff7" height="44.0" nodeOrientation="LEFT_TO_RIGHT" stroke="CORNFLOWERBLUE" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="5.0" width="458.0" />
                      </graphic>
                   </Label>
-                  <VBox layoutX="188.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="123.0" prefWidth="149.0">
+                  <VBox fx:id="settings" layoutX="188.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="123.0" prefWidth="149.0">
                      <children>
                         <CheckBox fx:id="singleSelect" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Touch Move" textFill="#403f3f">
                            <VBox.margin>
