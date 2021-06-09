@@ -34,7 +34,6 @@ public class Controller {
     private boolean firstTurn = true;
     private boolean blacksTurn = false;
     private boolean blackDown = false;
-    private int indexHistory = 0;
     private List<Figure> beatenFigureList;
     private Logic logic;
 
@@ -166,9 +165,9 @@ public class Controller {
      */
     public void updateHistory(Move move) {
         Text t = new Text(move.toString());
-        history.add(t, 2, indexHistory);
-        history.add((new Text("   " + indexHistory + 1)), 0, indexHistory);
-        indexHistory += 1;
+
+        history.add(t, 2, history.getRowCount());
+        history.add(new Text("   " + history.getRowCount()), 0, history.getRowCount()-1);
     }
 
     /**
@@ -211,7 +210,7 @@ public class Controller {
      */
     private  void turnFigures(int angle){
         ObservableList<Node> children = gridPane.getChildren();
-        for (Node node : children) {
+        for (Node node : gridPane.getChildren()) {
             node.setRotate(angle);
         }
     }

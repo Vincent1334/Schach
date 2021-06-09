@@ -46,6 +46,7 @@ public class Menu {
         }
     }
 
+
     @FXML
     private void setMode01() {
         gameMode = 1;
