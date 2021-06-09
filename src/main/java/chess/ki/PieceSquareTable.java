@@ -7,6 +7,16 @@ package chess.ki;
  */
 public class PieceSquareTable {
 
+    public static short[][] getTable(int figureID){
+        switch(figureID){
+            case 1: return pawnTable;
+            case 3: return knightTable;
+            case 4: return bishopTable;
+            case 6: return kingTable;
+            default: return nullTable;
+        }
+    }
+
     /**
      *piece square table for a white pawn
      * contains information about clever positions for a pawn
@@ -89,5 +99,21 @@ public class PieceSquareTable {
                 {-30,-10, 20, 30, 30, 20,-10,-30},
                 {-30,-30,  0,  0,  0,  0,-30,-30},
                 {-50,-30,-30,-30,-30,-30,-30,-50}
+            };
+
+    /**
+     *piece square table for a white pawn
+     * contains information about clever positions for a pawn
+     */
+    public final static short[][] nullTable = new short[][]
+            {
+                    {0,  0,  0,  0,  0,  0,  0,  0},
+                    {0,  0,  0,  0,  0,  0,  0,  0},
+                    {0,  0,  0,  0,  0,  0,  0,  0},
+                    {0,  0,  0,  0,  0,  0,  0,  0},
+                    {0,  0,  0,  0,  0,  0,  0,  0},
+                    {0,  0,  0,  0,  0,  0,  0,  0},
+                    {0,  0,  0,  0,  0,  0,  0,  0},
+                    {0,  0,  0,  0,  0,  0,  0,  0}
             };
 }

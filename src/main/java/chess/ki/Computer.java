@@ -208,42 +208,8 @@ public class Computer implements Runnable{
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
                 if(!(board.getFigure(x, y) instanceof None)){
-                    switch(board.getFigure(x, y).getFigureID()){
-                        //pawn
-                        case 1:{
-                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] += PieceSquareTable.pawnTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
-                             break;
-                        }
-                        //rook
-                        case 2:{
-                             material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][1] ++;
-                             break;
-                        }
-                        //knight
-                        case 3:{
-                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][2] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][2] += PieceSquareTable.knightTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
-                             break;
-                        }
-                        //bishop
-                        case 4:{
-                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][3] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][3] += PieceSquareTable.bishopTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
-                            break;
-                        }
-                        //queen
-                        case 5:{
-                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][4] ++;
-                            break;
-                        }
-                        //king
-                        case 6:{
-                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] += PieceSquareTable.kingTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
-                            break;
-                        }
-                    }
+                    material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][board.getFigure(x, y).getFigureID()-1] ++;
+                    fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] += PieceSquareTable.getTable(board.getFigure(x, y).getFigureID())[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
                 }
             }
         }
