@@ -9,6 +9,7 @@ import chess.model.Position;
 import chess.model.Rules;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class contains the information about the processes when the computer does a chess move.
@@ -360,7 +361,7 @@ public class Computer implements Runnable{
          for(int y = 0; y < 8; y++){
              for(int x = 0; x < 8; x++){
                  if(board.getFigure(x, y).isBlackTeam() == player && !(board.getFigure(x, y) instanceof None)){
-                     ArrayList<Position> tmpPos = Rules.possibleTargetFields(new Position(x, y), board);
+                     List<Position> tmpPos = Rules.possibleTargetFields(new Position(x, y), board);
                      for (Position tmpPo : tmpPos) {
                          Move move = new Move(new Position(x, y), tmpPo);
                          move.setActualFigure(board.getFigure(x, y));
