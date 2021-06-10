@@ -110,7 +110,6 @@ public class CoreGame {
 
     /**
      * return the current board
-     *
      * @return Board
      */
     public Board getCurrentBoard() {

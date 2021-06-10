@@ -15,7 +15,7 @@ public class Queen extends Figure {
     /**
      * The constructor of a queen
      * The queens team and figure ID are initialized here.
-     * @param blackTeam
+     * @param blackTeam white or not
      */
     public Queen(boolean blackTeam) {
         super(blackTeam);

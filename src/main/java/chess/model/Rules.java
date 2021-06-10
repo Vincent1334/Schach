@@ -322,8 +322,8 @@ public class Rules {
 
     /**
      * determines a list of possible target fields on the board
-     * @param actualPos
-     * @param board
+     * @param actualPos the actual pos
+     * @param board the used board
      * @return a list of poosible target fields
      */
     public static List<Position> possibleTargetFields(Position actualPos, Board board) {

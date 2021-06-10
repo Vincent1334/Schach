@@ -15,7 +15,7 @@ public class Rook extends Figure {
     /**
      * The constructor of a rook
      * The rooks team and figure ID are initialized here.
-     * @param blackTeam
+     * @param blackTeam white or not
      */
     public Rook(boolean blackTeam) {
         super(blackTeam);
