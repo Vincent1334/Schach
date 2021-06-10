@@ -1,10 +1,12 @@
-package chess.model;
+package chess.controller;
 
 import chess.controller.CoreGame;
 import chess.figures.King;
 import chess.figures.None;
 import chess.figures.Pawn;
 import chess.figures.Rook;
+import chess.model.Move;
+import chess.model.Position;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

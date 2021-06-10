@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-06-01
  */
-class ComputerTest {
+public class ComputerTest {
 
     @Test
     public void heuristic(){

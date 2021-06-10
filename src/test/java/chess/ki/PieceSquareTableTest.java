@@ -3,14 +3,21 @@ package chess.ki;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class PieceSquareTableTest {
+/**
+ * This class contains tests to check the piece square table information
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-06-10
+ *
+ */
+public class PieceSquareTableTest {
 
     /**
      * Test PawnTable output
      */
     @Test
     public void testPawnTable(){
-        assertEquals(PieceSquareTable.getTable(1)[3][3], 27, "PawnTable fail");
+        assertEquals(27, PieceSquareTable.getTable(1)[3][3], "PawnTable fail");
     }
 
     /**
@@ -18,7 +25,7 @@ class PieceSquareTableTest {
      */
     @Test
     public void testKnightTable(){
-        assertEquals(PieceSquareTable.getTable(3) [3][3],20, "KnightTable fail");
+        assertEquals(20, PieceSquareTable.getTable(3) [3][3], "KnightTable fail");
     }
 
     /**
@@ -26,7 +33,7 @@ class PieceSquareTableTest {
      */
     @Test
     public void testBishopTable(){
-        assertEquals(PieceSquareTable.getTable(4)[3][3], 10, "BishopTable fail");
+        assertEquals(10, PieceSquareTable.getTable(4)[3][3], "BishopTable fail");
     }
 
     /**
@@ -34,7 +41,7 @@ class PieceSquareTableTest {
      */
     @Test
     public void testKingTable(){
-        assertEquals(PieceSquareTable.getTable(6) [3][3],-50, "KnightTable fail");
+        assertEquals(-50, PieceSquareTable.getTable(6) [3][3], "KnightTable fail");
     }
 
     /**
@@ -42,9 +49,9 @@ class PieceSquareTableTest {
      */
     @Test
     public void testNullTable(){
-        assertEquals(PieceSquareTable.getTable(0) [3][3],0, "NullTable fail");
-        assertEquals(PieceSquareTable.getTable(2) [3][3],0, "NullTable fail");
-        assertEquals(PieceSquareTable.getTable(5) [3][3],0, "NullTable fail");
+        assertEquals(0, PieceSquareTable.getTable(0) [3][3], "NullTable fail");
+        assertEquals(0, PieceSquareTable.getTable(2) [3][3], "NullTable fail");
+        assertEquals(0, PieceSquareTable.getTable(5) [3][3], "NullTable fail");
     }
 
     /**
