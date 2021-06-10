@@ -1,10 +1,7 @@
 package chess.ki;
 
 import chess.controller.CoreGame;
-import chess.figures.*;
-import chess.model.Board;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

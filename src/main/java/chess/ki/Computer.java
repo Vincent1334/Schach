@@ -6,8 +6,6 @@ import chess.model.Board;
 import chess.model.Move;
 import chess.model.Position;
 import chess.model.Rules;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 

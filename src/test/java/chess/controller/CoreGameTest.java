@@ -1,6 +1,5 @@
 package chess.controller;
 
-import chess.controller.CoreGame;
 import chess.figures.King;
 import chess.figures.None;
 import chess.figures.Pawn;
@@ -18,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  */
 public class CoreGameTest {
-    //CoreGame testGame = new CoreGame(1);
     CoreGame testGame = new CoreGame();
     /**
      * Tests whether the chess move method is correct
