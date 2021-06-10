@@ -1,4 +1,7 @@
 package chess.ki;
+
+import java.util.Arrays;
+
 /**
  * This class contains information about the strategic positions of the figures king, knight, bishop and pawn
  *
@@ -6,16 +9,6 @@ package chess.ki;
  * 2021-06-02
  */
 public class PieceSquareTable {
-
-    public static short[][] getTable(int figureID){
-        switch(figureID){
-            case 1: return pawnTable;
-            case 3: return knightTable;
-            case 4: return bishopTable;
-            case 6: return kingTable;
-            default: return nullTable;
-        }
-    }
 
     /**
      *piece square table for a white pawn
@@ -116,4 +109,20 @@ public class PieceSquareTable {
                     {0,  0,  0,  0,  0,  0,  0,  0},
                     {0,  0,  0,  0,  0,  0,  0,  0}
             };
+
+
+    /**
+     * returns the correct table for each figure ID
+     * @param figureID the figure ID
+     * @return the table for the figure ID
+     */
+    public static short[][] getTable(int figureID){
+        switch(figureID){
+            case 1: return Arrays.copyOf(pawnTable, pawnTable.length);
+            case 3: return Arrays.copyOf(knightTable, knightTable.length);
+            case 4: return Arrays.copyOf(bishopTable, bishopTable.length);
+            case 6: return Arrays.copyOf(kingTable, kingTable.length);
+            default: return Arrays.copyOf(nullTable, nullTable.length);
+        }
+    }
 }

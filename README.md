@@ -24,7 +24,7 @@ Die [Storycards](documentation/Anforderungsdokumentation/Story%20Cards) zeigen d
 
 Das [UML-Klassen-Diagramm](documentation/Diagramme/Klassendiagramm.png) bietet eine Übersicht über das Zusammenspiel der einzelnen Klassen.
 
-Das [Use-Case-Diagramm](documentation/Anforderungsdokumentation/Use_Case_Diagramm.PNG) stellt die Leistungen des Systems aus Benutzersicht dar.
+Das [Use-Case-Diagramm](documentation/Anforderungsdokumentation/Use-Case_Diagramm.png) stellt die Leistungen des Systems aus Benutzersicht dar.
 
 Der [Programmablaufplan](documentation/Diagramme/Programmablaufplan.png) stellt den grundlegenden Ablauf des Programms dar.
 
