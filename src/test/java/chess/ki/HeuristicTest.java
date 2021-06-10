@@ -34,7 +34,7 @@ public class HeuristicTest {
         lastMove.setActualFigure(testFigure01);
         lastMove.setTargetFigure(new None());
 
-        assertTrue(0 != Heuristic.checkRepeat(bestMove, lastMove), "checkRepeat test fail");
+        assertNotEquals(0, Heuristic.checkRepeat(bestMove, lastMove), "checkRepeat test fail");
 
         lastMove.setActualFigure(testFigure02);
 
@@ -86,7 +86,7 @@ public class HeuristicTest {
         testBoard.setCastlingFlag(true, false);
 
         assertEquals(0, Heuristic.checkCastling(testBoard, true), "Castling test fail");
-        assertTrue( 0 != Heuristic.checkCastling(testBoard, false), "Castling test fail");
+        assertNotEquals(0, Heuristic.checkCastling(testBoard, false), "Castling test fail");
     }
 
     /**
@@ -98,7 +98,7 @@ public class HeuristicTest {
         testBoard.setCheckMateFlag(true, false);
 
         assertEquals(0, Heuristic.checkChessMate(testBoard, true, false), "check chess mate test fail");
-        assertTrue( 0 != Heuristic.checkChessMate(testBoard, false, true), "check chess mate test fail");
+        assertNotEquals(0, Heuristic.checkChessMate(testBoard, false, true), "check chess mate test fail");
     }
 
     /**
@@ -113,6 +113,6 @@ public class HeuristicTest {
 
         testBoard.setCheckFlag(true, false);
 
-        assertTrue( 0 != Heuristic.checkChess(testBoard, false, true), "Check test fail");
+        assertNotEquals(0, Heuristic.checkChess(testBoard, false, true), "Check test fail");
      }
 }

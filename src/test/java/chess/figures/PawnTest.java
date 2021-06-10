@@ -1,9 +1,6 @@
 package chess.figures;
 
 import chess.controller.CoreGame;
-import chess.figures.Figure;
-import chess.figures.None;
-import chess.figures.Pawn;
 import chess.model.Board;
 import chess.model.Position;
 import org.junit.jupiter.api.Test;
