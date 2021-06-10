@@ -28,7 +28,6 @@ public class Computer implements Runnable{
     //a-b pruning
     private final boolean playerMax;
     private final boolean playerMin;
-    private boolean isThinking = false;
 
     private Board board;
     private int targetDepth = 5;
@@ -77,13 +76,10 @@ public class Computer implements Runnable{
      * @param board the current board
      */
     public void makeMove(Board board) {
-        if(!isThinking){
-            this.board = new Board(board);
-            changeDepth();
-            isThinking = true;
-            thread = new Thread(this);
-            thread.start();
-        }
+        this.board = new Board(board);
+        changeDepth();
+        thread = new Thread(this);
+        thread.start();
     }
 
     /**
@@ -100,7 +96,6 @@ public class Computer implements Runnable{
     @Override
     public void run(){
         max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new CutOff(new ArrayList<Move>(), null));
-        isThinking = false;
         if(gui != null) gui.computerIsFinish();
     }
 
@@ -315,20 +310,11 @@ public class Computer implements Runnable{
     }
 
     /**
-     * is-finished-flag for the computer
-     * @return whether the computer has finished calculating
-     */
-    public boolean isFinish(){
-         return !isThinking;
-    }
-
-    /**
      * Waiting for thread
      * @return thread
      */
     public Thread getThread(){
         return this.thread;
     }
-
 }
 

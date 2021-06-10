@@ -99,12 +99,14 @@ public class Cli {
                 drawBoard();
                 computer.makeMove(coreGame.getCurrentBoard());
                 //waiting for computer
-                do{
-                }while (computer.isFinish());
+                try {
+                    computer.getThread().join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 //perform computer move
                 coreGame.chessMove(computer.getMove());
             }
-
         } while (!coreGame.isGameOver());
     }
 
