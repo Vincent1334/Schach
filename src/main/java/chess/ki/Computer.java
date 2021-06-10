@@ -6,6 +6,8 @@ import chess.model.Board;
 import chess.model.Move;
 import chess.model.Position;
 import chess.model.Rules;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,7 +119,7 @@ public class Computer implements Runnable{
      */
     private float max(int depth, float alpha, float beta, CutOff ParentCutOff){
 
-        if(depth == 0) return heuristic(board, lastMove);
+        if(depth == 0) return heuristic(board, ParentCutOff.getLastMove());
         float maxValue = alpha;
 
         //generate possible moves
@@ -159,7 +161,7 @@ public class Computer implements Runnable{
      */
     private float min(int depth, float alpha, float beta, CutOff ParentCutOff){
 
-        if(depth == 0) return heuristic(board, lastMove);
+        if(depth == 0) return heuristic(board, ParentCutOff.getLastMove());
         float minValue = beta;
 
         //create Possible Moves
@@ -319,5 +321,14 @@ public class Computer implements Runnable{
     public boolean isFinish(){
          return !isThinking;
     }
+
+    /**
+     * Waiting for thread
+     * @return thread
+     */
+    public Thread getThread(){
+        return this.thread;
+    }
+
 }
 

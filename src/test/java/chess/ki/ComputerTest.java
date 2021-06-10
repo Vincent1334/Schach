@@ -3,8 +3,6 @@ package chess.ki;
 import chess.controller.CoreGame;
 import chess.figures.*;
 import chess.model.Board;
-import chess.model.Move;
-import chess.model.Position;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,11 +15,48 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class ComputerTest {
 
-    
+    @Test
+    public void testKI(){
+        try {
+            CoreGame testGame = new CoreGame();
+            Computer testPlayerWhite = new Computer(false);
+            Computer testPlayerBlack = new Computer(true);
 
+            testPlayerWhite.makeMove(testGame.getCurrentBoard());
+            testPlayerWhite.getThread().join();
+
+            assertTrue(testGame.chessMove(testPlayerWhite.getMove()));
+
+            testPlayerBlack.makeMove(testGame.getCurrentBoard());
+            testPlayerBlack.getThread().join();
+
+            assertTrue(testGame.chessMove(testPlayerBlack.getMove()));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Convert Array to Board
+     * @param array Array with figureIDs
+     * @return  converted Board
+     */
     public Board createBoard(short[][] array){
         Board tmpBoard = new Board();
-
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
                 switch(array[x][y]){
