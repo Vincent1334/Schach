@@ -112,7 +112,6 @@ public class Cli {
      * Screen for credits
      */
     public static void endGame() {
-        //TODO: endGame
         System.out.println("Game ends");
     }
 
@@ -144,7 +143,6 @@ public class Cli {
 
     public static boolean validSyntax(String input) {
         // e.g. "b2-e5Q"
-
 
         boolean correct = checkLength(input) && checkHyphen(input) && checkLetters(input) && checkNumbers(input);
         if (input.length() == 6) {

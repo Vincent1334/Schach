@@ -79,7 +79,7 @@ public class Board {
                 copyFigures(sourceClass.getFigure(x, y), x, y);
             }
         }
-        // beatenFigures wird allerdings nicht verwendet
+
         beatenFigures = new ArrayList<>();
         beatenFigures.addAll(sourceClass.getBeatenFigures());
     }
