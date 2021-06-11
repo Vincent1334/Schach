@@ -128,23 +128,23 @@ public class Controller {
      */
     private void updateNotifications(Board board) {
         getLabelCheck().setVisible(false);
-        if (board.getCheckFlag(true)) {
+        if (board.isCheckFlag(true)) {
             getLabelCheck().setVisible(true);
             getLabelCheck().setText("Black is in check");
         }
-        if (board.getCheckFlag(false)) {
+        if (board.isCheckFlag(false)) {
             getLabelCheck().setVisible(true);
             getLabelCheck().setText("White is in check");
         }
-        if (board.getCheckMateFlag(true)) {
+        if (board.isCheckMateFlag(true)) {
             getLabelCheck().setVisible(true);
             getLabelCheck().setText("Player black is checkmate!");
         }
-        if (board.getCheckMateFlag(false)) {
+        if (board.isCheckMateFlag(false)) {
             getLabelCheck().setVisible(true);
             getLabelCheck().setText("Player white is checkmate!");
         }
-        if (board.getStaleMateFlag()) {
+        if (board.isStaleMateFlag()) {
             getLabelCheck().setVisible(true);
             getLabelCheck().setText("Game ends because stalemate!");
         }

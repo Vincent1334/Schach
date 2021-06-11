@@ -62,7 +62,6 @@ public class Rules {
 
         if (!(targetFigure instanceof None)) {
             board.getBeatenFigures().add(targetFigure);
-//            notifyObserversForDelete(targetPos.getPosX(), targetPos.getPosY());
         }
 
         //Update Board
@@ -125,7 +124,6 @@ public class Rules {
         Figure targetFigure = board.getFigure(targetPos.getPosX(), actualPos.getPosY());
 
         board.getBeatenFigures().add(targetFigure);
-//        notifyObserversForDelete(targetPos.getPosX(), actualPos.getPosY());
 
         board.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
         board.setFigure(targetPos, actualFigure);
@@ -316,14 +314,13 @@ public class Rules {
 
         board.getFigure(targetPos).setAlreadyMoved(true);
         board.setFigure(actualPos, new None());
-//        notifyObserversForChange(actualPos.getPosX(), actualPos.getPosY(), figureID, board.getFigure(actualPos).isBlackTeam());
     }
 
 
     /**
      * determines a list of possible target fields on the board
-     * @param actualPos
-     * @param board
+     * @param actualPos the actual pos
+     * @param board the used board
      * @return a list of poosible target fields
      */
     public static List<Position> possibleTargetFields(Position actualPos, Board board) {

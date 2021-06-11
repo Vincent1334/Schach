@@ -31,7 +31,7 @@ public class Cli {
 
     /**
      * User interface to initial the Gamemode
-     * @param args
+     * @param args for simple mode
      */
     public static void init(String[] args) {
         if (!Arrays.asList(args).contains("--simple")) {
@@ -99,12 +99,14 @@ public class Cli {
                 drawBoard();
                 computer.makeMove(coreGame.getCurrentBoard());
                 //waiting for computer
-                do{
-                }while (computer.isFinish());
+                try {
+                    computer.getThread().join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 //perform computer move
                 coreGame.chessMove(computer.getMove());
             }
-
         } while (!coreGame.isGameOver());
     }
 
@@ -112,7 +114,6 @@ public class Cli {
      * Screen for credits
      */
     public static void endGame() {
-        //TODO: endGame
         System.out.println("Game ends");
     }
 
@@ -144,7 +145,6 @@ public class Cli {
 
     public static boolean validSyntax(String input) {
         // e.g. "b2-e5Q"
-
 
         boolean correct = checkLength(input) && checkHyphen(input) && checkLetters(input) && checkNumbers(input);
         if (input.length() == 6) {

@@ -20,7 +20,6 @@ public class Heuristic {
     private static final float bishopMaterial = 320;
     private static final float knightMaterial = 325;
     private static final float queenMaterial = 975;
-    //private static final float kingMaterial = 32000;
 
     private static final float castlingPoints = 80;
     private static final float checkMatePoints = 100000;
@@ -69,11 +68,13 @@ public class Heuristic {
      */
     public static float checkMaterial(int[][] material, boolean playerMax, boolean playerMin){
         float score = 0;
-        score += queenMaterial*material[playerMax ? 1 : 0][4]-queenMaterial*material[playerMin ? 1 : 0][4];
-        score += rookMaterial*material[playerMax ? 1 : 0][1]-rookMaterial*material[playerMin ? 1 : 0][1];
-        score += bishopMaterial*material[playerMax ? 1 : 0][2]-bishopMaterial*material[playerMin ? 1 : 0][2];
-        score += knightMaterial*material[playerMax ? 1 : 0][3]-knightMaterial*material[playerMin ? 1 : 0][3];
-        score += pawnMaterial*material[playerMax ? 1 : 0][0]-pawnMaterial*material[playerMin ? 1 : 0][0];
+        int playerMaxID = playerMax ? 1 : 0;
+        int playerMinID = playerMin ? 1 : 0;
+        score += queenMaterial*material[playerMaxID][4]-queenMaterial*material[playerMinID][4];
+        score += rookMaterial*material[playerMaxID][1]-rookMaterial*material[playerMinID][1];
+        score += bishopMaterial*material[playerMaxID][2]-bishopMaterial*material[playerMinID][2];
+        score += knightMaterial*material[playerMaxID][3]-knightMaterial*material[playerMinID][3];
+        score += pawnMaterial*material[playerMaxID][0]-pawnMaterial*material[playerMinID][0];
 
         return score;
     }
@@ -85,7 +86,7 @@ public class Heuristic {
      * @return castling points
      */
     public static float checkCastling(Board board, boolean playerMax){
-        return board.getCastlingFlag(playerMax) ? castlingPoints : 0;
+        return board.isCastlingFlag(playerMax) ? castlingPoints : 0;
     }
 
     /**
@@ -96,7 +97,7 @@ public class Heuristic {
      * @return chess mate points
      */
     public static float checkChessMate(Board board, boolean playerMax, boolean playerMin){
-        return (board.getCheckMateFlag(playerMax) ? -checkMatePoints : 0) + (board.getCastlingFlag(playerMin) ? checkMatePoints : 0);
+        return (board.isCheckMateFlag(playerMax) ? -checkMatePoints : 0) + (board.isCastlingFlag(playerMin) ? checkMatePoints : 0);
     }
 
     /**
@@ -107,6 +108,6 @@ public class Heuristic {
      * @return check points
      */
     public static float checkChess(Board board, boolean playerMax, boolean playerMin){
-        return (board.getCheckFlag(playerMax) ? -checkPoints : 0) + (board.getCheckFlag(playerMin) ? checkPoints : 0);
+        return (board.isCheckFlag(playerMax) ? -checkPoints : 0) + (board.isCheckFlag(playerMin) ? checkPoints : 0);
     }
 }

@@ -26,7 +26,6 @@ public class Computer implements Runnable{
     //a-b pruning
     private final boolean playerMax;
     private final boolean playerMin;
-    private boolean isThinking = false;
 
     private Board board;
     private int targetDepth = 5;
@@ -75,13 +74,10 @@ public class Computer implements Runnable{
      * @param board the current board
      */
     public void makeMove(Board board) {
-        if(!isThinking){
-            this.board = new Board(board);
-            changeDepth();
-            isThinking = true;
-            thread = new Thread(this);
-            thread.start();
-        }
+        this.board = new Board(board);
+        changeDepth();
+        thread = new Thread(this);
+        thread.start();
     }
 
     /**
@@ -98,7 +94,6 @@ public class Computer implements Runnable{
     @Override
     public void run(){
         max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new CutOff(new ArrayList<Move>(), null));
-        isThinking = false;
         if(gui != null) gui.computerIsFinish();
     }
 
@@ -117,7 +112,7 @@ public class Computer implements Runnable{
      */
     private float max(int depth, float alpha, float beta, CutOff ParentCutOff){
 
-        if(depth == 0) return heuristic(board, lastMove);
+        if(depth == 0) return heuristic(board, ParentCutOff.getLastMove());
         float maxValue = alpha;
 
         //generate possible moves
@@ -159,7 +154,7 @@ public class Computer implements Runnable{
      */
     private float min(int depth, float alpha, float beta, CutOff ParentCutOff){
 
-        if(depth == 0) return heuristic(board, lastMove);
+        if(depth == 0) return heuristic(board, ParentCutOff.getLastMove());
         float minValue = beta;
 
         //create Possible Moves
@@ -208,42 +203,8 @@ public class Computer implements Runnable{
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
                 if(!(board.getFigure(x, y) instanceof None)){
-                    switch(board.getFigure(x, y).getFigureID()){
-                        //pawn
-                        case 1:{
-                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][0] += PieceSquareTable.pawnTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
-                             break;
-                        }
-                        //rook
-                        case 2:{
-                             material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][1] ++;
-                             break;
-                        }
-                        //knight
-                        case 3:{
-                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][2] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][2] += PieceSquareTable.knightTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
-                             break;
-                        }
-                        //bishop
-                        case 4:{
-                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][3] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][3] += PieceSquareTable.bishopTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
-                            break;
-                        }
-                        //queen
-                        case 5:{
-                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][4] ++;
-                            break;
-                        }
-                        //king
-                        case 6:{
-                            material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] ++;
-                            fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] += PieceSquareTable.kingTable[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
-                            break;
-                        }
-                    }
+                    material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][board.getFigure(x, y).getFigureID()-1] ++;
+                    fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] += PieceSquareTable.getTable(board.getFigure(x, y).getFigureID())[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
                 }
             }
         }
@@ -347,11 +308,11 @@ public class Computer implements Runnable{
     }
 
     /**
-     * is-finished-flag for the computer
-     * @return whether the computer has finished calculating
+     * Waiting for thread
+     * @return thread
      */
-    public boolean isFinish(){
-         return !isThinking;
+    public Thread getThread(){
+        return this.thread;
     }
 }
 

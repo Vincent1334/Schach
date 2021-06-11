@@ -110,7 +110,6 @@ public class CoreGame {
 
     /**
      * return the current board
-     *
      * @return Board
      */
     public Board getCurrentBoard() {
@@ -145,14 +144,6 @@ public class CoreGame {
     }
 
     /**
-     * the getter for the current player
-     * @return the active player
-     */
-    public boolean getCurrentPlayer(){
-        return activePlayer;
-    }
-
-    /**
      * Does the standard tasks after each move.
      * (Prints the latest move and adds it to the history, switches the actual player and proofs if the game is finished)
      *
@@ -166,13 +157,13 @@ public class CoreGame {
         Board.kingInCheck(currentBoard, activePlayer);
         Board.kingInCheck(currentBoard, !activePlayer);
         if (Board.checkChessAndStaleMate(currentBoard, activePlayer)) {
-            if(currentBoard.getCheckMateFlag(false)) System.out.println("Player white is checkmate!");
-            if(currentBoard.getCheckMateFlag(true)) System.out.println("Player black is checkmate!");
-            if(currentBoard.getStaleMateFlag()) System.out.println("Game ends because stalemate!");
+            if(currentBoard.isCheckMateFlag(false)) System.out.println("Player white is checkmate!");
+            if(currentBoard.isCheckMateFlag(true)) System.out.println("Player black is checkmate!");
+            if(currentBoard.isStaleMateFlag()) System.out.println("Game ends because stalemate!");
             gameOver = true;
         }
-        if(currentBoard.getCheckFlag(false)) System.out.println("Player white is in check!");
-        if(currentBoard.getCheckFlag(true)) System.out.println("Player black is in check!");
+        if(currentBoard.isCheckFlag(false)) System.out.println("Player white is in check!");
+        if(currentBoard.isCheckFlag(true)) System.out.println("Player black is in check!");
     }
 
     /**

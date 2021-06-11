@@ -1,8 +1,7 @@
-package chess.model;
+package chess.figures;
 
-import chess.figures.Figure;
-import chess.figures.King;
-import chess.figures.None;
+import chess.model.Board;
+import chess.model.Position;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

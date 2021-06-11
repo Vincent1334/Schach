@@ -15,7 +15,7 @@ public class Bishop extends Figure {
     /**
      * The constructor of a bishop
      * The bishops team and figure ID are initialized here.
-     * @param blackTeam
+     * @param blackTeam white or not
      */
     public Bishop(boolean blackTeam) {
         super(blackTeam);
