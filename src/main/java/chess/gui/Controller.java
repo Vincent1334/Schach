@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
@@ -210,9 +211,17 @@ public class Controller {
      */
     private void setPlayerLabel(boolean black) {
         if (black) {
-            getLabelPlayer().setText("black");
+//            getLabelPlayer().setText("black");
+            getRectangleBlack().setStroke(Color.valueOf("#00A8C6"));
+            getRectangleBlack().setStrokeWidth(3);
+            getRectangleWhite().setStroke(BLACK);
+            getRectangleWhite().setStrokeWidth(1);
         } else {
-            getLabelPlayer().setText("white");
+//            getLabelPlayer().setText("white");
+            getRectangleWhite().setStroke(Color.valueOf("#00A8C6"));
+            getRectangleWhite().setStrokeWidth(3);
+            getRectangleBlack().setStroke(BLACK);
+            getRectangleBlack().setStrokeWidth(1);
         }
     }
 
@@ -397,13 +406,13 @@ public class Controller {
      */
     protected void setMark(Rectangle field,boolean mark,Board board){
         if(mark){
-            field.setStroke(CORNFLOWERBLUE);
-            field.setStrokeWidth(4);
+            field.setStroke(Color.valueOf("#00A8C6"));
+            field.setStrokeWidth(5);
             field.setStrokeType(StrokeType.INSIDE);
             if (((CheckBox) settings.getChildren().get(1)).isSelected()) {
                 for (Rectangle f : getPossibleFields(field,board)) {
-                    f.setStroke(CYAN);
-                    f.setStrokeWidth(6);
+                    f.setStroke(Color.valueOf("#8fbe00"));
+                    f.setStrokeWidth(5);
                     f.setStrokeType(StrokeType.INSIDE);
                 }
             }
@@ -436,19 +445,27 @@ public class Controller {
     }
 
     private ChoiceBox getChoiceBoxConversion(){
-        return (ChoiceBox) menu.getChildren().get(5);
+        return (ChoiceBox) menu.getChildren().get(4);
     }
 
     private Label getLabelCheck(){
-        return (Label) menu.getChildren().get(3);
-    }
-
-    private Label getLabelCalculating(){
         return (Label) menu.getChildren().get(2);
     }
 
-    private Label getLabelPlayer(){
+    private Label getLabelCalculating(){
         return (Label) menu.getChildren().get(1);
+    }
+
+    /*private Label getLabelPlayer(){
+        return (Label) menu.getChildren().get(1);
+    }*/
+
+    private Rectangle getRectangleWhite(){
+        return (Rectangle) menu.getChildren().get(7);
+    }
+
+    private Rectangle getRectangleBlack(){
+        return (Rectangle) menu.getChildren().get(8);
     }
 
 
