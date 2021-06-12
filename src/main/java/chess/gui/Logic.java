@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-06-09
  */
-public class Logic implements Runnable{
+public class Logic implements Runnable {
 
     private static CoreGame coreGame;
     private Computer computer;
@@ -24,11 +24,12 @@ public class Logic implements Runnable{
 
 
     /**
-     * initializes gameMode,coreGame,computer,beatenFigureList and conversion
-     * @param gameMode against a local friend (0) or a networkegame (1) or against the computer (2)
+     * initializes gameMode, coreGame, computer, beatenFigureList and conversion
+     *
+     * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
      * @param playerColorBlack the colour you want to play
      */
-    public Logic(int gameMode, boolean playerColorBlack, Controller controller){
+    public Logic(int gameMode, boolean playerColorBlack, Controller controller) {
         this.gameMode = gameMode;
         coreGame = new CoreGame();
         this.controller = controller;
@@ -43,24 +44,27 @@ public class Logic implements Runnable{
     }
 
     /**
-     * performs a move if first the start position is clicked and second the target position and if the move is allowed
+     * performs a move if the target position is clicked after the start position was clicked and if the move is allowed
+     *
      * @param clickedField the clicked field
      */
-    public void handleFieldClick(Rectangle clickedField,boolean blacksTurn) {
-            if (startField == null && controller.getFigure(clickedField)!= null && controller.isImageBlack(controller.getFigure(clickedField)) == blacksTurn) {
-                startField = clickedField;
-                controller.setMark(startField,true,coreGame.getCurrentBoard());
-            }
-            else if(startField != null && controller.getFigure(startField) != null ) {
-                performMove(getMove(startField, clickedField));
-            }
+    public void handleFieldClick(Rectangle clickedField, boolean blacksTurn) {
+        if (startField == null && controller.getFigure(clickedField) != null && controller.isImageBlack(controller.getFigure(clickedField)) == blacksTurn) {
+            startField = clickedField;
+            controller.setMark(startField, true, coreGame.getCurrentBoard());
+        } else if (startField != null && controller.getFigure(startField) != null) {
+            performMove(getMove(startField, clickedField));
+        }
     }
 
     /**
      * Returns the move from the startField to the targetField
+     *
+     * @param startField  the start field of the move
+     * @param targetField the target field of the move
      * @return move from the startField to the targetField
      */
-    private Move getMove(Rectangle startField, Rectangle targetField){
+    private Move getMove(Rectangle startField, Rectangle targetField) {
         Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
         Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
         return new Move(startPosition, targetPosition, controller.getConversionFigure());
@@ -68,47 +72,48 @@ public class Logic implements Runnable{
 
     /**
      * performs the move if possible and updates scene
+     *
      * @param move the move which should be performed
      */
     private void performMove(Move move) {
-        controller.setMark(startField,false,coreGame.getCurrentBoard());
-        if(coreGame.chessMove(move)){
-            controller.updateScene(move,coreGame);
+        controller.setMark(startField, false, coreGame.getCurrentBoard());
+        if (coreGame.chessMove(move)) {
+            controller.updateScene(move, coreGame);
             startField = null;
             if (gameMode == 2) {
                 computerMove();
             }
-        }else if(controller.isSingleSelect() && !controller.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()){
-            controller.setMark(startField,true,coreGame.getCurrentBoard());
-        }else{
+        } else if (controller.isSingleSelect() && !controller.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
+            controller.setMark(startField, true, coreGame.getCurrentBoard());
+        } else {
             startField = null;
         }
     }
 
     /**
-     * start a computer move
+     * starts a computer move
      */
-    private void computerMove(){
+    private void computerMove() {
         computer.makeMove(coreGame.getCurrentBoard());
         controller.setCalculating(true);
     }
 
     /**
-     * Turn the task into thread if the computer thread is terminated
+     * Turns the task into thread if the computer thread is terminated
      */
-    public void computerIsFinish(){
+    public void computerIsFinish() {
         Platform.runLater(this);
     }
 
     /**
-     * execute computer move
+     * executes the computer move
      */
     @Override
     public void run() {
         controller.setCalculating(false);
         Move computerMove = computer.getMove();
         coreGame.chessMove(computerMove);
-        controller.updateScene(computerMove,coreGame);
+        controller.updateScene(computerMove, coreGame);
     }
 
 }

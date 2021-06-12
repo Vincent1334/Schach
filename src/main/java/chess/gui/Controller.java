@@ -19,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
@@ -30,6 +29,13 @@ import java.util.*;
 
 import static javafx.scene.paint.Color.*;
 
+/**
+ * This class connects the internal game logic to the graphical user interface.
+ * Every time the user interacts with the gui, this class will react (e.g. it will start a new chess game or perform a move).
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-06-09
+ */
 public class Controller {
     private boolean firstTurn = true;
     private boolean blacksTurn = false;
@@ -49,19 +55,24 @@ public class Controller {
     @FXML
     private VBox settings;
 
-
-
-    public void init(int gameMode, boolean playerColorBlack){
+    /**
+     * initiates the controller and the logic
+     *
+     * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
+     * @param playerColorBlack the color you want to play
+     */
+    public void init(int gameMode, boolean playerColorBlack) {
         beatenFigureList = new ArrayList<>();
         getChoiceBoxConversion().getItems().addAll(queen, "Bishop", "Rook", "Knight");
         getChoiceBoxConversion().getSelectionModel().select(queen);
 
-        logic = new Logic(gameMode, playerColorBlack,this);
+        logic = new Logic(gameMode, playerColorBlack, this);
     }
 
     /**
-     * loads the menu
-     * @param event the window you want to hide
+     * closes the actual window and opens the menu-window
+     *
+     * @param event the mouse event
      */
     public void backToMenu(MouseEvent event) {
         try {
@@ -83,23 +94,26 @@ public class Controller {
     //--------------------------------------Move----------------------------------------------------------------------------------------------
 
     /**
-     * performs a move if first the start position is clicked and second the target position and if the move is allowed
+     * performs a move if the target position is clicked after the start position was clicked and if the move is allowed
+     *
      * @param mouseEvent the clicked field
      */
     public void isFieldClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
             Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
-            logic.handleFieldClick(clickedField,blacksTurn);
+            logic.handleFieldClick(clickedField, blacksTurn);
         }
     }
 
     //----------------------------------Update----------------------------------------------------------------------------------------------
 
     /**
-     * updates the scene
-     * @param move ,the move you want to make
+     * updates the scene (the board, the history, the beaten-figure-list, possible notifications, possible board turns)
+     *
+     * @param move     the move the player wants to make
+     * @param coreGame the current coreGame
      */
-    public void updateScene(Move move,CoreGame coreGame) {
+    public void updateScene(Move move, CoreGame coreGame) {
         drawBoard(coreGame.getCurrentBoard());
         updateHistory(move);
         setBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
@@ -107,15 +121,15 @@ public class Controller {
 
         if (getRotateBoard().isSelected()) {
             turnBoard();
-            if(firstTurn){
+            if (firstTurn) {
                 firstTurn = false;
             }
-        }else{
-            if(!firstTurn){
+        } else {
+            if (!firstTurn) {
                 firstTurn = true;
                 blackDown = blacksTurn;
             }
-            if(blackDown){
+            if (blackDown) {
                 turnFigures(180);
             }
         }
@@ -125,7 +139,9 @@ public class Controller {
     }
 
     /**
-     * Sets a label if a player is in check or checkmate or stalemate
+     * Sets a label in the gui if a player is in check, checkmate or stalemate
+     *
+     * @param board the current chessboard
      */
     private void updateNotifications(Board board) {
         getLabelCheck().setVisible(false);
@@ -152,18 +168,21 @@ public class Controller {
     }
 
     /**
-     * updates the history
-     * @param move the move you want to add to the history
+     * updates the history in the gui
+     *
+     * @param move the move that should be added to the history
      */
     public void updateHistory(Move move) {
         Text t = new Text(move.toString());
 
         history.add(t, 2, history.getRowCount());
-        history.add(new Text("   " + history.getRowCount()), 0, history.getRowCount()-1);
+        history.add(new Text("   " + history.getRowCount()), 0, history.getRowCount() - 1);
     }
 
     /**
-     * draws the chessboard
+     * draws the chess board
+     *
+     * @param board the current chessboard
      */
     private void drawBoard(Board board) {
         for (int x = 0; x < 8; x++) {
@@ -182,43 +201,42 @@ public class Controller {
     }
 
     /**
-     * turns the chessboard that the figures of the actualPlayer are always on the bottom
+     * turns the chessboard so that the figures of the actualPlayer are always on the bottom
      */
     private void turnBoard() {
         int angle;
-        if(blacksTurn){
+        if (blacksTurn) {
             angle = 0;
-        }else{
+        } else {
             angle = 180;
         }
         gridPane.setRotate(angle);
         turnFigures(angle);
-
     }
 
     /**
-     * rotates the figures with the angle angle
+     * rotates the figures themselves
+     *
      * @param angle the angle around which the figures are rotated
      */
-    private  void turnFigures(int angle){
+    private void turnFigures(int angle) {
         for (Node node : gridPane.getChildren()) {
             node.setRotate(angle);
         }
     }
 
     /**
-     * updates the label with the actual player
-     * @param black should be true if the actual player is black
+     * updates the label that shows which player's turn it is.
+     *
+     * @param black true if the actual player is black
      */
     private void setPlayerLabel(boolean black) {
         if (black) {
-//            getLabelPlayer().setText("black");
             getRectangleBlack().setStroke(valueOf("#00A8C6"));
             getRectangleBlack().setStrokeWidth(3);
             getRectangleWhite().setStroke(BLACK);
             getRectangleWhite().setStrokeWidth(1);
         } else {
-//            getLabelPlayer().setText("white");
             getRectangleWhite().setStroke(valueOf("#00A8C6"));
             getRectangleWhite().setStrokeWidth(3);
             getRectangleBlack().setStroke(BLACK);
@@ -227,11 +245,11 @@ public class Controller {
     }
 
     /**
-     * updates the beaten figures
+     * updates the beaten figure list in the gui
+     *
      * @param beatenFigures a list with all beaten figures
      */
     public void setBeatenFigures(List<Figure> beatenFigures) {
-
         if (beatenFigures.size() != this.beatenFigureList.size() && beatenFigures.size() > 0) {
             ImageView iv = new ImageView(getImageBySymbol(beatenFigures.get(beatenFigures.size() - 1).getSymbol()));
             iv.preserveRatioProperty().setValue(true);
@@ -265,9 +283,10 @@ public class Controller {
     //--------------------------------Image----------------------------------------------------------------------------------------------
 
     /**
-     * returns the ImageView with the columnIndex column and the rowIndex row in the gridPane
+     * returns the ImageView that is at the given position in the gridPane
+     *
      * @param column of the ImageView you want to get
-     * @param row of the ImageView you want to get
+     * @param row    of the ImageView you want to get
      * @return the ImageView with the columnIndex column and the rowIndex row in the gridPane
      */
     private Node getImageViewByIndex(int column, int row) {
@@ -285,19 +304,19 @@ public class Controller {
     }
 
     /**
-     * returns the Image of a figure
+     * returns the Image of a figure by its char-value
+     *
      * @param symbol of the figure you want the image from
      * @return the image of the figure
      */
     private Image getImageBySymbol(char symbol) {
         String color = "Black";
-        if(Character.isUpperCase(symbol)){
+        if (Character.isUpperCase(symbol)) {
             color = "White";
         }
-
         switch (Character.toUpperCase(symbol)) {
             // Rook
-            case 'R' :
+            case 'R':
                 return ImageHandler.getInstance().getImage("Rook" + color);
             // Knight
             case 'N':
@@ -321,9 +340,10 @@ public class Controller {
     }
 
     /**
-     * returns if the image iv shows a black figure
-     * @param iv the image of the figure you want to know th color
-     * @return if the image iv shows a black figure
+     * whether the imageView contains an image of a black figure
+     *
+     * @param iv the imageView of the figure you want to know the color of
+     * @return whether the imageView contains an image of a black figure
      */
     protected boolean isImageBlack(ImageView iv) {
         return iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("RookBlack").getUrl()) ||
@@ -338,6 +358,7 @@ public class Controller {
 
     /**
      * returns the ID-number of the conversionFigure
+     *
      * @return the ID-number of the conversionFigure
      */
     protected int getConversionFigure() {
@@ -358,20 +379,23 @@ public class Controller {
     }
 
     /**
-     * returns the figure of the field
+     * returns the figure of the field on the gridPane
+     *
      * @param field of the figure you want to get
      * @return the figure of the field
      */
-    protected ImageView getFigure(Rectangle field){
+    protected ImageView getFigure(Rectangle field) {
         return (ImageView) getImageViewByIndex(GridPane.getColumnIndex(field), GridPane.getRowIndex(field));
     }
 
     /**
-     * returns a array list with all possible fields the figure of the actualField can move
-     * @param actualField the field of the figure you want to know the possible moves
-     * @return a array list with all possible fields the figure of the actualField can move
+     * returns an array list with all possible fields the figure of the actualField can move to
+     *
+     * @param actualField the field of the figure you want to know the possible moves of
+     * @param board       the current chessboard
+     * @return an array list with all possible fields the figure of the actualField can move to
      */
-    protected List<Rectangle> getPossibleFields(Rectangle actualField,Board board) {
+    protected List<Rectangle> getPossibleFields(Rectangle actualField, Board board) {
 
         Position actualPosition = new Position(GridPane.getColumnIndex(actualField) - 1, 8 - GridPane.getRowIndex(actualField));
 
@@ -386,14 +410,15 @@ public class Controller {
     }
 
     /**
-     * returns the field with the rowIndex row and the columnIndex column
-     * @param row rowIndex of the field you want to get
+     * returns the field that is on the given position on the gridPane
+     *
+     * @param row    rowIndex of the field you want to get
      * @param column columnIndex of the field you want to get
      * @return the field with the rowIndex row and the columnIndex column
      */
     private Node getField(int row, int column) {
         for (Node node : gridPane.getChildren()) {
-            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
                 return node;
             }
         }
@@ -402,74 +427,106 @@ public class Controller {
 
     /**
      * Marks or unmarks the field and if selected the possible moves of the figure on the field
-     * @param field the field you want to mark
-     * @param mark if the field should be marked or unmarked
+     *
+     * @param field the field you want to (un-)mark
+     * @param mark  whether the field should be marked or unmarked
+     * @param board the current chessboard
      */
-    protected void setMark(Rectangle field,boolean mark,Board board){
-        if(mark){
+    protected void setMark(Rectangle field, boolean mark, Board board) {
+        if (mark) {
             field.setStroke(valueOf("#00A8C6"));
             field.setStrokeWidth(5);
             field.setStrokeType(StrokeType.INSIDE);
             if (((CheckBox) settings.getChildren().get(1)).isSelected()) {
-                for (Rectangle f : getPossibleFields(field,board)) {
+                for (Rectangle f : getPossibleFields(field, board)) {
                     f.setStroke(valueOf("#8fbe00"));
                     f.setStrokeWidth(5);
                     f.setStrokeType(StrokeType.INSIDE);
                 }
             }
-        }else{
+        } else {
             field.setStrokeWidth(0);
-            for (Rectangle f: getPossibleFields(field,board)) {
+            for (Rectangle f : getPossibleFields(field, board)) {
                 f.setStrokeWidth(0);
             }
         }
     }
 
-
-    protected CheckBox getRotateBoard(){
-        return (CheckBox) settings.getChildren().get(2);
-    }
-
-    protected boolean isSingleSelect(){
+    /**
+     * returns whether the player has enabled / disabled the single select option
+     *
+     * @return whether the single select option is enabled / disabled
+     */
+    protected boolean isSingleSelect() {
         return ((CheckBox) settings.getChildren().get(0)).isSelected();
     }
 
-    protected void setCalculating(boolean isCalculating){
-        if(isCalculating){
+    /**
+     * shows in the gui whether the computer is calculating or not
+     *
+     * @param isCalculating whether the computer (ki) is currently calculating
+     */
+    protected void setCalculating(boolean isCalculating) {
+        if (isCalculating) {
             getLabelCalculating().setVisible(true);
             gridPane.setMouseTransparent(true);
-        }else{
+        } else {
             getLabelCalculating().setVisible(false);
             gridPane.setMouseTransparent(false);
         }
-
     }
 
-    private ChoiceBox getChoiceBoxConversion(){
+    /**
+     * returns the gui-element with which the player can enable / disable the board turning
+     *
+     * @return the gui-element with which the player can enable / disable the board turning
+     */
+    protected CheckBox getRotateBoard() {
+        return (CheckBox) settings.getChildren().get(2);
+    }
+
+    /**
+     * returns the gui-element in which the player can select the PawnConversion Figure
+     *
+     * @return the gui-element (choiceBox) in which the player can select the PawnConversion Figure
+     */
+    private ChoiceBox getChoiceBoxConversion() {
         return (ChoiceBox) menu.getChildren().get(4);
     }
 
-    private Label getLabelCheck(){
+    /**
+     * returns the gui-element that shows whether a player is in check or not
+     *
+     * @return the gui-element (label) that shows whether a player is in check or not
+     */
+    private Label getLabelCheck() {
         return (Label) menu.getChildren().get(2);
     }
 
-    private Label getLabelCalculating(){
+    /**
+     * returns the gui-element that shows whether the computer is calculating or not
+     *
+     * @return the gui-element (label) that shows whether the computer is calculating or not
+     */
+    private Label getLabelCalculating() {
         return (Label) menu.getChildren().get(1);
     }
 
-    /*private Label getLabelPlayer(){
-        return (Label) menu.getChildren().get(1);
-    }*/
-
-    private Rectangle getRectangleWhite(){
+    /**
+     * returns the gui-element that shows whether it is whites turn
+     *
+     * @return the gui-element (rectangle) that shows whether it is whites turn
+     */
+    private Rectangle getRectangleWhite() {
         return (Rectangle) menu.getChildren().get(7);
     }
 
-    private Rectangle getRectangleBlack(){
+    /**
+     * returns the gui-element that shows whether it is blacks turn
+     *
+     * @return the gui-element (rectangle) that shows whether it is blacks turn
+     */
+    private Rectangle getRectangleBlack() {
         return (Rectangle) menu.getChildren().get(8);
     }
-
-
-
-
 }

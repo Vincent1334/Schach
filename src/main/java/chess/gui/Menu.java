@@ -17,6 +17,8 @@ import java.io.IOException;
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-06-09
  */
+@SuppressWarnings({"PMD.UnusedPrivateMethod"})
+// the methods setMode... and startGame are used by the gui but PMD didn't recognize
 public class Menu {
 
     private int gameMode = 1;
@@ -30,16 +32,14 @@ public class Menu {
         System.exit(0);
     }
 
-    // the methods setMode... and startGame are used by the gui but PMD didn't recognized
     /**
      * starts the game
-     * @param event
+     *
+     * @param event the mouse event
      */
-    @SuppressWarnings({"PMD.UnusedPrivateMethod"})
     @FXML
     private void startGame(MouseEvent event) {
         try {
-
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
             Parent root = fxmlLoader.load();
 
@@ -63,7 +63,6 @@ public class Menu {
     /**
      * sets the game mode for a local game against a friend
      */
-    @SuppressWarnings({"PMD.UnusedPrivateMethod"})
     @FXML
     private void setMode01() {
         gameMode = 1;
@@ -72,7 +71,6 @@ public class Menu {
     /**
      * sets the game mode for a local game against the computer
      */
-    @SuppressWarnings({"PMD.UnusedPrivateMethod"})
     @FXML
     private void setMode02() {
         gameMode = 2;
@@ -81,21 +79,20 @@ public class Menu {
     /**
      * sets the game mode for a network game
      */
-    @SuppressWarnings({"PMD.UnusedPrivateMethod"})
     @FXML
     private void setMode03() {
         gameMode = 3;
     }
 
     /**
-     * sets the playerColor black
+     * sets the playerColor to black
      */
     public void setBlack() {
         playerColorBlack = true;
     }
 
     /**
-     * sets the playerColor White
+     * sets the playerColor to white
      */
     public void setWhite() {
         playerColorBlack = false;
