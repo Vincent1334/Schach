@@ -36,6 +36,7 @@ public class Controller {
     private boolean blackDown = false;
     private List<Figure> beatenFigureList;
     private Logic logic;
+    final private static String queen = "Queen";
 
     @FXML
     private GridPane gridPane;
@@ -52,8 +53,8 @@ public class Controller {
 
     public void init(int gameMode, boolean playerColorBlack){
         beatenFigureList = new ArrayList<>();
-        getChoiceBoxConversion().getItems().addAll("Queen", "Bishop", "Rook", "Knight");
-        getChoiceBoxConversion().getSelectionModel().select("Queen");
+        getChoiceBoxConversion().getItems().addAll(queen, "Bishop", "Rook", "Knight");
+        getChoiceBoxConversion().getSelectionModel().select(queen);
 
         logic = new Logic(gameMode, playerColorBlack,this);
     }
@@ -212,13 +213,13 @@ public class Controller {
     private void setPlayerLabel(boolean black) {
         if (black) {
 //            getLabelPlayer().setText("black");
-            getRectangleBlack().setStroke(Color.valueOf("#00A8C6"));
+            getRectangleBlack().setStroke(valueOf("#00A8C6"));
             getRectangleBlack().setStrokeWidth(3);
             getRectangleWhite().setStroke(BLACK);
             getRectangleWhite().setStrokeWidth(1);
         } else {
 //            getLabelPlayer().setText("white");
-            getRectangleWhite().setStroke(Color.valueOf("#00A8C6"));
+            getRectangleWhite().setStroke(valueOf("#00A8C6"));
             getRectangleWhite().setStrokeWidth(3);
             getRectangleBlack().setStroke(BLACK);
             getRectangleBlack().setStrokeWidth(1);
@@ -306,7 +307,7 @@ public class Controller {
                 return ImageHandler.getInstance().getImage("Bishop" + color);
             // Queen
             case 'Q':
-                return ImageHandler.getInstance().getImage("Queen" + color);
+                return ImageHandler.getInstance().getImage(queen + color);
             // King
             case 'K':
                 return ImageHandler.getInstance().getImage("King" + color);
@@ -341,7 +342,7 @@ public class Controller {
      */
     protected int getConversionFigure() {
         String item = (String) getChoiceBoxConversion().getSelectionModel().getSelectedItem();
-        if (item.equals("Queen")) {
+        if (item.equals(queen)) {
             return 5;
         }
         if (item.equals("Bishop")) {
@@ -406,12 +407,12 @@ public class Controller {
      */
     protected void setMark(Rectangle field,boolean mark,Board board){
         if(mark){
-            field.setStroke(Color.valueOf("#00A8C6"));
+            field.setStroke(valueOf("#00A8C6"));
             field.setStrokeWidth(5);
             field.setStrokeType(StrokeType.INSIDE);
             if (((CheckBox) settings.getChildren().get(1)).isSelected()) {
                 for (Rectangle f : getPossibleFields(field,board)) {
-                    f.setStroke(Color.valueOf("#8fbe00"));
+                    f.setStroke(valueOf("#8fbe00"));
                     f.setStrokeWidth(5);
                     f.setStrokeType(StrokeType.INSIDE);
                 }

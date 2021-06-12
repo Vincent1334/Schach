@@ -30,10 +30,12 @@ public class Menu {
         System.exit(0);
     }
 
+    // the methods setMode... and startGame are used by the gui but PMD didn't recognized
     /**
      * starts the game
      * @param event
      */
+    @SuppressWarnings({"PMD.UnusedPrivateMethod"})
     @FXML
     private void startGame(MouseEvent event) {
         try {
@@ -57,9 +59,11 @@ public class Menu {
         }
     }
 
+
     /**
      * sets the game mode for a local game against a friend
      */
+    @SuppressWarnings({"PMD.UnusedPrivateMethod"})
     @FXML
     private void setMode01() {
         gameMode = 1;
@@ -68,6 +72,7 @@ public class Menu {
     /**
      * sets the game mode for a local game against the computer
      */
+    @SuppressWarnings({"PMD.UnusedPrivateMethod"})
     @FXML
     private void setMode02() {
         gameMode = 2;
@@ -76,6 +81,7 @@ public class Menu {
     /**
      * sets the game mode for a network game
      */
+    @SuppressWarnings({"PMD.UnusedPrivateMethod"})
     @FXML
     private void setMode03() {
         gameMode = 3;
