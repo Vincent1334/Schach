@@ -17,7 +17,7 @@ public class Gui extends Application {
     /**
      * opens the menu
      * @param primaryStage the stage on which the menu should be opened
-     * @throws Exception
+     * @throws Exception contains exception type
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
