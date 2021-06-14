@@ -67,12 +67,12 @@
                         <Font name="Calibri Light" size="24.0" />
                      </font>
                   </Text>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="545.0" layoutY="117.0" nodeOrientation="LEFT_TO_RIGHT" text="....computer is calculating" textFill="#8fbe00" visible="false">
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="486.0" layoutY="117.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="275.0" text="....computer is calculating" textAlignment="RIGHT" textFill="#8fbe00" visible="false">
                      <font>
                         <Font name="Calibri Light" size="21.0" />
                      </font>
                   </Label>
-                  <Label contentDisplay="CENTER" layoutX="14.0" layoutY="99.0" prefHeight="54.0" prefWidth="308.0" style="-fx-font-weight: bold;" text="check" textFill="#8fbe00" visible="false">
+                  <Label contentDisplay="CENTER" layoutX="14.0" layoutY="99.0" prefHeight="59.0" prefWidth="385.0" style="-fx-font-weight: bold;" text="check" textFill="#8fbe00" visible="false">
                      <padding>
                         <Insets bottom="10.0" top="5.0" />
                      </padding>
@@ -93,7 +93,7 @@
                         <Insets left="10.0" />
                      </opaqueInsets>
                   </ChoiceBox>
-                  <VBox fx:id="settings" layoutX="188.0" layoutY="1.0" nodeOrientation="LEFT_TO_RIGHT">
+                  <VBox fx:id="settings" layoutX="238.0" layoutY="5.0" nodeOrientation="LEFT_TO_RIGHT">
                      <children>
                         <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Touch Move" textFill="#515151">
                            <VBox.margin>
@@ -112,7 +112,7 @@
                         </CheckBox>
                      </children>
                   </VBox>
-                  <Button alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="0.0" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backToMenu" prefHeight="70.0" prefWidth="155.0" snapToPixel="false" style="-fx-background-color: #00A8C6;" text="Back To Menu" textFill="WHITE" textOverrun="CLIP">
+                  <Button alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="0.0" layoutX="20.0" layoutY="13.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backToMenu" prefHeight="70.0" prefWidth="209.0" snapToPixel="false" style="-fx-background-color: #00A8C6;" text="Back To Menu" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="Calibri Light" size="22.0" />
                      </font>
