@@ -14,7 +14,7 @@ public class PieceSquareTable {
      *piece square table for a white pawn
      * contains information about clever positions for a pawn
      */
-    public final static short[][] pawnTable = new short[][]
+    public final static short[][] PAWN_TABLE = new short[][]
             {
                 {0,  0,  0,  0,  0,  0,  0,  0},
                 {50, 50, 50, 50, 50, 50, 50, 50},
@@ -31,7 +31,7 @@ public class PieceSquareTable {
      *piece square table for a white knight
      * contains information about clever positions for a knight
      */
-    public final static short[][] knightTable = new short[][]
+    public final static short[][] KNIGHT_TABLE = new short[][]
             {
                 {-50,-40,-30,-30,-30,-30,-40,-50},
                 {-40,-20,  0,  0,  0,  0,-20,-40},
@@ -48,7 +48,7 @@ public class PieceSquareTable {
      *piece square table for a white bishop
      * contains information about clever positions for a bishop
      */
-    public final static short[][] bishopTable = new short[][]
+    public final static short[][] BISHOP_TABLE = new short[][]
             {
                 {-20,-10,-10,-10,-10,-10,-10,-20},
                 {-10,  0,  0,  0,  0,  0,  0,-10},
@@ -65,7 +65,7 @@ public class PieceSquareTable {
      *piece square table for a white king
      * contains information about clever positions for a king
      */
-    public final static short[][] kingTable = new short[][]
+    public final static short[][] KING_TABLE = new short[][]
             {
                 {-30, -40, -40, -50, -50, -40, -40, -30},
                 {-30, -40, -40, -50, -50, -40, -40, -30},
@@ -98,7 +98,7 @@ public class PieceSquareTable {
      *piece square table for a white pawn
      * contains information about clever positions for a pawn
      */
-    public final static short[][] nullTable = new short[][]
+    public final static short[][] NULL_TABLE = new short[][]
             {
                     {0,  0,  0,  0,  0,  0,  0,  0},
                     {0,  0,  0,  0,  0,  0,  0,  0},
@@ -118,11 +118,11 @@ public class PieceSquareTable {
      */
     public static short[][] getTable(int figureID){
         switch(figureID){
-            case 1: return Arrays.copyOf(pawnTable, pawnTable.length);
-            case 3: return Arrays.copyOf(knightTable, knightTable.length);
-            case 4: return Arrays.copyOf(bishopTable, bishopTable.length);
-            case 6: return Arrays.copyOf(kingTable, kingTable.length);
-            default: return Arrays.copyOf(nullTable, nullTable.length);
+            case 1: return Arrays.copyOf(PAWN_TABLE, PAWN_TABLE.length);
+            case 3: return Arrays.copyOf(KNIGHT_TABLE, KNIGHT_TABLE.length);
+            case 4: return Arrays.copyOf(BISHOP_TABLE, BISHOP_TABLE.length);
+            case 6: return Arrays.copyOf(KING_TABLE, KING_TABLE.length);
+            default: return Arrays.copyOf(NULL_TABLE, NULL_TABLE.length);
         }
     }
 }

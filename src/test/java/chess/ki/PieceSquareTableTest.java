@@ -59,10 +59,10 @@ public class PieceSquareTableTest {
      */
     @Test
     public void testGetTable(){
-        assertArrayEquals(PieceSquareTable.getTable(1), PieceSquareTable.pawnTable);
-        assertArrayEquals(PieceSquareTable.getTable(3), PieceSquareTable.knightTable);
-        assertArrayEquals(PieceSquareTable.getTable(4), PieceSquareTable.bishopTable);
-        assertArrayEquals(PieceSquareTable.getTable(6), PieceSquareTable.kingTable);
-        assertArrayEquals(PieceSquareTable.getTable(5), PieceSquareTable.nullTable);
+        assertArrayEquals(PieceSquareTable.getTable(1), PieceSquareTable.PAWN_TABLE);
+        assertArrayEquals(PieceSquareTable.getTable(3), PieceSquareTable.KNIGHT_TABLE);
+        assertArrayEquals(PieceSquareTable.getTable(4), PieceSquareTable.BISHOP_TABLE);
+        assertArrayEquals(PieceSquareTable.getTable(6), PieceSquareTable.KING_TABLE);
+        assertArrayEquals(PieceSquareTable.getTable(5), PieceSquareTable.NULL_TABLE);
     }
 }

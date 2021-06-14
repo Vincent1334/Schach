@@ -42,7 +42,7 @@ public class Controller {
     private boolean blackDown = false;
     private List<Figure> beatenFigureList;
     private Logic logic;
-    final private static String queen = "Queen";
+    final private static String QUEEN = "Queen";
 
     @FXML
     private GridPane gridPane;
@@ -63,8 +63,8 @@ public class Controller {
      */
     public void init(int gameMode, boolean playerColorBlack) {
         beatenFigureList = new ArrayList<>();
-        getChoiceBoxConversion().getItems().addAll(queen, "Bishop", "Rook", "Knight");
-        getChoiceBoxConversion().getSelectionModel().select(queen);
+        getChoiceBoxConversion().getItems().addAll(QUEEN, "Bishop", "Rook", "Knight");
+        getChoiceBoxConversion().getSelectionModel().select(QUEEN);
 
         logic = new Logic(gameMode, playerColorBlack, this);
     }
@@ -371,7 +371,7 @@ public class Controller {
      */
     protected int getConversionFigure() {
         String item = (String) getChoiceBoxConversion().getSelectionModel().getSelectedItem();
-        if (item.equals(queen)) {
+        if (item.equals(QUEEN)) {
             return 5;
         }
         if (item.equals("Bishop")) {
@@ -473,7 +473,7 @@ public class Controller {
                 return ImageHandler.getInstance().getImage("Bishop" + color);
             // Queen
             case 'Q':
-                return ImageHandler.getInstance().getImage(queen + color);
+                return ImageHandler.getInstance().getImage(QUEEN + color);
             // King
             case 'K':
                 return ImageHandler.getInstance().getImage("King" + color);
