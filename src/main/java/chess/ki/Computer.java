@@ -24,8 +24,8 @@ public class Computer implements Runnable{
     private Logic gui;
 
     //a-b pruning
-    private final boolean playerMax;
-    private final boolean playerMin;
+    private final boolean PLAYER_MAX;
+    private final boolean PLAYER_MIN;
 
     private Board board;
     private int targetDepth = 5;
@@ -38,8 +38,8 @@ public class Computer implements Runnable{
     public Computer(boolean isBlack) {
 
         //setup Player
-        this.playerMax = isBlack;
-        this.playerMin = !isBlack;
+        this.PLAYER_MAX = isBlack;
+        this.PLAYER_MIN = !isBlack;
 
         //define default best move
         bestMove = new Move(new Position(0, 0), new Position(0, 0));
@@ -55,8 +55,8 @@ public class Computer implements Runnable{
      */
     public Computer(boolean isBlack, Logic gui){
         //setup Player
-        this.playerMax = isBlack;
-        this.playerMin = !isBlack;
+        this.PLAYER_MAX = isBlack;
+        this.PLAYER_MIN = !isBlack;
 
         //set GUI controller
         this.gui = gui;
@@ -116,7 +116,7 @@ public class Computer implements Runnable{
         float maxValue = alpha;
 
         //generate possible moves
-        List<Move> possibleMove = generatePossibleMove(playerMax);
+        List<Move> possibleMove = generatePossibleMove(PLAYER_MAX);
         sortMove(possibleMove, ParentCutOff.getParentCutOff());
 
         //Game over?
@@ -158,7 +158,7 @@ public class Computer implements Runnable{
         float minValue = beta;
 
         //create Possible Moves
-        List<Move> possibleMove = generatePossibleMove(playerMin);
+        List<Move> possibleMove = generatePossibleMove(PLAYER_MIN);
         sortMove(possibleMove, ParentCutOff.getParentCutOff());
 
         //Game over?
@@ -210,11 +210,11 @@ public class Computer implements Runnable{
         }
 
         score += Heuristic.checkRepeat(move, lastMove);
-        score += Heuristic.checkFigureScore(move, playerMax);
-        score += Heuristic.checkMaterial(material, playerMax, playerMin);
-        score += Heuristic.checkCastling(board, playerMax);
-        score += Heuristic.checkChessMate(board, playerMax, playerMin);
-        score += Heuristic.checkChess(board, playerMax, playerMin);
+        score += Heuristic.checkFigureScore(move, PLAYER_MAX);
+        score += Heuristic.checkMaterial(material, PLAYER_MAX, PLAYER_MIN);
+        score += Heuristic.checkCastling(board, PLAYER_MAX);
+        score += Heuristic.checkChessMate(board, PLAYER_MAX, PLAYER_MIN);
+        score += Heuristic.checkChess(board, PLAYER_MAX, PLAYER_MIN);
 
         return score;
     }
@@ -303,8 +303,8 @@ public class Computer implements Runnable{
         }
 
         //update Flags
-        Board.kingInCheck(board, playerMax);
-        Board.kingInCheck(board, playerMin);
+        Board.kingInCheck(board, PLAYER_MAX);
+        Board.kingInCheck(board, PLAYER_MIN);
     }
 
     /**

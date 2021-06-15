@@ -28,6 +28,7 @@ public class Logic implements Runnable {
      *
      * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
      * @param playerColorBlack the colour you want to play
+     * @param controller the controller
      */
     public Logic(int gameMode, boolean playerColorBlack, Controller controller) {
         this.gameMode = gameMode;
@@ -47,6 +48,7 @@ public class Logic implements Runnable {
      * performs a move if the target position is clicked after the start position was clicked and if the move is allowed
      *
      * @param clickedField the clicked field
+     * @param blacksTurn is black on turn?
      */
     public void handleFieldClick(Rectangle clickedField, boolean blacksTurn) {
         if (startField == null && controller.getFigure(clickedField) != null && controller.isImageBlack(controller.getFigure(clickedField)) == blacksTurn) {

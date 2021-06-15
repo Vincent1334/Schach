@@ -24,22 +24,24 @@ Die [Storycards](documentation/Anforderungsdokumentation/Story%20Cards) zeigen d
 
 Das [UML-Klassen-Diagramm](documentation/Diagramme/Klassendiagramm.png) bietet eine Übersicht über das Zusammenspiel der einzelnen Klassen.
 
-Das [Use-Case-Diagramm](documentation/Anforderungsdokumentation/Use-Case_Diagramm.png) stellt die Leistungen des Systems aus Benutzersicht dar.
+Das [Use-Case-Diagramm](documentation/Anforderungsdokumentation/Use_Case_Diagramm.png) stellt die Leistungen des Systems aus Benutzersicht dar.
 
-Der [Programmablaufplan](documentation/Diagramme/Programmablaufplan.png) stellt den grundlegenden Ablauf des Programms dar.
+Der [Programmablaufplan CLI](documentation/Diagramme/Programmablaufplan_CLI.png) stellt den grundlegenden Ablauf des Programms (CLI) dar.
+
+Der [Programmablaufplan GUI](documentation/Diagramme/Programmablaufplan_GUI.png) stellt den grundlegenden Ablauf des Programms (GUI) dar.
 
 ## Statische Variablen
 
 Identifikation der Figuren:
 
-| Figuren | ID |
-| ---       |  ------  |
-| Bauer     | 1        |
-| Turm      | 2        |
-| Springer  | 3        |
-| Läufer    | 4        |
-| Dame      | 5        |
-| König     | 6        |
+| Figuren | ID | symbol white | symbol black |
+| :---:       |  :------:  |  :------:  |  :------:  |
+| Bauer     | 1        | P        | p        |
+| Turm      | 2        | R        | r        |
+| Springer  | 3        | N        | n        |
+| Läufer    | 4        | B        | b        |
+| Dame      | 5        | Q        | q        |
+| König     | 6        | K        | k        |
 
 Diese festen Zuordnungen werden von einigen Teilen des Programms verwendet, um Figuren einordnen zu können.
 

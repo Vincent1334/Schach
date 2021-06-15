@@ -42,7 +42,7 @@ public class Controller {
     private boolean blackDown = false;
     private List<Figure> beatenFigureList;
     private Logic logic;
-    final private static String queen = "Queen";
+    final private static String QUEEN = "Queen";
 
     @FXML
     private GridPane gridPane;
@@ -63,8 +63,8 @@ public class Controller {
      */
     public void init(int gameMode, boolean playerColorBlack) {
         beatenFigureList = new ArrayList<>();
-        getChoiceBoxConversion().getItems().addAll(queen, "Bishop", "Rook", "Knight");
-        getChoiceBoxConversion().getSelectionModel().select(queen);
+        getChoiceBoxConversion().getItems().addAll(QUEEN, "Bishop", "Rook", "Knight");
+        getChoiceBoxConversion().getSelectionModel().select(QUEEN);
 
         logic = new Logic(gameMode, playerColorBlack, this);
     }
@@ -91,19 +91,6 @@ public class Controller {
         }
     }
 
-    //--------------------------------------Move----------------------------------------------------------------------------------------------
-
-    /**
-     * performs a move if the target position is clicked after the start position was clicked and if the move is allowed
-     *
-     * @param mouseEvent the clicked field
-     */
-    public void isFieldClicked(MouseEvent mouseEvent) {
-        if (mouseEvent.getTarget() instanceof Rectangle) {
-            Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
-            logic.handleFieldClick(clickedField, blacksTurn);
-        }
-    }
 
     //----------------------------------Update----------------------------------------------------------------------------------------------
 
@@ -225,6 +212,8 @@ public class Controller {
         }
     }
 
+    //--------------set---------------------------------------------------------------------------------------------------------------
+
     /**
      * updates the label that shows which player's turn it is.
      *
@@ -280,7 +269,165 @@ public class Controller {
         }
     }
 
-    //--------------------------------Image----------------------------------------------------------------------------------------------
+    /**
+     * Marks or unmarks the field and if selected the possible moves of the figure on the field
+     *
+     * @param field the field you want to (un-)mark
+     * @param mark  whether the field should be marked or unmarked
+     * @param board the current chessboard
+     */
+    protected void setMark(Rectangle field, boolean mark, Board board) {
+        if (mark) {
+            field.setStroke(valueOf("#00A8C6"));
+            field.setStrokeWidth(5);
+            field.setStrokeType(StrokeType.INSIDE);
+            if (((CheckBox) settings.getChildren().get(1)).isSelected()) {
+                for (Rectangle f : getPossibleFields(field, board)) {
+                    f.setStroke(valueOf("#8fbe00"));
+                    f.setStrokeWidth(5);
+                    f.setStrokeType(StrokeType.INSIDE);
+                }
+            }
+        } else {
+            field.setStrokeWidth(0);
+            for (Rectangle f : getPossibleFields(field, board)) {
+                f.setStrokeWidth(0);
+            }
+        }
+    }
+
+    /**
+     * shows in the gui whether the computer is calculating or not
+     *
+     * @param isCalculating whether the computer (ki) is currently calculating
+     */
+    protected void setCalculating(boolean isCalculating) {
+        if (isCalculating) {
+            getLabelCalculating().setVisible(true);
+            gridPane.setMouseTransparent(true);
+        } else {
+            getLabelCalculating().setVisible(false);
+            gridPane.setMouseTransparent(false);
+        }
+    }
+
+
+    //--------------------------------------is----------------------------------------------------------------------------------------------
+
+    /**
+     * performs a move if the target position is clicked after the start position was clicked and if the move is allowed
+     *
+     * @param mouseEvent the clicked field
+     */
+    public void isFieldClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getTarget() instanceof Rectangle) {
+            Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
+            logic.handleFieldClick(clickedField, blacksTurn);
+        }
+    }
+
+    /**
+     * returns whether the player has enabled / disabled the single select option
+     *
+     * @return whether the single select option is enabled / disabled
+     */
+    protected boolean isSingleSelect() {
+        return ((CheckBox) settings.getChildren().get(0)).isSelected();
+    }
+
+    /**
+     * whether the imageView contains an image of a black figure
+     *
+     * @param iv the imageView of the figure you want to know the color of
+     * @return whether the imageView contains an image of a black figure
+     */
+    protected boolean isImageBlack(ImageView iv) {
+        return iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("RookBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KnightBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("BishopBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KingBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("QueenBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("PawnBlack").getUrl());
+    }
+
+    //-------------get---------------------------------------------------------------------------------------------------------------
+
+    //figure
+
+    /**
+     * returns the figure of the field on the gridPane
+     *
+     * @param field of the figure you want to get
+     * @return the figure of the field
+     */
+    protected ImageView getFigure(Rectangle field) {
+        return (ImageView) getImageViewByIndex(GridPane.getColumnIndex(field), GridPane.getRowIndex(field));
+    }
+
+    /**
+     * returns the ID-number of the conversionFigure
+     *
+     * @return the ID-number of the conversionFigure
+     */
+    protected int getConversionFigure() {
+        String item = (String) getChoiceBoxConversion().getSelectionModel().getSelectedItem();
+        if (item.equals(QUEEN)) {
+            return 5;
+        }
+        if (item.equals("Bishop")) {
+            return 4;
+        }
+        if (item.equals("Rook")) {
+            return 2;
+        }
+        if (item.equals("Knight")) {
+            return 3;
+        }
+        return 5;
+    }
+
+
+    //field
+
+    /**
+     * returns the field that is on the given position on the gridPane
+     *
+     * @param row    rowIndex of the field you want to get
+     * @param column columnIndex of the field you want to get
+     * @return the field with the rowIndex row and the columnIndex column
+     */
+    private Node getField(int row, int column) {
+        for (Node node : gridPane.getChildren()) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * returns an array list with all possible fields the figure of the actualField can move to
+     *
+     * @param actualField the field of the figure you want to know the possible moves of
+     * @param board       the current chessboard
+     * @return an array list with all possible fields the figure of the actualField can move to
+     */
+    protected List<Rectangle> getPossibleFields(Rectangle actualField, Board board) {
+
+        Position actualPosition = new Position(GridPane.getColumnIndex(actualField) - 1, 8 - GridPane.getRowIndex(actualField));
+
+        List<Position> positions = Rules.possibleTargetFields(actualPosition, board);
+        List<Rectangle> fields = new ArrayList<>();
+
+        for (Position position : positions) {
+            fields.add((Rectangle) getField(8 - position.getPosY(), position.getPosX() + 1));
+        }
+
+        return fields;
+    }
+
+
+    //image
 
     /**
      * returns the ImageView that is at the given position in the gridPane
@@ -326,7 +473,7 @@ public class Controller {
                 return ImageHandler.getInstance().getImage("Bishop" + color);
             // Queen
             case 'Q':
-                return ImageHandler.getInstance().getImage(queen + color);
+                return ImageHandler.getInstance().getImage(QUEEN + color);
             // King
             case 'K':
                 return ImageHandler.getInstance().getImage("King" + color);
@@ -339,142 +486,8 @@ public class Controller {
         }
     }
 
-    /**
-     * whether the imageView contains an image of a black figure
-     *
-     * @param iv the imageView of the figure you want to know the color of
-     * @return whether the imageView contains an image of a black figure
-     */
-    protected boolean isImageBlack(ImageView iv) {
-        return iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("RookBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KnightBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("BishopBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KingBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("QueenBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("PawnBlack").getUrl());
-    }
 
-    //--------------getter/setter---------------------------------------------------------------------------------------------------------------
-
-    /**
-     * returns the ID-number of the conversionFigure
-     *
-     * @return the ID-number of the conversionFigure
-     */
-    protected int getConversionFigure() {
-        String item = (String) getChoiceBoxConversion().getSelectionModel().getSelectedItem();
-        if (item.equals(queen)) {
-            return 5;
-        }
-        if (item.equals("Bishop")) {
-            return 4;
-        }
-        if (item.equals("Rook")) {
-            return 2;
-        }
-        if (item.equals("Knight")) {
-            return 3;
-        }
-        return 5;
-    }
-
-    /**
-     * returns the figure of the field on the gridPane
-     *
-     * @param field of the figure you want to get
-     * @return the figure of the field
-     */
-    protected ImageView getFigure(Rectangle field) {
-        return (ImageView) getImageViewByIndex(GridPane.getColumnIndex(field), GridPane.getRowIndex(field));
-    }
-
-    /**
-     * returns an array list with all possible fields the figure of the actualField can move to
-     *
-     * @param actualField the field of the figure you want to know the possible moves of
-     * @param board       the current chessboard
-     * @return an array list with all possible fields the figure of the actualField can move to
-     */
-    protected List<Rectangle> getPossibleFields(Rectangle actualField, Board board) {
-
-        Position actualPosition = new Position(GridPane.getColumnIndex(actualField) - 1, 8 - GridPane.getRowIndex(actualField));
-
-        List<Position> positions = Rules.possibleTargetFields(actualPosition, board);
-        List<Rectangle> fields = new ArrayList<>();
-
-        for (Position position : positions) {
-            fields.add((Rectangle) getField(8 - position.getPosY(), position.getPosX() + 1));
-        }
-
-        return fields;
-    }
-
-    /**
-     * returns the field that is on the given position on the gridPane
-     *
-     * @param row    rowIndex of the field you want to get
-     * @param column columnIndex of the field you want to get
-     * @return the field with the rowIndex row and the columnIndex column
-     */
-    private Node getField(int row, int column) {
-        for (Node node : gridPane.getChildren()) {
-            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-                return node;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Marks or unmarks the field and if selected the possible moves of the figure on the field
-     *
-     * @param field the field you want to (un-)mark
-     * @param mark  whether the field should be marked or unmarked
-     * @param board the current chessboard
-     */
-    protected void setMark(Rectangle field, boolean mark, Board board) {
-        if (mark) {
-            field.setStroke(valueOf("#00A8C6"));
-            field.setStrokeWidth(5);
-            field.setStrokeType(StrokeType.INSIDE);
-            if (((CheckBox) settings.getChildren().get(1)).isSelected()) {
-                for (Rectangle f : getPossibleFields(field, board)) {
-                    f.setStroke(valueOf("#8fbe00"));
-                    f.setStrokeWidth(5);
-                    f.setStrokeType(StrokeType.INSIDE);
-                }
-            }
-        } else {
-            field.setStrokeWidth(0);
-            for (Rectangle f : getPossibleFields(field, board)) {
-                f.setStrokeWidth(0);
-            }
-        }
-    }
-
-    /**
-     * returns whether the player has enabled / disabled the single select option
-     *
-     * @return whether the single select option is enabled / disabled
-     */
-    protected boolean isSingleSelect() {
-        return ((CheckBox) settings.getChildren().get(0)).isSelected();
-    }
-
-    /**
-     * shows in the gui whether the computer is calculating or not
-     *
-     * @param isCalculating whether the computer (ki) is currently calculating
-     */
-    protected void setCalculating(boolean isCalculating) {
-        if (isCalculating) {
-            getLabelCalculating().setVisible(true);
-            gridPane.setMouseTransparent(true);
-        } else {
-            getLabelCalculating().setVisible(false);
-            gridPane.setMouseTransparent(false);
-        }
-    }
+    //labels and buttons
 
     /**
      * returns the gui-element with which the player can enable / disable the board turning

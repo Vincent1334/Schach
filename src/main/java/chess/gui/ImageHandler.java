@@ -19,6 +19,7 @@ public class ImageHandler {
 
     /**
      * returns the ImageHandler
+     * @return the instance
      */
     public static ImageHandler getInstance() {
         if (instance == null) {
