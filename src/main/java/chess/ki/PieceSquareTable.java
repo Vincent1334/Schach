@@ -95,8 +95,8 @@ public class PieceSquareTable {
             };*/
 
     /**
-     *piece square table for a white pawn
-     * contains information about clever positions for a pawn
+     *piece square table for a queen or rook
+     * contains information about clever positions for a queen or rook
      */
     public final static short[][] NULL_TABLE = new short[][]
             {
