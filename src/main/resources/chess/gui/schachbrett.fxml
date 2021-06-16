@@ -62,7 +62,7 @@
                   <Insets bottom="35.0" />
                </VBox.margin>
                <children>
-                  <Text fill="#515151" layoutX="512.0" layoutY="39.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="Player:" wrappingWidth="115.2734375">
+                  <Text fill="#515151" layoutX="512.0" layoutY="39.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="%player_label" wrappingWidth="115.2734375">
                      <font>
                         <Font name="Calibri Light" size="24.0" />
                      </font>
@@ -83,7 +83,7 @@
                         <Rectangle fill="#f9f2e7f7" height="44.0" nodeOrientation="LEFT_TO_RIGHT" stroke="#8fbe00" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="5.0" width="296.0" />
                      </graphic>
                   </Label>
-                  <Text fill="#515151" layoutX="512.0" layoutY="74.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="Promotion:" wrappingWidth="115.2734375">
+                  <Text fill="#515151" layoutX="512.0" layoutY="74.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="%promotion_label" wrappingWidth="115.2734375">
                      <font>
                         <Font name="Calibri Light" size="24.0" />
                      </font>
@@ -95,24 +95,24 @@
                   </ChoiceBox>
                   <VBox fx:id="settings" layoutX="238.0" layoutY="5.0" nodeOrientation="LEFT_TO_RIGHT">
                      <children>
-                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Touch Move" textFill="#515151">
+                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="%touch_move_button" textFill="#515151">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" selected="true" text="Possible Moves" textFill="#515151">
+                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" selected="true" text="%possible_moves_button" textFill="#515151">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="Rotate" textFill="#515151">
+                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="%rotate_button" textFill="#515151">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                         </CheckBox>
                      </children>
                   </VBox>
-                  <Button alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="0.0" layoutX="20.0" layoutY="13.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backToMenu" prefHeight="70.0" prefWidth="209.0" snapToPixel="false" style="-fx-background-color: #00A8C6;" text="Back To Menu" textFill="WHITE" textOverrun="CLIP">
+                  <Button alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="0.0" layoutX="20.0" layoutY="13.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backToMenu" prefHeight="70.0" prefWidth="209.0" snapToPixel="false" style="-fx-background-color: #00A8C6;" text="%menu_button" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="Calibri Light" size="22.0" />
                      </font>
@@ -841,7 +841,7 @@
                         </GridPane>
                         <VBox>
                            <children>
-                              <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Beaten Figures:" textFill="#515151">
+                              <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="%beaten_figures_label" textFill="#515151">
                                  <font>
                                     <Font name="Calibri Light" size="17.0" />
                                  </font>
@@ -928,7 +928,7 @@
                   </VBox>
                   <VBox>
                      <children>
-                        <Label contentDisplay="CENTER" prefHeight="26.0" prefWidth="109.0" text="History:" textAlignment="CENTER" textFill="#515151">
+                        <Label contentDisplay="CENTER" prefHeight="26.0" prefWidth="109.0" text="%history_label" textAlignment="CENTER" textFill="#515151">
                            <font>
                               <Font name="Calibri Light" size="21.0" />
                            </font>

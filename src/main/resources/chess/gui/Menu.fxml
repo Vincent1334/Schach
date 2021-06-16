@@ -27,27 +27,27 @@
          </effect>
       </ImageView>
       <Rectangle arcHeight="2.0" arcWidth="2.0" fill="#363535" height="73.0" layoutY="315.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="400.0" />
-      <Label layoutX="26.0" layoutY="60.0" prefHeight="79.0" prefWidth="231.0" text="Chess" textFill="#363535">
+      <Label layoutX="26.0" layoutY="60.0" prefHeight="79.0" prefWidth="231.0" text="%chess_label" textFill="#363535">
          <font>
             <Font name="Times New Roman Bold" size="53.0" />
          </font>
       </Label>
-      <RadioButton fx:id="mode01" layoutX="22.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#setMode01" selected="true" text="Start a local game against a friend">
+      <RadioButton fx:id="mode01" layoutX="22.0" layoutY="170.0" mnemonicParsing="false" onMouseClicked="#setMode01" selected="true" text="%gamemode01">
          <toggleGroup>
             <ToggleGroup fx:id="menu" />
          </toggleGroup>
          <font>
             <Font name="Calibri Light" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="mode02" layoutX="22.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#setMode02" text="Start a local game against the computer" toggleGroup="$menu">
+      <RadioButton fx:id="mode02" layoutX="22.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#setMode02" text="%gamemode02" toggleGroup="$menu">
          <font>
             <Font name="Calibri Light" size="15.0" />
          </font></RadioButton>
-      <Label layoutX="60.0" layoutY="229.0" text="Farbe:">
+      <Label layoutX="60.0" layoutY="229.0" text="%team_label">
          <font>
             <Font name="Calibri Light" size="15.0" />
          </font></Label>
-      <RadioButton fx:id="modeBlack" layoutX="182.0" layoutY="229.0" mnemonicParsing="false" onMouseClicked="#setBlack" text="black">
+      <RadioButton fx:id="modeBlack" layoutX="182.0" layoutY="229.0" mnemonicParsing="false" onMouseClicked="#setBlack" text="%black_label">
          <toggleGroup>
             <ToggleGroup fx:id="menu1" />
          </toggleGroup>
@@ -55,20 +55,20 @@
             <Font name="Calibri Light" size="15.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="modeWhite" layoutX="113.0" layoutY="229.0" mnemonicParsing="false" onMouseClicked="#setWhite" selected="true" text="white" toggleGroup="$menu1">
+      <RadioButton fx:id="modeWhite" layoutX="113.0" layoutY="229.0" mnemonicParsing="false" onMouseClicked="#setWhite" selected="true" text="%white_label" toggleGroup="$menu1">
          <font>
             <Font name="Calibri Light" size="15.0" />
          </font></RadioButton>
-      <RadioButton fx:id="mode03" layoutX="22.0" layoutY="257.0" mnemonicParsing="false" onMouseClicked="#setMode03" text="Start a network game against a friend" toggleGroup="$menu">
+      <RadioButton fx:id="mode03" layoutX="22.0" layoutY="257.0" mnemonicParsing="false" onMouseClicked="#setMode03" text="%gamemode03" toggleGroup="$menu">
          <font>
             <Font name="Calibri Light" size="15.0" />
          </font></RadioButton>
-      <Button fx:id="startButton" layoutX="296.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: #325eab; -fx-border-radius: 2;" text="Start" textFill="WHITE">
+      <Button fx:id="startButton" layoutX="320.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: #325eab; -fx-border-radius: 2;" text="%start_button" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="16.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#quitGame" prefHeight="25.0" prefWidth="60.0" text="Quit" textFill="#363535">
+      <Button layoutX="16.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#quitGame" prefHeight="25.0" prefWidth="60.0" text="%quit_button" textFill="#363535">
          <font>
             <Font size="15.0" />
          </font>

@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 /**
  * manages the main menu options
@@ -41,13 +42,14 @@ public class Menu {
     private void startGame(MouseEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
+            fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
             Parent root = fxmlLoader.load();
 
             Controller controller = fxmlLoader.getController();
             controller.init(gameMode, playerColorBlack);
 
             Stage stage = new Stage();
-            stage.setTitle("chess");
+            stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
             stage.show();

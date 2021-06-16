@@ -42,7 +42,8 @@ public class Controller {
     private boolean blackDown = false;
     private List<Figure> beatenFigureList;
     private Logic logic;
-    final private static String QUEEN = "Queen";
+    private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
+    final private static String QUEEN = messages.getString("queen_label");
 
     @FXML
     private GridPane gridPane;
@@ -63,7 +64,7 @@ public class Controller {
      */
     public void init(int gameMode, boolean playerColorBlack) {
         beatenFigureList = new ArrayList<>();
-        getChoiceBoxConversion().getItems().addAll(QUEEN, "Bishop", "Rook", "Knight");
+        getChoiceBoxConversion().getItems().addAll(QUEEN, messages.getString("bishop_label"), messages.getString("rook_label"), messages.getString("knight_label"));
         getChoiceBoxConversion().getSelectionModel().select(QUEEN);
 
         logic = new Logic(gameMode, playerColorBlack, this);

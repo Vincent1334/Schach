@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 /**
  * This class ist the starting point for the graphical interface
  *
@@ -13,6 +16,8 @@ import javafx.stage.Stage;
  * 2021-06-09
  */
 public class Gui extends Application {
+
+    public static Locale locale = new Locale("en", "US");
 
     /**
      * opens the menu
@@ -22,9 +27,10 @@ public class Gui extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+        fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
         Parent root = fxmlLoader.load();
 
-        primaryStage.setTitle("chess menu");
+        primaryStage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("menu_title"));
 
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
