@@ -1,6 +1,8 @@
 package chess.ki;
 
 
+import chess.figures.Figure;
+import chess.figures.Pawn;
 import chess.model.Board;
 import chess.model.Move;
 
@@ -21,11 +23,13 @@ public class Heuristic {
     private static final float KNIGHT_MATERIAL = 325;
     private static final float QUEEN_MATERIAL = 975;
 
-    private static final float CASTLING_POINTS = 80;
+    private static final float CASTLING_POINTS = 100000;
     private static final float CHECK_MATE_POINTS = 100000;
     private static final float CHECK_POINTS = 30;
 
-    private static final float REPEAT_POINTS = 200;
+    private static final float REPEAT_POINTS = 550;
+
+    private static final float PAWN_CHAIN_POINTS = 120;
 
     /**
      *
@@ -57,6 +61,33 @@ public class Heuristic {
             figureScore = figureScore * (-1);
         }
         return figureScore;
+    }
+
+    public static float checkPawnChain(Board board, Move move, boolean playerMax){
+        float score = 0;
+        if(move.getActualFigure() instanceof Pawn){
+            for(int i = 0; i < 4; i++){
+                Figure tmpFigure;
+                try{
+                    switch(i){
+                        case 0: tmpFigure = board.getFigure(move.getTargetPosition().getPosX()-1, move.getTargetPosition().getPosY()-1); break;
+                        case 1: tmpFigure = board.getFigure(move.getTargetPosition().getPosX()-1, move.getTargetPosition().getPosY()+1); break;
+                        case 2: tmpFigure = board.getFigure(move.getTargetPosition().getPosX()+1, move.getTargetPosition().getPosY()-1); break;
+                        case 3: tmpFigure = board.getFigure(move.getTargetPosition().getPosX()+1, move.getTargetPosition().getPosY()+1); break;
+                        default: continue;
+                    }
+                }catch(Exception x){
+                    continue;
+                }
+                if(tmpFigure instanceof Pawn && tmpFigure.isBlackTeam() == move.getActualFigure().isBlackTeam()){
+                    score += PAWN_CHAIN_POINTS;
+                }
+            }
+        }
+        if(move.getActualFigure().isBlackTeam() != playerMax){
+            score = score *-1;
+        }
+        return score;
     }
 
     /**

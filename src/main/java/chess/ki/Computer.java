@@ -215,6 +215,7 @@ public class Computer implements Runnable{
         score += Heuristic.checkCastling(board, PLAYER_MAX);
         score += Heuristic.checkChessMate(board, PLAYER_MAX, PLAYER_MIN);
         score += Heuristic.checkChess(board, PLAYER_MAX, PLAYER_MIN);
+        score += Heuristic.checkPawnChain(board, move, PLAYER_MAX);
 
         return score;
     }
