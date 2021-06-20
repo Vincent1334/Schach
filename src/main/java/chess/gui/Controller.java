@@ -80,6 +80,7 @@ public class Controller {
     public void backToMenu(MouseEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+            fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
             Parent root = fxmlLoader.load();
 
             Stage stage = new Stage();
