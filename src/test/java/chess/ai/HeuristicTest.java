@@ -74,7 +74,7 @@ public class HeuristicTest {
         int[][] material01 = new int[][]{{3, 2, 4, 5, 3, 7}, {1, 1, 1, 1, 1, 1}};
         int[][] material02 = new int[][]{{1, 1, 1, 1, 1, 1}, {3, 2, 4, 5, 3, 7}};
 
-        assertTrue(Heuristic.checkMaterial(material01, false, true) > Heuristic.checkMaterial(material02, false, true), "checkMaterial test fail");
+        assertTrue(Heuristic.checkMaterial(material01, false) > Heuristic.checkMaterial(material02, false), "checkMaterial test fail");
     }
 
     /**
@@ -97,8 +97,8 @@ public class HeuristicTest {
         Board testBoard = new Board();
         testBoard.setCheckMateFlag(true, false);
 
-        assertEquals(0, Heuristic.checkChessMate(testBoard, true, false), "check chess mate test fail");
-        assertNotEquals(0, Heuristic.checkChessMate(testBoard, false, true), "check chess mate test fail");
+        assertEquals(0, Heuristic.checkChessMate(testBoard, true), "check chess mate test fail");
+        assertNotEquals(0, Heuristic.checkChessMate(testBoard, false), "check chess mate test fail");
     }
 
     /**
@@ -108,11 +108,11 @@ public class HeuristicTest {
      public void testCheckChess(){
         Board testBoard = new Board();
 
-        assertEquals(0, Heuristic.checkChess(testBoard, false, true), "Check test fail");
-        assertEquals(0, Heuristic.checkChess(testBoard, true, false), "Check test fail");
+        assertEquals(0, Heuristic.checkChess(testBoard, false), "Check test fail");
+        assertEquals(0, Heuristic.checkChess(testBoard, true), "Check test fail");
 
         testBoard.setCheckFlag(true, false);
 
-        assertNotEquals(0, Heuristic.checkChess(testBoard, false, true), "Check test fail");
+        assertNotEquals(0, Heuristic.checkChess(testBoard, false), "Check test fail");
      }
 }

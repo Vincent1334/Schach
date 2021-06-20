@@ -43,7 +43,7 @@ public class Controller {
     private List<Figure> beatenFigureList;
     private Logic logic;
     private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
-    final private static String QUEEN = messages.getString("queen_label");
+    final private static String QUEEN = "Queen";
 
     @FXML
     private GridPane gridPane;

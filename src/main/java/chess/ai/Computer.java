@@ -120,7 +120,7 @@ public class Computer implements Runnable{
         sortMove(possibleMove, ParentCutOff.getParentCutOff());
 
         //Game over?
-        if (possibleMove.size() == 0) return Float.NEGATIVE_INFINITY;
+        if (possibleMove.size() == 0) return heuristic(board, ParentCutOff.getLastMove());
 
         //create CutOff
         ArrayList<Move> cutOff = new ArrayList<Move>();
@@ -162,7 +162,7 @@ public class Computer implements Runnable{
         sortMove(possibleMove, ParentCutOff.getParentCutOff());
 
         //Game over?
-        if (possibleMove.size() == 0) return Float.POSITIVE_INFINITY;
+        if (possibleMove.size() == 0) return heuristic(board, ParentCutOff.getLastMove());
 
         //create CutOff
         List<Move> cutOff = new ArrayList<Move>();
@@ -216,10 +216,10 @@ public class Computer implements Runnable{
 
         score += Heuristic.checkRepeat(move, lastMove, PLAYER_MAX);
         score += Heuristic.checkFigureScore(move, PLAYER_MAX);
-        score += Heuristic.checkMaterial(material, PLAYER_MAX, PLAYER_MIN);
+        score += Heuristic.checkMaterial(material, PLAYER_MAX);
         score += Heuristic.checkCastling(board, PLAYER_MAX);
-        score += Heuristic.checkChessMate(board, PLAYER_MAX, PLAYER_MIN);
-        score += Heuristic.checkChess(board, PLAYER_MAX, PLAYER_MIN);
+        score += Heuristic.checkChessMate(board, PLAYER_MAX);
+        score += Heuristic.checkChess(board, PLAYER_MAX);
         score += Heuristic.checkPawnChain(board, move, PLAYER_MAX);
         score += Heuristic.checkEndGame(board, PLAYER_MAX, isEndGame);
 
@@ -234,7 +234,7 @@ public class Computer implements Runnable{
      * increases the search depth
      */
     private void changeDepth(){
-        if(board.getBeatenFigures().size() % 12 == 0 && board.getBeatenFigures().size() != 0){
+        if(board.getBeatenFigures().size() % 15 == 0 && board.getBeatenFigures().size() != 0){
             targetDepth = targetDepth + targetDepth / 4;
         }
     }
