@@ -39,11 +39,14 @@ public class Menu {
      */
     @FXML
     private void setLanguage(){
-        if(messages == ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"))){
+        if(messages.getLocale().getCountry().equals("DE")){
             messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
-        }else{
-            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"));
+        }else if(messages.getLocale().getCountry().equals("US")){
+            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("fr", "FR"));
+        }else if(messages.getLocale().getCountry().equals("FR")){
+            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "DE"));
         }
+        System.out.println(messages.getLocale().getCountry());
         ((Label) pane.getChildren().get(3)).setText(messages.getString("game_title"));
         ((RadioButton) pane.getChildren().get(4)).setText(messages.getString("gamemode01"));
         ((RadioButton) pane.getChildren().get(5)).setText(messages.getString("gamemode02"));

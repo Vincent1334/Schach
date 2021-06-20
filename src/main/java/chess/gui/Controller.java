@@ -227,9 +227,9 @@ public class Controller {
     @FXML
     private void setLanguage() {
         ResourceBundle oldLanguage = messages;
-        if (messages == ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"))) {
+        if (messages.getLocale().getCountry().equals("US")) {
             messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"));
-        } else if (messages == ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"))) {
+        } else if (messages.getLocale().getCountry().equals("DE")) {
             messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("fr", "FR"));
         } else {
             messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
