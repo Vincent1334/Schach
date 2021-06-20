@@ -1,4 +1,4 @@
-package chess.ki;
+package chess.ai;
 
 import java.util.Arrays;
 
@@ -82,7 +82,7 @@ public class PieceSquareTable {
      *piece square table for a white king in the endgame
      * contains information about clever positions for a king in the end game
      */
-    /*public final static short[][] kingTableEndGame = new short[][]
+    public final static short[][] King_ENDGAME_TABLE = new short[][]
             {
                 {-50,-40,-30,-20,-20,-30,-40,-50},
                 {-30,-20,-10,  0,  0,-10,-20,-30},
@@ -92,7 +92,7 @@ public class PieceSquareTable {
                 {-30,-10, 20, 30, 30, 20,-10,-30},
                 {-30,-30,  0,  0,  0,  0,-30,-30},
                 {-50,-30,-30,-30,-30,-30,-30,-50}
-            };*/
+            };
 
     /**
      *piece square table for a queen or rook
@@ -116,12 +116,15 @@ public class PieceSquareTable {
      * @param figureID the figure ID
      * @return the table for the figure ID
      */
-    public static short[][] getTable(int figureID){
+    public static short[][] getTable(int figureID, boolean isEndGame){
         switch(figureID){
             case 1: return Arrays.copyOf(PAWN_TABLE, PAWN_TABLE.length);
             case 3: return Arrays.copyOf(KNIGHT_TABLE, KNIGHT_TABLE.length);
             case 4: return Arrays.copyOf(BISHOP_TABLE, BISHOP_TABLE.length);
-            case 6: return Arrays.copyOf(KING_TABLE, KING_TABLE.length);
+            case 6:{
+                if(!isEndGame) return Arrays.copyOf(KING_TABLE, KING_TABLE.length);
+                return Arrays.copyOf(King_ENDGAME_TABLE, King_ENDGAME_TABLE.length);
+            }
             default: return Arrays.copyOf(NULL_TABLE, NULL_TABLE.length);
         }
     }

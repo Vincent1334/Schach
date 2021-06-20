@@ -1,7 +1,7 @@
 package chess.gui;
 
 import chess.controller.*;
-import chess.ki.Computer;
+import chess.ai.Computer;
 import chess.model.*;
 import javafx.application.Platform;
 import javafx.scene.layout.GridPane;

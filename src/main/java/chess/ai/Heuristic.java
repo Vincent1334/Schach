@@ -1,7 +1,8 @@
-package chess.ki;
+package chess.ai;
 
 
 import chess.figures.Figure;
+import chess.figures.Knight;
 import chess.figures.Pawn;
 import chess.model.Board;
 import chess.model.Move;
@@ -23,13 +24,14 @@ public class Heuristic {
     private static final float KNIGHT_MATERIAL = 325;
     private static final float QUEEN_MATERIAL = 975;
 
-    private static final float CASTLING_POINTS = 100000;
+    private static final float CASTLING_POINTS = 10000000;
     private static final float CHECK_MATE_POINTS = 100000;
     private static final float CHECK_POINTS = 30;
 
-    private static final float REPEAT_POINTS = 550;
+    private static final float REPEAT_POINTS = 620;
 
-    private static final float PAWN_CHAIN_POINTS = 120;
+    private static final float PAWN_CHAIN_POINTS = 70;
+    private static final float ENDGAME_POINTS = 50;
 
     /**
      *
@@ -37,8 +39,8 @@ public class Heuristic {
      * @param lastMove the last move
      * @return zero when current and last move are the same
      */
-   public static float checkRepeat(Move move, Move lastMove){
-        if(lastMove != null && move.getActualFigure() == lastMove.getActualFigure()) return -REPEAT_POINTS;
+   public static float checkRepeat(Move move, Move lastMove, boolean playerMax){
+        if(lastMove != null && move.getActualFigure() == lastMove.getActualFigure() && move.getActualFigure().isBlackTeam() == playerMax) return -REPEAT_POINTS;
         return 0;
     }
 
@@ -51,11 +53,11 @@ public class Heuristic {
     public static float checkFigureScore(Move move, boolean playerMax){
         float figureScore = 0;
         switch(move.getActualFigure().getFigureID()){
-            case 1: figureScore = PAWN_MATERIAL; break;
-            case 2: figureScore = ROOK_MATERIAL; break;
-            case 3: figureScore = BISHOP_MATERIAL; break;
-            case 4: figureScore = KNIGHT_MATERIAL; break;
-            case 5: figureScore = QUEEN_MATERIAL /3; break;
+            case 1: figureScore = PAWN_MATERIAL/3; break;
+            case 2: figureScore = ROOK_MATERIAL/3; break;
+            case 3: figureScore = BISHOP_MATERIAL/3; break;
+            case 4: figureScore = KNIGHT_MATERIAL/3; break;
+            case 5: figureScore = QUEEN_MATERIAL /4; break;
         }
         if(move.getActualFigure().isBlackTeam() != playerMax){
             figureScore = figureScore * (-1);
@@ -79,13 +81,10 @@ public class Heuristic {
                 }catch(Exception x){
                     continue;
                 }
-                if(tmpFigure instanceof Pawn && tmpFigure.isBlackTeam() == move.getActualFigure().isBlackTeam()){
+                if(tmpFigure instanceof Pawn && tmpFigure.isBlackTeam() == playerMax){
                     score += PAWN_CHAIN_POINTS;
                 }
             }
-        }
-        if(move.getActualFigure().isBlackTeam() != playerMax){
-            score = score *-1;
         }
         return score;
     }
@@ -107,6 +106,20 @@ public class Heuristic {
         score += KNIGHT_MATERIAL *material[playerMaxID][3]- KNIGHT_MATERIAL *material[playerMinID][3];
         score += PAWN_MATERIAL *material[playerMaxID][0]- PAWN_MATERIAL *material[playerMinID][0];
 
+        return score;
+    }
+
+    public static float checkEndGame(Board board, boolean playerMax, boolean isEndGame){
+        float score = 0;
+        if(isEndGame){
+            for(int y = 0; y < 8; y++){
+                for(int x = 0; x < 8; x++){
+                    if (board.getFigure(x, y) instanceof Knight && board.getFigure(x, y).isBlackTeam() == playerMax){
+                        score -= ENDGAME_POINTS;
+                    }
+                }
+            }
+        }
         return score;
     }
 

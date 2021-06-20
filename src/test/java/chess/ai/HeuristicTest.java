@@ -1,4 +1,4 @@
-package chess.ki;
+package chess.ai;
 
 import chess.figures.*;
 import chess.model.Board;
@@ -34,11 +34,11 @@ public class HeuristicTest {
         lastMove.setActualFigure(testFigure01);
         lastMove.setTargetFigure(new None());
 
-        assertNotEquals(0, Heuristic.checkRepeat(bestMove, lastMove), "checkRepeat test fail");
+        assertNotEquals(0, Heuristic.checkRepeat(bestMove, lastMove, true), "checkRepeat test fail");
 
         lastMove.setActualFigure(testFigure02);
 
-        assertEquals(0, Heuristic.checkRepeat(bestMove, lastMove), "checkRepeat test fail");
+        assertEquals(0, Heuristic.checkRepeat(bestMove, lastMove, true), "checkRepeat test fail");
     }
 
 

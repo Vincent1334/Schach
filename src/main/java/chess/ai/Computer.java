@@ -1,4 +1,4 @@
-package chess.ki;
+package chess.ai;
 
 import chess.figures.None;
 import chess.gui.Logic;
@@ -193,6 +193,11 @@ public class Computer implements Runnable{
      * @return the value of the searched move
      */
     private float heuristic(Board board, Move move) {
+        boolean isEndGame;
+
+        //setEndGame
+        if(board.getBeatenFigures().size() >= 26) isEndGame = true;
+        else isEndGame = false;
 
         //check Material
         int[][] material = new int[2][6];
@@ -204,18 +209,19 @@ public class Computer implements Runnable{
             for(int x = 0; x < 8; x++){
                 if(!(board.getFigure(x, y) instanceof None)){
                     material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][board.getFigure(x, y).getFigureID()-1] ++;
-                    fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] += PieceSquareTable.getTable(board.getFigure(x, y).getFigureID())[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
+                    fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] += PieceSquareTable.getTable(board.getFigure(x, y).getFigureID(), isEndGame)[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
                 }
             }
         }
 
-        score += Heuristic.checkRepeat(move, lastMove);
+        score += Heuristic.checkRepeat(move, lastMove, PLAYER_MAX);
         score += Heuristic.checkFigureScore(move, PLAYER_MAX);
         score += Heuristic.checkMaterial(material, PLAYER_MAX, PLAYER_MIN);
         score += Heuristic.checkCastling(board, PLAYER_MAX);
         score += Heuristic.checkChessMate(board, PLAYER_MAX, PLAYER_MIN);
         score += Heuristic.checkChess(board, PLAYER_MAX, PLAYER_MIN);
         score += Heuristic.checkPawnChain(board, move, PLAYER_MAX);
+        score += Heuristic.checkEndGame(board, PLAYER_MAX, isEndGame);
 
         return score;
     }
@@ -306,6 +312,7 @@ public class Computer implements Runnable{
         //update Flags
         Board.kingInCheck(board, PLAYER_MAX);
         Board.kingInCheck(board, PLAYER_MIN);
+
     }
 
     /**

@@ -1,4 +1,4 @@
-package chess.ki;
+package chess.ai;
 
 import chess.model.Move;
 
