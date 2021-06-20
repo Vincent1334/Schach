@@ -53,26 +53,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane id="figuresBlack" cache="true" fitToHeight="true" fitToWidth="true" pannable="true" style="-fx-background-color: #F9F2E7;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.Controller">
+<ScrollPane id="figuresBlack" cache="true" fitToHeight="true" fitToWidth="true" pannable="true" style="-fx-background-color: #eeeeee;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.Controller">
    <content>
-      <VBox fx:id="vbox" prefWidth="770.0" style="-fx-background-color: #F9F2E7;">
+      <VBox fx:id="vbox" prefWidth="770.0" style="-fx-background-color: #eeeeee;">
          <children>
-            <Pane fx:id="menu" style="-fx-background-color: F9F2E7;">
+            <Pane fx:id="menu" prefHeight="173.0" prefWidth="784.0" style="-fx-background-color: #eeeeee;">
                <VBox.margin>
                   <Insets bottom="35.0" />
                </VBox.margin>
                <children>
-                  <Text fill="#515151" layoutX="512.0" layoutY="39.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="%player_label" wrappingWidth="115.2734375">
+                  <Text fill="#515151" layoutX="472.0" layoutY="39.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="%player_label" wrappingWidth="177.2734375">
                      <font>
                         <Font name="Calibri Light" size="24.0" />
                      </font>
                   </Text>
-                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="486.0" layoutY="117.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="275.0" text="....computer is calculating" textAlignment="RIGHT" textFill="#8fbe00" visible="false">
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="490.0" layoutY="131.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="275.0" text="....computer is calculating" textAlignment="RIGHT" textFill="#8fbe00" visible="false">
                      <font>
-                        <Font name="Calibri Light" size="21.0" />
+                        <Font name="Calibri Light" size="18.0" />
                      </font>
                   </Label>
-                  <Label contentDisplay="CENTER" layoutX="14.0" layoutY="99.0" prefHeight="59.0" prefWidth="385.0" style="-fx-font-weight: bold;" text="check" textFill="#8fbe00" visible="false">
+                  <Label contentDisplay="CENTER" layoutX="20.0" layoutY="114.0" prefHeight="59.0" prefWidth="385.0" style="-fx-font-weight: bold;" text="check" textFill="#8fbe00" visible="false">
                      <padding>
                         <Insets bottom="10.0" top="5.0" />
                      </padding>
@@ -80,10 +80,10 @@
                         <Font name="Calibri Bold" size="21.0" />
                      </font>
                      <graphic>
-                        <Rectangle fill="#f9f2e7f7" height="44.0" nodeOrientation="LEFT_TO_RIGHT" stroke="#8fbe00" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="5.0" width="296.0" />
+                        <Rectangle fill="#f9f2e7f7" height="44.0" nodeOrientation="LEFT_TO_RIGHT" stroke="#8fbe00" strokeLineJoin="BEVEL" strokeType="INSIDE" strokeWidth="5.0" width="535.0" />
                      </graphic>
                   </Label>
-                  <Text fill="#515151" layoutX="512.0" layoutY="74.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="%promotion_label" wrappingWidth="115.2734375">
+                  <Text fill="#515151" layoutX="471.0" layoutY="74.0" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="%promotion_label" wrappingWidth="179.2734375">
                      <font>
                         <Font name="Calibri Light" size="24.0" />
                      </font>
@@ -93,7 +93,7 @@
                         <Insets left="10.0" />
                      </opaqueInsets>
                   </ChoiceBox>
-                  <VBox fx:id="settings" layoutX="238.0" layoutY="5.0" nodeOrientation="LEFT_TO_RIGHT">
+                  <VBox fx:id="settings" layoutX="238.0" layoutY="5.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="116.0" prefWidth="221.0">
                      <children>
                         <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="%touch_move_button" textFill="#515151">
                            <VBox.margin>
@@ -110,9 +110,14 @@
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                         </CheckBox>
+                        <CheckBox layoutX="20.0" layoutY="20.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="%flag_button" textFill="#515151">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </CheckBox>
                      </children>
                   </VBox>
-                  <Button alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="0.0" layoutX="20.0" layoutY="13.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backToMenu" prefHeight="70.0" prefWidth="209.0" snapToPixel="false" style="-fx-background-color: #00A8C6;" text="%menu_button" textFill="WHITE" textOverrun="CLIP">
+                  <Button alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="0.0" layoutX="20.0" layoutY="43.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backToMenu" prefHeight="71.0" prefWidth="209.0" snapToPixel="false" style="-fx-background-color: #00A8C6;" text="%menu_button" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="Calibri Light" size="22.0" />
                      </font>
@@ -122,11 +127,12 @@
                   </Button>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="30.0" layoutX="692.0" layoutY="18.0" stroke="#00a8c6" strokeType="INSIDE" strokeWidth="3.0" width="30.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" height="30.0" layoutX="732.0" layoutY="18.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                  <Button layoutX="20.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="25.0" prefWidth="209.0" style="-fx-background-color: #8fbe00;" text="%language" textFill="WHITE" />
                </children>
             </Pane>
-            <SplitPane dividerPositions="0.7947882736156351" focusTraversable="false" style="-fx-background-color: #F9F2E7;">
+            <SplitPane dividerPositions="0.7947882736156351" focusTraversable="false" style="-fx-background-color: #eeeeee;">
                <items>
-                  <VBox alignment="CENTER" fillWidth="false" style="-fx-background-color: #F9F2E7;" SplitPane.resizableWithParent="false">
+                  <VBox alignment="CENTER" fillWidth="false" style="-fx-background-color: #eeeeee;" SplitPane.resizableWithParent="false">
                      <children>
                         <GridPane id="figuresBlack" fx:id="gridPane" alignment="CENTER" gridLinesVisible="true">
                            <columnConstraints>
@@ -841,7 +847,7 @@
                         </GridPane>
                         <VBox>
                            <children>
-                              <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="%beaten_figures_label" textFill="#515151">
+                              <Label fx:id="beaten_figures_label" alignment="TOP_CENTER" contentDisplay="CENTER" text="%beaten_figures_label" textFill="#515151">
                                  <font>
                                     <Font name="Calibri Light" size="17.0" />
                                  </font>
@@ -849,7 +855,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Label>
-                              <GridPane fx:id="beatenFigures" alignment="CENTER" style="-fx-border-color: #00A8C6; -fx-border-width: 2;">
+                              <GridPane fx:id="beatenFigures" alignment="CENTER" style="-fx-border-color: #AAAAAA; -fx-border-width: 2; -fx-background-color: #bfbfbf;">
                                  <columnConstraints>
                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="15.0" prefWidth="15.0" />
                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" />
@@ -876,44 +882,46 @@
                                     <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Rectangle fill="WHITE" height="60.0" smooth="false" stroke="#00a8c6" strokeType="OUTSIDE" width="15.0" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="2" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="3" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="4" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="5" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="6" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="7" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="8" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="9" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="10" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="11" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="12" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="13" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="14" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="15" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="16" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="17" />
+                                    <Rectangle fill="WHITE" height="60.0" smooth="false" stroke="#aaaaaa" strokeType="OUTSIDE" width="15.0" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="2" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="3" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="4" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="5" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="6" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="7" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="8" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="9" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="10" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="11" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="12" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="13" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="14" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="15" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="16" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="WHITE" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="17" />
                                     <Rectangle fill="#d1d1d100" height="60.0" smooth="false" stroke="#362817" strokeType="OUTSIDE" strokeWidth="0.0" width="15.0" GridPane.columnIndex="18" />
                                     <Rectangle fill="#d1d1d100" height="60.0" smooth="false" stroke="#362817" strokeType="OUTSIDE" strokeWidth="0.0" width="15.0" GridPane.columnIndex="18" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="17" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="16" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="15" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="14" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="13" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="12" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="11" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="10" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="9" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" layoutX="35.0" layoutY="80.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#adadad00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Rectangle fill="#515151" height="60.0" smooth="false" stroke="#00a8c6" strokeType="OUTSIDE" width="15.0" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="17" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="16" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="15" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="14" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="13" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="12" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="11" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="10" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="9" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" layoutX="35.0" layoutY="80.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#ffffff00" height="60.0" smooth="false" stroke="#fff3d6" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Rectangle fill="#515151" height="60.0" smooth="false" stroke="#aaaaaa" strokeType="OUTSIDE" width="15.0" GridPane.rowIndex="1" />
+                                    <Rectangle fill="WHITE" height="60.0" smooth="false" stroke="#aaaaaa" strokeType="OUTSIDE" width="15.0" GridPane.columnIndex="18" />
+                                    <Rectangle fill="#515151" height="60.0" smooth="false" stroke="#aaaaaa" strokeType="OUTSIDE" width="15.0" GridPane.columnIndex="18" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                            </children>
@@ -926,9 +934,9 @@
                         <Insets right="30.0" />
                      </padding>
                   </VBox>
-                  <VBox>
+                  <VBox style="-fx-background-color: #eeeeee;">
                      <children>
-                        <Label contentDisplay="CENTER" prefHeight="26.0" prefWidth="109.0" text="%history_label" textAlignment="CENTER" textFill="#515151">
+                        <Label fx:id="history_label" contentDisplay="CENTER" prefHeight="26.0" prefWidth="109.0" text="%history_label" textAlignment="CENTER" textFill="#515151">
                            <font>
                               <Font name="Calibri Light" size="21.0" />
                            </font>
@@ -939,7 +947,7 @@
                               <Insets bottom="5.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <ScrollPane prefHeight="673.0" prefWidth="125.0" style="-fx-border-color: #00A8C6; -fx-border-width: 2;">
+                        <ScrollPane prefHeight="673.0" prefWidth="125.0" style="-fx-border-color: #00A8C6; -fx-border-width: 2; -fx-background-color: #d9edff;">
                            <content>
                               <VBox nodeOrientation="LEFT_TO_RIGHT">
                                  <children>

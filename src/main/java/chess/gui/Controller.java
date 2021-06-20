@@ -9,9 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -50,7 +48,11 @@ public class Controller {
     @FXML
     private GridPane beatenFigures;
     @FXML
+    private Label beaten_figures_label;
+    @FXML
     private GridPane history;
+    @FXML
+    private Label history_label;
     @FXML
     private Pane menu;
     @FXML
@@ -64,8 +66,8 @@ public class Controller {
      */
     public void init(int gameMode, boolean playerColorBlack) {
         beatenFigureList = new ArrayList<>();
-        getChoiceBoxConversion().getItems().addAll(QUEEN, messages.getString("bishop_label"), messages.getString("rook_label"), messages.getString("knight_label"));
-        getChoiceBoxConversion().getSelectionModel().select(QUEEN);
+        getChoiceBoxConversion().getItems().addAll(messages.getString("queen_label"), messages.getString("bishop_label"), messages.getString("rook_label"), messages.getString("knight_label"));
+        getChoiceBoxConversion().getSelectionModel().select(messages.getString("queen_label"));
 
         logic = new Logic(gameMode, playerColorBlack, this);
     }
@@ -133,26 +135,29 @@ public class Controller {
      */
     private void updateNotifications(Board board) {
         getLabelCheck().setVisible(false);
-        if (board.isCheckFlag(true)) {
-            getLabelCheck().setVisible(true);
-            getLabelCheck().setText("Black is in check");
+        if(isShowFlags()){
+            if (board.isCheckFlag(true)) {
+                getLabelCheck().setVisible(true);
+                getLabelCheck().setText(messages.getString("blackCheck_label"));
+            }
+            if (board.isCheckFlag(false)) {
+                getLabelCheck().setVisible(true);
+                getLabelCheck().setText(messages.getString("whiteCheck_label"));
+            }
+            if (board.isCheckMateFlag(true)) {
+                getLabelCheck().setVisible(true);
+                getLabelCheck().setText(messages.getString("blackCheckmate_label"));
+            }
+            if (board.isCheckMateFlag(false)) {
+                getLabelCheck().setVisible(true);
+                getLabelCheck().setText(messages.getString("whiteCheckmate_label"));
+            }
+            if (board.isStaleMateFlag()) {
+                getLabelCheck().setVisible(true);
+                getLabelCheck().setText(messages.getString("stalemate_label"));
+            }
         }
-        if (board.isCheckFlag(false)) {
-            getLabelCheck().setVisible(true);
-            getLabelCheck().setText("White is in check");
-        }
-        if (board.isCheckMateFlag(true)) {
-            getLabelCheck().setVisible(true);
-            getLabelCheck().setText("Player black is checkmate!");
-        }
-        if (board.isCheckMateFlag(false)) {
-            getLabelCheck().setVisible(true);
-            getLabelCheck().setText("Player white is checkmate!");
-        }
-        if (board.isStaleMateFlag()) {
-            getLabelCheck().setVisible(true);
-            getLabelCheck().setText("Game ends because stalemate!");
-        }
+
     }
 
     /**
@@ -215,6 +220,44 @@ public class Controller {
 
     //--------------set---------------------------------------------------------------------------------------------------------------
 
+    /**
+     * sets the language
+     */
+    @FXML
+    private void setLanguage(){
+        ResourceBundle oldLanguage = messages;
+        if(messages == ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"))){
+            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
+        }else{
+            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"));
+        }
+        ((Text) menu.getChildren().get(0)).setText(messages.getString("player_label"));
+        ((Label) menu.getChildren().get(1)).setText(messages.getString("calculating_label"));
+        switchFlagLanguage(oldLanguage,"blackCheck_label");
+        switchFlagLanguage(oldLanguage,"whiteCheck_label");
+        switchFlagLanguage(oldLanguage,"blackCheckmate_label");
+        switchFlagLanguage(oldLanguage,"whiteCheckmate_label");
+        switchFlagLanguage(oldLanguage,"stalemate_label");
+        ((Text) menu.getChildren().get(3)).setText(messages.getString("promotion_label"));
+        getChoiceBoxConversion().getItems().clear();
+        getChoiceBoxConversion().getItems().addAll(messages.getString("queen_label"), messages.getString("bishop_label"), messages.getString("rook_label"), messages.getString("knight_label"));
+        getChoiceBoxConversion().getSelectionModel().select(messages.getString("queen_label"));
+        ((Button) menu.getChildren().get(6)).setText(messages.getString("menu_button"));
+        ((Button) menu.getChildren().get(9)).setText(messages.getString("language"));
+        history_label.setText(messages.getString("history_label"));
+        beaten_figures_label.setText(messages.getString("beaten_figures_label"));
+        ((CheckBox)settings.getChildren().get(0)).setText(messages.getString("touch_move_button"));
+        ((CheckBox)settings.getChildren().get(1)).setText(messages.getString("possible_moves_button"));
+        ((CheckBox)settings.getChildren().get(2)).setText(messages.getString("rotate_button"));
+        ((CheckBox)settings.getChildren().get(3)).setText(messages.getString("flag_button"));
+
+    }
+
+    private void switchFlagLanguage(ResourceBundle oldLanguage,String label){
+        if(((Label) menu.getChildren().get(2)).getText().equals(oldLanguage.getString(label))){
+            ((Label) menu.getChildren().get(2)).setText(messages.getString(label));
+        }
+    }
     /**
      * updates the label that shows which player's turn it is.
      *
@@ -337,6 +380,15 @@ public class Controller {
     }
 
     /**
+     * returns whether the player has enabled / disabled the single select option
+     *
+     * @return whether the single select option is enabled / disabled
+     */
+    protected boolean isShowFlags() {
+        return ((CheckBox) settings.getChildren().get(3)).isSelected();
+    }
+
+    /**
      * whether the imageView contains an image of a black figure
      *
      * @param iv the imageView of the figure you want to know the color of
@@ -372,16 +424,16 @@ public class Controller {
      */
     protected int getConversionFigure() {
         String item = (String) getChoiceBoxConversion().getSelectionModel().getSelectedItem();
-        if (item.equals(QUEEN)) {
+        if (item.equals(messages.getString("queen_label"))) {
             return 5;
         }
-        if (item.equals("Bishop")) {
+        if (item.equals(messages.getString("bishop_label"))) {
             return 4;
         }
-        if (item.equals("Rook")) {
+        if (item.equals(messages.getString("rook_label"))) {
             return 2;
         }
-        if (item.equals("Knight")) {
+        if (item.equals(messages.getString("knight_label"))) {
             return 3;
         }
         return 5;
@@ -543,4 +595,5 @@ public class Controller {
     private Rectangle getRectangleBlack() {
         return (Rectangle) menu.getChildren().get(8);
     }
+
 }

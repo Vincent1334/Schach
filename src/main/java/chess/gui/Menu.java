@@ -6,10 +6,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -21,9 +27,34 @@ import java.util.ResourceBundle;
 @SuppressWarnings({"PMD.UnusedPrivateMethod"})
 // the methods setMode... and startGame are used by the gui but PMD didn't recognize
 public class Menu {
-
+    private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
     private int gameMode = 1;
     private boolean playerColorBlack;
+    @FXML
+    private Pane pane;
+
+
+    /**
+     * sets the language
+     */
+    @FXML
+    private void setLanguage(){
+        if(messages == ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"))){
+            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
+        }else{
+            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"));
+        }
+        ((Label) pane.getChildren().get(3)).setText(messages.getString("game_title"));
+        ((RadioButton) pane.getChildren().get(4)).setText(messages.getString("gamemode01"));
+        ((RadioButton) pane.getChildren().get(5)).setText(messages.getString("gamemode02"));
+        ((Label) pane.getChildren().get(6)).setText(messages.getString("team_label"));
+        ((RadioButton) pane.getChildren().get(7)).setText(messages.getString("black_label"));
+        ((RadioButton) pane.getChildren().get(8)).setText(messages.getString("white_label"));
+        ((RadioButton) pane.getChildren().get(9)).setText(messages.getString("gamemode03"));
+        ((Button) pane.getChildren().get(10)).setText(messages.getString("start_button"));
+        ((Button) pane.getChildren().get(11)).setText(messages.getString("quit_button"));
+        ((Button) pane.getChildren().get(13)).setText(messages.getString("language"));
+    }
 
     /**
      * quits the game

@@ -9,12 +9,14 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="394.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.Menu">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.Menu">
    <children>
-      <ImageView fitHeight="279.0" fitWidth="189.0" layoutX="301.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+      <Polygon fill="#00a8c6" points="-73.0, 140.0, 489.0, 168.0, -62.0, -89.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <ImageView fitHeight="279.0" fitWidth="189.0" layoutX="387.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@BishopWhite.png" />
          </image>
@@ -26,7 +28,7 @@
             </ColorAdjust>
          </effect>
       </ImageView>
-      <Rectangle arcHeight="2.0" arcWidth="2.0" fill="#363535" height="73.0" layoutY="315.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="400.0" />
+      <Rectangle arcHeight="2.0" arcWidth="2.0" fill="#363535" height="73.0" layoutY="315.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="477.0" />
       <Label layoutX="26.0" layoutY="60.0" prefHeight="79.0" prefWidth="231.0" text="%chess_label" textFill="#363535">
          <font>
             <Font name="Times New Roman Bold" size="53.0" />
@@ -63,16 +65,17 @@
          <font>
             <Font name="Calibri Light" size="15.0" />
          </font></RadioButton>
-      <Button fx:id="startButton" layoutX="320.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: #325eab; -fx-border-radius: 2;" text="%start_button" textFill="WHITE">
+      <Button fx:id="startButton" layoutX="331.0" layoutY="336.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: #8fbe00; -fx-border-radius: 2;" text="%start_button" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="16.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#quitGame" prefHeight="25.0" prefWidth="60.0" text="%quit_button" textFill="#363535">
+      <Button layoutX="30.0" layoutY="336.0" mnemonicParsing="false" onMouseClicked="#quitGame" prefHeight="31.0" prefWidth="121.0" style="-fx-background-color: #282828;" text="%quit_button" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Rectangle arcHeight="2.0" arcWidth="2.0" fill="#363535" height="26.0" layoutX="-18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="416.0" />
+      <Rectangle arcHeight="2.0" arcWidth="2.0" fill="#363535" height="38.0" layoutX="-18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="496.0" />
+      <Button fx:id="language" layoutX="392.0" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="26.0" prefWidth="78.0" style="-fx-background-color: #282828;" text="%language" textFill="WHITE" />
    </children>
 </Pane>
