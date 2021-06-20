@@ -1,6 +1,7 @@
 package chess.gui;
 
 
+import chess.GameMode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,7 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 // the methods setMode... and startGame are used by the gui but PMD didn't recognize
 public class Menu {
     private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
-    private Logic.GameMode gameMode;
+    private GameMode gameMode;
     private boolean playerColorBlack;
     @FXML
     private Pane pane;
@@ -101,7 +101,7 @@ public class Menu {
      */
     @FXML
     private void setMode01() {
-        gameMode = Logic.GameMode.NORMAL;
+        gameMode = GameMode.NORMAL;
     }
 
     /**
@@ -109,7 +109,7 @@ public class Menu {
      */
     @FXML
     private void setMode02() {
-        gameMode = Logic.GameMode.COMPUTER;
+        gameMode = GameMode.COMPUTER;
     }
 
     /**
@@ -117,7 +117,7 @@ public class Menu {
      */
     @FXML
     private void setMode03() {
-        gameMode = Logic.GameMode.NETWORK;
+        gameMode = GameMode.NETWORK;
     }
 
     /**

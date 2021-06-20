@@ -1,5 +1,6 @@
 package chess.gui;
 
+import chess.GameMode;
 import chess.controller.*;
 import chess.ai.Computer;
 import chess.model.*;
@@ -19,11 +20,6 @@ public class Logic implements Runnable {
     private Computer computer;
     private Rectangle startField;
     private Controller controller;
-    public enum GameMode {
-        NORMAL,
-        COMPUTER,
-        NETWORK
-    }
     private GameMode gameMode;
 
     /**
