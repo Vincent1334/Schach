@@ -136,7 +136,7 @@ public class Controller {
      */
     private void updateNotifications(Board board) {
         getLabelCheck().setVisible(false);
-        if(isShowFlags()){
+        if (isShowFlags()) {
             if (board.isCheckFlag(true)) {
                 getLabelCheck().setVisible(true);
                 getLabelCheck().setText(messages.getString("blackCheck_label"));
@@ -225,20 +225,22 @@ public class Controller {
      * sets the language
      */
     @FXML
-    private void setLanguage(){
+    private void setLanguage() {
         ResourceBundle oldLanguage = messages;
-        if(messages == ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"))){
-            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
-        }else{
+        if (messages == ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"))) {
             messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"));
+        } else if (messages == ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"))) {
+            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("fr", "FR"));
+        } else {
+            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
         }
         ((Text) menu.getChildren().get(0)).setText(messages.getString("player_label"));
         ((Label) menu.getChildren().get(1)).setText(messages.getString("calculating_label"));
-        switchFlagLanguage(oldLanguage,"blackCheck_label");
-        switchFlagLanguage(oldLanguage,"whiteCheck_label");
-        switchFlagLanguage(oldLanguage,"blackCheckmate_label");
-        switchFlagLanguage(oldLanguage,"whiteCheckmate_label");
-        switchFlagLanguage(oldLanguage,"stalemate_label");
+        switchFlagLanguage(oldLanguage, "blackCheck_label");
+        switchFlagLanguage(oldLanguage, "whiteCheck_label");
+        switchFlagLanguage(oldLanguage, "blackCheckmate_label");
+        switchFlagLanguage(oldLanguage, "whiteCheckmate_label");
+        switchFlagLanguage(oldLanguage, "stalemate_label");
         ((Text) menu.getChildren().get(3)).setText(messages.getString("promotion_label"));
         getChoiceBoxConversion().getItems().clear();
         getChoiceBoxConversion().getItems().addAll(messages.getString("queen_label"), messages.getString("bishop_label"), messages.getString("rook_label"), messages.getString("knight_label"));
@@ -247,18 +249,19 @@ public class Controller {
         ((Button) menu.getChildren().get(9)).setText(messages.getString("language"));
         history_label.setText(messages.getString("history_label"));
         beaten_figures_label.setText(messages.getString("beaten_figures_label"));
-        ((CheckBox)settings.getChildren().get(0)).setText(messages.getString("touch_move_button"));
-        ((CheckBox)settings.getChildren().get(1)).setText(messages.getString("possible_moves_button"));
-        ((CheckBox)settings.getChildren().get(2)).setText(messages.getString("rotate_button"));
-        ((CheckBox)settings.getChildren().get(3)).setText(messages.getString("flag_button"));
+        ((CheckBox) settings.getChildren().get(0)).setText(messages.getString("touch_move_button"));
+        ((CheckBox) settings.getChildren().get(1)).setText(messages.getString("possible_moves_button"));
+        ((CheckBox) settings.getChildren().get(2)).setText(messages.getString("rotate_button"));
+        ((CheckBox) settings.getChildren().get(3)).setText(messages.getString("flag_button"));
 
     }
 
-    private void switchFlagLanguage(ResourceBundle oldLanguage,String label){
-        if(((Label) menu.getChildren().get(2)).getText().equals(oldLanguage.getString(label))){
+    private void switchFlagLanguage(ResourceBundle oldLanguage, String label) {
+        if (((Label) menu.getChildren().get(2)).getText().equals(oldLanguage.getString(label))) {
             ((Label) menu.getChildren().get(2)).setText(messages.getString(label));
         }
     }
+
     /**
      * updates the label that shows which player's turn it is.
      *
