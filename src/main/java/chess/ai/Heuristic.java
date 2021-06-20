@@ -24,14 +24,20 @@ public class Heuristic {
     private static final float KNIGHT_MATERIAL = 325;
     private static final float QUEEN_MATERIAL = 975;
 
-    private static final float CASTLING_POINTS = 10000000;
+    private static final float PAWN_BONUS = 1;
+    private static final float ROOK_BONUS = 5;
+    private static final float BISHOP_BONUS = 6;
+    private static final float KNIGHT_BONUS = 6;
+    private static final float QUEEN_BONUS = 4;
+
+    private static final float CASTLING_POINTS = 100;
     private static final float CHECK_MATE_POINTS = 100000;
-    private static final float CHECK_POINTS = 30;
+    private static final float CHECK_POINTS = 10;
 
-    private static final float REPEAT_POINTS = 620;
+    private static final float REPEAT_POINTS = 100;
 
-    private static final float PAWN_CHAIN_POINTS = 70;
-    private static final float ENDGAME_POINTS = 50;
+    private static final float PAWN_CHAIN_POINTS = 15;
+    private static final float ENDGAME_POINTS = 25;
 
     /**
      *
@@ -53,11 +59,11 @@ public class Heuristic {
     public static float checkFigureScore(Move move, boolean playerMax){
         float figureScore = 0;
         switch(move.getActualFigure().getFigureID()){
-            case 1: figureScore = PAWN_MATERIAL/3; break;
-            case 2: figureScore = ROOK_MATERIAL/3; break;
-            case 3: figureScore = BISHOP_MATERIAL/3; break;
-            case 4: figureScore = KNIGHT_MATERIAL/3; break;
-            case 5: figureScore = QUEEN_MATERIAL /4; break;
+            case 1: figureScore = PAWN_BONUS; break;
+            case 2: figureScore = ROOK_BONUS; break;
+            case 3: figureScore = BISHOP_BONUS; break;
+            case 4: figureScore = KNIGHT_BONUS; break;
+            case 5: figureScore = QUEEN_BONUS; break;
         }
         if(move.getActualFigure().isBlackTeam() != playerMax){
             figureScore = figureScore * (-1);
@@ -81,9 +87,10 @@ public class Heuristic {
                 }catch(Exception x){
                     continue;
                 }
-                if(tmpFigure instanceof Pawn && tmpFigure.isBlackTeam() == playerMax){
+                if(tmpFigure instanceof Pawn && tmpFigure.isBlackTeam() == move.getActualFigure().isBlackTeam()){
                     score += PAWN_CHAIN_POINTS;
                 }
+                if(move.getActualFigure().isBlackTeam() != playerMax) score = -score;
             }
         }
         return score;
@@ -93,13 +100,12 @@ public class Heuristic {
      *
      * @param material material for each figure
      * @param playerMax maximizing player
-     * @param playerMin minimizing player
      * @return the determined value for the material score
      */
-    public static float checkMaterial(int[][] material, boolean playerMax, boolean playerMin){
+    public static float checkMaterial(int[][] material, boolean playerMax){
         float score = 0;
         int playerMaxID = playerMax ? 1 : 0;
-        int playerMinID = playerMin ? 1 : 0;
+        int playerMinID = !playerMax ? 1 : 0;
         score += QUEEN_MATERIAL *material[playerMaxID][4]- QUEEN_MATERIAL *material[playerMinID][4];
         score += ROOK_MATERIAL *material[playerMaxID][1]- ROOK_MATERIAL *material[playerMinID][1];
         score += BISHOP_MATERIAL *material[playerMaxID][2]- BISHOP_MATERIAL *material[playerMinID][2];
@@ -117,6 +123,9 @@ public class Heuristic {
                     if (board.getFigure(x, y) instanceof Knight && board.getFigure(x, y).isBlackTeam() == playerMax){
                         score -= ENDGAME_POINTS;
                     }
+                    if (board.getFigure(x, y) instanceof Knight && board.getFigure(x, y).isBlackTeam() != playerMax){
+                        score += ENDGAME_POINTS;
+                    }
                 }
             }
         }
@@ -130,28 +139,26 @@ public class Heuristic {
      * @return castling points
      */
     public static float checkCastling(Board board, boolean playerMax){
-        return board.isCastlingFlag(playerMax) ? CASTLING_POINTS : 0;
+        return (board.isCastlingFlag(playerMax) ? CASTLING_POINTS : 0) - (board.isCastlingFlag(!playerMax) ? CASTLING_POINTS : 0);
     }
 
     /**
      *
      * @param board the current board
      * @param playerMax maximizing player
-     * @param playerMin minimizing player
      * @return chess mate points
      */
-    public static float checkChessMate(Board board, boolean playerMax, boolean playerMin){
-        return (board.isCheckMateFlag(playerMax) ? -CHECK_MATE_POINTS : 0) + (board.isCastlingFlag(playerMin) ? CHECK_MATE_POINTS : 0);
+    public static float checkChessMate(Board board, boolean playerMax){
+        return (board.isCheckMateFlag(!playerMax) ? CHECK_MATE_POINTS : 0) - (board.isCheckMateFlag(playerMax) ? CHECK_MATE_POINTS : 0);
     }
 
     /**
      *
      * @param board the current board
      * @param playerMax maximizing player
-     * @param playerMin minimizing player
      * @return check points
      */
-    public static float checkChess(Board board, boolean playerMax, boolean playerMin){
-        return (board.isCheckFlag(playerMax) ? -CHECK_POINTS : 0) + (board.isCheckFlag(playerMin) ? CHECK_POINTS : 0);
+    public static float checkChess(Board board, boolean playerMax){
+        return (board.isCheckFlag(!playerMax) ? CHECK_POINTS : 0) - (board.isCheckFlag(playerMax) ? CHECK_POINTS : 0);
     }
 }
