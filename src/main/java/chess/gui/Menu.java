@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 // the methods setMode... and startGame are used by the gui but PMD didn't recognize
 public class Menu {
     private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
-    private int gameMode = 1;
+    private Logic.GameMode gameMode;
     private boolean playerColorBlack;
     @FXML
     private Pane pane;
@@ -101,7 +101,7 @@ public class Menu {
      */
     @FXML
     private void setMode01() {
-        gameMode = 1;
+        gameMode = Logic.GameMode.NORMAL;
     }
 
     /**
@@ -109,7 +109,7 @@ public class Menu {
      */
     @FXML
     private void setMode02() {
-        gameMode = 2;
+        gameMode = Logic.GameMode.COMPUTER;
     }
 
     /**
@@ -117,7 +117,7 @@ public class Menu {
      */
     @FXML
     private void setMode03() {
-        gameMode = 3;
+        gameMode = Logic.GameMode.NETWORK;
     }
 
     /**

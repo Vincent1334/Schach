@@ -19,9 +19,12 @@ public class Logic implements Runnable {
     private Computer computer;
     private Rectangle startField;
     private Controller controller;
-
-    private int gameMode;
-
+    public enum GameMode {
+        NORMAL,
+        COMPUTER,
+        NETWORK
+    }
+    private GameMode gameMode;
 
     /**
      * initializes gameMode, coreGame, computer, beatenFigureList and conversion
@@ -30,13 +33,13 @@ public class Logic implements Runnable {
      * @param playerColorBlack the colour you want to play
      * @param controller the controller
      */
-    public Logic(int gameMode, boolean playerColorBlack, Controller controller) {
+    public Logic(GameMode gameMode, boolean playerColorBlack, Controller controller) {
         this.gameMode = gameMode;
         coreGame = new CoreGame();
         this.controller = controller;
         computer = new Computer(!playerColorBlack, this);
 
-        if (gameMode == 2) {
+        if (gameMode == GameMode.COMPUTER) {
             controller.getRotateBoard().setDisable(true);
             if (playerColorBlack) {
                 computerMove();
@@ -82,7 +85,7 @@ public class Logic implements Runnable {
         if (coreGame.chessMove(move)) {
             controller.updateScene(move, coreGame);
             startField = null;
-            if (gameMode == 2) {
+            if (gameMode == GameMode.COMPUTER) {
                 computerMove();
             }
         } else if (controller.isSingleSelect() && !controller.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {

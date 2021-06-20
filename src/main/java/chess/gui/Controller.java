@@ -64,7 +64,7 @@ public class Controller {
      * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
      * @param playerColorBlack the color you want to play
      */
-    public void init(int gameMode, boolean playerColorBlack) {
+    public void init(Logic.GameMode gameMode, boolean playerColorBlack) {
         beatenFigureList = new ArrayList<>();
         getChoiceBoxConversion().getItems().addAll(messages.getString("queen_label"), messages.getString("bishop_label"), messages.getString("rook_label"), messages.getString("knight_label"));
         getChoiceBoxConversion().getSelectionModel().select(messages.getString("queen_label"));
