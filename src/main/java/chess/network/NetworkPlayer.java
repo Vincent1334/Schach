@@ -8,12 +8,28 @@ public class NetworkPlayer {
     private Server server;
     private Client client;
 
-    public NetworkPlayer(int port, boolean isBlack, Logic gui){
-        server = new Server(port, isBlack, gui);
+    private int port;
+    private String ipAddress;
+    private boolean isBlack;
+
+    public NetworkPlayer(int port, boolean isBlack){
+        this.port = port;
+        this.isBlack = isBlack;
+
     }
 
-    public NetworkPlayer(String ipAddress, int port, Logic gui){ 
-        client = new Client(ipAddress, port, gui);
+    public NetworkPlayer(String ipAddress, int port){
+        this.ipAddress = ipAddress;
+        this.port = port;
+
+    }
+
+    public void initNetworkPlayer(Logic gui){
+        if(ipAddress != null){
+            client = new Client(ipAddress, port, gui);
+        }else{
+            server = new Server(port, isBlack, gui);
+        }
     }
 
     public Move getMove(){

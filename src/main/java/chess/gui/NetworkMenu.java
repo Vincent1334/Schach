@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -41,24 +42,28 @@ public class NetworkMenu {
     @FXML
     private void start(MouseEvent event){
         try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
-                    fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
-                    Parent root = fxmlLoader.load();
+            NetworkPlayer network;
+            if(joinGame.isSelected()) network = new NetworkPlayer(opponentIP.getText(), Integer.valueOf(port.getText()));
+            else network = new NetworkPlayer(Integer.valueOf(port.getText()), isBlack);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
+            fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
+            Parent root = fxmlLoader.load();
         
-                    Controller controller = fxmlLoader.getController();
-                    controller.init(GameMode.NETWORK,isBlack,joinGame.isSelected(),opponentIP.getText(),Integer.getInteger(port.getText()));
+            Controller controller = fxmlLoader.getController();
+            controller.init(GameMode.NETWORK,isBlack, network);
         
-                    Stage stage = new Stage();
-                    stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
-                    stage.setScene(new Scene(root));
-                    stage.centerOnScreen();
-                    stage.show();
+            Stage stage = new Stage();
+            stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
+            stage.setScene(new Scene(root));
+            stage.centerOnScreen();
+            stage.show();
         
-                    // Hide this current window
-                    ((Node) (event.getSource())).getScene().getWindow().hide();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            // Hide this current window
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Hide this current window
         ((Node) (event.getSource())).getScene().getWindow().hide();

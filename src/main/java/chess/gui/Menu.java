@@ -88,7 +88,7 @@ public class Menu {
                 fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", messages.getLocale()));
                 root = fxmlLoader.load();
                 Controller controller = fxmlLoader.getController();
-                controller.init(gameMode, playerColorBlack, false,null,0);
+                controller.init(gameMode, playerColorBlack, null);
                 stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
             }
             stage.setScene(new Scene(root));
