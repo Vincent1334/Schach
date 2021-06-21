@@ -21,16 +21,15 @@ public class Server implements Runnable{
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
+    private int port;
+    private boolean isConnected;
 
     public Server(int port, boolean isBlack, Logic gui){
         try{       
             this.isBlack = isBlack;
             this.gui = gui;
+            this.port = port;
             thread = new Thread(this);
-            serverSocket = new ServerSocket(port);
-            clientSocket = serverSocket.accept();
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             thread.start();
         }catch(Exception x){
             x.printStackTrace();
@@ -39,6 +38,17 @@ public class Server implements Runnable{
 
     @Override
     public void run() {
+        try{
+            if(!isConnected){
+                serverSocket = new ServerSocket(port);
+                clientSocket = serverSocket.accept();
+                out = new PrintWriter(clientSocket.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                isConnected = true;
+            }
+        }catch(Exception x){
+        }
+        System.out.println("Connected");
         //Listener for Server input
         while(true){
             try{

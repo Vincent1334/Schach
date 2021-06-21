@@ -16,17 +16,19 @@ public class Client implements Runnable{
     private Logic gui;
     private Move networkMove;
 
+    private String ipAddress;
+    private int port;
+
     private boolean isConnected;
 
     public Client(String ipAddress, int port, Logic gui){
         try {
+            this.ipAddress = ipAddress;
+            this.port = port;
             this.gui = gui;
-            clientSocket = new Socket(ipAddress, port);
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             thread = new Thread(this);
             thread.start();
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -36,20 +38,21 @@ public class Client implements Runnable{
         while(true){
             try{
                 if(!isConnected){
+                    clientSocket = new Socket(ipAddress, port);
+                    out = new PrintWriter(clientSocket.getOutputStream(), true);
+                    in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     out.println("start");
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                     String input = in.readLine();
                     if(input != null){
                         if(input.equals("white")){
                             isBlack = false;
-                            isConnected = true;
-                            break;
                         }
                         else{
                             isBlack = true;
-                            isConnected = true;
-                            break;
                         }
+                        isConnected = true;
+                        break;
                     }
                 }else{
                     String input = in.readLine();
