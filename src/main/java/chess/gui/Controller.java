@@ -4,6 +4,7 @@ import chess.GameMode;
 import chess.controller.*;
 import chess.figures.Figure;
 import chess.model.*;
+import chess.network.NetworkPlayer;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,7 +71,7 @@ public class Controller {
         getChoiceBoxConversion().getItems().addAll(messages.getString("queen_label"), messages.getString("bishop_label"), messages.getString("rook_label"), messages.getString("knight_label"));
         getChoiceBoxConversion().getSelectionModel().select(messages.getString("queen_label"));
 
-        logic = new Logic(gameMode, playerColorBlack, this);
+        logic = new Logic(gameMode, playerColorBlack,this);
     }
 
     /**

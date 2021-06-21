@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -35,22 +35,38 @@ public class NetworkMenu {
     @FXML
     private Rectangle black;
     @FXML
-    private ProgressIndicator;
+    private ProgressBar progressBar;
+    private Stage stage = new Stage();
 
     @FXML
-    public void initialize(){
-
-    }
-
-    @FXML
-    private void start(){
+    private void start(MouseEvent event){
         if(newGame.isSelected()){
-
-
         }
         if(joinGame.isSelected()){
-            NetworkPlayer network = new NetworkPlayer(opponentIP.getText(), port.getText(), );
         }
+        try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
+                    fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
+                    Parent root = fxmlLoader.load();
+        
+                    Controller controller = fxmlLoader.getController();
+                    controller.initNet(GameMode.NETWORK, isBlack,);
+        
+                    Stage stage = new Stage();
+                    stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
+                    stage.setScene(new Scene(root));
+                    stage.centerOnScreen();
+                    stage.show();
+        
+                    // Hide this current window
+                    ((Node) (event.getSource())).getScene().getWindow().hide();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+        // Hide this current window
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+
     }
 
     @FXML

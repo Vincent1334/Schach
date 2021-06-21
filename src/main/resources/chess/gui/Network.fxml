@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
@@ -14,7 +14,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.NetworkMenu">
    <children>
-      <ImageView fitHeight="292.0" fitWidth="169.0" layoutX="453.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="292.0" fitWidth="169.0" layoutX="466.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@RookBlack.png" />
          </image>
@@ -23,46 +23,43 @@
          </effect>
       </ImageView>
       <Rectangle fill="#393939" height="64.0" layoutX="-6.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="607.0" />
-      <TextField fx:id="yourIP" layoutX="220.0" layoutY="249.0" prefHeight="25.0" prefWidth="325.0" />
-      <Text fill="#5b5b5b" layoutX="46.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deine IP Adresse:" textAlignment="CENTER" wrappingWidth="168.5029296875">
-         <font>
-            <Font name="Calibri" size="18.0" />
-         </font>
-      </Text>
-      <Text fill="#5b5b5b" layoutX="48.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Netzwerkspieleinstellungen">
+      <Text fill="#5b5b5b" layoutX="29.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Netzwerkspieleinstellungen">
          <font>
             <Font size="34.0" />
          </font>
       </Text>
-      <TextField fx:id="opponentIP" layoutX="220.0" layoutY="280.0" prefHeight="25.0" prefWidth="325.0" />
-      <Text fill="#5b5b5b" layoutX="46.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gegner IP Adresse:" textAlignment="CENTER" wrappingWidth="168.5029296875">
+      <TextField fx:id="opponentIP" layoutX="235.0" layoutY="250.0" prefHeight="25.0" prefWidth="325.0" />
+      <Text fill="#5b5b5b" layoutX="58.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port:" textAlignment="CENTER" wrappingWidth="168.5029296875">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="222.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#start" prefHeight="25.0" prefWidth="326.0" style="-fx-background-color: #8fbe00;" text="Start" textFill="WHITE" />
-      <Button layoutX="42.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#backToMenu" prefHeight="25.0" prefWidth="169.0" style="-fx-background-color: #00A8C6;" text="Hauptmenü" textFill="WHITE" />
-      <RadioButton fx:id="newGame" layoutX="49.0" layoutY="136.0" mnemonicParsing="false" text="Neues Spiel" textFill="#656565">
+      <Button layoutX="234.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#start" prefHeight="25.0" prefWidth="326.0" style="-fx-background-color: #8fbe00;" text="Start" textFill="WHITE" />
+      <Button layoutX="54.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#backToMenu" prefHeight="25.0" prefWidth="169.0" style="-fx-background-color: #00A8C6;" text="Hauptmenü" textFill="WHITE" />
+      <RadioButton fx:id="newGame" layoutX="26.0" layoutY="139.0" mnemonicParsing="false" text="Neues Spiel" textFill="#656565">
          <font>
             <Font name="Calibri" size="21.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="joinGame" layoutX="49.0" layoutY="211.0" mnemonicParsing="false" text="Spiel beitreten" textFill="#656565">
+      <RadioButton fx:id="joinGame" layoutX="26.0" layoutY="216.0" mnemonicParsing="false" text="Spiel beitreten" textFill="#656565">
          <font>
             <Font name="Calibri" size="21.0" />
          </font>
       </RadioButton>
-      <ProgressIndicator fx:id="progressIndicator" layoutX="558.0" layoutY="14.0" progress="0.0">
-         <effect>
-            <ColorAdjust brightness="1.0" />
-         </effect>
-      </ProgressIndicator>
-      <Text fill="#5b5b5b" layoutX="46.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deine Farbe:" textAlignment="CENTER" wrappingWidth="168.5029296875">
+      <Text fill="#5b5b5b" layoutX="58.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deine Farbe:" textAlignment="CENTER" wrappingWidth="168.5029296875">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
       </Text>
-      <Rectangle fx:id="black" arcHeight="5.0" arcWidth="5.0" height="22.0" layoutX="222.0" layoutY="181.0" stroke="#393939" strokeType="INSIDE" width="21.0" />
-      <Rectangle fx:id="white" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="22.0" layoutX="253.0" layoutY="181.0" stroke="#393939" strokeType="INSIDE" width="21.0" />
+      <Rectangle fx:id="black" arcHeight="5.0" arcWidth="5.0" height="22.0" layoutX="234.0" layoutY="167.0" onMouseClicked="#setColour" stroke="#8fbe00" strokeType="INSIDE" strokeWidth="2.0" width="21.0" />
+      <Rectangle fx:id="white" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="22.0" layoutX="265.0" layoutY="167.0" onMouseClicked="#setColor" stroke="BLACK" strokeType="INSIDE" width="21.0" />
+      <TextField fx:id="port" layoutX="235.0" layoutY="281.0" prefHeight="25.0" prefWidth="325.0" text="5555" />
+      <Text fill="#5b5b5b" layoutX="58.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gegner IP Adresse:" textAlignment="CENTER" wrappingWidth="168.5029296875">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Text>
+      <ProgressBar fx:id="progressBar" layoutX="19.0" layoutY="27.0" prefHeight="22.0" prefWidth="506.0" progress="0.0" />
+      <Button layoutX="535.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="25.0" prefWidth="51.0" style="-fx-background-color: #292929;" text="de" textFill="WHITE" />
    </children>
 </Pane>

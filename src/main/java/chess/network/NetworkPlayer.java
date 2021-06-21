@@ -12,7 +12,7 @@ public class NetworkPlayer {
         server = new Server(port, isBlack, gui);
     }
 
-    public NetworkPlayer(String ipAddress, int port, Logic gui){
+    public NetworkPlayer(String ipAddress, int port, Logic gui){ 
         client = new Client(ipAddress, port, gui);
     }
 
