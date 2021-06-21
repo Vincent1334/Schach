@@ -3,6 +3,7 @@ package chess.gui;
 import chess.GameMode;
 import chess.controller.*;
 import chess.ai.Computer;
+import chess.figures.Pawn;
 import chess.model.*;
 import javafx.application.Platform;
 import javafx.scene.layout.GridPane;
@@ -68,7 +69,9 @@ public class Logic implements Runnable {
     private Move getMove(Rectangle startField, Rectangle targetField) {
         Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
         Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
-        return new Move(startPosition, targetPosition, controller.getConversionFigure());
+
+        if(coreGame.getCurrentBoard().getFigure(startPosition) instanceof Pawn) return new Move(startPosition, targetPosition, controller.getConversionFigure());
+        else return new Move(startPosition, targetPosition);
     }
 
     /**

@@ -142,19 +142,21 @@ public class Move {
      * @return Letter of the figure you want the pawn to convert to
      */
     public String getConversionLetter(int pawnConversion) {
-        switch (pawnConversion) {
-            case 1:
-                return "P";
-            case 2:
-                return "R";
-            case 3:
-                return "N";
-            case 4:
-                return "B";
-            case 5:
-                return "";
-            case 6:
-                return "K";
+        if(targetPosition.getPosY() == 0 || targetPosition.getPosY() == 7){
+            switch (pawnConversion) {
+                case 1:
+                    return "P";
+                case 2:
+                    return "R";
+                case 3:
+                    return "N";
+                case 4:
+                    return "B";
+                case 5:
+                    return "";
+                case 6:
+                    return "K";
+            }
         }
         return "";
     }
