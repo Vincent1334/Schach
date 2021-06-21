@@ -3,6 +3,7 @@ package chess.gui;
 import chess.GameMode;
 import chess.controller.*;
 import chess.ai.Computer;
+import chess.network.NetworkPlayer;
 import chess.figures.Pawn;
 import chess.model.*;
 import javafx.application.Platform;
@@ -22,25 +23,30 @@ public class Logic implements Runnable {
     private Rectangle startField;
     private Controller controller;
     private GameMode gameMode;
+    private NetworkPlayer network;
 
     /**
      * initializes gameMode, coreGame, computer, beatenFigureList and conversion
      *
      * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
-     * @param playerColorBlack the colour you want to play
+     * @param playerColorBlack the color you want to play
      * @param controller the controller
      */
-    public Logic(GameMode gameMode, boolean playerColorBlack, Controller controller) {
+    public Logic(GameMode gameMode, boolean playerColorBlack, Controller controller, NetworkPlayer networkPlayer) {
         this.gameMode = gameMode;
         coreGame = new CoreGame();
         this.controller = controller;
         computer = new Computer(!playerColorBlack, this);
+        this.network = networkPlayer;
 
         if (gameMode == GameMode.COMPUTER) {
             controller.getRotateBoard().setDisable(true);
             if (playerColorBlack) {
                 computerMove();
             }
+        }
+        if (gameMode == GameMode.NETWORK) {
+            controller.getRotateBoard().setDisable(true);
         }
     }
 
@@ -87,6 +93,10 @@ public class Logic implements Runnable {
             if (gameMode == GameMode.COMPUTER) {
                 computerMove();
             }
+            if (gameMode == GameMode.NETWORK) {
+                network.sendMove(move);
+                controller.setCalculating(true);
+            }
         } else if (controller.isSingleSelect() && !controller.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
             controller.setMark(startField, true, coreGame.getCurrentBoard());
         } else {
@@ -101,6 +111,7 @@ public class Logic implements Runnable {
         computer.makeMove(coreGame.getCurrentBoard());
         controller.setCalculating(true);
     }
+
 
     /**
      * return core game
@@ -121,7 +132,14 @@ public class Logic implements Runnable {
     /**
      * Turns the task into thread if the computer thread is terminated
      */
-    public void computerIsFinish() {
+    public void computerOrNetworkIsFinish() {
+        Platform.runLater(this);
+    }
+
+    /**
+     * Turns the task into thread if the networkPlayer thread is terminated
+     */
+    public void networkPlayerIsFinish() {
         Platform.runLater(this);
     }
 
@@ -130,10 +148,16 @@ public class Logic implements Runnable {
      */
     @Override
     public void run() {
-        controller.setCalculating(false);
-        Move computerMove = computer.getMove();
-        coreGame.chessMove(computerMove);
-        controller.updateScene(computerMove, coreGame);
+        if(gameMode == GameMode.COMPUTER){
+            controller.setCalculating(false);
+            Move computerMove = computer.getMove();
+            coreGame.chessMove(computerMove);
+            controller.updateScene(computerMove, coreGame);
+        }
+        if(gameMode == GameMode.NETWORK){
+            Move networkMove = network.getMove();
+            coreGame.chessMove(networkMove);
+            controller.updateScene(networkMove, coreGame);
+        }
     }
-
 }

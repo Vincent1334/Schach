@@ -75,6 +75,8 @@ public class Menu {
     @FXML
     private void startGame(MouseEvent event) {
         try {
+
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
             fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
             Parent root = fxmlLoader.load();

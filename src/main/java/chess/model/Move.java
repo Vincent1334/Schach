@@ -40,7 +40,6 @@ public class Move {
         this.targetPosition = targetPosition;
     }
 
-
     /**
      * returns a move out of characters as a string
      *

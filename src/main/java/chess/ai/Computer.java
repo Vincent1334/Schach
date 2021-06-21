@@ -94,7 +94,7 @@ public class Computer implements Runnable{
     @Override
     public void run(){
         max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new CutOff(new ArrayList<Move>(), null));
-        if(gui != null) gui.computerIsFinish();
+        if(gui != null) gui.computerOrNetworkIsFinish();
     }
 
     /*
@@ -196,8 +196,7 @@ public class Computer implements Runnable{
         boolean isEndGame;
 
         //setEndGame
-        if(board.getBeatenFigures().size() >= 26) isEndGame = true;
-        else isEndGame = false;
+        isEndGame = board.getBeatenFigures().size() >= 26;
 
         //check Material
         int[][] material = new int[2][6];

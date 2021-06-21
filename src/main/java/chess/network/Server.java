@@ -1,54 +1,88 @@
 package chess.network;
 
+import chess.gui.Logic;
+import chess.model.Move;
+import chess.model.Parser;
+
 import java.net.*;
 import java.io.*;
 import java.util.*;
 
-public class Server {
+public class Server implements Runnable{
+    
+    private boolean isBlack, isReadyToPlay;
 
-    private static int port = 5555;
+    private Thread thread;
+    private Logic gui;
+    
+    private Move networkMove;
 
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
-    private static Scanner scanner;
 
-    //On start
-    public static void main(String args[]) {
-        scanner = new Scanner(System.in);
-        System.out.println("AWAKE Server");
-        //create this server
-        Server server = new Server();
-        //start this server
-        server.start(port);
-
-    }
-
-    public void start(int port) {
-        System.out.println("Start server");
-        try {
-            //create server socket on given port
+    public Server(int port, boolean isBlack, Logic gui){
+        try{       
+            this.isBlack = isBlack;
+            this.gui = gui;
+            thread = new Thread(this);
             serverSocket = new ServerSocket(port);
             clientSocket = serverSocket.accept();
             out = new PrintWriter(clientSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String hello;
-            while ((hello = in.readLine()) != null) {
-
-                if ("end".equals(hello)) {
-                    out.println("c ya later");
-                    break;
-                } else {
-                    System.out.println("Got a message!: " + hello + " Please Answer!");
-                    String answer = scanner.nextLine();
-                    out.println(answer);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            thread.start();
+        }catch(Exception x){
+            x.printStackTrace();
         }
     }
+
+    @Override
+    public void run() {
+        //Listener for Server input
+        while(true){
+            try{
+                String input = in.readLine();
+                if(input != null){
+                    //check if new client is connected
+                    if(input.equals("start")){                        
+                        //send Team color
+                        out.println(isBlack ? "black" : "white");
+                        continue;
+                    }
+                    if(input.equals("ready")){
+                        isReadyToPlay = true;
+                        //leave listener if server starts with white
+                        if(isBlack) break;
+                    }
+                    //get Move message
+                    networkMove = Parser.parse(input);
+                    gui.computerOrNetworkIsFinish();
+                    break;
+                }
+
+            }catch(Exception x){
+                x.printStackTrace();
+            }
+        }
+    }
+    
+    public Move getMove(){
+        return networkMove;
+    }
+    
+    public void sendMove(Move move){
+        out.println(move.toString());
+        thread = new Thread(this);
+        thread.start();
+    }
+    
+     public void sendMessage(String message){
+        out.println(message);
+        thread = new Thread(this);
+        thread.start();
+     }
+
 
     public void stop() {
         System.out.println("stop");
@@ -60,5 +94,9 @@ public class Server {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public boolean isReadyToPlay(){
+        return isReadyToPlay;
     }
 }
