@@ -50,7 +50,7 @@ public class NetworkMenu {
                     Parent root = fxmlLoader.load();
         
                     Controller controller = fxmlLoader.getController();
-                    controller.initNet(GameMode.NETWORK, isBlack,);
+                    controller.initNetworkController(isBlack,joinGame.isSelected(),opponentIP,port);
         
                     Stage stage = new Stage();
                     stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
