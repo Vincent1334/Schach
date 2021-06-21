@@ -95,22 +95,22 @@
                   </ChoiceBox>
                   <VBox fx:id="settings" layoutX="238.0" layoutY="5.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="116.0" prefWidth="221.0">
                      <children>
-                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="%touch_move_button" textFill="#515151">
+                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#updateTouchMoveButton" text="%touch_move_button" textFill="#515151">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" selected="true" text="%possible_moves_button" textFill="#515151">
+                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#updatePossibleMovesButton" selected="true" text="%possible_moves_button" textFill="#515151">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="%rotate_button" textFill="#515151">
+                        <CheckBox mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#updateRotateButton" text="%rotate_button" textFill="#515151">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
                         </CheckBox>
-                        <CheckBox layoutX="20.0" layoutY="20.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" text="%flag_button" textFill="#515151">
+                        <CheckBox layoutX="20.0" layoutY="20.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#updateFlagButton" text="%flag_button" textFill="#515151">
                            <VBox.margin>
                               <Insets left="10.0" right="10.0" top="10.0" />
                            </VBox.margin>
@@ -130,7 +130,7 @@
                   <Button layoutX="20.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="25.0" prefWidth="209.0" style="-fx-background-color: #8fbe00;" text="%language" textFill="WHITE" />
                </children>
             </Pane>
-            <SplitPane dividerPositions="0.7947882736156351" focusTraversable="false" style="-fx-background-color: #eeeeee;">
+            <SplitPane dividerPositions="0.7947882736156351" focusTraversable="false" prefWidth="770.0" style="-fx-background-color: #eeeeee;">
                <items>
                   <VBox alignment="CENTER" fillWidth="false" style="-fx-background-color: #eeeeee;" SplitPane.resizableWithParent="false">
                      <children>

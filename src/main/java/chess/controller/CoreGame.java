@@ -181,4 +181,13 @@ public class CoreGame {
     public void setActivePlayer(boolean activePlayer) {
         this.activePlayer = activePlayer;
     }
+
+    /**
+     * return the active player
+     * @return activePlayer
+     */
+    public boolean getActivePlayer(){
+        return activePlayer;
+    }
+
 }

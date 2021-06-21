@@ -103,6 +103,22 @@ public class Logic implements Runnable {
     }
 
     /**
+     * return core game
+     * @return CoreGame
+     */
+    public CoreGame getCoreGame(){
+        return coreGame;
+    }
+
+    /**
+     * Returns the start field
+     * @return Rectangle startField
+     */
+    public Rectangle getStartField(){
+        return startField;
+    }
+
+    /**
      * Turns the task into thread if the computer thread is terminated
      */
     public void computerIsFinish() {

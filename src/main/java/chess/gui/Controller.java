@@ -220,6 +220,53 @@ public class Controller {
         }
     }
 
+
+    /**
+     * update FlagButton event
+     * @param event MouseEvent
+     */
+    @FXML
+    private void updateFlagButton(MouseEvent event) {
+        updateNotifications(logic.getCoreGame().getCurrentBoard());
+    }
+
+    /**
+     * update PossibleMove event
+     * @param event MouseEvent
+     */
+    @FXML
+    private void updatePossibleMovesButton(MouseEvent event) {
+        markPossibleFields(logic.getStartField(), ((CheckBox) settings.getChildren().get(1)).isSelected(), logic.getCoreGame().getCurrentBoard());
+    }
+
+    /**
+     * update RotateButton event
+     * @param event MouseEvent
+     */
+    @FXML
+    private void updateRotateButton(MouseEvent event) {
+        if(getRotateBoard().isSelected()){
+            if(logic.getCoreGame().getActivePlayer()){
+                turnBoard();
+                blackDown = true;
+            }
+        }else{
+            if(!logic.getCoreGame().getActivePlayer()){
+                turnBoard();
+                blackDown = false;
+            }
+        }
+    }
+
+    /**
+     * update TouchMove event
+     * @param event MouseEvent
+     */
+    @FXML
+    private void updateTouchMoveButton(MouseEvent event) {
+
+    }
+
     //--------------set---------------------------------------------------------------------------------------------------------------
 
     /**
@@ -330,6 +377,15 @@ public class Controller {
             field.setStroke(valueOf("#00A8C6"));
             field.setStrokeWidth(5);
             field.setStrokeType(StrokeType.INSIDE);
+            markPossibleFields(field, true, board);
+        } else {
+            field.setStrokeWidth(0);
+            markPossibleFields(field, false, board);
+        }
+    }
+
+    protected void markPossibleFields(Rectangle field, boolean mark, Board board){
+        if(mark){
             if (((CheckBox) settings.getChildren().get(1)).isSelected()) {
                 for (Rectangle f : getPossibleFields(field, board)) {
                     f.setStroke(valueOf("#8fbe00"));
@@ -337,8 +393,7 @@ public class Controller {
                     f.setStrokeType(StrokeType.INSIDE);
                 }
             }
-        } else {
-            field.setStrokeWidth(0);
+        }else{
             for (Rectangle f : getPossibleFields(field, board)) {
                 f.setStrokeWidth(0);
             }
@@ -600,5 +655,4 @@ public class Controller {
     private Rectangle getRectangleBlack() {
         return (Rectangle) menu.getChildren().get(8);
     }
-
 }
