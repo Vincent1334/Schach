@@ -32,20 +32,24 @@ public class Logic implements Runnable {
      * @param playerColorBlack the color you want to play
      * @param controller the controller
      */
-    public Logic(GameMode gameMode, boolean playerColorBlack, Controller controller) {
+    public Logic(GameMode gameMode,boolean playerColorBlack,Controller controller,boolean newGame,String ip,int port) {
         this.gameMode = gameMode;
         coreGame = new CoreGame();
         this.controller = controller;
-        computer = new Computer(!playerColorBlack, this);
-        network = new NetworkPlayer();
 
         if (gameMode == GameMode.COMPUTER) {
+            computer = new Computer(!playerColorBlack, this);
             controller.getRotateBoard().setDisable(true);
             if (playerColorBlack) {
                 computerMove();
             }
         }
         if (gameMode == GameMode.NETWORK) {
+            if(newGame){
+                network = new NetworkPlayer(port,playerColorBlack,this);
+            }else{
+                network = new NetworkPlayer(ip,port,this);
+            }
             controller.getRotateBoard().setDisable(true);
         }
     }

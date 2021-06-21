@@ -75,17 +75,22 @@ public class Menu {
     @FXML
     private void startGame(MouseEvent event) {
         try {
-
-
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
-            fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
-            Parent root = fxmlLoader.load();
-
-            Controller controller = fxmlLoader.getController();
-            controller.init(gameMode, playerColorBlack);
-
+            FXMLLoader fxmlLoader;
             Stage stage = new Stage();
-            stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
+            Parent root;
+            if(gameMode== GameMode.NETWORK){
+                fxmlLoader = new FXMLLoader(getClass().getResource("Network.fxml"));
+                //fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", messages.getLocale()));
+                root = fxmlLoader.load();
+                stage.setTitle("Netzwerkmenü");
+            }else{
+                fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
+                fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", messages.getLocale()));
+                root = fxmlLoader.load();
+                Controller controller = fxmlLoader.getController();
+                controller.init(gameMode, playerColorBlack, false,null,0);
+                stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
+            }
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
             stage.show();

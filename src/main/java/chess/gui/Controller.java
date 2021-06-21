@@ -66,12 +66,12 @@ public class Controller {
      * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
      * @param playerColorBlack the color you want to play
      */
-    public void init(GameMode gameMode, boolean playerColorBlack) {
+    public void init(GameMode gameMode, boolean playerColorBlack,boolean newGame,String ip,int port) {
         beatenFigureList = new ArrayList<>();
         getChoiceBoxConversion().getItems().addAll(messages.getString("queen_label"), messages.getString("bishop_label"), messages.getString("rook_label"), messages.getString("knight_label"));
         getChoiceBoxConversion().getSelectionModel().select(messages.getString("queen_label"));
 
-        logic = new Logic(gameMode, playerColorBlack,this);
+        logic = new Logic(gameMode, playerColorBlack,this,newGame,ip,port);
     }
 
     /**
@@ -82,7 +82,7 @@ public class Controller {
     public void backToMenu(MouseEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
-            fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
+            fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", messages.getLocale()));
             Parent root = fxmlLoader.load();
 
             Stage stage = new Stage();

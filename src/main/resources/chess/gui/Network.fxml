@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
@@ -36,23 +37,13 @@
       </Text>
       <Button layoutX="234.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#start" prefHeight="25.0" prefWidth="326.0" style="-fx-background-color: #8fbe00;" text="Start" textFill="WHITE" />
       <Button layoutX="54.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#backToMenu" prefHeight="25.0" prefWidth="169.0" style="-fx-background-color: #00A8C6;" text="Hauptmenü" textFill="WHITE" />
-      <RadioButton fx:id="newGame" layoutX="26.0" layoutY="139.0" mnemonicParsing="false" text="Neues Spiel" textFill="#656565">
-         <font>
-            <Font name="Calibri" size="21.0" />
-         </font>
-      </RadioButton>
-      <RadioButton fx:id="joinGame" layoutX="26.0" layoutY="216.0" mnemonicParsing="false" text="Spiel beitreten" textFill="#656565">
-         <font>
-            <Font name="Calibri" size="21.0" />
-         </font>
-      </RadioButton>
       <Text fill="#5b5b5b" layoutX="58.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deine Farbe:" textAlignment="CENTER" wrappingWidth="168.5029296875">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
       </Text>
-      <Rectangle fx:id="black" arcHeight="5.0" arcWidth="5.0" height="22.0" layoutX="234.0" layoutY="167.0" onMouseClicked="#setColour" stroke="#8fbe00" strokeType="INSIDE" strokeWidth="2.0" width="21.0" />
-      <Rectangle fx:id="white" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="22.0" layoutX="265.0" layoutY="167.0" onMouseClicked="#setColor" stroke="BLACK" strokeType="INSIDE" width="21.0" />
+      <Rectangle fx:id="black" arcHeight="5.0" arcWidth="5.0" height="22.0" layoutX="234.0" layoutY="167.0" onMouseClicked="#setColour" stroke="#8fbe00" strokeType="OUTSIDE" strokeWidth="2.0" width="21.0" />
+      <Rectangle fx:id="white" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="22.0" layoutX="265.0" layoutY="167.0" onMouseClicked="#setColour" stroke="BLACK" strokeType="OUTSIDE" width="21.0" />
       <TextField fx:id="port" layoutX="235.0" layoutY="281.0" prefHeight="25.0" prefWidth="325.0" text="5555" />
       <Text fill="#5b5b5b" layoutX="58.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gegner IP Adresse:" textAlignment="CENTER" wrappingWidth="168.5029296875">
          <font>
@@ -61,5 +52,19 @@
       </Text>
       <ProgressBar fx:id="progressBar" layoutX="19.0" layoutY="27.0" prefHeight="22.0" prefWidth="506.0" progress="0.0" />
       <Button layoutX="535.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="25.0" prefWidth="51.0" style="-fx-background-color: #292929;" text="de" textFill="WHITE" />
+      <Group layoutX="29.0" layoutY="130.0">
+         <children>
+            <RadioButton fx:id="newGame" mnemonicParsing="false" text="Neues Spiel" textFill="#656565">
+               <font>
+                  <Font name="Calibri" size="21.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="joinGame" layoutY="79.0" mnemonicParsing="false" text="Spiel beitreten" textFill="#656565">
+               <font>
+                  <Font name="Calibri" size="21.0" />
+               </font>
+            </RadioButton>
+         </children>
+      </Group>
    </children>
 </Pane>

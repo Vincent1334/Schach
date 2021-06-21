@@ -40,17 +40,13 @@ public class NetworkMenu {
 
     @FXML
     private void start(MouseEvent event){
-        if(newGame.isSelected()){
-        }
-        if(joinGame.isSelected()){
-        }
         try {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
                     fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
                     Parent root = fxmlLoader.load();
         
                     Controller controller = fxmlLoader.getController();
-                    controller.initNetworkController(isBlack,joinGame.isSelected(),opponentIP,port);
+                    controller.init(GameMode.NETWORK,isBlack,joinGame.isSelected(),opponentIP.getText(),Integer.getInteger(port.getText()));
         
                     Stage stage = new Stage();
                     stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
@@ -89,20 +85,26 @@ public class NetworkMenu {
     }
 
     @FXML
-    private void setColor(MouseEvent event){
+    private void setColour(MouseEvent event){
         Rectangle clickedField = (Rectangle) event.getTarget();
-        if(clickedField == white){
-            isBlack = false;
+        if(clickedField == black){
+            isBlack = true;
             black.setStroke(valueOf("#8fbe00"));
-            black.setStrokeWidth(2.0);
+            black.setStrokeWidth(2.5);
             white.setStroke(Color.BLACK);
             white.setStrokeWidth(1.0);
             }
         else{
+            isBlack = false;
             black.setStroke(Color.BLACK);
             black.setStrokeWidth(1.0);
             white.setStroke(valueOf("#8fbe00"));
-            white.setStrokeWidth(2.0);
+            white.setStrokeWidth(2.5);
         }
+    }
+
+    @FXML
+    private void setLanguage(){
+
     }
 }
