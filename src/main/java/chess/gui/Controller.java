@@ -23,10 +23,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.*;
-
 import static javafx.scene.paint.Color.*;
 
 /**
@@ -37,9 +35,6 @@ import static javafx.scene.paint.Color.*;
  * 2021-06-09
  */
 public class Controller {
-    private boolean firstTurn = true;
-    private boolean blacksTurn = false;
-    private boolean blackDown = false;
     private List<Figure> beatenFigureList;
     private Logic logic;
     private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
@@ -112,22 +107,10 @@ public class Controller {
         updateNotifications(coreGame.getCurrentBoard());
 
         if (getRotateBoard().isSelected()) {
-            turnBoard();
-            if (firstTurn) {
-                firstTurn = false;
-            }
-        } else {
-            if (!firstTurn) {
-                firstTurn = true;
-                blackDown = blacksTurn;
-            }
-            if (blackDown) {
-                turnFigures(180);
-            }
+            turnBoard(false);
         }
 
-        blacksTurn = !blacksTurn;
-        setPlayerLabel(blacksTurn);
+        setPlayerLabel(logic.getCoreGame().getActivePlayer());
     }
 
     /**
@@ -198,15 +181,19 @@ public class Controller {
     /**
      * turns the chessboard so that the figures of the actualPlayer are always on the bottom
      */
-    private void turnBoard() {
-        int angle;
-        if (blacksTurn) {
-            angle = 0;
-        } else {
-            angle = 180;
+    private void turnBoard(boolean reset) {
+        if(reset){
+            gridPane.setRotate(0);
+            turnFigures(0);
+        }else{
+            if(logic.getCoreGame().getActivePlayer()){
+                gridPane.setRotate(180);
+                turnFigures(180);
+            }else{
+                gridPane.setRotate(0);
+                turnFigures(0);
+            }
         }
-        gridPane.setRotate(angle);
-        turnFigures(angle);
     }
 
     /**
@@ -246,15 +233,9 @@ public class Controller {
     @FXML
     private void updateRotateButton(MouseEvent event) {
         if(getRotateBoard().isSelected()){
-            if(logic.getCoreGame().getActivePlayer()){
-                turnBoard();
-                blackDown = true;
-            }
+            turnBoard(false);
         }else{
-            if(!logic.getCoreGame().getActivePlayer()){
-                turnBoard();
-                blackDown = false;
-            }
+            turnBoard(true);
         }
     }
 
@@ -341,7 +322,7 @@ public class Controller {
             iv.setFitHeight(50.0);
             iv.setRotate(0);
 
-            if (!blacksTurn) {
+            if (!logic.getCoreGame().getActivePlayer()) {
                 int indexBeatenFiguresBlack = 0;
                 for (Figure figure : beatenFigures) {
                     if (figure.isBlackTeam()) {
@@ -426,7 +407,7 @@ public class Controller {
     public void isFieldClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
             Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
-            logic.handleFieldClick(clickedField, blacksTurn);
+            logic.handleFieldClick(clickedField, logic.getCoreGame().getActivePlayer());
         }
     }
 
