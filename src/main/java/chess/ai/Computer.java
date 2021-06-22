@@ -208,7 +208,7 @@ public class Computer implements Runnable{
             for(int x = 0; x < 8; x++){
                 if(!(board.getFigure(x, y) instanceof None)){
                     material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][board.getFigure(x, y).getFigureID()-1] ++;
-                    fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][5] += PieceSquareTable.getTable(board.getFigure(x, y).getFigureID(), isEndGame)[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
+                    fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][board.getFigure(x, y).getFigureID()-1] += PieceSquareTable.getTable(board.getFigure(x, y).getFigureID(), isEndGame)[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
                 }
             }
         }
@@ -216,6 +216,7 @@ public class Computer implements Runnable{
         score += Heuristic.checkRepeat(move, lastMove, PLAYER_MAX);
         score += Heuristic.checkFigureScore(move, PLAYER_MAX);
         score += Heuristic.checkMaterial(material, PLAYER_MAX);
+        score += Heuristic.checkFieldScore(fieldScore, PLAYER_MAX);
         score += Heuristic.checkCastling(board, PLAYER_MAX);
         score += Heuristic.checkChessMate(board, PLAYER_MAX);
         score += Heuristic.checkChess(board, PLAYER_MAX);

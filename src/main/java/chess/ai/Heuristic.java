@@ -30,7 +30,7 @@ public class Heuristic {
     private static final float KNIGHT_BONUS = 6;
     private static final float QUEEN_BONUS = 4;
 
-    private static final float CASTLING_POINTS = 100;
+    private static final float CASTLING_POINTS = 1000;
     private static final float CHECK_MATE_POINTS = 100000;
     private static final float CHECK_POINTS = 10;
 
@@ -111,6 +111,18 @@ public class Heuristic {
         score += BISHOP_MATERIAL *material[playerMaxID][2]- BISHOP_MATERIAL *material[playerMinID][2];
         score += KNIGHT_MATERIAL *material[playerMaxID][3]- KNIGHT_MATERIAL *material[playerMinID][3];
         score += PAWN_MATERIAL *material[playerMaxID][0]- PAWN_MATERIAL *material[playerMinID][0];
+
+        return score;
+    }
+
+    public static float checkFieldScore(int[][] fieldScore, boolean playerMax){
+        float score = 0;
+        int playerMaxID = playerMax ? 1 : 0;
+        int playerMinID = !playerMax ? 1 : 0;
+        score += fieldScore[playerMaxID][0]-fieldScore[playerMinID][0];
+        score += fieldScore[playerMaxID][1]-fieldScore[playerMinID][1];
+        score += fieldScore[playerMaxID][4]-fieldScore[playerMinID][4];
+        score += fieldScore[playerMaxID][5]-fieldScore[playerMinID][5];
 
         return score;
     }
