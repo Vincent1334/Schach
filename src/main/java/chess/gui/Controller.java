@@ -322,7 +322,7 @@ public class Controller {
             iv.setFitHeight(50.0);
             iv.setRotate(0);
 
-            if (!logic.getCoreGame().getActivePlayer()) {
+            if (logic.getCoreGame().getActivePlayer()) {
                 int indexBeatenFiguresBlack = 0;
                 for (Figure figure : beatenFigures) {
                     if (figure.isBlackTeam()) {
