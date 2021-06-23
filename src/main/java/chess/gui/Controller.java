@@ -12,13 +12,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.Reflection;
+import javafx.scene.effect.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
@@ -39,21 +38,11 @@ public class Controller {
     private Logic logic;
     private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
     final private static String QUEEN = "Queen";
+    private int promotionID = 0;
 
     @FXML
-    private GridPane gridPane;
-    @FXML
-    private GridPane beatenFigures;
-    @FXML
-    private Label beaten_figures_label;
-    @FXML
-    private GridPane history;
-    @FXML
-    private Label history_label;
-    @FXML
     private Pane menu;
-    @FXML
-    private VBox settings;
+
 
     /**
      * initiates the controller and the logic
@@ -62,9 +51,6 @@ public class Controller {
      */
     public void init(GameMode gameMode, boolean isBlack, NetworkPlayer networkPlayer) {
         beatenFigureList = new ArrayList<>();
-        getChoiceBoxConversion().getItems().addAll(messages.getString("queen_label"), messages.getString("bishop_label"), messages.getString("rook_label"), messages.getString("knight_label"));
-        getChoiceBoxConversion().getSelectionModel().select(messages.getString("queen_label"));
-
         logic = new Logic(gameMode, isBlack,this, networkPlayer);
     }
 
@@ -91,6 +77,16 @@ public class Controller {
         }
     }
 
+    protected void showPromotionFigureWindow(){
+        getPromotion().setVisible(true);
+        getPromotion().setDisable(false);
+        promotionID = 0;
+    }
+    protected void hidePromotionFigureWindow(){
+        getPromotion().setVisible(false);
+        getPromotion().setDisable(true);
+    }
+
 
     //----------------------------------Update----------------------------------------------------------------------------------------------
 
@@ -106,7 +102,7 @@ public class Controller {
         setBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
         updateNotifications(coreGame.getCurrentBoard());
 
-        if (getRotateBoard().isSelected()) {
+        if (getRotate().isSelected()) {
             turnBoard(false);
         }
 
@@ -120,7 +116,7 @@ public class Controller {
      */
     private void updateNotifications(Board board) {
         getLabelCheck().setVisible(false);
-        if (isShowFlags()) {
+        if (getShowFlags().isSelected()) {
             if (board.isCheckFlag(true)) {
                 getLabelCheck().setVisible(true);
                 getLabelCheck().setText(messages.getString("blackCheck_label"));
@@ -153,8 +149,8 @@ public class Controller {
     public void updateHistory(Move move) {
         Text t = new Text(move.toString());
 
-        history.add(t, 2, history.getRowCount());
-        history.add(new Text("   " + history.getRowCount()), 0, history.getRowCount() - 1);
+        getHistory().add(t, 2, getHistory().getRowCount());
+        getHistory().add(new Text("   " + getHistory().getRowCount()), 0, getHistory().getRowCount() - 1);
     }
 
     /**
@@ -165,14 +161,14 @@ public class Controller {
     private void drawBoard(Board board) {
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                gridPane.getChildren().remove(getImageViewByIndex(x + 1, 8 - y));
+                this.getBoard().getChildren().remove(getImageViewByIndex(x + 1, 8 - y));
                 if (getImageBySymbol(board.getFigure(x, y).getSymbol()) != null) {
                     ImageView iv = new ImageView(getImageBySymbol(board.getFigure(x, y).getSymbol()));
                     iv.preserveRatioProperty().setValue(true);
                     iv.setFitHeight(50.0);
                     iv.setMouseTransparent(true);
                     iv.setEffect(new Reflection(0.0, 0.12, 0.24, 0.0));
-                    gridPane.add(iv, x + 1, 8 - y);
+                    this.getBoard().add(iv, x + 1, 8 - y);
                 }
             }
         }
@@ -183,14 +179,14 @@ public class Controller {
      */
     private void turnBoard(boolean reset) {
         if(reset){
-            gridPane.setRotate(0);
+            getBoard().setRotate(0);
             turnFigures(0);
         }else{
             if(logic.getCoreGame().getActivePlayer()){
-                gridPane.setRotate(180);
+                getBoard().setRotate(180);
                 turnFigures(180);
             }else{
-                gridPane.setRotate(0);
+                getBoard().setRotate(0);
                 turnFigures(0);
             }
         }
@@ -202,7 +198,7 @@ public class Controller {
      * @param angle the angle around which the figures are rotated
      */
     private void turnFigures(int angle) {
-        for (Node node : gridPane.getChildren()) {
+        for (Node node : getBoard().getChildren()) {
             node.setRotate(angle);
         }
     }
@@ -210,41 +206,33 @@ public class Controller {
 
     /**
      * update FlagButton event
-     * @param event MouseEvent
      */
     @FXML
-    private void updateFlagButton(MouseEvent event) {
+    private void updateFlagButton() {
         updateNotifications(logic.getCoreGame().getCurrentBoard());
     }
 
     /**
      * update PossibleMove event
-     * @param event MouseEvent
      */
     @FXML
-    private void updatePossibleMovesButton(MouseEvent event) {
-        markPossibleFields(logic.getStartField(), ((CheckBox) settings.getChildren().get(1)).isSelected(), logic.getCoreGame().getCurrentBoard());
+    private void updatePossibleMovesButton() {
+        markPossibleFields(logic.getStartField(),getPossibleMove().isSelected(), logic.getCoreGame().getCurrentBoard());
     }
 
     /**
      * update RotateButton event
-     * @param event MouseEvent
      */
     @FXML
-    private void updateRotateButton(MouseEvent event) {
-        if(getRotateBoard().isSelected()){
-            turnBoard(false);
-        }else{
-            turnBoard(true);
-        }
+    private void updateRotateButton() {
+        turnBoard(!getRotate().isSelected());
     }
 
     /**
      * update TouchMove event
-     * @param event MouseEvent
      */
     @FXML
-    private void updateTouchMoveButton(MouseEvent event) {
+    private void updateTouchMoveButton() {
 
     }
 
@@ -263,31 +251,31 @@ public class Controller {
         } else {
             messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
         }
-        ((Text) menu.getChildren().get(0)).setText(messages.getString("player_label"));
-        ((Label) menu.getChildren().get(1)).setText(messages.getString("calculating_label"));
+
+        getLabelCalculating().setText(messages.getString("calculating_label"));
         switchFlagLanguage(oldLanguage, "blackCheck_label");
         switchFlagLanguage(oldLanguage, "whiteCheck_label");
         switchFlagLanguage(oldLanguage, "blackCheckmate_label");
         switchFlagLanguage(oldLanguage, "whiteCheckmate_label");
         switchFlagLanguage(oldLanguage, "stalemate_label");
-        ((Text) menu.getChildren().get(3)).setText(messages.getString("promotion_label"));
-        getChoiceBoxConversion().getItems().clear();
-        getChoiceBoxConversion().getItems().addAll(messages.getString("queen_label"), messages.getString("bishop_label"), messages.getString("rook_label"), messages.getString("knight_label"));
-        getChoiceBoxConversion().getSelectionModel().select(messages.getString("queen_label"));
-        ((Button) menu.getChildren().get(6)).setText(messages.getString("menu_button"));
-        ((Button) menu.getChildren().get(9)).setText(messages.getString("language"));
-        history_label.setText(messages.getString("history_label"));
-        beaten_figures_label.setText(messages.getString("beaten_figures_label"));
-        ((CheckBox) settings.getChildren().get(0)).setText(messages.getString("touch_move_button"));
-        ((CheckBox) settings.getChildren().get(1)).setText(messages.getString("possible_moves_button"));
-        ((CheckBox) settings.getChildren().get(2)).setText(messages.getString("rotate_button"));
-        ((CheckBox) settings.getChildren().get(3)).setText(messages.getString("flag_button"));
+        getLabelPromotion().setText(messages.getString("promotion_label"));
+        getButtonQueen().setText(messages.getString("queen_label"));
+        getButtonBishop().setText(messages.getString("bishop_label"));
+        getButtonRook().setText(messages.getString("rook_label"));
+        getButtonKnight().setText(messages.getString("knight_label"));
+        getBackToMenu().setText(messages.getString("menu_button"));
+        getLanguage().setText(messages.getString("language"));
+        getLabelHistory().setText(messages.getString("history_label"));
+        getTouchMove().setText(messages.getString("touch_move_button"));
+        getPossibleMove().setText(messages.getString("possible_moves_button"));
+        getRotate().setText(messages.getString("rotate_button"));
+        getShowFlags().setText(messages.getString("flag_button"));
 
     }
 
     private void switchFlagLanguage(ResourceBundle oldLanguage, String label) {
-        if (((Label) menu.getChildren().get(2)).getText().equals(oldLanguage.getString(label))) {
-            ((Label) menu.getChildren().get(2)).setText(messages.getString(label));
+        if (getLabelCheck().getText().equals(oldLanguage.getString(label))) {
+            getLabelCheck().setText(messages.getString(label));
         }
     }
 
@@ -318,6 +306,7 @@ public class Controller {
     public void setBeatenFigures(List<Figure> beatenFigures) {
         if (beatenFigures.size() != this.beatenFigureList.size() && beatenFigures.size() > 0) {
             ImageView iv = new ImageView(getImageBySymbol(beatenFigures.get(beatenFigures.size() - 1).getSymbol()));
+            iv.setEffect(new DropShadow(2.0,2.0,2.0,valueOf("#00A8C6")));
             iv.preserveRatioProperty().setValue(true);
             iv.setFitHeight(50.0);
             iv.setRotate(0);
@@ -329,8 +318,14 @@ public class Controller {
                         indexBeatenFiguresBlack += 1;
                     }
                 }
-                GridPane.setColumnIndex(iv, indexBeatenFiguresBlack);
-                GridPane.setRowIndex(iv, 1);
+                if(indexBeatenFiguresBlack <9){
+                    GridPane.setColumnIndex(iv, 0);
+                    GridPane.setRowIndex(iv, indexBeatenFiguresBlack);
+                }else{
+                    GridPane.setColumnIndex(iv, 1);
+                    GridPane.setRowIndex(iv, indexBeatenFiguresBlack-8);
+                }
+
             } else {
                 int indexBeatenFiguresWhite = 0;
                 for (Figure figure : beatenFigures) {
@@ -338,10 +333,20 @@ public class Controller {
                         indexBeatenFiguresWhite += 1;
                     }
                 }
-                GridPane.setColumnIndex(iv, indexBeatenFiguresWhite);
-                GridPane.setRowIndex(iv, 0);
+                if(indexBeatenFiguresWhite <9){
+                    GridPane.setColumnIndex(iv, 0);
+                    GridPane.setRowIndex(iv, indexBeatenFiguresWhite);
+                }else{
+                    GridPane.setColumnIndex(iv, 1);
+                    GridPane.setRowIndex(iv, indexBeatenFiguresWhite-8);
+                }
             }
-            this.beatenFigures.getChildren().add(iv);
+
+            if(logic.getCoreGame().getActivePlayer()){
+                this.getBeatenFiguresBlack().getChildren().add(iv);
+            }else{
+                this.getBeatenFiguresWhite().getChildren().add(iv);
+            }
             this.beatenFigureList.add(beatenFigures.get(beatenFigures.size() - 1));
         }
     }
@@ -367,7 +372,7 @@ public class Controller {
 
     protected void markPossibleFields(Rectangle field, boolean mark, Board board){
         if(mark){
-            if (((CheckBox) settings.getChildren().get(1)).isSelected()) {
+            if (getPossibleMove().isSelected()) {
                 for (Rectangle f : getPossibleFields(field, board)) {
                     f.setStroke(valueOf("#8fbe00"));
                     f.setStrokeWidth(5);
@@ -389,10 +394,10 @@ public class Controller {
     protected void setCalculating(boolean isCalculating) {
         if (isCalculating) {
             getLabelCalculating().setVisible(true);
-            gridPane.setMouseTransparent(true);
+            getBoard().setMouseTransparent(true);
         } else {
             getLabelCalculating().setVisible(false);
-            gridPane.setMouseTransparent(false);
+            getBoard().setMouseTransparent(false);
         }
     }
 
@@ -409,24 +414,6 @@ public class Controller {
             Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
             logic.handleFieldClick(clickedField, logic.getCoreGame().getActivePlayer());
         }
-    }
-
-    /**
-     * returns whether the player has enabled / disabled the single select option
-     *
-     * @return whether the single select option is enabled / disabled
-     */
-    protected boolean isSingleSelect() {
-        return ((CheckBox) settings.getChildren().get(0)).isSelected();
-    }
-
-    /**
-     * returns whether the player has enabled / disabled the single select option
-     *
-     * @return whether the single select option is enabled / disabled
-     */
-    protected boolean isShowFlags() {
-        return ((CheckBox) settings.getChildren().get(3)).isSelected();
     }
 
     /**
@@ -463,21 +450,26 @@ public class Controller {
      *
      * @return the ID-number of the conversionFigure
      */
-    protected int getConversionFigure() {
-        String item = (String) getChoiceBoxConversion().getSelectionModel().getSelectedItem();
+    @FXML
+    private void getPromotionFigure(MouseEvent event) {
+        String item = ((Button) event.getSource()).getText();
         if (item.equals(messages.getString("queen_label"))) {
-            return 5;
+            promotionID = 5;
         }
         if (item.equals(messages.getString("bishop_label"))) {
-            return 4;
+            promotionID = 4;
         }
         if (item.equals(messages.getString("rook_label"))) {
-            return 2;
+            promotionID = 2;
         }
         if (item.equals(messages.getString("knight_label"))) {
-            return 3;
+            promotionID = 3;
         }
-        return 5;
+        promotionID = 5;
+    }
+
+    protected int getPromotionID(){
+        return promotionID;
     }
 
 
@@ -491,7 +483,7 @@ public class Controller {
      * @return the field with the rowIndex row and the columnIndex column
      */
     private Node getField(int row, int column) {
-        for (Node node : gridPane.getChildren()) {
+        for (Node node : getBoard().getChildren()) {
             if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
                 return node;
             }
@@ -532,7 +524,7 @@ public class Controller {
      */
     private Node getImageViewByIndex(int column, int row) {
         Node result = null;
-        ObservableList<Node> children = gridPane.getChildren();
+        ObservableList<Node> children = getBoard().getChildren();
 
         for (Node node : children) {
             if (GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) != null &&
@@ -583,40 +575,48 @@ public class Controller {
 
     //labels and buttons
 
-    /**
-     * returns the gui-element with which the player can enable / disable the board turning
-     *
-     * @return the gui-element with which the player can enable / disable the board turning
-     */
-    protected CheckBox getRotateBoard() {
-        return (CheckBox) settings.getChildren().get(2);
+    protected GridPane getBeatenFiguresWhite(){
+        return (GridPane) menu.getChildren().get(3);
     }
 
-    /**
-     * returns the gui-element in which the player can select the PawnConversion Figure
-     *
-     * @return the gui-element (choiceBox) in which the player can select the PawnConversion Figure
-     */
-    private ChoiceBox getChoiceBoxConversion() {
-        return (ChoiceBox) menu.getChildren().get(4);
+    protected GridPane getBoard(){
+        return (GridPane) menu.getChildren().get(4);
     }
 
-    /**
-     * returns the gui-element that shows whether a player is in check or not
-     *
-     * @return the gui-element (label) that shows whether a player is in check or not
-     */
-    private Label getLabelCheck() {
-        return (Label) menu.getChildren().get(2);
+    private Label getLabelHistory(){
+        return (Label) menu.getChildren().get(5);
     }
 
-    /**
-     * returns the gui-element that shows whether the computer is calculating or not
-     *
-     * @return the gui-element (label) that shows whether the computer is calculating or not
-     */
-    private Label getLabelCalculating() {
-        return (Label) menu.getChildren().get(1);
+    protected GridPane getHistory(){
+        return (GridPane) ((ScrollPane) menu.getChildren().get(6)).getContent();
+    }
+
+    private Label getLabelCheck(){
+        return (Label) menu.getChildren().get(7);
+    }
+
+    private Label getLabelCalculating(){
+        return (Label) menu.getChildren().get(8);
+    }
+
+    protected CheckBox getTouchMove(){
+        return (CheckBox) menu.getChildren().get(9);
+    }
+
+    protected CheckBox getPossibleMove(){
+        return (CheckBox) menu.getChildren().get(10);
+    }
+
+    protected CheckBox getRotate(){
+        return (CheckBox) menu.getChildren().get(11);
+    }
+
+    protected CheckBox getShowFlags(){
+        return (CheckBox) menu.getChildren().get(12);
+    }
+
+    private Button getBackToMenu(){
+        return (Button) menu.getChildren().get(13);
     }
 
     /**
@@ -625,7 +625,7 @@ public class Controller {
      * @return the gui-element (rectangle) that shows whether it is whites turn
      */
     private Rectangle getRectangleWhite() {
-        return (Rectangle) menu.getChildren().get(7);
+        return (Rectangle) menu.getChildren().get(14);
     }
 
     /**
@@ -634,6 +634,38 @@ public class Controller {
      * @return the gui-element (rectangle) that shows whether it is blacks turn
      */
     private Rectangle getRectangleBlack() {
-        return (Rectangle) menu.getChildren().get(8);
+        return (Rectangle) menu.getChildren().get(15);
     }
+
+    private Button getLanguage(){
+        return (Button) menu.getChildren().get(16);
+    }
+
+    private GridPane getBeatenFiguresBlack(){
+        return  (GridPane) menu.getChildren().get(17);
+    }
+
+    private Pane getPromotion(){
+        return (Pane) menu.getChildren().get(18);
+    }
+
+    private Label getLabelPromotion(){
+        return (Label) getPromotion().getChildren().get(1);
+    }
+
+    private Button getButtonQueen(){
+        return (Button) getPromotion().getChildren().get(2);
+    }
+    private Button getButtonBishop(){
+        return (Button) getPromotion().getChildren().get(3);
+    }
+    private Button getButtonRook(){
+        return (Button) getPromotion().getChildren().get(4);
+    }
+    private Button getButtonKnight(){
+        return (Button) getPromotion().getChildren().get(5);
+    }
+
+
+
 }

@@ -39,7 +39,7 @@ public class Logic implements Runnable {
 
         if (gameMode == GameMode.COMPUTER) {
             computer = new Computer(!playerColorBlack, this);
-            controller.getRotateBoard().setDisable(true);
+            controller.getRotate().setDisable(true);
             if (playerColorBlack) {
                 computerMove();
             }
@@ -47,7 +47,7 @@ public class Logic implements Runnable {
         if (gameMode == GameMode.NETWORK) {
             this.network = networkPlayer;
             this.network.initNetworkPlayer(this);
-            controller.getRotateBoard().setDisable(true);
+            controller.getRotate().setDisable(true);
         }
     }
 
@@ -77,7 +77,15 @@ public class Logic implements Runnable {
         Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
         Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
 
-        if(coreGame.getCurrentBoard().getFigure(startPosition) instanceof Pawn) return new Move(startPosition, targetPosition, controller.getConversionFigure());
+        if(coreGame.getCurrentBoard().getFigure(startPosition) instanceof Pawn && (targetPosition.getPosY() == 0 || targetPosition.getPosY() == 7)) {
+            controller.showPromotionFigureWindow();
+            //Hier muss ein Thread hin bzw. besser die Pane Promotion zu Pop up Fenster ändern
+            //while (controller.getPromotionID() == 0){ }
+            //int id = controller.getPromotionID();
+            int id = 5;
+            controller.hidePromotionFigureWindow();
+            return new Move(startPosition, targetPosition, id);
+        }
         else return new Move(startPosition, targetPosition);
     }
 
@@ -98,7 +106,7 @@ public class Logic implements Runnable {
                 network.sendMove(move);
                 controller.setCalculating(true);
             }
-        } else if (controller.isSingleSelect() && !controller.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
+        } else if (controller.getTouchMove().isSelected() && !controller.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
             controller.setMark(startField, true, coreGame.getCurrentBoard());
         } else {
             startField = null;
