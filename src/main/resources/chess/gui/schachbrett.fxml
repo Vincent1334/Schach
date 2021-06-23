@@ -55,11 +55,11 @@
 
 <ScrollPane id="figuresBlack" cache="true" fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" prefHeight="667.0" prefWidth="823.0" style="-fx-background-color: #eeeeee;" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.Controller">
    <content>
-      <Pane fx:id="menu" prefHeight="648.0" prefWidth="817.0" style="-fx-background-color: #555555;">
+      <Pane fx:id="menu" prefHeight="648.0" prefWidth="817.0" style="-fx-background-color: #333333;">
          <children>
-            <Polygon fill="#006779" layoutX="-77.0" layoutY="-99.0" points="47.0, -6.0, 294.0, 649.0, 929.0, -47.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            <Polygon fill="#006779" layoutX="-299.0" layoutY="309.0" points="47.0, -6.0, 297.0, 550.0, 876.0, -31.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            <Polygon fill="#8fbe00" points="-140.0, 674.0, 962.0, 681.0, 847.0, 189.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Polygon fill="#006779" layoutX="-77.0" layoutY="-99.0" points="-122.0, -4.0, 456.0, 63.0, 1098.0, 79.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Polygon fill="#006779" layoutX="-299.0" layoutY="309.0" points="1.0, 180.0, -23.0, -516.0, 313.0, -476.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Polygon fill="#8fbe00" points="709.0, 758.0, 962.0, 681.0, 801.0, -87.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
             <GridPane alignment="CENTER" layoutX="8.0" layoutY="102.0" style="-fx-border-color: #AAAAAA; -fx-border-width: 2; -fx-background-color: #bfbfbf;">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" />
@@ -86,7 +86,10 @@
                   <Rectangle fill="WHITE" height="30.0" smooth="false" stroke="#aaaaaa" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                </children>
                <effect>
-                  <InnerShadow />
+                  <InnerShadow>
+                     <input>
+                        <DropShadow />
+                     </input></InnerShadow>
                </effect>
             </GridPane>
             <GridPane id="figuresBlack" alignment="CENTER" gridLinesVisible="true" layoutX="73.0" layoutY="103.0" prefHeight="542.0" prefWidth="544.0">
@@ -741,14 +744,11 @@
             </GridPane>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="685.0" layoutY="65.0" prefHeight="30.0" prefWidth="113.0" style="-fx-background-color: #00A8C6;" text="%history_label" textFill="WHITE">
                <font>
-                  <Font name="Calibri Light" size="18.0" />
+                  <Font name="Calibri" size="18.0" />
                </font>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
-               <effect>
-                  <DropShadow />
-               </effect>
             </Label>
             <ScrollPane layoutX="685.0" layoutY="102.0" prefHeight="544.0" prefWidth="113.0" style="-fx-border-color: #00A8C6; -fx-border-width: 2; -fx-background-color: #d9edff;">
                <content>
@@ -760,9 +760,6 @@
                      </columnConstraints>
                   </GridPane>
                </content>
-               <effect>
-                  <DropShadow />
-               </effect>
             </ScrollPane>
             <Label contentDisplay="CENTER" layoutX="74.0" layoutY="58.0" maxHeight="46.0" prefHeight="46.0" prefWidth="539.0" style="-fx-font-weight: bold;" text="check" textAlignment="CENTER" textFill="#8fbe00" visible="false">
                <padding>
@@ -794,22 +791,15 @@
             <CheckBox layoutX="428.0" layoutY="35.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#updateFlagButton" prefHeight="17.0" prefWidth="200.0" selected="true" text="%flag_button" textFill="WHITE" />
             <Button alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="0.0" layoutX="10.0" layoutY="8.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#backToMenu" prefHeight="43.0" prefWidth="156.0" snapToPixel="false" style="-fx-background-color: #00A8C6;" text="%menu_button" textFill="WHITE" textOverrun="CLIP">
                <font>
-                  <Font name="Calibri Light" size="18.0" />
+                  <Font name="Calibri Bold" size="18.0" />
                </font>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
-               <effect>
-                  <DropShadow />
-               </effect>
             </Button>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="30.0" layoutX="10.0" layoutY="64.0" stroke="#00a8c6" strokeType="INSIDE" strokeWidth="3.0" width="60.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="30.0" layoutX="10.0" layoutY="64.0" stroke="#8fbe00" strokeType="INSIDE" strokeWidth="3.0" width="60.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="30.0" layoutX="620.0" layoutY="64.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
-            <Button layoutX="169.0" layoutY="9.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="42.0" prefWidth="39.0" style="-fx-background-color: #8fbe00;" text="%language" textFill="WHITE">
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Button>
+            <Button layoutX="169.0" layoutY="9.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="42.0" prefWidth="39.0" style="-fx-background-color: #8fbe00;" text="%language" textFill="WHITE" />
             <GridPane alignment="CENTER" layoutX="618.0" layoutY="102.0" style="-fx-border-color: #AAAAAA; -fx-border-width: 2; -fx-background-color: #bfbfbf;">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" />
@@ -836,7 +826,10 @@
                   <Rectangle fill="#282828" height="30.0" smooth="false" stroke="#aaaaaa" strokeType="OUTSIDE" strokeWidth="0.0" width="30.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                </children>
                <effect>
-                  <InnerShadow />
+                  <InnerShadow>
+                     <input>
+                        <DropShadow />
+                     </input></InnerShadow>
                </effect>
             </GridPane>
             <Pane disable="true" layoutX="46.0" layoutY="163.0" prefHeight="163.0" prefWidth="610.0" style="-fx-background-color: #ffffff; -fx-border-color: #00A8C6; -fx-border-width: 3;" visible="false">

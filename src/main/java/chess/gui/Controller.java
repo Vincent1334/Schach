@@ -286,7 +286,7 @@ public class Controller {
      */
     private void setPlayerLabel(boolean black) {
         if (black) {
-            getRectangleBlack().setStroke(valueOf("#00A8C6"));
+            getRectangleBlack().setStroke(valueOf("#8fbe00"));
             getRectangleBlack().setStrokeWidth(3);
             getRectangleWhite().setStroke(BLACK);
             getRectangleWhite().setStrokeWidth(1);
@@ -306,7 +306,7 @@ public class Controller {
     public void setBeatenFigures(List<Figure> beatenFigures) {
         if (beatenFigures.size() != this.beatenFigureList.size() && beatenFigures.size() > 0) {
             ImageView iv = new ImageView(getImageBySymbol(beatenFigures.get(beatenFigures.size() - 1).getSymbol()));
-            iv.setEffect(new DropShadow(2.0,2.0,2.0,valueOf("#00A8C6")));
+            iv.setEffect(new DropShadow(2.0,2.0,2.0,valueOf("#777777")));
             iv.preserveRatioProperty().setValue(true);
             iv.setFitHeight(50.0);
             iv.setRotate(0);
