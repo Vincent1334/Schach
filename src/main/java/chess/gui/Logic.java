@@ -31,6 +31,7 @@ public class Logic implements Runnable {
     private Controller controller;
     private GameMode gameMode;
     private NetworkPlayer network;
+    private boolean isBlack;
 
     /**
      * initializes gameMode, coreGame, computer, beatenFigureList and conversion
@@ -52,6 +53,7 @@ public class Logic implements Runnable {
             }
         }
         if (gameMode == GameMode.NETWORK) {
+            controller.setCalculating(true, Gui.messages.getString("network_waiting_label"));
             this.network = networkPlayer;
             this.network.initNetworkPlayer(this);
             controller.getRotate().setDisable(true);
@@ -88,7 +90,7 @@ public class Logic implements Runnable {
             controller.getBoard().setMouseTransparent(true);
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Promotion.fxml"));
-                fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", controller.getMessages().getLocale()));
+                fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.messages.getLocale()));
                 Parent root = fxmlLoader.load();
                 Promotion promotion = fxmlLoader.getController();
                 promotion.init(startPosition,targetPosition,this);
@@ -120,7 +122,7 @@ public class Logic implements Runnable {
             }
             if (gameMode == GameMode.NETWORK) {
                 network.sendMove(move);
-                controller.setCalculating(true);
+                controller.setCalculating(true, Gui.messages.getString("network_player_waitning_label"));
             }
         } else if (controller.getTouchMove().isSelected() && !controller.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
             controller.setMark(startField, true, coreGame.getCurrentBoard());
@@ -134,7 +136,7 @@ public class Logic implements Runnable {
      */
     private void computerMove() {
         computer.makeMove(coreGame.getCurrentBoard());
-        controller.setCalculating(true);
+        controller.setCalculating(true, Gui.messages.getString("calculating_label"));
     }
 
 
@@ -164,8 +166,8 @@ public class Logic implements Runnable {
     /**
      * Turns the task into thread if the networkPlayer thread is terminated
      */
-    public void networkPlayerIsFinish() {
-        Platform.runLater(this);
+    public void killNetworkPlayer(){
+        if(network != null) network.killNetwork();
     }
 
     /**
@@ -174,15 +176,22 @@ public class Logic implements Runnable {
     @Override
     public void run() {
         if(gameMode == GameMode.COMPUTER){
-            controller.setCalculating(false);
+            controller.setCalculating(false, Gui.messages.getString("calculating_label"));
             Move computerMove = computer.getMove();
             coreGame.chessMove(computerMove);
             controller.updateScene(computerMove, coreGame);
         }
         if(gameMode == GameMode.NETWORK){
-            Move networkMove = network.getMove();
-            coreGame.chessMove(networkMove);
-            controller.updateScene(networkMove, coreGame);
+            if(network.isReadyToPlay()){
+                Move networkMove = network.getMove();
+                coreGame.chessMove(networkMove);
+                controller.updateScene(networkMove, coreGame);
+            }else{
+                isBlack = network.isBlack();
+                network.setReadyToPlay(true);
+                if(!isBlack) controller.setCalculating(false, "");
+                else controller.turnBoard(false);
+            }
         }
     }
 }

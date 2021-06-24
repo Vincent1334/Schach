@@ -52,6 +52,7 @@ public class Client implements Runnable{
                             isBlack = true;
                         }
                         isConnected = true;
+                        gui.computerOrNetworkIsFinish();
                         break;
                     }
                 }else{
@@ -89,8 +90,11 @@ public class Client implements Runnable{
         thread.start();
     }
 
-    public void stopConnection() {
-        System.out.println("stop");
+    public boolean isBlack(){
+        return isBlack;
+    }
+
+    public void stop() {
         try {
             in.close();
             out.close();

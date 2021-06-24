@@ -27,7 +27,6 @@ import java.util.ResourceBundle;
 @SuppressWarnings({"PMD.UnusedPrivateMethod"})
 // the methods setMode... and startGame are used by the gui but PMD didn't recognize
 public class Menu {
-    private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
     private GameMode gameMode;
     private boolean playerColorBlack;
     @FXML
@@ -39,24 +38,24 @@ public class Menu {
      */
     @FXML
     private void setLanguage(){
-        if(messages.getLocale().getCountry().equals("DE")){
-            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
-        }else if(messages.getLocale().getCountry().equals("US")){
-            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("fr", "FR"));
-        }else if(messages.getLocale().getCountry().equals("FR")){
-            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "DE"));
+        if(Gui.messages.getLocale().getCountry().equals("DE")){
+            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
+        }else if(Gui.messages.getLocale().getCountry().equals("US")){
+            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("fr", "FR"));
+        }else if(Gui.messages.getLocale().getCountry().equals("FR")){
+            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "DE"));
         }
-        System.out.println(messages.getLocale().getCountry());
-        ((Label) pane.getChildren().get(3)).setText(messages.getString("game_title"));
-        ((RadioButton) pane.getChildren().get(4)).setText(messages.getString("gamemode01"));
-        ((RadioButton) pane.getChildren().get(5)).setText(messages.getString("gamemode02"));
-        ((Label) pane.getChildren().get(6)).setText(messages.getString("team_label"));
-        ((RadioButton) pane.getChildren().get(7)).setText(messages.getString("black_label"));
-        ((RadioButton) pane.getChildren().get(8)).setText(messages.getString("white_label"));
-        ((RadioButton) pane.getChildren().get(9)).setText(messages.getString("gamemode03"));
-        ((Button) pane.getChildren().get(10)).setText(messages.getString("start_button"));
-        ((Button) pane.getChildren().get(11)).setText(messages.getString("quit_button"));
-        ((Button) pane.getChildren().get(13)).setText(messages.getString("language"));
+        System.out.println(Gui.messages.getLocale().getCountry());
+        ((Label) pane.getChildren().get(3)).setText(Gui.messages.getString("game_title"));
+        ((RadioButton) pane.getChildren().get(4)).setText(Gui.messages.getString("gamemode01"));
+        ((RadioButton) pane.getChildren().get(5)).setText(Gui.messages.getString("gamemode02"));
+        ((Label) pane.getChildren().get(6)).setText(Gui.messages.getString("team_label"));
+        ((RadioButton) pane.getChildren().get(7)).setText(Gui.messages.getString("black_label"));
+        ((RadioButton) pane.getChildren().get(8)).setText(Gui.messages.getString("white_label"));
+        ((RadioButton) pane.getChildren().get(9)).setText(Gui.messages.getString("gamemode03"));
+        ((Button) pane.getChildren().get(10)).setText(Gui.messages.getString("start_button"));
+        ((Button) pane.getChildren().get(11)).setText(Gui.messages.getString("quit_button"));
+        ((Button) pane.getChildren().get(13)).setText(Gui.messages.getString("language"));
     }
 
     /**
@@ -85,7 +84,7 @@ public class Menu {
                 stage.setTitle("Netzwerkmenü");
             }else{
                 fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
-                fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", messages.getLocale()));
+                fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.messages.getLocale()));
                 root = fxmlLoader.load();
                 Controller controller = fxmlLoader.getController();
                 controller.init(gameMode, playerColorBlack, null);

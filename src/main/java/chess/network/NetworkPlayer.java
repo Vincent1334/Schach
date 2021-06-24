@@ -9,6 +9,7 @@ public class NetworkPlayer {
     private Client client;
 
     private int port;
+    private boolean connected = false;
     private String ipAddress;
     private boolean isBlack;
 
@@ -42,8 +43,21 @@ public class NetworkPlayer {
         else client.sendMove(move);
     }
 
+    public boolean isBlack(){
+        if(ipAddress == null) return isBlack;
+        return client.isBlack();
+    }
+
+    public boolean isHost(){
+        return ipAddress == null;
+    }
+
+    public void setReadyToPlay(boolean isReady){
+        this.connected = isReady;
+    }
+
     public boolean isReadyToPlay(){
-        return server.isReadyToPlay();
+        return connected;
     }
 
     public Thread getClientThread(){
@@ -53,5 +67,10 @@ public class NetworkPlayer {
     public void sendMessage(String message){
         if(server != null) server.sendMessage(message);
         else client.sendMessage(message);
+    }
+
+    public void killNetwork(){
+        if(server != null) server.stop();
+        if(client != null) client.stop();
     }
 }

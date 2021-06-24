@@ -37,7 +37,7 @@ import static javafx.scene.paint.Color.*;
 public class Controller {
     private List<Figure> beatenFigureList;
     private Logic logic;
-    private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
+
     final private static String QUEEN = "Queen";
 
     @FXML
@@ -61,8 +61,9 @@ public class Controller {
      */
     public void backToMenu(MouseEvent event) {
         try {
+            logic.killNetworkPlayer();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
-            fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", messages.getLocale()));
+            fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.messages.getLocale()));
             Parent root = fxmlLoader.load();
 
             Stage stage = new Stage();
@@ -109,23 +110,23 @@ public class Controller {
         if (getShowFlags().isSelected()) {
             if (board.isCheckFlag(true)) {
                 getLabelCheck().setVisible(true);
-                getLabelCheck().setText(messages.getString("blackCheck_label"));
+                getLabelCheck().setText(Gui.messages.getString("blackCheck_label"));
             }
             if (board.isCheckFlag(false)) {
                 getLabelCheck().setVisible(true);
-                getLabelCheck().setText(messages.getString("whiteCheck_label"));
+                getLabelCheck().setText(Gui.messages.getString("whiteCheck_label"));
             }
             if (board.isCheckMateFlag(true)) {
                 getLabelCheck().setVisible(true);
-                getLabelCheck().setText(messages.getString("blackCheckmate_label"));
+                getLabelCheck().setText(Gui.messages.getString("blackCheckmate_label"));
             }
             if (board.isCheckMateFlag(false)) {
                 getLabelCheck().setVisible(true);
-                getLabelCheck().setText(messages.getString("whiteCheckmate_label"));
+                getLabelCheck().setText(Gui.messages.getString("whiteCheckmate_label"));
             }
             if (board.isStaleMateFlag()) {
                 getLabelCheck().setVisible(true);
-                getLabelCheck().setText(messages.getString("stalemate_label"));
+                getLabelCheck().setText(Gui.messages.getString("stalemate_label"));
             }
         }
 
@@ -173,7 +174,7 @@ public class Controller {
     /**
      * turns the chessboard so that the figures of the actualPlayer are always on the bottom
      */
-    private void turnBoard(boolean reset) {
+    public void turnBoard(boolean reset) {
         if(reset){
             getBoard().setRotate(0);
             turnFigures(0);
@@ -239,34 +240,34 @@ public class Controller {
      */
     @FXML
     private void setLanguage() {
-        ResourceBundle oldLanguage = messages;
-        if (messages.getLocale().getCountry().equals("US")) {
-            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"));
-        } else if (messages.getLocale().getCountry().equals("DE")) {
-            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("fr", "FR"));
+        ResourceBundle oldLanguage = Gui.messages;
+        if (Gui.messages.getLocale().getCountry().equals("US")) {
+            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"));
+        } else if (Gui.messages.getLocale().getCountry().equals("DE")) {
+            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("fr", "FR"));
         } else {
-            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
+            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
         }
 
-        getLabelCalculating().setText(messages.getString("calculating_label"));
+        getLabelCalculating().setText(Gui.messages.getString("calculating_label"));
         switchFlagLanguage(oldLanguage, "blackCheck_label");
         switchFlagLanguage(oldLanguage, "whiteCheck_label");
         switchFlagLanguage(oldLanguage, "blackCheckmate_label");
         switchFlagLanguage(oldLanguage, "whiteCheckmate_label");
         switchFlagLanguage(oldLanguage, "stalemate_label");
-        getBackToMenu().setText(messages.getString("menu_button"));
-        getLanguage().setText(messages.getString("language"));
-        getLabelHistory().setText(messages.getString("history_label"));
-        getTouchMove().setText(messages.getString("touch_move_button"));
-        getPossibleMove().setText(messages.getString("possible_moves_button"));
-        getRotate().setText(messages.getString("rotate_button"));
-        getShowFlags().setText(messages.getString("flag_button"));
+        getBackToMenu().setText(Gui.messages.getString("menu_button"));
+        getLanguage().setText(Gui.messages.getString("language"));
+        getLabelHistory().setText(Gui.messages.getString("history_label"));
+        getTouchMove().setText(Gui.messages.getString("touch_move_button"));
+        getPossibleMove().setText(Gui.messages.getString("possible_moves_button"));
+        getRotate().setText(Gui.messages.getString("rotate_button"));
+        getShowFlags().setText(Gui.messages.getString("flag_button"));
 
     }
 
     private void switchFlagLanguage(ResourceBundle oldLanguage, String label) {
         if (getLabelCheck().getText().equals(oldLanguage.getString(label))) {
-            getLabelCheck().setText(messages.getString(label));
+            getLabelCheck().setText(Gui.messages.getString(label));
         }
     }
 
@@ -382,8 +383,9 @@ public class Controller {
      *
      * @param isCalculating whether the computer (ki) is currently calculating
      */
-    protected void setCalculating(boolean isCalculating) {
+    protected void setCalculating(boolean isCalculating, String message) {
         if (isCalculating) {
+            getLabelCalculating().setText(message);
             getLabelCalculating().setVisible(true);
             getBoard().setMouseTransparent(true);
         } else {
@@ -423,8 +425,6 @@ public class Controller {
     }
 
     //-------------get---------------------------------------------------------------------------------------------------------------
-
-    //figure
 
     /**
      * returns the figure of the field on the gridPane
@@ -535,11 +535,6 @@ public class Controller {
                 return null;
         }
     }
-
-    protected ResourceBundle getMessages(){
-        return messages;
-    }
-
 
     //labels and buttons
 

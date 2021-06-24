@@ -10,13 +10,12 @@ import java.util.*;
 
 public class Server implements Runnable{
     
-    private boolean isBlack, isReadyToPlay;
+    private boolean isBlack;
 
     private Thread thread;
     private Logic gui;
     
     private Move networkMove;
-
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private PrintWriter out;
@@ -48,7 +47,6 @@ public class Server implements Runnable{
             }
         }catch(Exception x){
         }
-        System.out.println("Connected");
         //Listener for Server input
         while(true){
             try{
@@ -61,7 +59,7 @@ public class Server implements Runnable{
                         continue;
                     }
                     if(input.equals("ready")){
-                        isReadyToPlay = true;
+                        gui.computerOrNetworkIsFinish();
                         //leave listener if server starts with white
                         if(isBlack) break;
                     }
@@ -95,7 +93,6 @@ public class Server implements Runnable{
 
 
     public void stop() {
-        System.out.println("stop");
         try {
             in.close();
             out.close();
@@ -104,9 +101,5 @@ public class Server implements Runnable{
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-    }
-    
-    public boolean isReadyToPlay(){
-        return isReadyToPlay;
     }
 }

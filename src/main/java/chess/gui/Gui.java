@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 public class Gui extends Application {
 
     public static Locale locale = new Locale("en", "US");
+    public static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
 
     /**
      * opens the menu
@@ -34,6 +35,10 @@ public class Gui extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+    }
+
+    public static void changeLanguage(){
+
     }
 
     /**
