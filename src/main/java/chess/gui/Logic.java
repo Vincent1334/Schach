@@ -7,8 +7,16 @@ import chess.network.NetworkPlayer;
 import chess.figures.Pawn;
 import chess.model.*;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.ResourceBundle;
 
 /**
  * transposes the logic of a move
@@ -24,6 +32,7 @@ public class Logic implements Runnable {
     private Controller controller;
     private GameMode gameMode;
     private NetworkPlayer network;
+    private Promotion promotion;
 
     /**
      * initializes gameMode, coreGame, computer, beatenFigureList and conversion
@@ -36,6 +45,7 @@ public class Logic implements Runnable {
         this.gameMode = gameMode;
         coreGame = new CoreGame();
         this.controller = controller;
+        promotion = new Promotion();
 
         if (gameMode == GameMode.COMPUTER) {
             computer = new Computer(!playerColorBlack, this);
@@ -77,13 +87,24 @@ public class Logic implements Runnable {
         Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
         Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
 
-        if(coreGame.getCurrentBoard().getFigure(startPosition) instanceof Pawn && (targetPosition.getPosY() == 0 || targetPosition.getPosY() == 7)) {
-            controller.showPromotionFigureWindow();
-            //Hier muss ein Thread hin bzw. besser die Pane Promotion zu Pop up Fenster ändern
-            //while (controller.getPromotionID() == 0){ }
-            //int id = controller.getPromotionID();
+        if(coreGame.getCurrentBoard().getFigure(startPosition) instanceof Pawn && (targetPosition.getPosY() == 0 || targetPosition.getPosY() == 7)&& Rules.possibleTargetFields(startPosition,coreGame.getCurrentBoard()).contains(targetPosition)) {
+            Stage stage = new Stage();
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Promotion.fxml"));
+                fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", controller.getMessages().getLocale()));
+                Parent root = fxmlLoader.load();
+                stage.setTitle("Promotion");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //muss als thread realisiert werden
+            //while(stage.getScene().getWindow().isShowing()){}
+            //int id = promotion.getPromotionID();
             int id = 5;
-            controller.hidePromotionFigureWindow();
+
             return new Move(startPosition, targetPosition, id);
         }
         else return new Move(startPosition, targetPosition);

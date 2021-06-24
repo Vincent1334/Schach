@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="promotion" prefHeight="163.0" prefWidth="610.0" style="-fx-background-color: #ffffff; -fx-border-color: #00A8C6; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.Promotion">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="60.0" layoutX="3.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="604.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="3.0" layoutY="29.0" prefHeight="30.0" prefWidth="604.0" text="%promotion_label" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="96.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#getPromotionFigure" prefWidth="125.0" style="-fx-background-color: #00A8C6;" text="%queen_label" textAlignment="CENTER" textFill="WHITE">
+         <opaqueInsets>
+            <Insets right="10.0" />
+         </opaqueInsets>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="174.0" layoutY="96.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#getPromotionFigure" prefWidth="125.0" style="-fx-background-color: #00A8C6;" text="%bishop_label" textAlignment="CENTER" textFill="WHITE">
+         <opaqueInsets>
+            <Insets right="10.0" />
+         </opaqueInsets>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="317.0" layoutY="96.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#getPromotionFigure" prefWidth="125.0" style="-fx-background-color: #00A8C6;" text="%rook_label" textAlignment="CENTER" textFill="WHITE">
+         <opaqueInsets>
+            <Insets right="10.0" />
+         </opaqueInsets>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="458.0" layoutY="96.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#getPromotionFigure" prefWidth="125.0" style="-fx-background-color: #00A8C6;" text="%knight_label" textAlignment="CENTER" textFill="WHITE">
+         <opaqueInsets>
+            <Insets right="10.0" />
+         </opaqueInsets>
+      </Button>
+      <Button layoutX="555.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="26.0" prefWidth="35.0" style="-fx-background-color: #282828;" text="%language" textFill="WHITE" />
+   </children>
+   <effect>
+      <DropShadow height="90.0" radius="44.5" spread="0.26" width="90.0">
+         <input>
+            <InnerShadow choke="0.5" height="26.69" radius="10.620000000000001" width="17.79">
+               <color>
+                  <Color green="0.658823549747467" blue="0.7764706015586853" />
+               </color>
+            </InnerShadow>
+         </input>
+      </DropShadow>
+   </effect>
+</Pane>

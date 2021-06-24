@@ -20,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -38,7 +39,6 @@ public class Controller {
     private Logic logic;
     private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
     final private static String QUEEN = "Queen";
-    private int promotionID = 0;
 
     @FXML
     private Pane menu;
@@ -75,16 +75,6 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    protected void showPromotionFigureWindow(){
-        getPromotion().setVisible(true);
-        getPromotion().setDisable(false);
-        promotionID = 0;
-    }
-    protected void hidePromotionFigureWindow(){
-        getPromotion().setVisible(false);
-        getPromotion().setDisable(true);
     }
 
 
@@ -148,9 +138,15 @@ public class Controller {
      */
     public void updateHistory(Move move) {
         Text t = new Text(move.toString());
+        t.setFill(valueOf("#515151"));
+        t.setFont(new Font("Calibri",15.0));
+
+        Text index = new Text(" " + getHistory().getRowCount());
+        index.setFill(valueOf("#00a8c6"));
+        index.setFont(new Font("Calibri",16.0));
 
         getHistory().add(t, 2, getHistory().getRowCount());
-        getHistory().add(new Text("   " + getHistory().getRowCount()), 0, getHistory().getRowCount() - 1);
+        getHistory().add(index, 0, getHistory().getRowCount() - 1);
     }
 
     /**
@@ -258,11 +254,6 @@ public class Controller {
         switchFlagLanguage(oldLanguage, "blackCheckmate_label");
         switchFlagLanguage(oldLanguage, "whiteCheckmate_label");
         switchFlagLanguage(oldLanguage, "stalemate_label");
-        getLabelPromotion().setText(messages.getString("promotion_label"));
-        getButtonQueen().setText(messages.getString("queen_label"));
-        getButtonBishop().setText(messages.getString("bishop_label"));
-        getButtonRook().setText(messages.getString("rook_label"));
-        getButtonKnight().setText(messages.getString("knight_label"));
         getBackToMenu().setText(messages.getString("menu_button"));
         getLanguage().setText(messages.getString("language"));
         getLabelHistory().setText(messages.getString("history_label"));
@@ -291,7 +282,7 @@ public class Controller {
             getRectangleWhite().setStroke(BLACK);
             getRectangleWhite().setStrokeWidth(1);
         } else {
-            getRectangleWhite().setStroke(valueOf("#00A8C6"));
+            getRectangleWhite().setStroke(valueOf("#8fbe00"));
             getRectangleWhite().setStrokeWidth(3);
             getRectangleBlack().setStroke(BLACK);
             getRectangleBlack().setStrokeWidth(1);
@@ -445,33 +436,6 @@ public class Controller {
         return (ImageView) getImageViewByIndex(GridPane.getColumnIndex(field), GridPane.getRowIndex(field));
     }
 
-    /**
-     * returns the ID-number of the conversionFigure
-     *
-     * @return the ID-number of the conversionFigure
-     */
-    @FXML
-    private void getPromotionFigure(MouseEvent event) {
-        String item = ((Button) event.getSource()).getText();
-        if (item.equals(messages.getString("queen_label"))) {
-            promotionID = 5;
-        }
-        if (item.equals(messages.getString("bishop_label"))) {
-            promotionID = 4;
-        }
-        if (item.equals(messages.getString("rook_label"))) {
-            promotionID = 2;
-        }
-        if (item.equals(messages.getString("knight_label"))) {
-            promotionID = 3;
-        }
-        promotionID = 5;
-    }
-
-    protected int getPromotionID(){
-        return promotionID;
-    }
-
 
     //field
 
@@ -572,6 +536,10 @@ public class Controller {
         }
     }
 
+    protected ResourceBundle getMessages(){
+        return messages;
+    }
+
 
     //labels and buttons
 
@@ -644,28 +612,5 @@ public class Controller {
     private GridPane getBeatenFiguresBlack(){
         return  (GridPane) menu.getChildren().get(17);
     }
-
-    private Pane getPromotion(){
-        return (Pane) menu.getChildren().get(18);
-    }
-
-    private Label getLabelPromotion(){
-        return (Label) getPromotion().getChildren().get(1);
-    }
-
-    private Button getButtonQueen(){
-        return (Button) getPromotion().getChildren().get(2);
-    }
-    private Button getButtonBishop(){
-        return (Button) getPromotion().getChildren().get(3);
-    }
-    private Button getButtonRook(){
-        return (Button) getPromotion().getChildren().get(4);
-    }
-    private Button getButtonKnight(){
-        return (Button) getPromotion().getChildren().get(5);
-    }
-
-
 
 }
