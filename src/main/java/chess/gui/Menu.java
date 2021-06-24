@@ -90,7 +90,9 @@ public class Menu {
                 Controller controller = fxmlLoader.getController();
                 controller.init(gameMode, playerColorBlack, null);
                 stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
+
             }
+            stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
             stage.show();

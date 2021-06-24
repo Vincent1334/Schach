@@ -8,7 +8,6 @@ import chess.figures.Pawn;
 import chess.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -32,7 +31,6 @@ public class Logic implements Runnable {
     private Controller controller;
     private GameMode gameMode;
     private NetworkPlayer network;
-    private Promotion promotion;
 
     /**
      * initializes gameMode, coreGame, computer, beatenFigureList and conversion
@@ -45,7 +43,6 @@ public class Logic implements Runnable {
         this.gameMode = gameMode;
         coreGame = new CoreGame();
         this.controller = controller;
-        promotion = new Promotion();
 
         if (gameMode == GameMode.COMPUTER) {
             computer = new Computer(!playerColorBlack, this);
@@ -72,7 +69,7 @@ public class Logic implements Runnable {
             startField = clickedField;
             controller.setMark(startField, true, coreGame.getCurrentBoard());
         } else if (startField != null && controller.getFigure(startField) != null) {
-            performMove(getMove(startField, clickedField));
+            move(startField, clickedField);
         }
     }
 
@@ -83,16 +80,19 @@ public class Logic implements Runnable {
      * @param targetField the target field of the move
      * @return move from the startField to the targetField
      */
-    private Move getMove(Rectangle startField, Rectangle targetField) {
+    private void move(Rectangle startField, Rectangle targetField) {
         Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
         Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
 
         if(coreGame.getCurrentBoard().getFigure(startPosition) instanceof Pawn && (targetPosition.getPosY() == 0 || targetPosition.getPosY() == 7)&& Rules.possibleTargetFields(startPosition,coreGame.getCurrentBoard()).contains(targetPosition)) {
-            Stage stage = new Stage();
+            controller.getBoard().setMouseTransparent(true);
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Promotion.fxml"));
                 fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", controller.getMessages().getLocale()));
                 Parent root = fxmlLoader.load();
+                Promotion promotion = fxmlLoader.getController();
+                promotion.init(startPosition,targetPosition,this);
+                Stage stage = new Stage();
                 stage.setTitle("Promotion");
                 stage.setScene(new Scene(root));
                 stage.show();
@@ -100,14 +100,8 @@ public class Logic implements Runnable {
                 e.printStackTrace();
             }
 
-            //muss als thread realisiert werden
-            //while(stage.getScene().getWindow().isShowing()){}
-            //int id = promotion.getPromotionID();
-            int id = 5;
-
-            return new Move(startPosition, targetPosition, id);
         }
-        else return new Move(startPosition, targetPosition);
+        else  performMove(new Move(startPosition, targetPosition));
     }
 
     /**
@@ -115,7 +109,8 @@ public class Logic implements Runnable {
      *
      * @param move the move which should be performed
      */
-    private void performMove(Move move) {
+    protected void performMove(Move move) {
+        controller.getBoard().setMouseTransparent(false);
         controller.setMark(startField, false, coreGame.getCurrentBoard());
         if (coreGame.chessMove(move)) {
             controller.updateScene(move, coreGame);

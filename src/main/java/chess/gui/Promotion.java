@@ -1,43 +1,51 @@
 package chess.gui;
 
+import chess.model.Move;
+import chess.model.Position;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Promotion {
-    private int promotionID = 0;
     private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
+    private Logic logic;
+    private Position startPosition;
+    private Position targetPosition;
     @FXML
     Pane promotion;
+
+    protected void init(Position startPosition, Position targetPosition,Logic logic){
+        this.startPosition = startPosition;
+        this.targetPosition = targetPosition;
+        this.logic = logic;
+
+    }
 
 
     @FXML
     private void getPromotionFigure(MouseEvent event) {
+        int id = 0;
         String item = ((Button) event.getSource()).getText();
         if (item.equals(messages.getString("queen_label"))) {
-            promotionID = 5;
+            id = 5;
         }
         if (item.equals(messages.getString("bishop_label"))) {
-            promotionID = 4;
+            id = 4;
         }
         if (item.equals(messages.getString("rook_label"))) {
-            promotionID = 2;
+            id = 2;
         }
         if (item.equals(messages.getString("knight_label"))) {
-            promotionID = 3;
+            id = 3;
         }
         ((Node) (event.getSource())).getScene().getWindow().hide();
-    }
-
-    public int getPromotionID() {
-        return promotionID;
+        logic.performMove(new Move(startPosition, targetPosition, id));
     }
 
     @FXML
