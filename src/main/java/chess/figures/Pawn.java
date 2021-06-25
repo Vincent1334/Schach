@@ -30,7 +30,7 @@ public class Pawn extends Figure {
      * @param sourceClass Pawn you want to clone
      */
     public Pawn(Pawn sourceClass) {
-        super(sourceClass.isBlackTeam());
+        super(sourceClass.isBlack());
         super.setAlreadyMoved(sourceClass.isAlreadyMoved());
         this.enPassant = sourceClass.isEnPassant();
         super.figureID = 1;

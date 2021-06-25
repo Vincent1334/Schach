@@ -30,7 +30,7 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         //check target field is valid
-        if (!(board.getFigure(targetPos) instanceof None) && board.getFigure(targetPos).isBlackTeam() == actualFigure.isBlackTeam()) {
+        if (!(board.getFigure(targetPos) instanceof None) && board.getFigure(targetPos).isBlack() == actualFigure.isBlack()) {
             return false;
         }
 
@@ -43,7 +43,7 @@ public class Rules {
             tmpBoard.setFigure(actualPos, new None());
             tmpBoard.setFigure(targetPos, actualFigure);
 
-            return !Board.kingInCheck(tmpBoard, actualFigure.isBlackTeam());
+            return !Board.kingInCheck(tmpBoard, actualFigure.isBlack());
         }
         return false;
     }
@@ -92,7 +92,7 @@ public class Rules {
 
         //check EnPassant is possible
         if (actualFigure instanceof Pawn && targetFigure instanceof Pawn
-                && actualFigure.isBlackTeam() != targetFigure.isBlackTeam()
+                && actualFigure.isBlack() != targetFigure.isBlack()
                 && Math.abs(actualPos.getPosX() - targetPos.getPosX()) == 1
                 && Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 1
                 && ((Pawn) targetFigure).isEnPassant()
@@ -105,7 +105,7 @@ public class Rules {
             tmpBoard.setFigure(actualPos, new None());
             tmpBoard.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
 
-            return !(Board.kingInCheck(tmpBoard, actualFigure.isBlackTeam()));
+            return !(Board.kingInCheck(tmpBoard, actualFigure.isBlack()));
         }
 
         return false;
@@ -147,7 +147,7 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         //check chess or wrong input
-        if (actualPos.getPosY() != targetPos.getPosY() || Board.kingInCheck(board, actualFigure.isBlackTeam()))
+        if (actualPos.getPosY() != targetPos.getPosY() || Board.kingInCheck(board, actualFigure.isBlack()))
             return false;
 
         if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved())) {
@@ -172,12 +172,12 @@ public class Rules {
             //check, whether all field between are empty and are not threatened
             for (int j = 3; j > 0; j--) {
                 if (!(board.getFigure(j, actualPos.getPosY()) instanceof None)
-                        || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).isBlackTeam())) {
+                        || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).isBlack())) {
                     return false;
                 }
             }
             //check Rook is not threatened
-            return !Board.isThreatened(board, new Position(0, actualPos.getPosY()), !board.getFigure(actualPos).isBlackTeam());
+            return !Board.isThreatened(board, new Position(0, actualPos.getPosY()), !board.getFigure(actualPos).isBlack());
             //Castling is possible
         }
         return false;
@@ -198,12 +198,12 @@ public class Rules {
             //check, whether all field between are empty and are not threatened
             for (int j = 5; j < 7; j++) {
                 if (!(board.getFigure(j, actualPos.getPosY()) instanceof None)
-                        || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).isBlackTeam())) {
+                        || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).isBlack())) {
                     return false;
                 }
             }
             //check Rook is not threatened
-            return !Board.isThreatened(board, new Position(7, actualPos.getPosY()), !board.getFigure(actualPos).isBlackTeam());
+            return !Board.isThreatened(board, new Position(7, actualPos.getPosY()), !board.getFigure(actualPos).isBlack());
             //Castling is possible
         }
         return false;
@@ -225,7 +225,7 @@ public class Rules {
             //set King
             board.setFigure(targetPos, actualFigure);
             board.setFigure(actualPos, new None());
-            board.setCastlingFlag(true, board.getFigure(targetPos).isBlackTeam());
+            board.setCastlingFlag(true, board.getFigure(targetPos).isBlack());
             board.getFigure(targetPos).setAlreadyMoved(true);
 
             //set Rook
@@ -240,7 +240,7 @@ public class Rules {
             //set King
             board.setFigure(targetPos, actualFigure);
             board.setFigure(actualPos, new None());
-            board.setCastlingFlag(true, board.getFigure(targetPos).isBlackTeam());
+            board.setCastlingFlag(true, board.getFigure(targetPos).isBlack());
             board.getFigure(targetPos).setAlreadyMoved(true);
 
             //set Rook
@@ -275,7 +275,7 @@ public class Rules {
             tmpBoard.setFigure(actualPos, new None());
             tmpBoard.setFigure(targetPos, actualFigure);
             //check chess
-            return !Board.kingInCheck(tmpBoard, actualFigure.isBlackTeam());
+            return !Board.kingInCheck(tmpBoard, actualFigure.isBlack());
         }
         return false;
     }
@@ -292,22 +292,22 @@ public class Rules {
         switch (figureID) {
             //to knight
             case 3: {
-                board.setFigure(targetPos, new Knight(board.getFigure(actualPos).isBlackTeam()));
+                board.setFigure(targetPos, new Knight(board.getFigure(actualPos).isBlack()));
                 break;
             }
             //to bishop
             case 4: {
-                board.setFigure(targetPos, new Bishop(board.getFigure(actualPos).isBlackTeam()));
+                board.setFigure(targetPos, new Bishop(board.getFigure(actualPos).isBlack()));
                 break;
             }
             //to rook
             case 2: {
-                board.setFigure(targetPos, new Rook(board.getFigure(actualPos).isBlackTeam()));
+                board.setFigure(targetPos, new Rook(board.getFigure(actualPos).isBlack()));
                 break;
             }
             //to queen
             default: {
-                board.setFigure(targetPos, new Queen(board.getFigure(actualPos).isBlackTeam()));
+                board.setFigure(targetPos, new Queen(board.getFigure(actualPos).isBlack()));
                 break;
             }
         }

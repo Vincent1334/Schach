@@ -46,7 +46,7 @@ public class Heuristic {
      * @return zero when current and last move are the same
      */
    public static float checkRepeat(Move move, Move lastMove, boolean playerMax){
-        if(lastMove != null && move.getActualFigure() == lastMove.getActualFigure() && move.getActualFigure().isBlackTeam() == playerMax) return -REPEAT_POINTS;
+        if(lastMove != null && move.getActualFigure() == lastMove.getActualFigure() && move.getActualFigure().isBlack() == playerMax) return -REPEAT_POINTS;
         return 0;
     }
 
@@ -65,7 +65,7 @@ public class Heuristic {
             case 4: figureScore = KNIGHT_BONUS; break;
             case 5: figureScore = QUEEN_BONUS; break;
         }
-        if(move.getActualFigure().isBlackTeam() != playerMax){
+        if(move.getActualFigure().isBlack() != playerMax){
             figureScore = figureScore * (-1);
         }
         return figureScore;
@@ -87,10 +87,10 @@ public class Heuristic {
                 }catch(Exception x){
                     continue;
                 }
-                if(tmpFigure instanceof Pawn && tmpFigure.isBlackTeam() == move.getActualFigure().isBlackTeam()){
+                if(tmpFigure instanceof Pawn && tmpFigure.isBlack() == move.getActualFigure().isBlack()){
                     score += PAWN_CHAIN_POINTS;
                 }
-                if(move.getActualFigure().isBlackTeam() != playerMax) score = -score;
+                if(move.getActualFigure().isBlack() != playerMax) score = -score;
             }
         }
         return score;
@@ -132,10 +132,10 @@ public class Heuristic {
         if(isEndGame){
             for(int y = 0; y < 8; y++){
                 for(int x = 0; x < 8; x++){
-                    if (board.getFigure(x, y) instanceof Knight && board.getFigure(x, y).isBlackTeam() == playerMax){
+                    if (board.getFigure(x, y) instanceof Knight && board.getFigure(x, y).isBlack() == playerMax){
                         score -= ENDGAME_POINTS;
                     }
-                    if (board.getFigure(x, y) instanceof Knight && board.getFigure(x, y).isBlackTeam() != playerMax){
+                    if (board.getFigure(x, y) instanceof Knight && board.getFigure(x, y).isBlack() != playerMax){
                         score += ENDGAME_POINTS;
                     }
                 }

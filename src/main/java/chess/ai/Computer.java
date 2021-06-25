@@ -207,8 +207,8 @@ public class Computer implements Runnable{
         for(int y = 0; y < 8; y++){
             for(int x = 0; x < 8; x++){
                 if(!(board.getFigure(x, y) instanceof None)){
-                    material[board.getFigure(x, y).isBlackTeam() ? 1 : 0][board.getFigure(x, y).getFigureID()-1] ++;
-                    fieldScore[board.getFigure(x, y).isBlackTeam() ? 1 : 0][board.getFigure(x, y).getFigureID()-1] += PieceSquareTable.getTable(board.getFigure(x, y).getFigureID(), isEndGame)[board.getFigure(x, y).isBlackTeam() ?  7-x : x][board.getFigure(x, y).isBlackTeam() ? 7-y : y];
+                    material[board.getFigure(x, y).isBlack() ? 1 : 0][board.getFigure(x, y).getFigureID()-1] ++;
+                    fieldScore[board.getFigure(x, y).isBlack() ? 1 : 0][board.getFigure(x, y).getFigureID()-1] += PieceSquareTable.getTable(board.getFigure(x, y).getFigureID(), isEndGame)[board.getFigure(x, y).isBlack() ?  7-x : x][board.getFigure(x, y).isBlack() ? 7-y : y];
                 }
             }
         }
@@ -271,7 +271,7 @@ public class Computer implements Runnable{
          List<Move> possibleMove = new ArrayList<Move>();
          for(int y = 0; y < 8; y++){
              for(int x = 0; x < 8; x++){
-                 if(board.getFigure(x, y).isBlackTeam() == player && !(board.getFigure(x, y) instanceof None)){
+                 if(board.getFigure(x, y).isBlack() == player && !(board.getFigure(x, y) instanceof None)){
                      List<Position> tmpPos = Rules.possibleTargetFields(new Position(x, y), board);
                      for (Position tmpPo : tmpPos) {
                          Move move = new Move(new Position(x, y), tmpPo);

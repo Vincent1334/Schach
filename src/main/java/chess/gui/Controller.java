@@ -13,7 +13,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -34,7 +33,7 @@ import static javafx.scene.paint.Color.*;
  * 2021-06-09
  */
 public class Controller {
-    private List<Figure> beatenFigureList;
+
     private Logic logic;
 
     final private static String QUEEN = "Queen";
@@ -48,7 +47,6 @@ public class Controller {
      * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
      */
     public void init(GameMode gameMode, boolean isBlack, NetworkPlayer networkPlayer) {
-        beatenFigureList = new ArrayList<>();
         logic = new Logic(gameMode, isBlack,this, networkPlayer);
     }
 
@@ -79,11 +77,10 @@ public class Controller {
      * @param coreGame the current coreGame
      */
     public void updateScene(Move move, CoreGame coreGame) {
-        drawBoard(coreGame.getCurrentBoard());
+        drawBoard();
         updateHistory(move);
-        setBeatenFigures(coreGame.getCurrentBoard().getBeatenFigures());
-        updateNotifications(coreGame.getCurrentBoard());
-
+        updateNotifications();
+        updateBeatenFigures();
         if (getRotate().isSelected()) {
             turnBoard(false);
         }
@@ -93,29 +90,27 @@ public class Controller {
 
     /**
      * Sets a label in the gui if a player is in check, checkmate or stalemate
-     *
-     * @param board the current chessboard
      */
-    private void updateNotifications(Board board) {
+    private void updateNotifications() {
         getLabelCheck().setVisible(false);
         if (getShowFlags().isSelected()) {
-            if (board.isCheckFlag(true)) {
+            if (logic.getCoreGame().getCurrentBoard().isCheckFlag(true)) {
                 getLabelCheck().setVisible(true);
                 getLabelCheck().setText(LanguageManager.getText("blackCheck_label"));
             }
-            if (board.isCheckFlag(false)) {
+            if (logic.getCoreGame().getCurrentBoard().isCheckFlag(false)) {
                 getLabelCheck().setVisible(true);
                 getLabelCheck().setText(LanguageManager.getText("whiteCheck_label"));
             }
-            if (board.isCheckMateFlag(true)) {
+            if (logic.getCoreGame().getCurrentBoard().isCheckMateFlag(true)) {
                 getLabelCheck().setVisible(true);
                 getLabelCheck().setText(LanguageManager.getText("blackCheckmate_label"));
             }
-            if (board.isCheckMateFlag(false)) {
+            if (logic.getCoreGame().getCurrentBoard().isCheckMateFlag(false)) {
                 getLabelCheck().setVisible(true);
                 getLabelCheck().setText(LanguageManager.getText("whiteCheckmate_label"));
             }
-            if (board.isStaleMateFlag()) {
+            if (logic.getCoreGame().getCurrentBoard().isStaleMateFlag()) {
                 getLabelCheck().setVisible(true);
                 getLabelCheck().setText(LanguageManager.getText("stalemate_label"));
             }
@@ -142,16 +137,51 @@ public class Controller {
     }
 
     /**
-     * draws the chess board
+     * updates the beaten figure list in the gui
      *
-     * @param board the current chessboard
      */
-    private void drawBoard(Board board) {
+    public void updateBeatenFigures() {
+        int whiteIndex = 1;
+        int blackIndex = 1;
+        int whiteCol = 0;
+        int blackCol = 0;
+
+        for(Figure figure : logic.getCoreGame().getCurrentBoard().getBeatenFigures()){
+            ImageView iv = new ImageView(ImageHandler.getImageBySymbol(figure.getSymbol()));
+            iv.setEffect(new DropShadow(2.0,2.0,2.0,valueOf("#777777")));
+            iv.preserveRatioProperty().setValue(true);
+            iv.setFitHeight(50.0);
+            iv.setRotate(0);
+
+            GridPane.setColumnIndex(iv, figure.isBlack() ? blackCol : whiteCol);
+            GridPane.setRowIndex(iv, figure.isBlack() ? blackIndex : whiteIndex);
+            if(figure.isBlack()){
+                getBeatenFiguresBlack().getChildren().add(iv);
+                blackIndex ++;
+                if(blackIndex == 9){
+                    blackIndex = 1;
+                    blackCol = 1;
+                }
+            }else{
+                getBeatenFiguresWhite().getChildren().add(iv);
+                whiteIndex ++;
+                if(whiteIndex == 9){
+                    whiteIndex = 1;
+                    whiteCol = 1;
+                }
+            }
+        }
+    }
+
+    /**
+     * draws the chess board
+     */
+    private void drawBoard() {
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 this.getBoard().getChildren().remove(getImageViewByIndex(x + 1, 8 - y));
-                if (getImageBySymbol(board.getFigure(x, y).getSymbol()) != null) {
-                    ImageView iv = new ImageView(getImageBySymbol(board.getFigure(x, y).getSymbol()));
+                if (ImageHandler.getImageBySymbol(logic.getCoreGame().getCurrentBoard().getFigure(x, y).getSymbol()) != null) {
+                    ImageView iv = new ImageView(ImageHandler.getImageBySymbol(logic.getCoreGame().getCurrentBoard().getFigure(x, y).getSymbol()));
                     iv.preserveRatioProperty().setValue(true);
                     iv.setFitHeight(50.0);
                     iv.setMouseTransparent(true);
@@ -197,7 +227,7 @@ public class Controller {
      */
     @FXML
     private void updateFlagButton() {
-        updateNotifications(logic.getCoreGame().getCurrentBoard());
+        updateNotifications();
     }
 
     /**
@@ -273,58 +303,7 @@ public class Controller {
         }
     }
 
-    /**
-     * updates the beaten figure list in the gui
-     *
-     * @param beatenFigures a list with all beaten figures
-     */
-    public void setBeatenFigures(List<Figure> beatenFigures) {
-        if (beatenFigures.size() != this.beatenFigureList.size() && beatenFigures.size() > 0) {
-            ImageView iv = new ImageView(getImageBySymbol(beatenFigures.get(beatenFigures.size() - 1).getSymbol()));
-            iv.setEffect(new DropShadow(2.0,2.0,2.0,valueOf("#777777")));
-            iv.preserveRatioProperty().setValue(true);
-            iv.setFitHeight(50.0);
-            iv.setRotate(0);
 
-            if (logic.getCoreGame().getActivePlayer()) {
-                int indexBeatenFiguresBlack = 0;
-                for (Figure figure : beatenFigures) {
-                    if (figure.isBlackTeam()) {
-                        indexBeatenFiguresBlack += 1;
-                    }
-                }
-                if(indexBeatenFiguresBlack <9){
-                    GridPane.setColumnIndex(iv, 0);
-                    GridPane.setRowIndex(iv, indexBeatenFiguresBlack);
-                }else{
-                    GridPane.setColumnIndex(iv, 1);
-                    GridPane.setRowIndex(iv, indexBeatenFiguresBlack-8);
-                }
-
-            } else {
-                int indexBeatenFiguresWhite = 0;
-                for (Figure figure : beatenFigures) {
-                    if (!figure.isBlackTeam()) {
-                        indexBeatenFiguresWhite += 1;
-                    }
-                }
-                if(indexBeatenFiguresWhite <9){
-                    GridPane.setColumnIndex(iv, 0);
-                    GridPane.setRowIndex(iv, indexBeatenFiguresWhite);
-                }else{
-                    GridPane.setColumnIndex(iv, 1);
-                    GridPane.setRowIndex(iv, indexBeatenFiguresWhite-8);
-                }
-            }
-
-            if(logic.getCoreGame().getActivePlayer()){
-                this.getBeatenFiguresBlack().getChildren().add(iv);
-            }else{
-                this.getBeatenFiguresWhite().getChildren().add(iv);
-            }
-            this.beatenFigureList.add(beatenFigures.get(beatenFigures.size() - 1));
-        }
-    }
 
     /**
      * Marks or unmarks the field and if selected the possible moves of the figure on the field
@@ -459,9 +438,6 @@ public class Controller {
         return fields;
     }
 
-
-    //image
-
     /**
      * returns the ImageView that is at the given position in the gridPane
      *
@@ -483,41 +459,7 @@ public class Controller {
         return result;
     }
 
-    /**
-     * returns the Image of a figure by its char-value
-     *
-     * @param symbol of the figure you want the image from
-     * @return the image of the figure
-     */
-    private Image getImageBySymbol(char symbol) {
-        String color = "Black";
-        if (Character.isUpperCase(symbol)) {
-            color = "White";
-        }
-        switch (Character.toUpperCase(symbol)) {
-            // Rook
-            case 'R':
-                return ImageHandler.getInstance().getImage("Rook" + color);
-            // Knight
-            case 'N':
-                return ImageHandler.getInstance().getImage("Knight" + color);
-            // Bishop
-            case 'B':
-                return ImageHandler.getInstance().getImage("Bishop" + color);
-            // Queen
-            case 'Q':
-                return ImageHandler.getInstance().getImage(QUEEN + color);
-            // King
-            case 'K':
-                return ImageHandler.getInstance().getImage("King" + color);
-            // Pawn
-            case 'P':
-                return ImageHandler.getInstance().getImage("Pawn" + color);
-            // None
-            default:
-                return null;
-        }
-    }
+
 
     //labels and buttons
 

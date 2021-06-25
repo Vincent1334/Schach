@@ -182,7 +182,7 @@ public class Board {
         //Searching target King position
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                if (board.getFigure(x, y) instanceof King && board.getFigure(x, y).isBlackTeam() == blackTeam) {
+                if (board.getFigure(x, y) instanceof King && board.getFigure(x, y).isBlack() == blackTeam) {
                     //Return target king position
                     return new Position(x, y);
                 }
@@ -206,7 +206,7 @@ public class Board {
             for (int x = 0; x < 8; x++) {
                 //don't check the target position, don't check empty fields
                 if (!(x == targetPos.getPosX() && y == targetPos.getPosY())
-                        && tmpBoard.getFigure(x, y).isBlackTeam() == blackTeam
+                        && tmpBoard.getFigure(x, y).isBlack() == blackTeam
                         && !(tmpBoard.getFigure(new Position(x, y)) instanceof None)
                         && tmpBoard.getFigure(new Position(x, y)).validMove(new Position(x, y), targetPos, tmpBoard)){
                     return true;
@@ -241,7 +241,7 @@ public class Board {
         // test all possible moves and check whether your king is still in check
         for (int y = 0; y < 8; y++) {                                           // for all your own figures on the board
             for (int x = 0; x < 8; x++) {
-                if (!(board.getFigure(new Position(x, y)) instanceof None) && board.getFigure(new Position(x, y)).isBlackTeam() == blackTeam && checkPossibleTarget(board, x, y, blackTeam)) {
+                if (!(board.getFigure(new Position(x, y)) instanceof None) && board.getFigure(new Position(x, y)).isBlack() == blackTeam && checkPossibleTarget(board, x, y, blackTeam)) {
                     return false;
                 }
             }

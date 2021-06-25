@@ -37,7 +37,7 @@ public class CoreGame {
     public boolean chessMove(Move move) {
 
         //check valid input
-        if (move.getActualPosition().getPosX() == move.getTargetPosition().getPosX() && move.getActualPosition().getPosY() == move.getTargetPosition().getPosY() || currentBoard.getFigure(move.getActualPosition()).isBlackTeam() != activePlayer) {
+        if (move.getActualPosition().getPosX() == move.getTargetPosition().getPosX() && move.getActualPosition().getPosY() == move.getTargetPosition().getPosY() || currentBoard.getFigure(move.getActualPosition()).isBlack() != activePlayer) {
             //User command fails
             System.out.println("!Move not allowed");
             return false;

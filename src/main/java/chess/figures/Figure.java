@@ -44,7 +44,7 @@ public abstract class Figure {
      *
      * @return the team of the figure
      */
-    public boolean isBlackTeam() {
+    public boolean isBlack() {
         return this.blackTeam;
     }
 
@@ -86,7 +86,7 @@ public abstract class Figure {
     public boolean equals(Object other) {
         if (other instanceof Figure) {
             Figure figure1 = (Figure) other;
-            return figure1.getFigureID() == figureID && figure1.isBlackTeam() == blackTeam && figure1.isAlreadyMoved() == alreadyMoved;
+            return figure1.getFigureID() == figureID && figure1.isBlack() == blackTeam && figure1.isAlreadyMoved() == alreadyMoved;
         }
         return false;
     }

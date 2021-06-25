@@ -29,7 +29,7 @@ public class ImageHandler {
     }
 
     /**
-     * loads a image
+     * loads an image
      * @param name the name of the image
      * @param extensions the datatype of the Image
      */
@@ -57,4 +57,39 @@ public class ImageHandler {
         return imgs.get(key);
     }
 
+    /**
+     * returns the Image of a figure by its char-value
+     *
+     * @param symbol of the figure you want the image from
+     * @return the image of the figure
+     */
+    public static Image getImageBySymbol(char symbol) {
+        String color = "Black";
+        if (Character.isUpperCase(symbol)) {
+            color = "White";
+        }
+        switch (Character.toUpperCase(symbol)) {
+            // Rook
+            case 'R':
+                return getInstance().getImage("Rook" + color);
+            // Knight
+            case 'N':
+                return getInstance().getImage("Knight" + color);
+            // Bishop
+            case 'B':
+                return getInstance().getImage("Bishop" + color);
+            // Queen
+            case 'Q':
+                return getInstance().getImage("Queen" + color);
+            // King
+            case 'K':
+                return getInstance().getImage("King" + color);
+            // Pawn
+            case 'P':
+                return getInstance().getImage("Pawn" + color);
+            // None
+            default:
+                return null;
+        }
+    }
 }
