@@ -3,6 +3,8 @@ package chess.gui;
 import chess.GameMode;
 import chess.controller.*;
 import chess.figures.Figure;
+import chess.managers.LanguageManager;
+import chess.managers.WindowManager;
 import chess.model.*;
 import chess.network.NetworkPlayer;
 import javafx.collections.ObservableList;
@@ -60,22 +62,15 @@ public class Controller {
      * @param event the mouse event
      */
     public void backToMenu(MouseEvent event) {
-        try {
-            logic.killNetworkPlayer();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
-            fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.messages.getLocale()));
-            Parent root = fxmlLoader.load();
+        logic.killNetworkPlayer();
 
-            Stage stage = new Stage();
-            stage.setTitle("Menu");
-            stage.setScene(new Scene(root));
-            stage.show();
+        Stage stage = new Stage();
+        stage.setTitle(LanguageManager.getText("menu_title"));
+        stage.setScene(new Scene(WindowManager.createWindow("Menu.fxml")));
+        stage.show();
 
-            // Hide this current window
-            ((Node) (event.getSource())).getScene().getWindow().hide();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Hide this current window
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
 
@@ -110,23 +105,23 @@ public class Controller {
         if (getShowFlags().isSelected()) {
             if (board.isCheckFlag(true)) {
                 getLabelCheck().setVisible(true);
-                getLabelCheck().setText(Gui.messages.getString("blackCheck_label"));
+                getLabelCheck().setText(LanguageManager.getText("blackCheck_label"));
             }
             if (board.isCheckFlag(false)) {
                 getLabelCheck().setVisible(true);
-                getLabelCheck().setText(Gui.messages.getString("whiteCheck_label"));
+                getLabelCheck().setText(LanguageManager.getText("whiteCheck_label"));
             }
             if (board.isCheckMateFlag(true)) {
                 getLabelCheck().setVisible(true);
-                getLabelCheck().setText(Gui.messages.getString("blackCheckmate_label"));
+                getLabelCheck().setText(LanguageManager.getText("blackCheckmate_label"));
             }
             if (board.isCheckMateFlag(false)) {
                 getLabelCheck().setVisible(true);
-                getLabelCheck().setText(Gui.messages.getString("whiteCheckmate_label"));
+                getLabelCheck().setText(LanguageManager.getText("whiteCheckmate_label"));
             }
             if (board.isStaleMateFlag()) {
                 getLabelCheck().setVisible(true);
-                getLabelCheck().setText(Gui.messages.getString("stalemate_label"));
+                getLabelCheck().setText(LanguageManager.getText("stalemate_label"));
             }
         }
 
@@ -240,34 +235,26 @@ public class Controller {
      */
     @FXML
     private void setLanguage() {
-        ResourceBundle oldLanguage = Gui.messages;
-        if (Gui.messages.getLocale().getCountry().equals("US")) {
-            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"));
-        } else if (Gui.messages.getLocale().getCountry().equals("DE")) {
-            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("fr", "FR"));
-        } else {
-            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
-        }
+        ResourceBundle oldLanguage = LanguageManager.getResourceBundle();
+        LanguageManager.nextLocale();
 
-        getLabelCalculating().setText(Gui.messages.getString("calculating_label"));
         switchFlagLanguage(oldLanguage, "blackCheck_label");
         switchFlagLanguage(oldLanguage, "whiteCheck_label");
         switchFlagLanguage(oldLanguage, "blackCheckmate_label");
         switchFlagLanguage(oldLanguage, "whiteCheckmate_label");
         switchFlagLanguage(oldLanguage, "stalemate_label");
-        getBackToMenu().setText(Gui.messages.getString("menu_button"));
-        getLanguage().setText(Gui.messages.getString("language"));
-        getLabelHistory().setText(Gui.messages.getString("history_label"));
-        getTouchMove().setText(Gui.messages.getString("touch_move_button"));
-        getPossibleMove().setText(Gui.messages.getString("possible_moves_button"));
-        getRotate().setText(Gui.messages.getString("rotate_button"));
-        getShowFlags().setText(Gui.messages.getString("flag_button"));
-
+        getBackToMenu().setText(LanguageManager.getText("menu_button"));
+        getLanguage().setText(LanguageManager.getText("language"));
+        getLabelHistory().setText(LanguageManager.getText("history_label"));
+        getTouchMove().setText(LanguageManager.getText("touch_move_button"));
+        getPossibleMove().setText(LanguageManager.getText("possible_moves_button"));
+        getRotate().setText(LanguageManager.getText("rotate_button"));
+        getShowFlags().setText(LanguageManager.getText("flag_button"));
     }
 
     private void switchFlagLanguage(ResourceBundle oldLanguage, String label) {
         if (getLabelCheck().getText().equals(oldLanguage.getString(label))) {
-            getLabelCheck().setText(Gui.messages.getString(label));
+            getLabelCheck().setText(LanguageManager.getText(label));
         }
     }
 

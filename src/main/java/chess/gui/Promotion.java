@@ -1,5 +1,6 @@
 package chess.gui;
 
+import chess.managers.LanguageManager;
 import chess.model.Move;
 import chess.model.Position;
 import javafx.fxml.FXML;
@@ -13,7 +14,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Promotion {
-    private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale);
+
     private Logic logic;
     private Position startPosition;
     private Position targetPosition;
@@ -32,16 +33,16 @@ public class Promotion {
     private void getPromotionFigure(MouseEvent event) {
         int id = 0;
         String item = ((Button) event.getSource()).getText();
-        if (item.equals(messages.getString("queen_label"))) {
+        if (item.equals(LanguageManager.getText("queen_label"))) {
             id = 5;
         }
-        if (item.equals(messages.getString("bishop_label"))) {
+        if (item.equals(LanguageManager.getText("bishop_label"))) {
             id = 4;
         }
-        if (item.equals(messages.getString("rook_label"))) {
+        if (item.equals(LanguageManager.getText("rook_label"))) {
             id = 2;
         }
-        if (item.equals(messages.getString("knight_label"))) {
+        if (item.equals(LanguageManager.getText("knight_label"))) {
             id = 3;
         }
         ((Node) (event.getSource())).getScene().getWindow().hide();
@@ -50,19 +51,14 @@ public class Promotion {
 
     @FXML
     private void setLanguage(){
-        if (messages.getLocale().getCountry().equals("US")) {
-            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "GE"));
-        } else if (messages.getLocale().getCountry().equals("DE")) {
-            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("fr", "FR"));
-        } else {
-            messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
-        }
-        getLabelPromotion().setText(messages.getString("promotion_label"));
-        getButtonQueen().setText(messages.getString("queen_label"));
-        getButtonBishop().setText(messages.getString("bishop_label"));
-        getButtonRook().setText(messages.getString("rook_label"));
-        getButtonKnight().setText(messages.getString("knight_label"));
-        getLanguage().setText(messages.getString("language"));
+        LanguageManager.nextLocale();
+
+        getLabelPromotion().setText(LanguageManager.getText("promotion_label"));
+        getButtonQueen().setText(LanguageManager.getText("queen_label"));
+        getButtonBishop().setText(LanguageManager.getText("bishop_label"));
+        getButtonRook().setText(LanguageManager.getText("rook_label"));
+        getButtonKnight().setText(LanguageManager.getText("knight_label"));
+        getLanguage().setText(LanguageManager.getText("language"));
     }
 
 

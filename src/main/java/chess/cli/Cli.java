@@ -2,6 +2,7 @@ package chess.cli;
 
 import chess.controller.CoreGame;
 import chess.ai.Computer;
+import chess.managers.LanguageManager;
 import chess.model.Move;
 import chess.model.Parser;
 import chess.model.Position;
@@ -19,9 +20,6 @@ public class Cli {
     private static CoreGame coreGame;
     private static int gameMode = 0;
     private static Computer computer;
-
-    private static Locale locale = new Locale("en", "US");
-    private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", locale);
 
     /**
      * The entry point of the CLI application.
@@ -49,11 +47,11 @@ public class Cli {
                 System.out.println("╚██████╗██║  ██║███████╗███████║███████║");
                 System.out.println(" ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝");
                 System.out.println("");
-                System.out.println(messages.getString("gamemode_title"));
-                System.out.println(messages.getString("gamemode01"));
-                System.out.println(messages.getString("gamemode02"));
-                System.out.println(messages.getString("gamemode03"));
-                System.out.print(messages.getString("input_label"));
+                System.out.println(LanguageManager.getText("gamemode_title"));
+                System.out.println(LanguageManager.getText("gamemode01"));
+                System.out.println(LanguageManager.getText("gamemode02"));
+                System.out.println(LanguageManager.getText("gamemode03"));
+                System.out.print(LanguageManager.getText("input_label"));
 
                 String input = scan.nextLine();
                 if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 51) {
@@ -85,7 +83,7 @@ public class Cli {
 
             //check Commands
             if (input.equals("beaten")) {
-                System.out.println(messages.getString("beaten_figures_label"));
+                System.out.println(LanguageManager.getText("beaten_figures_label"));
                 for (int i = 0; i < coreGame.getCurrentBoard().getBeatenFigures().size(); i++) {
                     System.out.println(coreGame.getCurrentBoard().getBeatenFigures().get(i).getSymbol());
                 }
@@ -98,7 +96,7 @@ public class Cli {
                     continue;
                 }
             }else { 
-                System.out.println(messages.getString("invalid_move_label"));
+                System.out.println(LanguageManager.getText("invalid_move_label"));
                 continue; 
             }
 
@@ -123,7 +121,7 @@ public class Cli {
      * Screen for credits
      */
     public static void endGame() {
-        System.out.println(messages.getString("gameover_label"));
+        System.out.println(LanguageManager.getText("gameover_label"));
     }
 
     /**

@@ -1,6 +1,8 @@
 package chess.gui;
 
 import chess.GameMode;
+import chess.managers.LanguageManager;
+import chess.managers.WindowManager;
 import chess.network.NetworkPlayer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,52 +43,32 @@ public class NetworkMenu {
 
     @FXML
     private void start(MouseEvent event){
-        try {
-            NetworkPlayer network;
-            if(joinGame.isSelected()) network = new NetworkPlayer(opponentIP.getText(), Integer.valueOf(port.getText()));
-            else network = new NetworkPlayer(Integer.valueOf(port.getText()), isBlack);
+        NetworkPlayer network;
+        if(joinGame.isSelected()) network = new NetworkPlayer(opponentIP.getText(), Integer.valueOf(port.getText()));
+        else network = new NetworkPlayer(Integer.valueOf(port.getText()), isBlack);
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
-            fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
-            Parent root = fxmlLoader.load();
-        
-            Controller controller = fxmlLoader.getController();
-            controller.init(GameMode.NETWORK,isBlack, network);
-        
-            Stage stage = new Stage();
-            stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
-            stage.setScene(new Scene(root));
-            stage.centerOnScreen();
-            stage.show();
-        
-            // Hide this current window
-            ((Node) (event.getSource())).getScene().getWindow().hide();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stage stage = new Stage();
+        stage.setTitle(LanguageManager.getText("game_title"));
+        stage.setScene(new Scene(WindowManager.createWindow("schachbrett.fxml")));
+        stage.centerOnScreen();
+
+        Controller controller = (Controller) WindowManager.getController();
+        controller.init(GameMode.NETWORK,isBlack, network);
+
+        stage.show();
 
         // Hide this current window
         ((Node) (event.getSource())).getScene().getWindow().hide();
-
     }
 
     @FXML
     private void backToMenu(MouseEvent event){
-    try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
-                fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale));
-                Parent root = fxmlLoader.load();
+        stage.setTitle(LanguageManager.getText("menu_title"));
+        stage.setScene(new Scene(WindowManager.createWindow("Menu.fxml")));
+        stage.show();
 
-                Stage stage = new Stage();
-                stage.setTitle("Menu");
-                stage.setScene(new Scene(root));
-                stage.show();
-
-                // Hide this current window
-                ((Node) (event.getSource())).getScene().getWindow().hide();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        // Hide this current window
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
     @FXML

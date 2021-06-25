@@ -2,6 +2,8 @@ package chess.gui;
 
 
 import chess.GameMode;
+import chess.managers.LanguageManager;
+import chess.managers.WindowManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -38,24 +40,18 @@ public class Menu {
      */
     @FXML
     private void setLanguage(){
-        if(Gui.messages.getLocale().getCountry().equals("DE")){
-            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("en", "US"));
-        }else if(Gui.messages.getLocale().getCountry().equals("US")){
-            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("fr", "FR"));
-        }else if(Gui.messages.getLocale().getCountry().equals("FR")){
-            Gui.messages = ResourceBundle.getBundle("/languages/MessagesBundle", new Locale("de", "DE"));
-        }
-        System.out.println(Gui.messages.getLocale().getCountry());
-        ((Label) pane.getChildren().get(3)).setText(Gui.messages.getString("game_title"));
-        ((RadioButton) pane.getChildren().get(4)).setText(Gui.messages.getString("gamemode01"));
-        ((RadioButton) pane.getChildren().get(5)).setText(Gui.messages.getString("gamemode02"));
-        ((Label) pane.getChildren().get(6)).setText(Gui.messages.getString("team_label"));
-        ((RadioButton) pane.getChildren().get(7)).setText(Gui.messages.getString("black_label"));
-        ((RadioButton) pane.getChildren().get(8)).setText(Gui.messages.getString("white_label"));
-        ((RadioButton) pane.getChildren().get(9)).setText(Gui.messages.getString("gamemode03"));
-        ((Button) pane.getChildren().get(10)).setText(Gui.messages.getString("start_button"));
-        ((Button) pane.getChildren().get(11)).setText(Gui.messages.getString("quit_button"));
-        ((Button) pane.getChildren().get(13)).setText(Gui.messages.getString("language"));
+        LanguageManager.nextLocale();
+
+        ((Label) pane.getChildren().get(3)).setText(LanguageManager.getText("game_title"));
+        ((RadioButton) pane.getChildren().get(4)).setText(LanguageManager.getText("gamemode01"));
+        ((RadioButton) pane.getChildren().get(5)).setText(LanguageManager.getText("gamemode02"));
+        ((Label) pane.getChildren().get(6)).setText(LanguageManager.getText("team_label"));
+        ((RadioButton) pane.getChildren().get(7)).setText(LanguageManager.getText("black_label"));
+        ((RadioButton) pane.getChildren().get(8)).setText(LanguageManager.getText("white_label"));
+        ((RadioButton) pane.getChildren().get(9)).setText(LanguageManager.getText("gamemode03"));
+        ((Button) pane.getChildren().get(10)).setText(LanguageManager.getText("start_button"));
+        ((Button) pane.getChildren().get(11)).setText(LanguageManager.getText("quit_button"));
+        ((Button) pane.getChildren().get(13)).setText(LanguageManager.getText("language"));
     }
 
     /**
@@ -73,34 +69,24 @@ public class Menu {
      */
     @FXML
     private void startGame(MouseEvent event) {
-        try {
-            FXMLLoader fxmlLoader;
-            Stage stage = new Stage();
-            Parent root;
-            if(gameMode== GameMode.NETWORK){
-                fxmlLoader = new FXMLLoader(getClass().getResource("Network.fxml"));
-                //fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", messages.getLocale()));
-                root = fxmlLoader.load();
-                stage.setTitle("Netzwerkmenü");
-            }else{
-                fxmlLoader = new FXMLLoader(getClass().getResource("schachbrett.fxml"));
-                fxmlLoader.setResources(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.messages.getLocale()));
-                root = fxmlLoader.load();
-                Controller controller = fxmlLoader.getController();
-                controller.init(gameMode, playerColorBlack, null);
-                stage.setTitle(ResourceBundle.getBundle("/languages/MessagesBundle", Gui.locale).getString("game_title"));
-
-            }
-            stage.setResizable(false);
-            stage.setScene(new Scene(root));
-            stage.centerOnScreen();
-            stage.show();
-
-            // Hide this current window
-            ((Node) (event.getSource())).getScene().getWindow().hide();
-        } catch (IOException e) {
-            e.printStackTrace();
+        FXMLLoader fxmlLoader;
+        Stage stage = new Stage();
+        Parent root;
+        if(gameMode== GameMode.NETWORK){
+            stage.setScene(new Scene(WindowManager.createWindow("Network.fxml")));
+            stage.setTitle(LanguageManager.getText("network_title"));
+        }else{
+            stage.setScene(new Scene(WindowManager.createWindow("schachbrett.fxml")));
+            stage.setTitle(LanguageManager.getText("game_title"));
+            Controller controller = (Controller) WindowManager.getController();
+            controller.init(gameMode, playerColorBlack, null);
         }
+        stage.setResizable(false);
+        stage.centerOnScreen();
+        stage.show();
+
+        // Hide this current window
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
 
