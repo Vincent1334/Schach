@@ -1,7 +1,10 @@
 package chess.model;
-
-import java.util.ResourceBundle;
-
+/**
+ * This class contains the parser logic
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-06-25
+ */
 public class Parser {
 
     /**
@@ -10,7 +13,6 @@ public class Parser {
      * @param input User input
      * @return Move coordinates
      */
-
     public static boolean validSyntax(String input) {
         // e.g. "b2-e5Q"
 
@@ -18,9 +20,7 @@ public class Parser {
         if (input.length() == 6) {
             correct = correct && checkConversionLetter(input);
         }
-        if (correct) return true;
-
-        return false;
+        return correct;
     }
 
     private static boolean checkLength(String input) {

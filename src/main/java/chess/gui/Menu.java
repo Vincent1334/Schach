@@ -16,10 +16,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 /**
  * manages the main menu options
  *

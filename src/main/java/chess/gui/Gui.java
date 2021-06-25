@@ -3,12 +3,8 @@ package chess.gui;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 /**
  * This class is the starting point for the graphical interface

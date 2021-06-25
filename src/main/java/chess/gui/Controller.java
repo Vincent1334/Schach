@@ -9,9 +9,7 @@ import chess.model.*;
 import chess.network.NetworkPlayer;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
@@ -25,7 +23,6 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import java.io.IOException;
 import java.util.*;
 import static javafx.scene.paint.Color.*;
 
@@ -44,7 +41,6 @@ public class Controller {
 
     @FXML
     private Pane menu;
-
 
     /**
      * initiates the controller and the logic

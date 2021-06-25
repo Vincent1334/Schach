@@ -3,12 +3,8 @@ package chess.cli;
 import chess.controller.CoreGame;
 import chess.ai.Computer;
 import chess.managers.LanguageManager;
-import chess.model.Move;
 import chess.model.Parser;
-import chess.model.Position;
 import java.util.Arrays;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.Scanner;
 
 /**

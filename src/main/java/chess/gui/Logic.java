@@ -9,15 +9,10 @@ import chess.network.NetworkPlayer;
 import chess.figures.Pawn;
 import chess.model.*;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.ResourceBundle;
 
 /**
  * transposes the logic of a move

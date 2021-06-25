@@ -10,9 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
 public class Promotion {
 
     private Logic logic;
