@@ -46,14 +46,15 @@ public class Cli {
                 System.out.println(LanguageManager.getText("gamemode_title"));
                 System.out.println(LanguageManager.getText("gamemode01"));
                 System.out.println(LanguageManager.getText("gamemode02"));
-                System.out.println(LanguageManager.getText("gamemode03"));
                 System.out.print(LanguageManager.getText("input_label"));
 
                 String input = scan.nextLine();
-                if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 51) {
+                if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 50) {
                     gameMode = input.charAt(0)-48;
                     coreGame = new CoreGame();
                     break;
+                }else if(input.equals("language")){
+                    LanguageManager.nextLocale();
                 }
             } while (true);
             //Enter simpleMode
@@ -83,6 +84,11 @@ public class Cli {
                 for (int i = 0; i < coreGame.getCurrentBoard().getBeatenFigures().size(); i++) {
                     System.out.println(coreGame.getCurrentBoard().getBeatenFigures().get(i).getSymbol());
                 }
+                continue;
+            }
+            if(input.equals("language")){
+                LanguageManager.nextLocale();
+                System.out.println(LanguageManager.getText("language"));
                 continue;
             }
 
