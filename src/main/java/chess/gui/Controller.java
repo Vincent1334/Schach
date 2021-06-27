@@ -38,6 +38,11 @@ public class Controller {
 
     private Logic logic;
     private int pointer;
+
+    public List<Text> getUndoRedoMovesAsText() {
+        return undoRedoMovesAsText;
+    }
+
     private List<Text> undoRedoMovesAsText = new ArrayList<>();
     private List<Board> undoRedoMovesAsBoard = new ArrayList<>();
 
@@ -185,10 +190,6 @@ public class Controller {
      * @param move the move that should be added to the history
      */
     public void updateHistory(Move move) {
-        if (!undoRedoMovesAsText.isEmpty()) {
-            resetUndoRedo();
-        }
-
         Text t = new Text(move.toString());
         t.setFill(valueOf("#515151"));
         t.setFont(new Font("Calibri", 15.0));
