@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.NetworkMenu">
+<Pane fx:id="menu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.NetworkMenu">
    <children>
       <ImageView fitHeight="292.0" fitWidth="169.0" layoutX="466.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -23,48 +23,73 @@
             <ColorAdjust brightness="0.23" />
          </effect>
       </ImageView>
-      <Rectangle fill="#393939" height="64.0" layoutX="-6.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="607.0" />
-      <Text fill="#5b5b5b" layoutX="29.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Netzwerkspieleinstellungen">
+      <Rectangle fill="#393939" height="45.0" layoutX="-6.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="607.0" />
+      <Text fill="#5b5b5b" layoutX="29.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%networkSettingsTitle">
          <font>
             <Font size="34.0" />
          </font>
       </Text>
-      <TextField fx:id="opponentIP" layoutX="235.0" layoutY="250.0" prefHeight="25.0" prefWidth="325.0" />
-      <Text fill="#5b5b5b" layoutX="58.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port:" textAlignment="CENTER" wrappingWidth="168.5029296875">
+      <TextField fx:id="opponentIP" layoutX="235.0" layoutY="250.0" prefHeight="25.0" prefWidth="325.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
+      <Text fill="#5b5b5b" layoutX="-6.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%port" textAlignment="CENTER" wrappingWidth="235.5029296875">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="234.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#start" prefHeight="25.0" prefWidth="326.0" style="-fx-background-color: #8fbe00;" text="Start" textFill="WHITE" />
-      <Button layoutX="54.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#backToMenu" prefHeight="25.0" prefWidth="169.0" style="-fx-background-color: #00A8C6;" text="Hauptmenü" textFill="WHITE" />
-      <Text fill="#5b5b5b" layoutX="58.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deine Farbe:" textAlignment="CENTER" wrappingWidth="168.5029296875">
+      <Button layoutX="234.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#start" prefHeight="25.0" prefWidth="326.0" style="-fx-background-color: #8fbe00;" text="%start_button" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="54.0" layoutY="342.0" mnemonicParsing="false" onMouseClicked="#backToMenu" prefHeight="25.0" prefWidth="169.0" style="-fx-background-color: #00A8C6;" text="%menu_button" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Text fill="#5b5b5b" layoutX="58.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%yourColor" textAlignment="CENTER" wrappingWidth="168.5029296875">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
       </Text>
-      <Rectangle fx:id="black" arcHeight="5.0" arcWidth="5.0" height="22.0" layoutX="234.0" layoutY="167.0" onMouseClicked="#setColour" stroke="#8fbe00" strokeType="OUTSIDE" strokeWidth="2.0" width="21.0" />
-      <Rectangle fx:id="white" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="22.0" layoutX="265.0" layoutY="167.0" onMouseClicked="#setColour" stroke="BLACK" strokeType="OUTSIDE" width="21.0" />
-      <TextField fx:id="port" layoutX="235.0" layoutY="281.0" prefHeight="25.0" prefWidth="325.0" text="5555" />
-      <Text fill="#5b5b5b" layoutX="58.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gegner IP Adresse:" textAlignment="CENTER" wrappingWidth="168.5029296875">
+      <Rectangle fx:id="black" arcHeight="5.0" arcWidth="5.0" height="22.0" layoutX="234.0" layoutY="167.0" onMouseClicked="#setColor" stroke="#8fbe00" strokeType="OUTSIDE" strokeWidth="2.0" width="21.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Rectangle>
+      <Rectangle fx:id="white" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="22.0" layoutX="265.0" layoutY="167.0" onMouseClicked="#setColor" stroke="BLACK" strokeType="OUTSIDE" width="21.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Rectangle>
+      <TextField fx:id="port" layoutX="235.0" layoutY="281.0" prefHeight="25.0" prefWidth="325.0" text="5555">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></TextField>
+      <Text fill="#5b5b5b" layoutX="-6.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%ip" textAlignment="CENTER" wrappingWidth="235.5029296875">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
       </Text>
-      <ProgressBar fx:id="progressBar" layoutX="19.0" layoutY="27.0" prefHeight="22.0" prefWidth="506.0" progress="0.0" />
-      <Button layoutX="535.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="25.0" prefWidth="51.0" style="-fx-background-color: #292929;" text="de" textFill="WHITE" />
-      <Group layoutX="29.0" layoutY="130.0">
-         <children>
-            <RadioButton fx:id="newGame" mnemonicParsing="false" text="Neues Spiel" textFill="#656565">
-               <font>
-                  <Font name="Calibri" size="21.0" />
-               </font>
-            </RadioButton>
-            <RadioButton fx:id="joinGame" layoutY="79.0" mnemonicParsing="false" text="Spiel beitreten" textFill="#656565">
-               <font>
-                  <Font name="Calibri" size="21.0" />
-               </font>
-            </RadioButton>
-         </children>
-      </Group>
+      <Button layoutX="535.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="25.0" prefWidth="51.0" style="-fx-background-color: #292929;" text="%language" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <RadioButton fx:id="newGame" layoutX="29.0" layoutY="130.0" mnemonicParsing="false" selected="true" text="%newGame" textFill="#656565">
+         <font>
+            <Font name="Calibri" size="21.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="game" />
+         </toggleGroup>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </RadioButton>
+      <RadioButton fx:id="joinGame" layoutX="29.0" layoutY="209.0" mnemonicParsing="false" text="%joinGame" textFill="#656565" toggleGroup="$game">
+         <font>
+            <Font name="Calibri" size="21.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </RadioButton>
    </children>
 </Pane>

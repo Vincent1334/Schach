@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  */
 @SuppressWarnings({"PMD.UnusedPrivateMethod"})
 // the methods setMode... and startGame are used by the gui but PMD didn't recognize
-public class Menu {
+public class MainMenu {
     private GameMode gameMode;
     private boolean playerColorBlack;
     @FXML

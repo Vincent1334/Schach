@@ -71,7 +71,7 @@ public class Controller {
 
         Stage stage = new Stage();
         stage.setTitle(LanguageManager.getText("menu_title"));
-        stage.setScene(new Scene(WindowManager.createWindow("Menu.fxml")));
+        stage.setScene(new Scene(WindowManager.createWindow("MainMenu.fxml")));
         stage.show();
 
         // Hide this current window

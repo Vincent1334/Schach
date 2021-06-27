@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
@@ -22,23 +23,38 @@
          <opaqueInsets>
             <Insets right="10.0" />
          </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="174.0" layoutY="96.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#getPromotionFigure" prefWidth="125.0" style="-fx-background-color: #00A8C6;" text="%bishop_label" textAlignment="CENTER" textFill="WHITE">
          <opaqueInsets>
             <Insets right="10.0" />
          </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="317.0" layoutY="96.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#getPromotionFigure" prefWidth="125.0" style="-fx-background-color: #00A8C6;" text="%rook_label" textAlignment="CENTER" textFill="WHITE">
          <opaqueInsets>
             <Insets right="10.0" />
          </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="458.0" layoutY="96.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#getPromotionFigure" prefWidth="125.0" style="-fx-background-color: #00A8C6;" text="%knight_label" textAlignment="CENTER" textFill="WHITE">
          <opaqueInsets>
             <Insets right="10.0" />
          </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button layoutX="555.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="26.0" prefWidth="35.0" style="-fx-background-color: #282828;" text="%language" textFill="WHITE" />
+      <Button layoutX="555.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="26.0" prefWidth="35.0" style="-fx-background-color: #282828;" text="%language" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
    </children>
    <effect>
       <DropShadow height="90.0" radius="44.5" spread="0.26" width="90.0">

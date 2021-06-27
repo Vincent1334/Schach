@@ -24,7 +24,7 @@ public class Gui extends Application {
 
         primaryStage.setTitle(LanguageManager.getText("menu_title"));
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(WindowManager.createWindow("Menu.fxml")));
+        primaryStage.setScene(new Scene(WindowManager.createWindow("MainMenu.fxml")));
         primaryStage.show();
     }
 
