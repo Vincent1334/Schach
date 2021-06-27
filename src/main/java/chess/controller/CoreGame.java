@@ -116,6 +116,10 @@ public class CoreGame {
         return currentBoard;
     }
 
+    public void setCurrentBoard(Board newBoard) {
+        this.currentBoard = newBoard;
+    }
+
     /*
      * <------System-components---------------------------------------------------------------------------------------->
      */
@@ -176,7 +180,7 @@ public class CoreGame {
 
     /**
      * Set active player manual. Important for JUnit test
-     * @param activePlayer the active player
+     * @param activePlayer the active player, true if its blacks turn
      */
     public void setActivePlayer(boolean activePlayer) {
         this.activePlayer = activePlayer;
@@ -184,10 +188,14 @@ public class CoreGame {
 
     /**
      * return the active player
-     * @return activePlayer
+     * @return activePlayer, true if its blacks turn
      */
     public boolean getActivePlayer(){
         return activePlayer;
+    }
+
+    public List<Board> getMoveHistory() {
+        return moveHistory;
     }
 
 }

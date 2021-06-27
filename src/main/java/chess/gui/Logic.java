@@ -35,9 +35,9 @@ public class Logic implements Runnable {
      *
      * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
      * @param playerColorBlack the color you want to play
-     * @param controller the controller
+     * @param controller       the controller
      */
-    public Logic(GameMode gameMode,boolean playerColorBlack,Controller controller, NetworkPlayer networkPlayer) {
+    public Logic(GameMode gameMode, boolean playerColorBlack, Controller controller, NetworkPlayer networkPlayer) {
         this.gameMode = gameMode;
         coreGame = new CoreGame();
         this.controller = controller;
@@ -61,7 +61,7 @@ public class Logic implements Runnable {
      * performs a move if the target position is clicked after the start position was clicked and if the move is allowed
      *
      * @param clickedField the clicked field
-     * @param blacksTurn is black on turn?
+     * @param blacksTurn   is black on turn?
      */
     public void handleFieldClick(Rectangle clickedField, boolean blacksTurn) {
         if (startField == null && controller.getFigure(clickedField) != null && controller.isImageBlack(controller.getFigure(clickedField)) == blacksTurn) {
@@ -83,7 +83,10 @@ public class Logic implements Runnable {
         Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
         Position targetPosition = new Position(GridPane.getColumnIndex(targetField) - 1, 8 - GridPane.getRowIndex(targetField));
 
-        if(coreGame.getCurrentBoard().getFigure(startPosition) instanceof Pawn && (targetPosition.getPosY() == 0 || targetPosition.getPosY() == 7)&& Rules.possibleTargetFields(startPosition,coreGame.getCurrentBoard()).contains(targetPosition)) {
+        // Pawn conversion popup
+        if (coreGame.getCurrentBoard().getFigure(startPosition) instanceof Pawn &&
+                (targetPosition.getPosY() == 0 || targetPosition.getPosY() == 7) &&
+                Rules.possibleTargetFields(startPosition, coreGame.getCurrentBoard()).contains(targetPosition)) {
             controller.getBoard().setMouseTransparent(true);
 
             Stage stage = new Stage();
@@ -91,11 +94,10 @@ public class Logic implements Runnable {
             stage.setScene(new Scene(WindowManager.createWindow("Promotion.fxml")));
 
             Promotion promotion = (Promotion) WindowManager.getController();
-            promotion.init(startPosition,targetPosition,this);
+            promotion.init(startPosition, targetPosition, this);
 
             stage.show();
-        }
-        else  performMove(new Move(startPosition, targetPosition));
+        } else performMove(new Move(startPosition, targetPosition));
     }
 
     /**
@@ -107,14 +109,15 @@ public class Logic implements Runnable {
         controller.getBoard().setMouseTransparent(false);
         controller.setMark(startField, false, coreGame.getCurrentBoard());
         if (coreGame.chessMove(move)) {
-            controller.updateScene(move, coreGame);
+            controller.updateHistory(move);
+            controller.updateScene();
             startField = null;
             if (gameMode == GameMode.COMPUTER) {
                 computerMove();
             }
             if (gameMode == GameMode.NETWORK) {
                 network.sendMove(move);
-                controller.setCalculating(true, LanguageManager.getText("network_player_waitning_label"));
+                controller.setCalculating(true, LanguageManager.getText("network_player_waiting_label"));
             }
         } else if (controller.getTouchMove().isSelected() && !controller.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
             controller.setMark(startField, true, coreGame.getCurrentBoard());
@@ -134,17 +137,19 @@ public class Logic implements Runnable {
 
     /**
      * return core game
+     *
      * @return CoreGame
      */
-    public CoreGame getCoreGame(){
+    public CoreGame getCoreGame() {
         return coreGame;
     }
 
     /**
      * Returns the start field
+     *
      * @return Rectangle startField
      */
-    public Rectangle getStartField(){
+    public Rectangle getStartField() {
         return startField;
     }
 
@@ -158,8 +163,8 @@ public class Logic implements Runnable {
     /**
      * Turns the task into thread if the networkPlayer thread is terminated
      */
-    public void killNetworkPlayer(){
-        if(network != null) network.killNetwork();
+    public void killNetworkPlayer() {
+        if (network != null) network.killNetwork();
     }
 
     /**
@@ -167,22 +172,28 @@ public class Logic implements Runnable {
      */
     @Override
     public void run() {
-        if(gameMode == GameMode.COMPUTER){
+        if (gameMode == GameMode.COMPUTER) {
             controller.setCalculating(false, LanguageManager.getText("calculating_label"));
             Move computerMove = computer.getMove();
             coreGame.chessMove(computerMove);
-            controller.updateScene(computerMove, coreGame);
+            controller.updateHistory(computerMove);
+            controller.updateScene();
         }
-        if(gameMode == GameMode.NETWORK){
-            if(network.isReadyToPlay()){
+        if (gameMode == GameMode.NETWORK) {
+            if (network.isReadyToPlay()) {
                 Move networkMove = network.getMove();
                 coreGame.chessMove(networkMove);
-                controller.updateScene(networkMove, coreGame);
-            }else{
+                controller.updateHistory(networkMove);
+                controller.updateScene();
+            } else {
                 isBlack = network.isBlack();
                 network.setReadyToPlay(true);
-                if(!isBlack) controller.setCalculating(false, "");
-                else controller.turnBoard(false);
+                if (!isBlack) {
+                    controller.setCalculating(false, "");
+                }
+                else {
+                    controller.turnBoard(false);
+                }
             }
         }
     }

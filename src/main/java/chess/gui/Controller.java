@@ -1,13 +1,13 @@
 package chess.gui;
 
 import chess.GameMode;
-import chess.controller.*;
 import chess.figures.Figure;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import chess.model.*;
 import chess.network.NetworkPlayer;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -22,7 +22,9 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.util.*;
+
 import static javafx.scene.paint.Color.*;
 
 /**
@@ -35,6 +37,9 @@ import static javafx.scene.paint.Color.*;
 public class Controller {
 
     private Logic logic;
+    private int pointer;
+    private List<Text> undoRedoMovesAsText = new ArrayList<>();
+    private List<Board> undoRedoMovesAsBoard = new ArrayList<>();
 
     final private static String QUEEN = "Queen";
 
@@ -44,10 +49,11 @@ public class Controller {
     /**
      * initiates the controller and the logic
      *
-     * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
+     * @param gameMode against a local friend (0) or a network game (1) or against the computer (2)
      */
     public void init(GameMode gameMode, boolean isBlack, NetworkPlayer networkPlayer) {
-        logic = new Logic(gameMode, isBlack,this, networkPlayer);
+        logic = new Logic(gameMode, isBlack, this, networkPlayer);
+        pointer = logic.getCoreGame().getMoveHistory().size() - 1;
     }
 
     /**
@@ -67,18 +73,73 @@ public class Controller {
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
+    public void undo(ActionEvent actionEvent) {
+        pointer--;
+        Board newBoard;
+        if (pointer >= 0) {
+            newBoard = logic.getCoreGame().getMoveHistory().get(pointer);
+        } else {
+            newBoard = new Board();
+        }
+        undoRedoMovesAsBoard.add(logic.getCoreGame().getCurrentBoard());
+
+        // setze BoardZustand eins zurück
+        logic.getCoreGame().setCurrentBoard(newBoard);
+
+        Text undoMove = (Text) getHistory().getChildren().get((pointer+1) * 2);
+        undoMove.setFill(RED);
+        undoRedoMovesAsText.add(undoMove);
+
+        // Spieler ist erneut dran
+        logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
+
+        updateScene();
+    }
+
+    public void redo(ActionEvent actionEvent) {
+        pointer++;
+        Board currentBoard;
+        if (pointer >= 0) {
+            currentBoard = logic.getCoreGame().getMoveHistory().get(pointer);
+        } else {
+            currentBoard = logic.getCoreGame().getMoveHistory().get(0);
+        }
+        undoRedoMovesAsBoard.remove(logic.getCoreGame().getCurrentBoard());
+
+        // setze BoardZustand wieder vor
+        logic.getCoreGame().setCurrentBoard(currentBoard);
+
+        Text undoMove = (Text) getHistory().getChildren().get(pointer * 2);
+        undoMove.setFill(valueOf("#515151"));
+        undoRedoMovesAsText.remove(undoRedoMovesAsText.size()-1);
+
+        logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
+
+        updateScene();
+    }
+
+    public void resetUndoRedo() {
+        // Listenanzeige
+        for (Text move : undoRedoMovesAsText) {
+            getHistory().getChildren().remove(move);
+        }
+        undoRedoMovesAsText.clear();
+
+        // MoveHistory von CoreGame & entsprechend Pointer
+        for (Board board : undoRedoMovesAsBoard) {
+            logic.getCoreGame().getMoveHistory().remove(board);
+        }
+        pointer = logic.getCoreGame().getMoveHistory().size() - 1;
+        undoRedoMovesAsBoard.clear();
+    }
 
     //----------------------------------Update----------------------------------------------------------------------------------------------
 
     /**
      * updates the scene (the board, the history, the beaten-figure-list, possible notifications, possible board turns)
-     *
-     * @param move     the move the player wants to make
-     * @param coreGame the current coreGame
      */
-    public void updateScene(Move move, CoreGame coreGame) {
+    public void updateScene() {
         drawBoard();
-        updateHistory(move);
         updateNotifications();
         updateBeatenFigures();
         if (getRotate().isSelected()) {
@@ -124,21 +185,27 @@ public class Controller {
      * @param move the move that should be added to the history
      */
     public void updateHistory(Move move) {
+        if (!undoRedoMovesAsText.isEmpty()) {
+            resetUndoRedo();
+        }
+
         Text t = new Text(move.toString());
         t.setFill(valueOf("#515151"));
-        t.setFont(new Font("Calibri",15.0));
+        t.setFont(new Font("Calibri", 15.0));
 
         Text index = new Text(" " + getHistory().getRowCount());
         index.setFill(valueOf("#00a8c6"));
-        index.setFont(new Font("Calibri",16.0));
+        index.setFont(new Font("Calibri", 16.0));
 
         getHistory().add(t, 2, getHistory().getRowCount());
         getHistory().add(index, 0, getHistory().getRowCount() - 1);
+
+
+        pointer = logic.getCoreGame().getMoveHistory().size() - 1;
     }
 
     /**
      * updates the beaten figure list in the gui
-     *
      */
     public void updateBeatenFigures() {
         int whiteIndex = 1;
@@ -146,26 +213,26 @@ public class Controller {
         int whiteCol = 0;
         int blackCol = 0;
 
-        for(Figure figure : logic.getCoreGame().getCurrentBoard().getBeatenFigures()){
+        for (Figure figure : logic.getCoreGame().getCurrentBoard().getBeatenFigures()) {
             ImageView iv = new ImageView(ImageHandler.getImageBySymbol(figure.getSymbol()));
-            iv.setEffect(new DropShadow(2.0,2.0,2.0,valueOf("#777777")));
+            iv.setEffect(new DropShadow(2.0, 2.0, 2.0, valueOf("#777777")));
             iv.preserveRatioProperty().setValue(true);
             iv.setFitHeight(50.0);
             iv.setRotate(0);
 
             GridPane.setColumnIndex(iv, figure.isBlack() ? blackCol : whiteCol);
             GridPane.setRowIndex(iv, figure.isBlack() ? blackIndex : whiteIndex);
-            if(figure.isBlack()){
+            if (figure.isBlack()) {
                 getBeatenFiguresBlack().getChildren().add(iv);
-                blackIndex ++;
-                if(blackIndex == 9){
+                blackIndex++;
+                if (blackIndex == 9) {
                     blackIndex = 1;
                     blackCol = 1;
                 }
-            }else{
+            } else {
                 getBeatenFiguresWhite().getChildren().add(iv);
-                whiteIndex ++;
-                if(whiteIndex == 9){
+                whiteIndex++;
+                if (whiteIndex == 9) {
                     whiteIndex = 1;
                     whiteCol = 1;
                 }
@@ -196,14 +263,14 @@ public class Controller {
      * turns the chessboard so that the figures of the actualPlayer are always on the bottom
      */
     public void turnBoard(boolean reset) {
-        if(reset){
+        if (reset) {
             getBoard().setRotate(0);
             turnFigures(0);
-        }else{
-            if(logic.getCoreGame().getActivePlayer()){
+        } else {
+            if (logic.getCoreGame().getActivePlayer()) {
                 getBoard().setRotate(180);
                 turnFigures(180);
-            }else{
+            } else {
                 getBoard().setRotate(0);
                 turnFigures(0);
             }
@@ -235,7 +302,7 @@ public class Controller {
      */
     @FXML
     private void updatePossibleMovesButton() {
-        markPossibleFields(logic.getStartField(),getPossibleMove().isSelected(), logic.getCoreGame().getCurrentBoard());
+        markPossibleFields(logic.getStartField(), getPossibleMove().isSelected(), logic.getCoreGame().getCurrentBoard());
     }
 
     /**
@@ -304,7 +371,6 @@ public class Controller {
     }
 
 
-
     /**
      * Marks or unmarks the field and if selected the possible moves of the figure on the field
      *
@@ -324,8 +390,8 @@ public class Controller {
         }
     }
 
-    protected void markPossibleFields(Rectangle field, boolean mark, Board board){
-        if(mark){
+    protected void markPossibleFields(Rectangle field, boolean mark, Board board) {
+        if (mark) {
             if (getPossibleMove().isSelected()) {
                 for (Rectangle f : getPossibleFields(field, board)) {
                     f.setStroke(valueOf("#8fbe00"));
@@ -333,7 +399,7 @@ public class Controller {
                     f.setStrokeType(StrokeType.INSIDE);
                 }
             }
-        }else{
+        } else {
             for (Rectangle f : getPossibleFields(field, board)) {
                 f.setStrokeWidth(0);
             }
@@ -460,50 +526,49 @@ public class Controller {
     }
 
 
-
     //labels and buttons
 
-    protected GridPane getBeatenFiguresWhite(){
+    protected GridPane getBeatenFiguresWhite() {
         return (GridPane) menu.getChildren().get(3);
     }
 
-    protected GridPane getBoard(){
+    protected GridPane getBoard() {
         return (GridPane) menu.getChildren().get(4);
     }
 
-    private Label getLabelHistory(){
+    private Label getLabelHistory() {
         return (Label) menu.getChildren().get(5);
     }
 
-    protected GridPane getHistory(){
+    protected GridPane getHistory() {
         return (GridPane) ((ScrollPane) menu.getChildren().get(6)).getContent();
     }
 
-    private Label getLabelCheck(){
+    private Label getLabelCheck() {
         return (Label) menu.getChildren().get(7);
     }
 
-    private Label getLabelCalculating(){
+    private Label getLabelCalculating() {
         return (Label) menu.getChildren().get(8);
     }
 
-    protected CheckBox getTouchMove(){
+    protected CheckBox getTouchMove() {
         return (CheckBox) menu.getChildren().get(9);
     }
 
-    protected CheckBox getPossibleMove(){
+    protected CheckBox getPossibleMove() {
         return (CheckBox) menu.getChildren().get(10);
     }
 
-    protected CheckBox getRotate(){
+    protected CheckBox getRotate() {
         return (CheckBox) menu.getChildren().get(11);
     }
 
-    protected CheckBox getShowFlags(){
+    protected CheckBox getShowFlags() {
         return (CheckBox) menu.getChildren().get(12);
     }
 
-    private Button getBackToMenu(){
+    private Button getBackToMenu() {
         return (Button) menu.getChildren().get(13);
     }
 
@@ -525,12 +590,11 @@ public class Controller {
         return (Rectangle) menu.getChildren().get(15);
     }
 
-    private Button getLanguage(){
+    private Button getLanguage() {
         return (Button) menu.getChildren().get(16);
     }
 
-    private GridPane getBeatenFiguresBlack(){
-        return  (GridPane) menu.getChildren().get(17);
+    private GridPane getBeatenFiguresBlack() {
+        return (GridPane) menu.getChildren().get(17);
     }
-
 }
