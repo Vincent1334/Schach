@@ -35,37 +35,36 @@ public class Client implements Runnable{
 
     @Override
     public void run() {
+        if(!isConnected){
+            try{
+                clientSocket = new Socket(ipAddress, port);
+                out = new PrintWriter(clientSocket.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                out.println("start");
+            }catch (Exception x){
+                System.out.println("Cant connect");
+            }
+        }
         while(true){
             try{
-                if(!isConnected){
-                    clientSocket = new Socket(ipAddress, port);
-                    out = new PrintWriter(clientSocket.getOutputStream(), true);
-                    in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                    out.println("start");
-                    Thread.sleep(1000);
-                    String input = in.readLine();
-                    if(input != null){
-                        if(input.equals("white")){
-                            isBlack = false;
-                        }
-                        else{
-                            isBlack = true;
-                        }
-                        isConnected = true;
-                        gui.computerOrNetworkIsFinish();
-                        break;
-                    }
-                }else{
-                    String input = in.readLine();
-                    if(input != null){
+                String input = in.readLine();
+                if(input != null){
+                    if(isConnected){
                         networkMove = Parser.parse(input);
                         gui.computerOrNetworkIsFinish();
                         break;
                     }
-
+                    if(input.equals("white")){
+                        isBlack = false;
+                        isConnected = true;
+                        break;
+                    }
+                    if(input.equals("black")){
+                        isBlack = true;
+                        isConnected = true;
+                    }
                 }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            }catch (Exception x){
             }
         }
     }

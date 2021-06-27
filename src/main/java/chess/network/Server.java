@@ -61,7 +61,7 @@ public class Server implements Runnable{
                     if(input.equals("ready")){
                         gui.computerOrNetworkIsFinish();
                         //leave listener if server starts with white
-                        if(isBlack) break;
+                        if(!isBlack) break;
                     }
                     //get Move message
                     networkMove = Parser.parse(input);
