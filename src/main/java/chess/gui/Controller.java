@@ -87,9 +87,10 @@ public class Controller {
             newBoard = new Board();
         }
         undoRedoMovesAsBoard.add(logic.getCoreGame().getCurrentBoard());
+//        logic.getCoreGame().getMoveHistory().add(newBoard);
 
-        // setze BoardZustand eins zurück
-        logic.getCoreGame().setCurrentBoard(newBoard);
+        // setze BoardZustand eins zurück (auf eine Kopie)
+        logic.getCoreGame().setCurrentBoard(new Board(newBoard));
 
         Text undoMove = (Text) getHistory().getChildren().get((pointer+1) * 2);
         undoMove.setFill(RED);
@@ -112,7 +113,7 @@ public class Controller {
         undoRedoMovesAsBoard.remove(logic.getCoreGame().getCurrentBoard());
 
         // setze BoardZustand wieder vor
-        logic.getCoreGame().setCurrentBoard(currentBoard);
+        logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
 
         Text undoMove = (Text) getHistory().getChildren().get(pointer * 2);
         undoMove.setFill(valueOf("#515151"));
@@ -144,6 +145,17 @@ public class Controller {
      * updates the scene (the board, the history, the beaten-figure-list, possible notifications, possible board turns)
      */
     public void updateScene() {
+        for (int i = 0; i < logic.getCoreGame().getMoveHistory().size(); i++) {
+            for (int y = 0; y < 8; y++) {
+                System.out.print(8 - y + " ");
+                for (int x = 0; x < 8; x++) {
+                    System.out.print(logic.getCoreGame().getMoveHistory().get(i).getFigure(x, 7 - y).getSymbol() + " ");
+                }
+                System.out.println("");
+            }
+            System.out.println("  a b c d e f g h");
+            System.out.println("");
+        }
         drawBoard();
         updateNotifications();
         updateBeatenFigures();
