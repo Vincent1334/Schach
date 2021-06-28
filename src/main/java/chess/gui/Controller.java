@@ -276,6 +276,7 @@ public class Controller {
                 }
             }
         }
+        if(logic.getGameMode() != GameMode.NORMAL && logic.isBlack()) turnFigures(180);
     }
 
     /**
@@ -301,7 +302,7 @@ public class Controller {
      *
      * @param angle the angle around which the figures are rotated
      */
-    private void turnFigures(int angle) {
+    public void turnFigures(int angle) {
         for (Node node : getBoard().getChildren()) {
             node.setRotate(angle);
         }

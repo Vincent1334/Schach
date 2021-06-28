@@ -170,6 +170,14 @@ public class Logic implements Runnable {
         if (network != null) network.killNetwork();
     }
 
+    public GameMode getGameMode(){
+        return gameMode;
+    }
+
+    public boolean isBlack(){
+        return isBlack;
+    }
+
     /**
      * executes the computer move
      */
@@ -186,16 +194,19 @@ public class Logic implements Runnable {
             if (network.isReadyToPlay()) {
                 Move networkMove = network.getMove();
                 coreGame.chessMove(networkMove);
+                controller.setCalculating(false, "");
                 controller.updateHistory(networkMove);
                 controller.updateScene();
             } else {
+                System.out.print("Ich wurde ausgeführt");
                 isBlack = network.isBlack();
                 network.setReadyToPlay(true);
-                if (!isBlack) {
+                if (isBlack) {
+                    controller.setCalculating(true, LanguageManager.getText("network_player_waiting_label"));
+                    controller.getBoard().setRotate(180);
+                    controller.turnFigures(180);
+                }else {
                     controller.setCalculating(false, "");
-                }
-                else {
-                    controller.turnBoard(false);
                 }
             }
         }

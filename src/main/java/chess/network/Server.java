@@ -43,35 +43,36 @@ public class Server implements Runnable{
                 clientSocket = serverSocket.accept();
                 out = new PrintWriter(clientSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                isConnected = true;
             }
-        }catch(Exception x){
-        }
-        //Listener for Server input
-        while(true){
-            try{
+            while(true){
                 String input = in.readLine();
                 if(input != null){
+                    System.out.println(input);
                     //check if new client is connected
-                    if(input.equals("start")){                        
-                        //send Team color
-                        out.println(isBlack ? "black" : "white");
-                        continue;
+                    if(!isConnected){
+                        if(input.equals("start")){
+                            //send Team color
+                            out.println(isBlack ? "white" : "black");
+                            System.out.println("Server: " + (isBlack ? "black" : "white"));
+                            continue;
+                        }
+                        if(input.equals("ready")){
+                            //leave listener if server starts with white
+                            isConnected = true;
+                            gui.computerOrNetworkIsFinish();
+                            if(!isBlack) break;
+                            else continue;
+                        }
                     }
-                    if(input.equals("ready")){
-                        gui.computerOrNetworkIsFinish();
-                        //leave listener if server starts with white
-                        if(!isBlack) break;
-                    }
+
                     //get Move message
                     networkMove = Parser.parse(input);
                     gui.computerOrNetworkIsFinish();
                     break;
                 }
-
-            }catch(Exception x){
-                x.printStackTrace();
             }
+
+        }catch(Exception x){
         }
     }
     

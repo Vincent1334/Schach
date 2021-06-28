@@ -54,14 +54,19 @@ public class Client implements Runnable{
                         gui.computerOrNetworkIsFinish();
                         break;
                     }
+                    System.out.println("Client: " + input);
                     if(input.equals("white")){
                         isBlack = false;
                         isConnected = true;
+                        out.println("ready");
+                        gui.computerOrNetworkIsFinish();
                         break;
                     }
                     if(input.equals("black")){
                         isBlack = true;
                         isConnected = true;
+                        out.println("ready");
+                        gui.computerOrNetworkIsFinish();
                     }
                 }
             }catch (Exception x){

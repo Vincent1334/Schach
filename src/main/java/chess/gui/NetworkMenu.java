@@ -34,22 +34,27 @@ public class NetworkMenu {
 
     @FXML
     private void start(MouseEvent event){
-        NetworkPlayer network;
-        if(getButtonJoinGame().isSelected()) network = new NetworkPlayer(getTextIP().getText(), Integer.valueOf(getTextPort().getText()));
-        else network = new NetworkPlayer(Integer.valueOf(getTextPort().getText()), isBlack);
+        try{
+            NetworkPlayer network;
+            if(getButtonJoinGame().isSelected()) network = new NetworkPlayer(getIPInput().getText(), Integer.valueOf(getPortInput().getText()));
+            else network = new NetworkPlayer(Integer.valueOf(getPortInput().getText()), isBlack);
 
-        Stage stage = new Stage();
-        stage.setTitle(LanguageManager.getText("game_title"));
-        stage.setScene(new Scene(WindowManager.createWindow("schachbrett.fxml")));
-        stage.centerOnScreen();
+            Stage stage = new Stage();
+            stage.setTitle(LanguageManager.getText("game_title"));
+            stage.setScene(new Scene(WindowManager.createWindow("schachbrett.fxml")));
+            stage.centerOnScreen();
 
-        Controller controller = (Controller) WindowManager.getController();
-        controller.init(GameMode.NETWORK,isBlack, network);
+            Controller controller = (Controller) WindowManager.getController();
+            controller.init(GameMode.NETWORK,isBlack, network);
 
-        stage.show();
+            stage.show();
 
-        // Hide this current window
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+            // Hide this current window
+            ((Node) (event.getSource())).getScene().getWindow().hide();
+        }catch(Exception x){
+            getNetworkError().setVisible(true);
+        }
+
     }
 
     @FXML
@@ -94,7 +99,7 @@ public class NetworkMenu {
         getTextPort().setText(LanguageManager.getText("port"));
         getButtonMenu().setText(LanguageManager.getText("menu_button"));
         getButtonStart().setText(LanguageManager.getText("start_button"));
-
+        getNetworkError().setText(LanguageManager.getText("network_error"));
     }
 
     private Text getTitle() {
@@ -123,5 +128,10 @@ public class NetworkMenu {
     }
     private RadioButton getButtonJoinGame(){
         return (RadioButton) menu.getChildren().get(14);
+    }
+    private TextField getPortInput() {return (TextField) menu.getChildren().get(10);}
+    private TextField getIPInput() {return (TextField) menu.getChildren().get(3);}
+    private Text getNetworkError(){
+        return (Text) menu.getChildren().get(15);
     }
 }

@@ -91,5 +91,10 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </RadioButton>
+      <Text fill="RED" layoutX="235.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%network_error" visible="false" wrappingWidth="235.5029296875">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Text>
    </children>
 </Pane>
