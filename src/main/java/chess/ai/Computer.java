@@ -120,7 +120,7 @@ public class Computer implements Runnable{
         sortMove(possibleMove, ParentCutOff.getParentCutOff());
 
         //Game over?
-        if (possibleMove.size() == 0) return heuristic(board, ParentCutOff.getLastMove());
+        if (possibleMove.size() == 0) return Float.NEGATIVE_INFINITY;
 
         //create CutOff
         ArrayList<Move> cutOff = new ArrayList<Move>();
@@ -162,7 +162,7 @@ public class Computer implements Runnable{
         sortMove(possibleMove, ParentCutOff.getParentCutOff());
 
         //Game over?
-        if (possibleMove.size() == 0) return heuristic(board, ParentCutOff.getLastMove());
+        if (possibleMove.size() == 0) return Float.POSITIVE_INFINITY;
 
         //create CutOff
         List<Move> cutOff = new ArrayList<Move>();

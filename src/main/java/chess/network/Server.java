@@ -3,11 +3,15 @@ package chess.network;
 import chess.gui.Logic;
 import chess.model.Move;
 import chess.model.Parser;
-
 import java.net.*;
 import java.io.*;
-import java.util.*;
 
+/**
+ * This class contains the server logic
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-06-28
+ */
 public class Server implements Runnable{
     
     private boolean isBlack;
@@ -23,6 +27,12 @@ public class Server implements Runnable{
     private int port;
     private boolean isConnected;
 
+    /**
+     * Server constructor
+     * @param port server port
+     * @param isBlack server team
+     * @param gui gui for thread
+     */
     public Server(int port, boolean isBlack, Logic gui){
         try{       
             this.isBlack = isBlack;
@@ -35,6 +45,9 @@ public class Server implements Runnable{
         }
     }
 
+    /**
+     * Server loop
+     */
     @Override
     public void run() {
         try{
@@ -75,24 +88,38 @@ public class Server implements Runnable{
         }catch(Exception x){
         }
     }
-    
+
+    /**
+     * Return move
+     * @return move
+     */
     public Move getMove(){
         return networkMove;
     }
-    
+
+    /**
+     * Send move to client
+     * @param move the move
+     */
     public void sendMove(Move move){
         out.println(move.toString());
         thread = new Thread(this);
         thread.start();
     }
-    
+
+    /**
+     * Send a message to client
+     * @param message Message as String
+     */
      public void sendMessage(String message){
         out.println(message);
         thread = new Thread(this);
         thread.start();
      }
 
-
+    /**
+     * Stops the server and all components
+     */
     public void stop() {
         try {
             in.close();

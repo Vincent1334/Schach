@@ -5,8 +5,13 @@ import chess.model.Move;
 import chess.model.Parser;
 import java.net.*;
 import java.io.*;
-import java.util.*;
 
+/**
+ * This class contains the client logic
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-06-28
+ */
 public class Client implements Runnable{
     private Socket clientSocket;
     private PrintWriter out;
@@ -21,6 +26,12 @@ public class Client implements Runnable{
 
     private boolean isConnected;
 
+    /**
+     * Client constructor
+     * @param ipAddress Server address
+     * @param port Server port
+     * @param gui gui for Thread
+     */
     public Client(String ipAddress, int port, Logic gui){
         try {
             this.ipAddress = ipAddress;
@@ -33,6 +44,9 @@ public class Client implements Runnable{
         }
     }
 
+    /**
+     * Client loop
+     */
     @Override
     public void run() {
         if(!isConnected){
@@ -70,34 +84,58 @@ public class Client implements Runnable{
                     }
                 }
             }catch (Exception x){
+                x.printStackTrace();
             }
         }
     }
 
+    /**
+     * Get client thread
+     * @return Thread
+     */
     public Thread getThread(){
         return thread;
     }
 
+    /**
+     * get move from Server
+     * @return move
+     */
     public Move getMove(){
         return networkMove;
     }
 
+    /**
+     * Send move to Server
+     * @param move Move
+     */
     public void sendMove(Move move){
         out.println(move.toString());
         thread = new Thread(this);
         thread.start();
     }
 
+    /**
+     * Send string message to Server
+     * @param message String message
+     */
     public void sendMessage(String message){
         out.println(message);
         thread = new Thread(this);
         thread.start();
     }
 
+    /**
+     * Returns Client team
+     * @return isBlack
+     */
     public boolean isBlack(){
         return isBlack;
     }
 
+    /**
+     * Stop client and all components
+     */
     public void stop() {
         try {
             in.close();
