@@ -79,6 +79,12 @@ public class Controller {
     }
 
     public void undo(ActionEvent actionEvent) {
+        // aktualisiere History
+        Text undoMove = (Text) getHistory().getChildren().get(pointer);
+        undoMove.setFill(RED);
+        undoRedoMovesAsText.add(undoMove);
+
+        // BoardZustand
         pointer--;
         Board newBoard;
         if (pointer >= 0) {
@@ -87,22 +93,22 @@ public class Controller {
             newBoard = new Board();
         }
         undoRedoMovesAsBoard.add(logic.getCoreGame().getCurrentBoard());
-//        logic.getCoreGame().getMoveHistory().add(newBoard);
-
-        // setze BoardZustand eins zurück (auf eine Kopie)
+        // setze BoardZustand eins zurück (auf eine Kopie, sonst wird newBoard im nächsten Zug mitverändert)
         logic.getCoreGame().setCurrentBoard(new Board(newBoard));
 
-        Text undoMove = (Text) getHistory().getChildren().get((pointer+1) * 2);
-        undoMove.setFill(RED);
-        undoRedoMovesAsText.add(undoMove);
-
-        // Spieler ist erneut dran
+        // Spielerwechsel
         logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
 
         updateScene();
     }
 
     public void redo(ActionEvent actionEvent) {
+        // aktualisiere History
+        Text undoMove = (Text) getHistory().getChildren().get(pointer + 1);
+        undoMove.setFill(valueOf("#515151"));
+        undoRedoMovesAsText.remove(undoRedoMovesAsText.size() - 1);
+
+        // BoardZustand
         pointer++;
         Board currentBoard;
         if (pointer >= 0) {
@@ -115,9 +121,6 @@ public class Controller {
         // setze BoardZustand wieder vor
         logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
 
-        Text undoMove = (Text) getHistory().getChildren().get(pointer * 2);
-        undoMove.setFill(valueOf("#515151"));
-        undoRedoMovesAsText.remove(undoRedoMovesAsText.size()-1);
 
         logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
 
@@ -127,7 +130,8 @@ public class Controller {
     public void resetUndoRedo() {
         // Listenanzeige
         for (Text move : undoRedoMovesAsText) {
-            getHistory().getChildren().remove(move);
+//            getHistory().getRowConstraints().remove(move);
+            getHistory().getChildren().removeIf(node -> node.equals(move));
         }
         undoRedoMovesAsText.clear();
 
@@ -202,16 +206,18 @@ public class Controller {
      * @param move the move that should be added to the history
      */
     public void updateHistory(Move move) {
-        Text t = new Text(move.toString());
+        Text t = new Text(getHistory().getRowCount() + "     " + move.toString());
         t.setFill(valueOf("#515151"));
         t.setFont(new Font("Calibri", 15.0));
 
-        Text index = new Text(" " + getHistory().getRowCount());
+        /*Text index = new Text(" " + getHistory().getRowCount());
         index.setFill(valueOf("#00a8c6"));
         index.setFont(new Font("Calibri", 16.0));
 
         getHistory().add(t, 2, getHistory().getRowCount());
-        getHistory().add(index, 0, getHistory().getRowCount() - 1);
+        getHistory().add(index, 0, getHistory().getRowCount() - 1);*/
+
+        getHistory().add(t, 0, getHistory().getRowCount());
 
 
         pointer = logic.getCoreGame().getMoveHistory().size() - 1;
