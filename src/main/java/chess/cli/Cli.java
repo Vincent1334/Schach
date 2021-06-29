@@ -145,33 +145,37 @@ public class Cli {
     }
 
     public static void undo() {
-        pointer--;
-        Board newBoard;
         if (pointer >= 0) {
-            newBoard = coreGame.getMoveHistory().get(pointer);
-        } else {
-            newBoard = new Board();
+            pointer--;
+            Board newBoard;
+            if (pointer >= 0) {
+                newBoard = coreGame.getMoveHistory().get(pointer);
+            } else {
+                newBoard = new Board();
+            }
+            undoRedoMovesAsBoard.add(coreGame.getCurrentBoard());
+            //Board eins zurück setzen
+            coreGame.setCurrentBoard(new Board(newBoard));
+            //Spielerwechsel
+            coreGame.setActivePlayer(!coreGame.getActivePlayer());
         }
-        undoRedoMovesAsBoard.add(coreGame.getCurrentBoard());
-        //Board eins zurück setzen
-        coreGame.setCurrentBoard(new Board(newBoard));
-        //Spielerwechsel
-        coreGame.setActivePlayer(!coreGame.getActivePlayer());
     }
 
     public static void redo() {
-        pointer++;
-        Board currentBoard;
-        if (pointer >= 0) {
-            currentBoard = coreGame.getMoveHistory().get(pointer);
-        } else {
-            currentBoard = coreGame.getMoveHistory().get(0);
+        if (undoRedoMovesAsBoard.size() > 0) {
+            pointer++;
+            Board currentBoard;
+            if (pointer >= 0) {
+                currentBoard = coreGame.getMoveHistory().get(pointer);
+            } else {
+                currentBoard = coreGame.getMoveHistory().get(0);
+            }
+            undoRedoMovesAsBoard.remove(coreGame.getMoveHistory().get(pointer));
+            //setze Board eins vor
+            coreGame.setCurrentBoard(new Board(currentBoard));
+            //Spielerwechsel
+            coreGame.setActivePlayer(!coreGame.getActivePlayer());
         }
-        undoRedoMovesAsBoard.remove(coreGame.getMoveHistory().get(pointer));
-        //setze Board eins vor
-        coreGame.setCurrentBoard(new Board(currentBoard));
-        //Spielerwechsel
-        coreGame.setActivePlayer(!coreGame.getActivePlayer());
     }
 
     public static void resetUndoRedo() {
