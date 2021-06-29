@@ -143,6 +143,7 @@ public class Cli {
                 }
                 //perform computer move
                 coreGame.chessMove(computer.getMove());
+                pointer = coreGame.getMoveHistory().size() - 1;
             }
         } while (!coreGame.isGameOver());
     }
