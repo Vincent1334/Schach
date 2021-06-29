@@ -132,7 +132,7 @@ public class Logic implements Runnable {
     /**
      * starts a computer move
      */
-    private void computerMove() {
+    public void computerMove() {
         computer.makeMove(coreGame.getCurrentBoard());
         controller.setCalculating(true, LanguageManager.getText("calculating_label"));
     }

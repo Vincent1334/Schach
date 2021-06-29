@@ -173,8 +173,14 @@ public class Cli {
             undoRedoMovesAsBoard.remove(coreGame.getMoveHistory().get(pointer));
             //setze Board eins vor
             coreGame.setCurrentBoard(new Board(currentBoard));
-            //Spielerwechsel
-            coreGame.setActivePlayer(!coreGame.getActivePlayer());
+            if (gameMode == 2){
+                //perform computer move
+                coreGame.chessMove(computer.getMove());
+            } else {
+                //Spielerwechsel
+                coreGame.setActivePlayer(!coreGame.getActivePlayer());
+            }
+
         }
     }
 

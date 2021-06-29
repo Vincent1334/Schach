@@ -123,9 +123,11 @@ public class Controller {
             // setze BoardZustand wieder vor
             logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
 
-
-            logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
-
+            if (logic.getGameMode() == GameMode.COMPUTER){
+                logic.computerMove();
+            } else {
+                logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
+            }
             updateScene();
         }
     }
