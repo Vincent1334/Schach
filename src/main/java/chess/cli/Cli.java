@@ -5,7 +5,11 @@ import chess.ai.Computer;
 import chess.managers.LanguageManager;
 import chess.model.Board;
 import chess.model.Parser;
+import javafx.scene.text.Text;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -18,6 +22,8 @@ public class Cli {
     private static int gameMode = 0;
     private static Computer computer;
     private static int pointer;
+
+    private static List<Board> undoRedoMovesAsBoard = new ArrayList<>();
 
     /**
      * The entry point of the CLI application.
@@ -33,6 +39,7 @@ public class Cli {
 
     /**
      * User interface to initial the Gamemode
+     *
      * @param args for simple mode
      */
     public static void init(String[] args) {
@@ -52,10 +59,10 @@ public class Cli {
 
                 String input = scan.nextLine();
                 if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 50) {
-                    gameMode = input.charAt(0)-48;
+                    gameMode = input.charAt(0) - 48;
                     coreGame = new CoreGame();
                     break;
-                }else if(input.equals("language")){
+                } else if (input.equals("language")) {
                     LanguageManager.nextLocale();
                 }
             } while (true);
@@ -65,7 +72,7 @@ public class Cli {
         }
 
         //create Computer
-        if(gameMode == 2){
+        if (gameMode == 2) {
             computer = new Computer(true);
         }
 
@@ -91,32 +98,37 @@ public class Cli {
                 }
                 continue;
             }
-            if(input.equals("language")){
+            if (input.equals("language")) {
                 LanguageManager.nextLocale();
                 System.out.println(LanguageManager.getText("language"));
                 continue;
             }
 
-            if(input.equals("undo")){
+            if (input.equals("undo")) {
                 undo();
             }
 
-            if(input.equals("redo")){
+            if (input.equals("redo")) {
                 redo();
             }
 
             // Check syntax and make move
             if (Parser.validSyntax(input)) {
-                if(!coreGame.chessMove(Parser.parse(input))){
+                if (!coreGame.chessMove(Parser.parse(input))) {
                     continue;
+                } else {
+                    pointer = coreGame.getMoveHistory().size() - 1;
+                    if (!undoRedoMovesAsBoard.isEmpty()) {
+                        resetUndoRedo();
+                    }
                 }
-            }else { 
+            } else {
                 System.out.println(LanguageManager.getText("invalid_move_label"));
-                continue; 
+                continue;
             }
 
             // Check computer move
-            if(gameMode == 2) {
+            if (gameMode == 2) {
                 //draw human input
                 drawBoard();
                 computer.makeMove(coreGame.getCurrentBoard());
@@ -140,6 +152,7 @@ public class Cli {
         } else {
             newBoard = new Board();
         }
+        undoRedoMovesAsBoard.add(coreGame.getCurrentBoard());
         //Board eins zurück setzen
         coreGame.setCurrentBoard(new Board(newBoard));
         //Spielerwechsel
@@ -154,10 +167,20 @@ public class Cli {
         } else {
             currentBoard = coreGame.getMoveHistory().get(0);
         }
+        undoRedoMovesAsBoard.remove(coreGame.getCurrentBoard());
         //setze Board eins vor
         coreGame.setCurrentBoard(new Board(currentBoard));
         //Spielerwechsel
         coreGame.setActivePlayer(!coreGame.getActivePlayer());
+    }
+
+    public static void resetUndoRedo() {
+        // MoveHistory von CoreGame & entsprechend Pointer
+        for (Board board : undoRedoMovesAsBoard) {
+            coreGame.getMoveHistory().remove(board);
+        }
+        pointer = coreGame.getMoveHistory().size() - 1;
+        undoRedoMovesAsBoard.clear();
     }
 
     /**

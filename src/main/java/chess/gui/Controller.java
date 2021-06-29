@@ -149,6 +149,7 @@ public class Controller {
      * updates the scene (the board, the history, the beaten-figure-list, possible notifications, possible board turns)
      */
     public void updateScene() {
+        // zu Testzwecken
         for (int i = 0; i < logic.getCoreGame().getMoveHistory().size(); i++) {
             for (int y = 0; y < 8; y++) {
                 System.out.print(8 - y + " ");
@@ -160,6 +161,7 @@ public class Controller {
             System.out.println("  a b c d e f g h");
             System.out.println("");
         }
+
         drawBoard();
         updateNotifications();
         updateBeatenFigures();
@@ -276,7 +278,7 @@ public class Controller {
                 }
             }
         }
-        if(logic.getGameMode() != GameMode.NORMAL && logic.isBlack()) turnFigures(180);
+        if (logic.getGameMode() != GameMode.NORMAL && logic.isBlack()) turnFigures(180);
     }
 
     /**
