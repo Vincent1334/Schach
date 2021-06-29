@@ -15,7 +15,7 @@
 
 <Pane fx:id="menu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.NetworkMenu">
    <children>
-      <ImageView fitHeight="292.0" fitWidth="169.0" layoutX="466.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="292.0" fitWidth="169.0" layoutX="476.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@RookBlack.png" />
          </image>
@@ -33,7 +33,7 @@
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Text fill="#5b5b5b" layoutX="-6.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%port" textAlignment="CENTER" wrappingWidth="235.5029296875">
+      <Text fill="#5b5b5b" layoutX="-5.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%port" textAlignment="RIGHT" wrappingWidth="222.70294189453125">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
@@ -63,7 +63,7 @@
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Text fill="#5b5b5b" layoutX="-6.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%ip" textAlignment="CENTER" wrappingWidth="235.5029296875">
+      <Text fill="#5b5b5b" layoutX="-5.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%ip" textAlignment="RIGHT" wrappingWidth="222.70294189453125">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>

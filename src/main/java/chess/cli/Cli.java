@@ -13,9 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import static javafx.scene.paint.Color.RED;
-import static javafx.scene.paint.Color.valueOf;
-
 /**
  * Starting point of the command line interface
  */
@@ -23,7 +20,7 @@ public class Cli {
 
     private static Scanner scan;
     private static CoreGame coreGame;
-    private static int gameMode = 0;
+    private static GameMode gameMode2;
     private static Computer computer;
     private static int pointer;
 
@@ -63,7 +60,7 @@ public class Cli {
 
                 String input = scan.nextLine();
                 if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 50) {
-                    gameMode = input.charAt(0) - 48;
+                    gameMode2 = input.charAt(0) == 49 ? GameMode.NORMAL : GameMode.COMPUTER;
                     coreGame = new CoreGame();
                     break;
                 } else if (input.equals("language")) {
@@ -76,7 +73,7 @@ public class Cli {
         }
 
         //create Computer
-        if (gameMode == 2) {
+        if (gameMode2 == GameMode.COMPUTER) {
             computer = new Computer(true);
         }
 
@@ -134,7 +131,7 @@ public class Cli {
             }
 
             // Check computer move
-            if (gameMode == 2) {
+            if (gameMode2 == GameMode.COMPUTER) {
                 //draw human input
                 drawBoard();
                 computer.makeMove(coreGame.getCurrentBoard());
@@ -154,7 +151,7 @@ public class Cli {
         if (pointer >= 0) {
             undoRedoMovesAsBoard.add(coreGame.getMoveHistory().get(pointer));
 
-            if (gameMode == 2) {
+            if (gameMode2 == GameMode.COMPUTER) {
                 undoRedoMovesAsBoard.add(coreGame.getMoveHistory().get(pointer - 1));
                 pointer--;
             }
@@ -180,7 +177,7 @@ public class Cli {
         if (undoRedoMovesAsBoard.size() > 0) {
             pointer++;
 
-            if (gameMode == 2) {
+            if (gameMode2 == GameMode.COMPUTER) {
                 pointer++;
                 undoRedoMovesAsBoard.remove(coreGame.getMoveHistory().get(pointer - 1));
             }
