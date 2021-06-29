@@ -114,7 +114,7 @@ public class Controller {
         } else {
             currentBoard = logic.getCoreGame().getMoveHistory().get(0);
         }
-        undoRedoMovesAsBoard.remove(logic.getCoreGame().getCurrentBoard());
+        undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer));
 
         // setze BoardZustand wieder vor
         logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
@@ -141,6 +141,11 @@ public class Controller {
         undoRedoMovesAsBoard.clear();
     }
 
+    /**
+     * is triggered if the user clicks on a move in the history-panel
+     *
+     * @param mouseEvent
+     */
     public void undoRedoClicked(MouseEvent mouseEvent) {
         Text clickedText = (Text) mouseEvent.getTarget();
         int oldPointer = pointer;
@@ -209,6 +214,7 @@ public class Controller {
             System.out.println("  a b c d e f g h");
             System.out.println("");
         }
+        System.out.println("----------------------------");
 
         drawBoard();
         updateNotifications();
