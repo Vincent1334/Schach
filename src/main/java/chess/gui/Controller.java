@@ -77,52 +77,57 @@ public class Controller {
     //----------------------------------Undo/Redo----------------------------------------------------------------------------------------------
 
     public void undo(ActionEvent actionEvent) {
-        // aktualisiere History
-        Text undoMove = (Text) getHistory().getChildren().get(pointer);
-        undoMove.setFill(RED);
-        undoRedoMovesAsText.add(undoMove);
 
-        // BoardZustand
-        pointer--;
-        Board newBoard;
         if (pointer >= 0) {
-            newBoard = logic.getCoreGame().getMoveHistory().get(pointer);
-        } else {
-            newBoard = new Board();
+            // aktualisiere History
+            Text undoMove = (Text) getHistory().getChildren().get(pointer);
+            undoMove.setFill(RED);
+            undoRedoMovesAsText.add(undoMove);
+
+            // BoardZustand
+            pointer--;
+            Board newBoard;
+            if (pointer >= 0) {
+                newBoard = logic.getCoreGame().getMoveHistory().get(pointer);
+            } else {
+                newBoard = new Board();
+            }
+            undoRedoMovesAsBoard.add(logic.getCoreGame().getCurrentBoard());
+            // setze BoardZustand eins zurück (auf eine Kopie, sonst wird newBoard im nächsten Zug mitverändert)
+            logic.getCoreGame().setCurrentBoard(new Board(newBoard));
+
+            // Spielerwechsel
+            logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
+
+            updateScene();
         }
-        undoRedoMovesAsBoard.add(logic.getCoreGame().getCurrentBoard());
-        // setze BoardZustand eins zurück (auf eine Kopie, sonst wird newBoard im nächsten Zug mitverändert)
-        logic.getCoreGame().setCurrentBoard(new Board(newBoard));
-
-        // Spielerwechsel
-        logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
-
-        updateScene();
     }
 
     public void redo(ActionEvent actionEvent) {
-        // aktualisiere History
-        Text undoMove = (Text) getHistory().getChildren().get(pointer + 1);
-        undoMove.setFill(valueOf("#515151"));
-        undoRedoMovesAsText.remove(undoRedoMovesAsText.size() - 1);
+        if (undoRedoMovesAsText.size() > 0) {
+            // aktualisiere History
+            Text undoMove = (Text) getHistory().getChildren().get(pointer + 1);
+            undoMove.setFill(valueOf("#515151"));
+            undoRedoMovesAsText.remove(undoRedoMovesAsText.size() - 1);
 
-        // BoardZustand
-        pointer++;
-        Board currentBoard;
-        if (pointer >= 0) {
-            currentBoard = logic.getCoreGame().getMoveHistory().get(pointer);
-        } else {
-            currentBoard = logic.getCoreGame().getMoveHistory().get(0);
+            // BoardZustand
+            pointer++;
+            Board currentBoard;
+            if (pointer >= 0) {
+                currentBoard = logic.getCoreGame().getMoveHistory().get(pointer);
+            } else {
+                currentBoard = logic.getCoreGame().getMoveHistory().get(0);
+            }
+            undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer));
+
+            // setze BoardZustand wieder vor
+            logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
+
+
+            logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
+
+            updateScene();
         }
-        undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer));
-
-        // setze BoardZustand wieder vor
-        logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
-
-
-        logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
-
-        updateScene();
     }
 
     public void resetUndoRedo() {
