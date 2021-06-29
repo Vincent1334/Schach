@@ -3,6 +3,7 @@ package chess.cli;
 import chess.controller.CoreGame;
 import chess.ai.Computer;
 import chess.managers.LanguageManager;
+import chess.model.Board;
 import chess.model.Parser;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -16,6 +17,7 @@ public class Cli {
     private static CoreGame coreGame;
     private static int gameMode = 0;
     private static Computer computer;
+    private static int pointer;
 
     /**
      * The entry point of the CLI application.
@@ -66,6 +68,9 @@ public class Cli {
         if(gameMode == 2){
             computer = new Computer(true);
         }
+
+        //initialize pointer
+        pointer = coreGame.getMoveHistory().size() - 1;
     }
 
     /**
@@ -90,6 +95,14 @@ public class Cli {
                 LanguageManager.nextLocale();
                 System.out.println(LanguageManager.getText("language"));
                 continue;
+            }
+
+            if(input.equals("undo")){
+                undo();
+            }
+
+            if(input.equals("redo")){
+                redo();
             }
 
             // Check syntax and make move
@@ -117,6 +130,34 @@ public class Cli {
                 coreGame.chessMove(computer.getMove());
             }
         } while (!coreGame.isGameOver());
+    }
+
+    public static void undo() {
+        pointer--;
+        Board newBoard;
+        if (pointer >= 0) {
+            newBoard = coreGame.getMoveHistory().get(pointer);
+        } else {
+            newBoard = new Board();
+        }
+        //Board eins zurück setzen
+        coreGame.setCurrentBoard(new Board(newBoard));
+        //Spielerwechsel
+        coreGame.setActivePlayer(!coreGame.getActivePlayer());
+    }
+
+    public static void redo() {
+        pointer++;
+        Board currentBoard;
+        if (pointer >= 0) {
+            currentBoard = coreGame.getMoveHistory().get(pointer);
+        } else {
+            currentBoard = coreGame.getMoveHistory().get(0);
+        }
+        //setze Board eins vor
+        coreGame.setCurrentBoard(new Board(currentBoard));
+        //Spielerwechsel
+        coreGame.setActivePlayer(!coreGame.getActivePlayer());
     }
 
     /**
