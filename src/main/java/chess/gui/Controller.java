@@ -288,6 +288,9 @@ public class Controller {
         int whiteCol = 0;
         int blackCol = 0;
 
+        getBeatenFiguresBlack().getChildren().clear();
+        getBeatenFiguresWhite().getChildren().clear();
+
         for (Figure figure : logic.getCoreGame().getCurrentBoard().getBeatenFigures()) {
             ImageView iv = new ImageView(ImageHandler.getImageBySymbol(figure.getSymbol()));
             iv.setEffect(new DropShadow(2.0, 2.0, 2.0, valueOf("#777777")));
