@@ -167,7 +167,7 @@ public class Cli {
         } else {
             currentBoard = coreGame.getMoveHistory().get(0);
         }
-        undoRedoMovesAsBoard.remove(coreGame.getCurrentBoard());
+        undoRedoMovesAsBoard.remove(coreGame.getMoveHistory().get(pointer));
         //setze Board eins vor
         coreGame.setCurrentBoard(new Board(currentBoard));
         //Spielerwechsel
