@@ -85,19 +85,34 @@ public class Controller {
             undoRedoMovesAsText.add(undoMove);
 
             // BoardZustand
+            undoRedoMovesAsBoard.add(logic.getCoreGame().getMoveHistory().get(pointer));
+
+            if (logic.getGameMode() == GameMode.COMPUTER) {
+                Text undoMove2 = (Text) getHistory().getChildren().get(pointer - 1);
+                undoMove2.setFill(RED);
+                undoRedoMovesAsText.add(undoMove2);
+
+                undoRedoMovesAsBoard.add(logic.getCoreGame().getMoveHistory().get(pointer - 1));
+
+                pointer--;
+            }
             pointer--;
+
             Board newBoard;
             if (pointer >= 0) {
                 newBoard = logic.getCoreGame().getMoveHistory().get(pointer);
             } else {
                 newBoard = new Board();
             }
-            undoRedoMovesAsBoard.add(logic.getCoreGame().getCurrentBoard());
-            // setze BoardZustand eins zurück (auf eine Kopie, sonst wird newBoard im nächsten Zug mitverändert)
+            // setze BoardZustand zurück (auf eine Kopie, sonst wird newBoard im nächsten Zug mitverändert)
             logic.getCoreGame().setCurrentBoard(new Board(newBoard));
 
             // Spielerwechsel
-            logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
+            if (pointer % 2 == 0) {
+                logic.getCoreGame().setActivePlayer(true);
+            } else {
+                logic.getCoreGame().setActivePlayer(false);
+            }
 
             updateScene();
         }
@@ -105,13 +120,22 @@ public class Controller {
 
     public void redo(ActionEvent actionEvent) {
         if (undoRedoMovesAsText.size() > 0) {
+            pointer++;
+
             // aktualisiere History
-            Text undoMove = (Text) getHistory().getChildren().get(pointer + 1);
+            Text undoMove = (Text) getHistory().getChildren().get(pointer);
             undoMove.setFill(valueOf("#515151"));
             undoRedoMovesAsText.remove(undoRedoMovesAsText.size() - 1);
 
-            // BoardZustand
-            pointer++;
+            if (logic.getGameMode() == GameMode.COMPUTER) {
+                Text undoMove2 = (Text) getHistory().getChildren().get(pointer + 1);
+                undoMove2.setFill(valueOf("#515151"));
+                undoRedoMovesAsText.remove(undoRedoMovesAsText.size() - 1);
+
+                pointer++;
+                undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer - 1));
+            }
+
             Board currentBoard;
             if (pointer >= 0) {
                 currentBoard = logic.getCoreGame().getMoveHistory().get(pointer);
@@ -119,14 +143,12 @@ public class Controller {
                 currentBoard = logic.getCoreGame().getMoveHistory().get(0);
             }
             undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer));
-
-            // setze BoardZustand wieder vor
             logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
 
-            if (logic.getGameMode() == GameMode.COMPUTER){
-                logic.computerMove();
+            if (pointer % 2 == 0) {
+                logic.getCoreGame().setActivePlayer(true);
             } else {
-                logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
+                logic.getCoreGame().setActivePlayer(false);
             }
             updateScene();
         }
@@ -163,44 +185,47 @@ public class Controller {
                 pointer = i;
             }
         }
-        // Wähle entsprechenden BoardZustand
-        Board newBoard;
-        if (pointer >= 0) {
-            newBoard = logic.getCoreGame().getMoveHistory().get(pointer);
-        } else {
-            newBoard = new Board();
-        }
-
-        // pack alle Züge dazwischen auf eine Liste / entferne alle Züge dazwischen von Liste
-        if (oldPointer > pointer) {
-            for (int i = pointer + 1; i < getHistory().getRowCount() - 1; i++) {
-                // boards (für Logik)
-                undoRedoMovesAsBoard.add(logic.getCoreGame().getMoveHistory().get(i));
-                // texte (für Anzeige)
-                Text undoMove = (Text) getHistory().getChildren().get(i);
-                undoMove.setFill(RED);
-                undoRedoMovesAsText.add(undoMove);
+        if (logic.getGameMode() != GameMode.COMPUTER || pointer % 2 == 1) {
+            // Wähle entsprechenden BoardZustand
+            Board newBoard;
+            if (pointer >= 0) {
+                newBoard = logic.getCoreGame().getMoveHistory().get(pointer);
+            } else {
+                newBoard = new Board();
             }
-        } else if (oldPointer < pointer) {
-            for (int i = oldPointer + 1; i <= pointer; i++) {
-                // boards (für Logik)
-                undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(i));
-                // texte (für Anzeige)
-                Text undoMove = (Text) getHistory().getChildren().get(i);
-                undoMove.setFill(valueOf("#515151"));
-                undoRedoMovesAsText.remove(undoMove);
+
+            // pack alle Züge dazwischen auf eine Liste / entferne alle Züge dazwischen von Liste
+            if (oldPointer > pointer) {
+                for (int i = pointer + 1; i < getHistory().getRowCount() - 1; i++) {
+                    // boards (für Logik)
+                    undoRedoMovesAsBoard.add(logic.getCoreGame().getMoveHistory().get(i));
+                    // texte (für Anzeige)
+                    Text undoMove = (Text) getHistory().getChildren().get(i);
+                    undoMove.setFill(RED);
+                    undoRedoMovesAsText.add(undoMove);
+                }
+            } else if (oldPointer < pointer) {
+                for (int i = oldPointer + 1; i <= pointer; i++) {
+                    // boards (für Logik)
+                    undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(i));
+                    // texte (für Anzeige)
+                    Text undoMove = (Text) getHistory().getChildren().get(i);
+                    undoMove.setFill(valueOf("#515151"));
+                    undoRedoMovesAsText.remove(undoMove);
+                }
             }
+
+            // setze BoardZustand auf angeklickten BoardZustand zurück (auf eine Kopie, sonst wird newBoard im nächsten Zug mitverändert)
+            logic.getCoreGame().setCurrentBoard(new Board(newBoard));
+
+            if (pointer % 2 == 0) {
+                logic.getCoreGame().setActivePlayer(true);
+            } else {
+                logic.getCoreGame().setActivePlayer(false);
+            }
+
+            updateScene();
         }
-
-        // setze BoardZustand auf angeklickten BoardZustand zurück (auf eine Kopie, sonst wird newBoard im nächsten Zug mitverändert)
-        logic.getCoreGame().setCurrentBoard(new Board(newBoard));
-
-        // Spielerwechsel, wenn ungerade Anzahl Züge dazwischen
-        if (Math.abs(getHistory().getRowCount() - pointer) % 2 == 1) {
-            logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
-        }
-
-        updateScene();
     }
 
     //----------------------------------Update----------------------------------------------------------------------------------------------
