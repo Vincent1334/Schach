@@ -1131,7 +1131,7 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <ScrollPane hbarPolicy="NEVER" layoutX="685.0" layoutY="102.0" prefHeight="510.0" prefWidth="120.0" style="-fx-border-color: #00A8C6; -fx-border-width: 2;">
+      <ScrollPane hbarPolicy="NEVER" layoutX="685.0" layoutY="102.0" onMouseClicked="#undoRedoClicked" prefHeight="510.0" prefWidth="120.0" style="-fx-border-color: #00A8C6; -fx-border-width: 2;">
          <content>
             <GridPane fx:id="history" alignment="TOP_CENTER" maxWidth="120.0" minWidth="120.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="7.0" prefWidth="120.0">
                <columnConstraints>

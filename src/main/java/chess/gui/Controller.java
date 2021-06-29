@@ -8,6 +8,7 @@ import chess.model.*;
 import chess.network.NetworkPlayer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -38,11 +39,6 @@ public class Controller {
 
     private Logic logic;
     private int pointer;
-
-    public List<Text> getUndoRedoMovesAsText() {
-        return undoRedoMovesAsText;
-    }
-
     private List<Text> undoRedoMovesAsText = new ArrayList<>();
     private List<Board> undoRedoMovesAsBoard = new ArrayList<>();
 
@@ -77,6 +73,8 @@ public class Controller {
         // Hide this current window
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
+
+    //----------------------------------Undo/Redo----------------------------------------------------------------------------------------------
 
     public void undo(ActionEvent actionEvent) {
         // aktualisiere History
@@ -141,6 +139,56 @@ public class Controller {
         }
         pointer = logic.getCoreGame().getMoveHistory().size() - 1;
         undoRedoMovesAsBoard.clear();
+    }
+
+    public void undoRedoClicked(MouseEvent mouseEvent) {
+        Text clickedText = (Text) mouseEvent.getTarget();
+        int oldPointer = pointer;
+
+        // auf welchen Zug wurde geklickt?
+        for (int i = 0; i < getHistory().getRowCount() - 1; i++) {
+            if (getHistory().getChildren().get(i).equals(clickedText)) {
+                pointer = i;
+            }
+        }
+        // Wähle entsprechenden BoardZustand
+        Board newBoard;
+        if (pointer >= 0) {
+            newBoard = logic.getCoreGame().getMoveHistory().get(pointer);
+        } else {
+            newBoard = new Board();
+        }
+
+        // pack alle Züge dazwischen auf eine Liste / entferne alle Züge dazwischen von Liste
+        if (oldPointer > pointer) {
+            for (int i = pointer + 1; i < getHistory().getRowCount() - 1; i++) {
+                // boards (für Logik)
+                undoRedoMovesAsBoard.add(logic.getCoreGame().getMoveHistory().get(i));
+                // texte (für Anzeige)
+                Text undoMove = (Text) getHistory().getChildren().get(i);
+                undoMove.setFill(RED);
+                undoRedoMovesAsText.add(undoMove);
+            }
+        } else if (oldPointer < pointer) {
+            for (int i = oldPointer + 1; i <= pointer; i++) {
+                // boards (für Logik)
+                undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(i));
+                // texte (für Anzeige)
+                Text undoMove = (Text) getHistory().getChildren().get(i);
+                undoMove.setFill(valueOf("#515151"));
+                undoRedoMovesAsText.remove(undoMove);
+            }
+        }
+
+        // setze BoardZustand auf angeklickten BoardZustand zurück (auf eine Kopie, sonst wird newBoard im nächsten Zug mitverändert)
+        logic.getCoreGame().setCurrentBoard(new Board(newBoard));
+
+        // Spielerwechsel, wenn ungerade Anzahl Züge dazwischen
+        if (Math.abs(getHistory().getRowCount() - pointer) % 2 == 1) {
+            logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
+        }
+
+        updateScene();
     }
 
     //----------------------------------Update----------------------------------------------------------------------------------------------
@@ -486,6 +534,10 @@ public class Controller {
         return (ImageView) getImageViewByIndex(GridPane.getColumnIndex(field), GridPane.getRowIndex(field));
     }
 
+    public List<Text> getUndoRedoMovesAsText() {
+        return undoRedoMovesAsText;
+    }
+
 
     //field
 
@@ -594,20 +646,10 @@ public class Controller {
         return (Button) menu.getChildren().get(13);
     }
 
-    /**
-     * returns the gui-element that shows whether it is whites turn
-     *
-     * @return the gui-element (rectangle) that shows whether it is whites turn
-     */
     private Rectangle getRectangleWhite() {
         return (Rectangle) menu.getChildren().get(14);
     }
 
-    /**
-     * returns the gui-element that shows whether it is blacks turn
-     *
-     * @return the gui-element (rectangle) that shows whether it is blacks turn
-     */
     private Rectangle getRectangleBlack() {
         return (Rectangle) menu.getChildren().get(15);
     }
