@@ -6,7 +6,6 @@ import chess.ai.Computer;
 import chess.managers.LanguageManager;
 import chess.model.Board;
 import chess.model.Parser;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -152,6 +151,10 @@ public class Cli {
         }
     }
 
+
+    /**
+     * undo one move for games against a friend and two for a game against the computer
+     */
     public static void undo() {
         if (pointer >= 0) {
             undoRedoMovesAsBoard.add(coreGame.getMoveHistory().get(pointer));
@@ -162,8 +165,6 @@ public class Cli {
             }
             pointer--;
             Board newBoard;
-            System.out.println("Move History: " + coreGame.getMoveHistory().size());
-            System.out.println("Sprineg auf Board: " + pointer);
             if (pointer >= 0) {
                 newBoard = coreGame.getMoveHistory().get(pointer);
             } else {
@@ -180,6 +181,9 @@ public class Cli {
         }
     }
 
+    /**
+     * redo one move for games against a friend and two for a game against the computer
+     */
     public static void redo() {
         if (undoRedoMovesAsBoard.size() > 0) {
             pointer++;
@@ -206,6 +210,9 @@ public class Cli {
         }
     }
 
+    /**
+     * updates the moveHistory, pointer and clears the undoRedoMovesAsBoard
+     */
     public static void resetUndoRedo() {
         // MoveHistory von CoreGame & entsprechend Pointer
         for (Board board : undoRedoMovesAsBoard) {

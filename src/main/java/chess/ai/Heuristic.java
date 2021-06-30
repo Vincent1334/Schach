@@ -71,6 +71,13 @@ public class Heuristic {
         return figureScore;
     }
 
+    /**
+     * checks for a pawn chain
+     * @param board the current board
+     * @param move the current move
+     * @param playerMax maximizing player
+     * @return the determined value of the pawn chain score
+     */
     public static float checkPawnChain(Board board, Move move, boolean playerMax){
         float score = 0;
         if(move.getActualFigure() instanceof Pawn){
@@ -115,6 +122,12 @@ public class Heuristic {
         return score;
     }
 
+    /**
+     *
+     * @param fieldScore the fields score
+     * @param playerMax maximizing player
+     * @return the determined value of the field score
+     */
     public static float checkFieldScore(int[][] fieldScore, boolean playerMax){
         float score = 0;
         int playerMaxID = playerMax ? 1 : 0;
@@ -127,6 +140,13 @@ public class Heuristic {
         return score;
     }
 
+    /**
+     * checks for the endgame and adds endgame points to score
+     * @param board the current board
+     * @param playerMax the maximizing player
+     * @param isEndGame whether it is the endgame
+     * @return the determined value of the endgame score
+     */
     public static float checkEndGame(Board board, boolean playerMax, boolean isEndGame){
         float score = 0;
         if(isEndGame){
