@@ -8,6 +8,7 @@ import chess.model.*;
 import chess.network.NetworkPlayer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -37,6 +38,8 @@ import static javafx.scene.paint.Color.*;
  * 2021-06-09
  */
 public class Controller {
+    //Test
+    int i = 0;
 
     private Logic logic;
     private int pointer;
@@ -152,12 +155,14 @@ public class Controller {
             undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer));
             logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
 
+
             // ggf- Spielerwechsel
             if (pointer % 2 == 0) {
                 logic.getCoreGame().setActivePlayer(true);
             } else {
                 logic.getCoreGame().setActivePlayer(false);
             }
+            //Board.checkChessAndStaleMate(logic.getCoreGame().getCurrentBoard(),logic.getCoreGame().getActivePlayer());
             updateScene();
         }
     }
@@ -303,10 +308,24 @@ public class Controller {
      * @param move the move that should be added to the history
      */
     public void updateHistory(Move move) {
-        Text t = new Text(getHistory().getRowCount() + "     " + move.toString());
+        String space = "";
+        if(getHistory().getRowCount()<10){
+            space = "       ";
+        }else if(getHistory().getRowCount()<100){
+            space = "     ";
+        }else{
+            space = "   ";
+        }
+        Text t = new Text(getHistory().getRowCount() + space + move.toString());
         t.setFill(valueOf("#515151"));
         t.setFont(new Font("Calibri", 15.0));
         t.setCursor(Cursor.HAND);
+        t.setOnMouseEntered((event) ->{
+            t.setFill(valueOf("#8fbe00"));
+        });
+        t.setOnMouseExited((event) ->{
+            t.setFill(valueOf("#515151"));
+        });
 
         if (logic.getGameMode() == GameMode.COMPUTER && getHistory().getRowCount() % 2 == 1) {
             t.setCursor(Cursor.DEFAULT);
@@ -317,12 +336,16 @@ public class Controller {
         pointer = logic.getCoreGame().getMoveHistory().size() - 1;
     }
 
+    private void highlight() {
+
+    }
+
     /**
      * updates the beaten figure list in the gui
      */
     public void updateBeatenFigures() {
-        int whiteIndex = 1;
-        int blackIndex = 1;
+        int whiteIndex = 0;
+        int blackIndex = 0;
         int whiteCol = 0;
         int blackCol = 0;
 
@@ -341,15 +364,15 @@ public class Controller {
             if (figure.isBlack()) {
                 getBeatenFiguresBlack().getChildren().add(iv);
                 blackIndex++;
-                if (blackIndex == 9) {
-                    blackIndex = 1;
+                if (blackIndex == 8) {
+                    blackIndex = 0;
                     blackCol = 1;
                 }
             } else {
                 getBeatenFiguresWhite().getChildren().add(iv);
                 whiteIndex++;
-                if (whiteIndex == 9) {
-                    whiteIndex = 1;
+                if (whiteIndex == 8) {
+                    whiteIndex = 0;
                     whiteCol = 1;
                 }
             }
