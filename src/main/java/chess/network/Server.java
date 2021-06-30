@@ -122,9 +122,12 @@ public class Server implements Runnable{
      */
     public void stop() {
         try {
-            in.close();
-            out.close();
-            clientSocket.close();
+
+            if(clientSocket != null){
+                in.close();
+                out.close();
+                clientSocket.close();
+            }
             serverSocket.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());

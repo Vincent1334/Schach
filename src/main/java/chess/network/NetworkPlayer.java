@@ -100,7 +100,11 @@ public class NetworkPlayer {
      * Stop network and all components
      */
     public void killNetwork(){
-        if(server != null) server.stop();
-        if(client != null) client.stop();
+        if(server != null){
+            server.stop();
+        }
+        if(client != null){
+            client.stop();
+        }
     }
 }

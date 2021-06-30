@@ -84,7 +84,7 @@ public class Controller {
      * @param event the mouse event
      */
     public void backToMenu(MouseEvent event) {
-        logic.killNetworkPlayer();
+
 
         Stage stage = new Stage();
         stage.setTitle(LanguageManager.getText("menu_title"));
@@ -96,16 +96,15 @@ public class Controller {
             logic.getPromotionStage().close();
         }
         ((Node) (event.getSource())).getScene().getWindow().hide();
+        logic.killNetworkPlayer();
     }
 
     //----------------------------------Undo/Redo----------------------------------------------------------------------------------------------
 
     /**
      * undo a move (button "undo")
-     *
-     * @param actionEvent
      */
-    public void undo(ActionEvent actionEvent) {
+    public void undo() {
         if (pointer >= 0) {
             Text undoMove = (Text) getHistory().getChildren().get(pointer);
             undoMove.setOpacity(0.5);
@@ -153,9 +152,8 @@ public class Controller {
     /**
      * redo a move after an undo (button "redo")
      *
-     * @param actionEvent
      */
-    public void redo(ActionEvent actionEvent) {
+    public void redo() {
         if (undoRedoMovesAsText.size() > 0) {
             pointer++;
 
@@ -343,9 +341,11 @@ public class Controller {
         }else{
             t.setOnMouseEntered((event) ->{
                 t.setFill(valueOf("#8fbe00"));
+                t.setFont(new Font("Calibri", 16.0));
             });
             t.setOnMouseExited((event) ->{
                 t.setFill(valueOf("#515151"));
+                t.setFont(new Font("Calibri", 15.0));
             });
         }
 
