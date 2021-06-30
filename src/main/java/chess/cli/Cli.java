@@ -54,8 +54,8 @@ public class Cli {
                 System.out.println(" ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝");
                 System.out.println("");
                 System.out.println(LanguageManager.getText("gamemode_title"));
-                System.out.println(LanguageManager.getText("gamemode01"));
-                System.out.println(LanguageManager.getText("gamemode02"));
+                System.out.println("1. " + LanguageManager.getText("gamemode01"));
+                System.out.println("2. " + LanguageManager.getText("gamemode02"));
                 System.out.print(LanguageManager.getText("input_label"));
 
                 String input = scan.nextLine();
