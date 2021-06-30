@@ -108,16 +108,6 @@ public class Server implements Runnable{
     }
 
     /**
-     * Send a message to client
-     * @param message Message as String
-     */
-     public void sendMessage(String message){
-        out.println(message);
-        thread = new Thread(this);
-        thread.start();
-     }
-
-    /**
      * Stops the server and all components
      */
     public void stop() {

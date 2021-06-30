@@ -116,16 +116,6 @@ public class Client implements Runnable{
     }
 
     /**
-     * Send string message to Server
-     * @param message String message
-     */
-    public void sendMessage(String message){
-        out.println(message);
-        thread = new Thread(this);
-        thread.start();
-    }
-
-    /**
      * Returns Client team
      * @return isBlack
      */
