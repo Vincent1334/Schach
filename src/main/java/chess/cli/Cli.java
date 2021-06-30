@@ -1,5 +1,6 @@
 package chess.cli;
 
+import chess.GameMode;
 import chess.controller.CoreGame;
 import chess.ai.Computer;
 import chess.managers.LanguageManager;
@@ -19,7 +20,7 @@ public class Cli {
 
     private static Scanner scan;
     private static CoreGame coreGame;
-    private static int gameMode = 0;
+    private static GameMode gameMode2;
     private static Computer computer;
     private static int pointer;
 
@@ -59,7 +60,7 @@ public class Cli {
 
                 String input = scan.nextLine();
                 if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 50) {
-                    gameMode = input.charAt(0) - 48;
+                    gameMode2 = input.charAt(0) == 49 ? GameMode.NORMAL : GameMode.COMPUTER;
                     coreGame = new CoreGame();
                     break;
                 } else if (input.equals("language")) {
@@ -72,7 +73,7 @@ public class Cli {
         }
 
         //create Computer
-        if (gameMode == 2) {
+        if (gameMode2 == GameMode.COMPUTER) {
             computer = new Computer(true);
         }
 
@@ -130,7 +131,7 @@ public class Cli {
             }
 
             // Check computer move
-            if (gameMode == 2) {
+            if (gameMode2 == GameMode.COMPUTER) {
                 //draw human input
                 drawBoard();
                 computer.makeMove(coreGame.getCurrentBoard());
@@ -142,12 +143,19 @@ public class Cli {
                 }
                 //perform computer move
                 coreGame.chessMove(computer.getMove());
+                pointer = coreGame.getMoveHistory().size() - 1;
             }
         } while (!coreGame.isGameOver());
     }
 
     public static void undo() {
         if (pointer >= 0) {
+            undoRedoMovesAsBoard.add(coreGame.getMoveHistory().get(pointer));
+
+            if (gameMode2 == GameMode.COMPUTER) {
+                undoRedoMovesAsBoard.add(coreGame.getMoveHistory().get(pointer - 1));
+                pointer--;
+            }
             pointer--;
             Board newBoard;
             System.out.println("Move History: " + coreGame.getMoveHistory().size());
@@ -157,17 +165,26 @@ public class Cli {
             } else {
                 newBoard = new Board();
             }
-            undoRedoMovesAsBoard.add(coreGame.getCurrentBoard());
-            //Board eins zurück setzen
             coreGame.setCurrentBoard(new Board(newBoard));
-            //Spielerwechsel
-            coreGame.setActivePlayer(!coreGame.getActivePlayer());
+
+            // Spielerwechsel
+            if (pointer % 2 == 0) {
+                coreGame.setActivePlayer(true);
+            } else {
+                coreGame.setActivePlayer(false);
+            }
         }
     }
 
     public static void redo() {
         if (undoRedoMovesAsBoard.size() > 0) {
             pointer++;
+
+            if (gameMode2 == GameMode.COMPUTER) {
+                pointer++;
+                undoRedoMovesAsBoard.remove(coreGame.getMoveHistory().get(pointer - 1));
+            }
+
             Board currentBoard;
             if (pointer >= 0) {
                 currentBoard = coreGame.getMoveHistory().get(pointer);
@@ -175,16 +192,13 @@ public class Cli {
                 currentBoard = coreGame.getMoveHistory().get(0);
             }
             undoRedoMovesAsBoard.remove(coreGame.getMoveHistory().get(pointer));
-            //setze Board eins vor
             coreGame.setCurrentBoard(new Board(currentBoard));
-            if (gameMode == 2){
-                //perform computer move
-                coreGame.chessMove(computer.getMove());
-            } else {
-                //Spielerwechsel
-                coreGame.setActivePlayer(!coreGame.getActivePlayer());
-            }
 
+            if (pointer % 2 == 0) {
+                coreGame.setActivePlayer(true);
+            } else {
+                coreGame.setActivePlayer(false);
+            }
         }
     }
 

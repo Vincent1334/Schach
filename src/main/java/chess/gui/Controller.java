@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -76,42 +77,72 @@ public class Controller {
 
     //----------------------------------Undo/Redo----------------------------------------------------------------------------------------------
 
+    /**
+     * undo a move (button "undo")
+     *
+     * @param actionEvent
+     */
     public void undo(ActionEvent actionEvent) {
 
         if (pointer >= 0) {
-            // aktualisiere History
             Text undoMove = (Text) getHistory().getChildren().get(pointer);
-            undoMove.setFill(RED);
+            undoMove.setOpacity(0.5);
             undoRedoMovesAsText.add(undoMove);
 
-            // BoardZustand
+            undoRedoMovesAsBoard.add(logic.getCoreGame().getMoveHistory().get(pointer));
+
+            // im Computermodus jeweils zwei Züge zurück gehen
+            if (logic.getGameMode() == GameMode.COMPUTER) {
+                Text undoMove2 = (Text) getHistory().getChildren().get(pointer - 1);
+                undoMove2.setOpacity(0.5);
+                undoRedoMovesAsText.add(undoMove2);
+
+                undoRedoMovesAsBoard.add(logic.getCoreGame().getMoveHistory().get(pointer - 1));
+                pointer--;
+            }
             pointer--;
+
             Board newBoard;
             if (pointer >= 0) {
                 newBoard = logic.getCoreGame().getMoveHistory().get(pointer);
             } else {
                 newBoard = new Board();
             }
-            undoRedoMovesAsBoard.add(logic.getCoreGame().getCurrentBoard());
-            // setze BoardZustand eins zurück (auf eine Kopie, sonst wird newBoard im nächsten Zug mitverändert)
             logic.getCoreGame().setCurrentBoard(new Board(newBoard));
 
-            // Spielerwechsel
-            logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
-
+            // ggf. Spielerwechsel
+            if (pointer % 2 == 0) {
+                logic.getCoreGame().setActivePlayer(true);
+            } else {
+                logic.getCoreGame().setActivePlayer(false);
+            }
             updateScene();
         }
     }
 
+    /**
+     * redo a move after an undo (button "redo")
+     *
+     * @param actionEvent
+     */
     public void redo(ActionEvent actionEvent) {
         if (undoRedoMovesAsText.size() > 0) {
-            // aktualisiere History
-            Text undoMove = (Text) getHistory().getChildren().get(pointer + 1);
-            undoMove.setFill(valueOf("#515151"));
+            pointer++;
+
+            Text undoMove = (Text) getHistory().getChildren().get(pointer);
+            undoMove.setOpacity(1);
             undoRedoMovesAsText.remove(undoRedoMovesAsText.size() - 1);
 
-            // BoardZustand
-            pointer++;
+            // im Computermodus werden jeweils zwei Züge wiederhergestellt
+            if (logic.getGameMode() == GameMode.COMPUTER) {
+                Text undoMove2 = (Text) getHistory().getChildren().get(pointer + 1);
+                undoMove2.setOpacity(1);
+                undoRedoMovesAsText.remove(undoRedoMovesAsText.size() - 1);
+
+                pointer++;
+                undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer - 1));
+            }
+
             Board currentBoard;
             if (pointer >= 0) {
                 currentBoard = logic.getCoreGame().getMoveHistory().get(pointer);
@@ -119,28 +150,29 @@ public class Controller {
                 currentBoard = logic.getCoreGame().getMoveHistory().get(0);
             }
             undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer));
-
-            // setze BoardZustand wieder vor
             logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
 
-            if (logic.getGameMode() == GameMode.COMPUTER){
-                logic.computerMove();
+            // ggf- Spielerwechsel
+            if (pointer % 2 == 0) {
+                logic.getCoreGame().setActivePlayer(true);
             } else {
-                logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
+                logic.getCoreGame().setActivePlayer(false);
             }
             updateScene();
         }
     }
 
+    /**
+     * clears the undo/redo-lists, is triggered if the player wants to make a move after an undo
+     */
     public void resetUndoRedo() {
-        // Listenanzeige
+        // Texte (für Anzeige)
         for (Text move : undoRedoMovesAsText) {
-//            getHistory().getRowConstraints().remove(move);
             getHistory().getChildren().removeIf(node -> node.equals(move));
         }
         undoRedoMovesAsText.clear();
 
-        // MoveHistory von CoreGame & entsprechend Pointer
+        // Boards (für Logik)
         for (Board board : undoRedoMovesAsBoard) {
             logic.getCoreGame().getMoveHistory().remove(board);
         }
@@ -163,44 +195,47 @@ public class Controller {
                 pointer = i;
             }
         }
-        // Wähle entsprechenden BoardZustand
-        Board newBoard;
-        if (pointer >= 0) {
-            newBoard = logic.getCoreGame().getMoveHistory().get(pointer);
-        } else {
-            newBoard = new Board();
-        }
-
-        // pack alle Züge dazwischen auf eine Liste / entferne alle Züge dazwischen von Liste
-        if (oldPointer > pointer) {
-            for (int i = pointer + 1; i < getHistory().getRowCount() - 1; i++) {
-                // boards (für Logik)
-                undoRedoMovesAsBoard.add(logic.getCoreGame().getMoveHistory().get(i));
-                // texte (für Anzeige)
-                Text undoMove = (Text) getHistory().getChildren().get(i);
-                undoMove.setFill(RED);
-                undoRedoMovesAsText.add(undoMove);
+        // im Spiel gegen den Computer ist nur jeder zweite Zug anklickbar
+        if (logic.getGameMode() != GameMode.COMPUTER || pointer % 2 == 1) {
+            // Wähle entsprechenden BoardZustand
+            Board newBoard;
+            if (pointer >= 0) {
+                newBoard = logic.getCoreGame().getMoveHistory().get(pointer);
+            } else {
+                newBoard = new Board();
             }
-        } else if (oldPointer < pointer) {
-            for (int i = oldPointer + 1; i <= pointer; i++) {
-                // boards (für Logik)
-                undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(i));
-                // texte (für Anzeige)
-                Text undoMove = (Text) getHistory().getChildren().get(i);
-                undoMove.setFill(valueOf("#515151"));
-                undoRedoMovesAsText.remove(undoMove);
+            // pack alle Züge dazwischen auf eine Liste / entferne alle Züge dazwischen von Liste
+            if (oldPointer > pointer) {
+                for (int i = pointer + 1; i < getHistory().getRowCount() - 1; i++) {
+                    // Boards (für Logik)
+                    undoRedoMovesAsBoard.add(logic.getCoreGame().getMoveHistory().get(i));
+                    // Texte (für Anzeige)
+                    Text undoMove = (Text) getHistory().getChildren().get(i);
+                    undoMove.setOpacity(0.5);
+                    undoRedoMovesAsText.add(undoMove);
+                }
+            } else if (oldPointer < pointer) {
+                for (int i = oldPointer + 1; i <= pointer; i++) {
+                    // boards (für Logik)
+                    undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(i));
+                    // texte (für Anzeige)
+                    Text undoMove = (Text) getHistory().getChildren().get(i);
+                    undoMove.setOpacity(1);
+                    undoRedoMovesAsText.remove(undoMove);
+                }
             }
+
+            logic.getCoreGame().setCurrentBoard(new Board(newBoard));
+
+            // ggf. Spielerwechsel
+            if (pointer % 2 == 0) {
+                logic.getCoreGame().setActivePlayer(true);
+            } else {
+                logic.getCoreGame().setActivePlayer(false);
+            }
+
+            updateScene();
         }
-
-        // setze BoardZustand auf angeklickten BoardZustand zurück (auf eine Kopie, sonst wird newBoard im nächsten Zug mitverändert)
-        logic.getCoreGame().setCurrentBoard(new Board(newBoard));
-
-        // Spielerwechsel, wenn ungerade Anzahl Züge dazwischen
-        if (Math.abs(getHistory().getRowCount() - pointer) % 2 == 1) {
-            logic.getCoreGame().setActivePlayer(!logic.getCoreGame().getActivePlayer());
-        }
-
-        updateScene();
     }
 
     //----------------------------------Update----------------------------------------------------------------------------------------------
@@ -209,6 +244,20 @@ public class Controller {
      * updates the scene (the board, the history, the beaten-figure-list, possible notifications, possible board turns)
      */
     public void updateScene() {
+        /*// zu Testzwecken
+        for (int i = 0; i < logic.getCoreGame().getMoveHistory().size(); i++) {
+            for (int y = 0; y < 8; y++) {
+                System.out.print(8 - y + " ");
+                for (int x = 0; x < 8; x++) {
+                    System.out.print(logic.getCoreGame().getMoveHistory().get(i).getFigure(x, 7 - y).getSymbol() + " ");
+                }
+                System.out.println("");
+            }
+            System.out.println("  a b c d e f g h");
+            System.out.println("");
+        }
+        System.out.println("----------------------------");*/
+
         drawBoard();
         updateNotifications();
         updateBeatenFigures();
@@ -246,7 +295,6 @@ public class Controller {
                 getLabelCheck().setText(LanguageManager.getText("stalemate_label"));
             }
         }
-
     }
 
     /**
@@ -258,16 +306,13 @@ public class Controller {
         Text t = new Text(getHistory().getRowCount() + "     " + move.toString());
         t.setFill(valueOf("#515151"));
         t.setFont(new Font("Calibri", 15.0));
+        t.setCursor(Cursor.HAND);
 
-        /*Text index = new Text(" " + getHistory().getRowCount());
-        index.setFill(valueOf("#00a8c6"));
-        index.setFont(new Font("Calibri", 16.0));
-
-        getHistory().add(t, 2, getHistory().getRowCount());
-        getHistory().add(index, 0, getHistory().getRowCount() - 1);*/
+        if (logic.getGameMode() == GameMode.COMPUTER && getHistory().getRowCount() % 2 == 1) {
+            t.setCursor(Cursor.DEFAULT);
+        }
 
         getHistory().add(t, 0, getHistory().getRowCount());
-
 
         pointer = logic.getCoreGame().getMoveHistory().size() - 1;
     }
@@ -333,6 +378,8 @@ public class Controller {
 
     /**
      * turns the chessboard so that the figures of the actualPlayer are always on the bottom
+     *
+     * @param reset reset the boardTurning
      */
     public void turnBoard(boolean reset) {
         if (reset) {
@@ -360,7 +407,6 @@ public class Controller {
         }
     }
 
-
     /**
      * update FlagButton event
      */
@@ -383,14 +429,6 @@ public class Controller {
     @FXML
     private void updateRotateButton() {
         turnBoard(!getRotate().isSelected());
-    }
-
-    /**
-     * update TouchMove event
-     */
-    @FXML
-    private void updateTouchMoveButton() {
-
     }
 
     //--------------set---------------------------------------------------------------------------------------------------------------
@@ -417,6 +455,12 @@ public class Controller {
         getShowFlags().setText(LanguageManager.getText("flag_button"));
     }
 
+    /**
+     * switch the language of the gui elements
+     *
+     * @param oldLanguage the current language of the gui elements
+     * @param label the label of the language you want to switch to (e.g. "fr" according to french)
+     */
     private void switchFlagLanguage(ResourceBundle oldLanguage, String label) {
         if (getLabelCheck().getText().equals(oldLanguage.getString(label))) {
             getLabelCheck().setText(LanguageManager.getText(label));
@@ -444,7 +488,7 @@ public class Controller {
 
 
     /**
-     * Marks or unmarks the field and if selected the possible moves of the figure on the field
+     * Marks or unmarks one single field and, if selected, the possible moves of the figure on the field
      *
      * @param field the field you want to (un-)mark
      * @param mark  whether the field should be marked or unmarked
@@ -462,6 +506,13 @@ public class Controller {
         }
     }
 
+    /**
+     * mark all fields where a piece could go
+     *
+     * @param field the field on the chessboard where the figure is standing
+     * @param mark mark or unmark
+     * @param board the current chessboard
+     */
     protected void markPossibleFields(Rectangle field, boolean mark, Board board) {
         if (mark) {
             if (getPossibleMove().isSelected()) {
@@ -540,9 +591,6 @@ public class Controller {
         return undoRedoMovesAsText;
     }
 
-
-    //field
-
     /**
      * returns the field that is on the given position on the gridPane
      *
@@ -602,65 +650,65 @@ public class Controller {
     }
 
 
-    //labels and buttons
+    //-------------get gui elements---------------------------------------------------------------------------------------------------------------
 
     protected GridPane getBeatenFiguresWhite() {
-        return (GridPane) menu.getChildren().get(3);
+        return (GridPane) menu.getChildren().get(0);
     }
 
     protected GridPane getBoard() {
-        return (GridPane) menu.getChildren().get(4);
+        return (GridPane) menu.getChildren().get(1);
     }
 
     private Label getLabelHistory() {
-        return (Label) menu.getChildren().get(5);
+        return (Label) menu.getChildren().get(2);
     }
 
     protected GridPane getHistory() {
-        return (GridPane) ((ScrollPane) menu.getChildren().get(6)).getContent();
+        return (GridPane) ((ScrollPane) menu.getChildren().get(3)).getContent();
     }
 
     private Label getLabelCheck() {
-        return (Label) menu.getChildren().get(7);
+        return (Label) menu.getChildren().get(4);
     }
 
     private Label getLabelCalculating() {
-        return (Label) menu.getChildren().get(8);
+        return (Label) menu.getChildren().get(5);
     }
 
     protected CheckBox getTouchMove() {
-        return (CheckBox) menu.getChildren().get(9);
+        return (CheckBox) menu.getChildren().get(6);
     }
 
     protected CheckBox getPossibleMove() {
-        return (CheckBox) menu.getChildren().get(10);
+        return (CheckBox) menu.getChildren().get(7);
     }
 
     protected CheckBox getRotate() {
-        return (CheckBox) menu.getChildren().get(11);
+        return (CheckBox) menu.getChildren().get(8);
     }
 
     protected CheckBox getShowFlags() {
-        return (CheckBox) menu.getChildren().get(12);
+        return (CheckBox) menu.getChildren().get(9);
     }
 
     private Button getBackToMenu() {
-        return (Button) menu.getChildren().get(13);
+        return (Button) menu.getChildren().get(10);
     }
 
     private Rectangle getRectangleWhite() {
-        return (Rectangle) menu.getChildren().get(14);
+        return (Rectangle) menu.getChildren().get(11);
     }
 
     private Rectangle getRectangleBlack() {
-        return (Rectangle) menu.getChildren().get(15);
+        return (Rectangle) menu.getChildren().get(12);
     }
 
     private Button getLanguage() {
-        return (Button) menu.getChildren().get(16);
+        return (Button) menu.getChildren().get(13);
     }
 
     private GridPane getBeatenFiguresBlack() {
-        return (GridPane) menu.getChildren().get(17);
+        return (GridPane) menu.getChildren().get(14);
     }
 }
