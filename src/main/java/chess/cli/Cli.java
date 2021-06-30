@@ -132,9 +132,11 @@ public class Cli {
         } while (!coreGame.isGameOver());
     }
 
-
+    /**
+     * checks and performs the computer move
+     */
     public static void checkComputerMove(){
-    // Check computer move
+        //check computer move
         if (gameMode2 == GameMode.COMPUTER) {
             //draw human input
             drawBoard();
