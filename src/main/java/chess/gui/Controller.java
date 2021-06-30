@@ -94,6 +94,9 @@ public class Controller {
         stage.show();
 
         // Hide this current window
+        if(logic.getPromotionStage() != null){
+            logic.getPromotionStage().close();
+        }
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 

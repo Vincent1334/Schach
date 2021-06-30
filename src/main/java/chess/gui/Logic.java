@@ -12,7 +12,9 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * transposes the logic of a move
@@ -29,6 +31,8 @@ public class Logic implements Runnable {
     private GameMode gameMode;
     private NetworkPlayer network;
     private boolean isBlack;
+    
+    private Stage promotionStage;
 
     /**
      * initializes gameMode, coreGame, computer, beatenFigureList and conversion
@@ -89,14 +93,16 @@ public class Logic implements Runnable {
                 Rules.possibleTargetFields(startPosition, coreGame.getCurrentBoard()).contains(targetPosition)) {
             controller.getBoard().setMouseTransparent(true);
 
-            Stage stage = new Stage();
-            stage.setTitle(LanguageManager.getText("promotion_title"));
-            stage.setScene(new Scene(WindowManager.createWindow("Promotion.fxml")));
+            promotionStage = new Stage();
+            promotionStage.setTitle(LanguageManager.getText("promotion_title"));
+            promotionStage.initStyle(StageStyle.UNDECORATED);
+            promotionStage.setAlwaysOnTop(true);
+            promotionStage.setScene(new Scene(WindowManager.createWindow("Promotion.fxml")));
 
             Promotion promotion = (Promotion) WindowManager.getController();
             promotion.init(startPosition, targetPosition, this);
 
-            stage.show();
+            promotionStage.show();
         } else performMove(new Move(startPosition, targetPosition));
     }
 
@@ -178,6 +184,9 @@ public class Logic implements Runnable {
         return isBlack;
     }
 
+    public Stage getPromotionStage(){
+        return promotionStage;
+    }
     /**
      * executes the computer move
      */
