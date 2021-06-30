@@ -67,17 +67,17 @@ public class NetworkPlayer {
      * @param move Move
      */
     public void sendMove(Move move){
-        if(server != null) server.sendMove(move);
-        else client.sendMove(move);
+        if(server != null) { server.sendMove(move); }
+        else { client.sendMove(move); }
     }
 
     /**
      * Returns team
      * @return isBlack
      */
-    public boolean isBlack(){
+    public boolean team(){
         if(ipAddress == null) return isBlack;
-        return client.isBlack();
+        return client.clientTeam();
     }
 
     /**
@@ -100,7 +100,11 @@ public class NetworkPlayer {
      * Stop network and all components
      */
     public void killNetwork(){
-        if(server != null) server.stop();
-        if(client != null) client.stop();
+        if(server != null){
+            server.stop();
+        }
+        if(client != null){
+            client.stop();
+        }
     }
 }

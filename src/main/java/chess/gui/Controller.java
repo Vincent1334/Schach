@@ -8,8 +8,6 @@ import chess.model.*;
 import chess.network.NetworkPlayer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -86,7 +84,7 @@ public class Controller {
      * @param event the mouse event
      */
     public void backToMenu(MouseEvent event) {
-        logic.killNetworkPlayer();
+
 
         Stage stage = new Stage();
         stage.setTitle(LanguageManager.getText("menu_title"));
@@ -98,16 +96,15 @@ public class Controller {
             logic.getPromotionStage().close();
         }
         ((Node) (event.getSource())).getScene().getWindow().hide();
+        logic.killNetworkPlayer();
     }
 
     //----------------------------------Undo/Redo----------------------------------------------------------------------------------------------
 
     /**
      * undo a move (button "undo")
-     *
-     * @param actionEvent
      */
-    public void undo(ActionEvent actionEvent) {
+    public void undo() {
         if (pointer >= 0) {
             Text undoMove = (Text) getHistory().getChildren().get(pointer);
             undoMove.setOpacity(0.5);
@@ -155,9 +152,8 @@ public class Controller {
     /**
      * redo a move after an undo (button "redo")
      *
-     * @param actionEvent
      */
-    public void redo(ActionEvent actionEvent) {
+    public void redo() {
         if (undoRedoMovesAsText.size() > 0) {
             pointer++;
 
@@ -191,7 +187,7 @@ public class Controller {
             } else {
                 logic.getCoreGame().setActivePlayer(false);
             }
-            //Board.checkChessAndStaleMate(logic.getCoreGame().getCurrentBoard(),logic.getCoreGame().getActivePlayer());
+            //Board.checkChessAndStaleMate(logic.getCoreGame().getCurrentBoard(),logic.getCoreGame().isActivePlayer());
             updateScene();
         }
     }
@@ -288,7 +284,7 @@ public class Controller {
             turnBoard(false);
         }
 
-        setPlayerLabel(logic.getCoreGame().getActivePlayer());
+        setPlayerLabel(logic.getCoreGame().isActivePlayer());
     }
 
     /**
@@ -345,9 +341,11 @@ public class Controller {
         }else{
             t.setOnMouseEntered((event) ->{
                 t.setFill(valueOf("#8fbe00"));
+                t.setFont(new Font("Calibri", 16.0));
             });
             t.setOnMouseExited((event) ->{
                 t.setFill(valueOf("#515151"));
+                t.setFont(new Font("Calibri", 15.0));
             });
         }
 
@@ -427,7 +425,7 @@ public class Controller {
             getBoard().setRotate(0);
             turnFigures(0);
         } else {
-            if (logic.getCoreGame().getActivePlayer()) {
+            if (logic.getCoreGame().isActivePlayer()) {
                 getBoard().setRotate(180);
                 turnFigures(180);
             } else {
@@ -597,7 +595,7 @@ public class Controller {
     public void isFieldClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
             Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
-            logic.handleFieldClick(clickedField, logic.getCoreGame().getActivePlayer());
+            logic.handleFieldClick(clickedField, logic.getCoreGame().isActivePlayer());
         }
     }
 

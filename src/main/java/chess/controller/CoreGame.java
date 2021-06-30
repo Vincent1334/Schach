@@ -190,7 +190,7 @@ public class CoreGame {
      * return the active player
      * @return activePlayer, true if its blacks turn
      */
-    public boolean getActivePlayer(){
+    public boolean isActivePlayer(){
         return activePlayer;
     }
 

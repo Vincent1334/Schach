@@ -12,7 +12,6 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -207,8 +206,7 @@ public class Logic implements Runnable {
                 controller.updateHistory(networkMove);
                 controller.updateScene();
             } else {
-                System.out.print("Ich wurde ausgeführt");
-                isBlack = network.isBlack();
+                isBlack = network.team();
                 network.setReadyToPlay(true);
                 if (isBlack) {
                     controller.setCalculating(true, LanguageManager.getText("network_player_waiting_label"));

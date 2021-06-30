@@ -119,7 +119,7 @@ public class Client implements Runnable{
      * Returns Client team
      * @return isBlack
      */
-    public boolean isBlack(){
+    public boolean clientTeam(){
         return isBlack;
     }
 

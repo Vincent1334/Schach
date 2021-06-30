@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -102,6 +101,27 @@ public class NetworkMenu {
         getNetworkError().setText(LanguageManager.getText("network_error"));
     }
 
+    @FXML
+    private void setDissableIP(){
+        if(getButtonNewGame().isSelected()){
+            getIPInput().setDisable(true);
+            getTextIP().setOpacity(0.5);
+            getTextColor().setOpacity(1.0);
+            black.setDisable(false);
+            black.setOpacity(1.0);
+            white.setDisable(false);
+            white.setOpacity(1.0);
+        }else{
+            getIPInput().setDisable(false);
+            getTextIP().setOpacity(1);
+            getTextColor().setOpacity(0.5);
+            black.setDisable(true);
+            black.setOpacity(0.5);
+            white.setDisable(true);
+            white.setOpacity(0.5);
+        }
+    }
+
     private Text getTitle() {
         return (Text) menu.getChildren().get(2);
     }
@@ -129,8 +149,8 @@ public class NetworkMenu {
     private RadioButton getButtonJoinGame(){
         return (RadioButton) menu.getChildren().get(14);
     }
-    private TextField getPortInput() {return (TextField) menu.getChildren().get(10);}
-    private TextField getIPInput() {return (TextField) menu.getChildren().get(3);}
+    private TextField getPortInput() {return (TextField) menu.getChildren().get(3);}
+    private TextField getIPInput() {return (TextField) menu.getChildren().get(10);}
     private Text getNetworkError(){
         return (Text) menu.getChildren().get(15);
     }
