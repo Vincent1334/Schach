@@ -29,7 +29,7 @@
             <Font size="34.0" />
          </font>
       </Text>
-      <TextField fx:id="opponentIP" layoutX="235.0" layoutY="250.0" prefHeight="25.0" prefWidth="325.0">
+      <TextField fx:id="opponentIP" layoutX="235.0" layoutY="250.0" prefHeight="25.0" prefWidth="325.0" text="5555">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
@@ -59,11 +59,11 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Rectangle>
-      <TextField fx:id="port" layoutX="235.0" layoutY="281.0" prefHeight="25.0" prefWidth="325.0" text="5555">
+      <TextField fx:id="port" disable="true" layoutX="235.0" layoutY="281.0" prefHeight="25.0" prefWidth="325.0">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Text fill="#5b5b5b" layoutX="-5.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="%ip" textAlignment="RIGHT" wrappingWidth="222.70294189453125">
+      <Text fill="#5b5b5b" layoutX="-5.0" layoutY="298.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="%ip" textAlignment="RIGHT" wrappingWidth="222.70294189453125">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
@@ -72,7 +72,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <RadioButton fx:id="newGame" layoutX="29.0" layoutY="130.0" mnemonicParsing="false" selected="true" text="%newGame" textFill="#656565">
+      <RadioButton fx:id="newGame" layoutX="29.0" layoutY="130.0" mnemonicParsing="false" onMouseClicked="#setDissableIP" selected="true" text="%newGame" textFill="#656565">
          <font>
             <Font name="Calibri" size="21.0" />
          </font>
@@ -83,7 +83,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </RadioButton>
-      <RadioButton fx:id="joinGame" layoutX="29.0" layoutY="209.0" mnemonicParsing="false" text="%joinGame" textFill="#656565" toggleGroup="$game">
+      <RadioButton layoutX="29.0" layoutY="209.0" mnemonicParsing="false" onMouseClicked="#setDissableIP" text="%joinGame" textFill="#656565" toggleGroup="$game">
          <font>
             <Font name="Calibri" size="21.0" />
          </font>
