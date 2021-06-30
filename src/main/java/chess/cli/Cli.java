@@ -106,10 +106,12 @@ public class Cli {
 
             if (input.equals("undo")) {
                 undo();
+                continue;
             }
 
             if (input.equals("redo")) {
                 redo();
+                continue;
             }
 
             // Check syntax and make move
@@ -148,6 +150,8 @@ public class Cli {
         if (pointer >= 0) {
             pointer--;
             Board newBoard;
+            System.out.println("Move History: " + coreGame.getMoveHistory().size());
+            System.out.println("Sprineg auf Board: " + pointer);
             if (pointer >= 0) {
                 newBoard = coreGame.getMoveHistory().get(pointer);
             } else {
