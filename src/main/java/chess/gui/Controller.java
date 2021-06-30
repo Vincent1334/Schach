@@ -105,7 +105,6 @@ public class Controller {
      * @param actionEvent
      */
     public void undo(ActionEvent actionEvent) {
-
         if (pointer >= 0) {
             Text undoMove = (Text) getHistory().getChildren().get(pointer);
             undoMove.setOpacity(0.5);
@@ -139,6 +138,13 @@ public class Controller {
                 logic.getCoreGame().setActivePlayer(false);
             }
             updateScene();
+            unmark();
+        }
+    }
+
+    private void unmark(){
+        for (int i=0; i<96 ;i++) {
+            ((Rectangle)this.getBoard().getChildren().get(i)).setStrokeWidth(0);
         }
     }
 
@@ -210,6 +216,7 @@ public class Controller {
      * @param mouseEvent
      */
     public void undoRedoClicked(MouseEvent mouseEvent) {
+
         Text clickedText = (Text) mouseEvent.getTarget();
         int oldPointer = pointer;
 
@@ -259,6 +266,7 @@ public class Controller {
             }
 
             updateScene();
+            unmark();
         }
     }
 
@@ -339,15 +347,17 @@ public class Controller {
         t.setFill(valueOf("#515151"));
         t.setFont(new Font("Calibri", 15.0));
         t.setCursor(Cursor.HAND);
-        t.setOnMouseEntered((event) ->{
-            t.setFill(valueOf("#8fbe00"));
-        });
-        t.setOnMouseExited((event) ->{
-            t.setFill(valueOf("#515151"));
-        });
+
 
         if (logic.getGameMode() == GameMode.COMPUTER && getHistory().getRowCount() % 2 == 1) {
             t.setCursor(Cursor.DEFAULT);
+        }else{
+            t.setOnMouseEntered((event) ->{
+                t.setFill(valueOf("#8fbe00"));
+            });
+            t.setOnMouseExited((event) ->{
+                t.setFill(valueOf("#515151"));
+            });
         }
 
         getHistory().add(t, 0, getHistory().getRowCount());
