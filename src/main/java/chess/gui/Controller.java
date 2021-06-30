@@ -38,15 +38,12 @@ import static javafx.scene.paint.Color.*;
  * 2021-06-09
  */
 public class Controller {
-    //Test
-    int i = 0;
 
     private Logic logic;
     private int pointer;
     private List<Text> undoRedoMovesAsText = new ArrayList<>();
     private List<Board> undoRedoMovesAsBoard = new ArrayList<>();
 
-    final private static String QUEEN = "Queen";
 
     @FXML
     private Pane menu;
@@ -59,6 +56,28 @@ public class Controller {
     public void init(GameMode gameMode, boolean isBlack, NetworkPlayer networkPlayer) {
         logic = new Logic(gameMode, isBlack, this, networkPlayer);
         pointer = logic.getCoreGame().getMoveHistory().size() - 1;
+        for (int i=0; i<96 ;i++) {
+            int finalI = i;
+            this.getBoard().getChildren().get(i).setOnMouseEntered((event) ->{
+                MotionBlur b = new MotionBlur();
+                b.setAngle(45.0);
+                b.setRadius(7.0);
+                InnerShadow s = new InnerShadow();
+                s.setColor(valueOf("#9cd7ff"));
+                s.setChoke(0.14);
+                s.setHeight(150.0);
+                s.setWidth(150.0);
+                b.setInput(s);
+                this.getBoard().getChildren().get(finalI).setEffect(b);
+            });
+            this.getBoard().getChildren().get(i).setOnMouseExited((event) ->{
+                MotionBlur b = new MotionBlur();
+                b.setAngle(45.0);
+                b.setRadius(7.0);
+                this.getBoard().getChildren().get(finalI).setEffect(b);
+            });
+        }
+
     }
 
     /**
@@ -336,9 +355,6 @@ public class Controller {
         pointer = logic.getCoreGame().getMoveHistory().size() - 1;
     }
 
-    private void highlight() {
-
-    }
 
     /**
      * updates the beaten figure list in the gui

@@ -80,8 +80,25 @@ public class Board {
             }
         }
 
+        //internalBoard = sourceClass.getInternalBoard();
         beatenFigures = new ArrayList<>();
         beatenFigures.addAll(sourceClass.getBeatenFigures());
+        //castling = sourceClass.getCastling();
+        //check = sourceClass.getCheck();
+        //checkMate = sourceClass.getCheckMate();
+        //staleMate = sourceClass.isStaleMateFlag();
+    }
+
+    private Figure[][] getInternalBoard() {return internalBoard;
+    }
+
+    private boolean[] getCheckMate() {return checkMate;
+    }
+
+    private boolean[] getCheck() {return check;
+    }
+
+    private boolean[] getCastling() {return castling;
     }
 
     /**

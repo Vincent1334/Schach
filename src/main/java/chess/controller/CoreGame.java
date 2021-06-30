@@ -157,7 +157,6 @@ public class CoreGame {
         System.out.println("!" + move.toString());
         switchPlayer();
         resetEnPassant(move.getTargetPosition());
-        moveHistory.add(new Board(currentBoard));
         Board.kingInCheck(currentBoard, activePlayer);
         Board.kingInCheck(currentBoard, !activePlayer);
         if (Board.checkChessAndStaleMate(currentBoard, activePlayer)) {
@@ -168,6 +167,7 @@ public class CoreGame {
         }
         if(currentBoard.isCheckFlag(false)) System.out.println("Player white is in check!");
         if(currentBoard.isCheckFlag(true)) System.out.println("Player black is in check!");
+        moveHistory.add(new Board(currentBoard));
     }
 
     /**
