@@ -354,10 +354,7 @@ public class Controller {
         getHistory().add(t, 0, getHistory().getRowCount());
 
         pointer = logic.getCoreGame().getMoveHistory().size() - 1;
-        getScrollPaneHistory().applyCss();
-        getScrollPaneHistory().layout();
-
-        //getScrollPaneHistory().setVvalue(1.5);
+        getScrollPaneHistory().vvalueProperty().bind(getHistory().heightProperty());
     }
 
 
