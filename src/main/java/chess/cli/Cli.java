@@ -129,23 +129,27 @@ public class Cli {
                 System.out.println(LanguageManager.getText("invalid_move_label"));
                 continue;
             }
-
-            // Check computer move
-            if (gameMode2 == GameMode.COMPUTER) {
-                //draw human input
-                drawBoard();
-                computer.makeMove(coreGame.getCurrentBoard());
-                //waiting for computer
-                try {
-                    computer.getThread().join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                //perform computer move
-                coreGame.chessMove(computer.getMove());
-                pointer = coreGame.getMoveHistory().size() - 1;
-            }
+            checkComputerMove();
         } while (!coreGame.isGameOver());
+    }
+
+
+    public static void checkComputerMove(){
+    // Check computer move
+        if (gameMode2 == GameMode.COMPUTER) {
+            //draw human input
+            drawBoard();
+            computer.makeMove(coreGame.getCurrentBoard());
+            //waiting for computer
+            try {
+                computer.getThread().join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //perform computer move
+            coreGame.chessMove(computer.getMove());
+            pointer = coreGame.getMoveHistory().size() - 1;
+        }
     }
 
     public static void undo() {

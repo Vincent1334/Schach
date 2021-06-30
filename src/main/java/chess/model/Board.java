@@ -80,25 +80,15 @@ public class Board {
             }
         }
 
-        //internalBoard = sourceClass.getInternalBoard();
         beatenFigures = new ArrayList<>();
         beatenFigures.addAll(sourceClass.getBeatenFigures());
-        //castling = sourceClass.getCastling();
-        //check = sourceClass.getCheck();
-        //checkMate = sourceClass.getCheckMate();
-        //staleMate = sourceClass.isStaleMateFlag();
-    }
-
-    private Figure[][] getInternalBoard() {return internalBoard;
-    }
-
-    private boolean[] getCheckMate() {return checkMate;
-    }
-
-    private boolean[] getCheck() {return check;
-    }
-
-    private boolean[] getCastling() {return castling;
+        castling[0] = sourceClass.isCastlingFlag(false);
+        castling[1] = sourceClass.isCastlingFlag(true);
+        check[0]= sourceClass.isCheckFlag(false);
+        check[1] = sourceClass.isCheckFlag(true);
+        checkMate[0] = sourceClass.isCheckMateFlag(false);
+        checkMate[1] = sourceClass.isCheckMateFlag(true);
+        staleMate = sourceClass.isStaleMateFlag();
     }
 
     /**
@@ -305,12 +295,14 @@ public class Board {
     private static boolean possibleSolution(Position actualPos, Position targetPos, Board tmpBoard, boolean blackTeam) {
         if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {             // check EnPassant and eventually perform it on the temporary board
             Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
+            return !kingInCheck(tmpBoard, blackTeam);
         }
         if (Rules.checkDefaultMove(actualPos, targetPos, tmpBoard)) { // checkValidDefaultMove and eventually perform it on the temporary board
             Rules.performDefaultMove(actualPos, targetPos, tmpBoard);
+            return !kingInCheck(tmpBoard, blackTeam);
         }
         //All other moves are not allowed in this case!
-        return !kingInCheck(tmpBoard, blackTeam);
+        return false;
     }
 
     /**
