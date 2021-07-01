@@ -21,10 +21,8 @@ public class Gui extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        primaryStage.setTitle(LanguageManager.getText("menu_title"));
-        primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(WindowManager.createWindow("MainMenu.fxml")));
+        WindowManager.initialWindow("MenuStage", "menu_title");
+        primaryStage = WindowManager.getStage("MenuStage");
         primaryStage.show();
     }
 

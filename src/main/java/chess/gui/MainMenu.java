@@ -28,7 +28,7 @@ public class MainMenu {
     private GameMode gameMode;
     private boolean playerColorBlack;
     @FXML
-    private Pane pane;
+    public Pane pane;
 
 
     /**
@@ -37,17 +37,6 @@ public class MainMenu {
     @FXML
     private void setLanguage(){
         LanguageManager.nextLocale();
-
-        ((Label) pane.getChildren().get(3)).setText(LanguageManager.getText("game_title"));
-        ((RadioButton) pane.getChildren().get(4)).setText(LanguageManager.getText("gamemode01"));
-        ((RadioButton) pane.getChildren().get(5)).setText(LanguageManager.getText("gamemode02"));
-        ((Label) pane.getChildren().get(6)).setText(LanguageManager.getText("team_label"));
-        ((RadioButton) pane.getChildren().get(7)).setText(LanguageManager.getText("black_label"));
-        ((RadioButton) pane.getChildren().get(8)).setText(LanguageManager.getText("white_label"));
-        ((RadioButton) pane.getChildren().get(9)).setText(LanguageManager.getText("gamemode03"));
-        ((Button) pane.getChildren().get(10)).setText(LanguageManager.getText("start_button"));
-        ((Button) pane.getChildren().get(11)).setText(LanguageManager.getText("quit_button"));
-        ((Button) pane.getChildren().get(13)).setText(LanguageManager.getText("language"));
     }
 
     /**
@@ -69,20 +58,16 @@ public class MainMenu {
         Stage stage = new Stage();
         Parent root;
         if(gameMode== GameMode.NETWORK){
-            stage.setScene(new Scene(WindowManager.createWindow("Network.fxml")));
-            stage.setTitle(LanguageManager.getText("network_title"));
+            WindowManager.initialWindow("NetworkStage", "network_title");
+            WindowManager.getStage("NetworkStage").show();
         }else{
-            stage.setScene(new Scene(WindowManager.createWindow("schachbrett.fxml")));
-            stage.setTitle(LanguageManager.getText("game_title"));
-            Controller controller = (Controller) WindowManager.getController();
-            controller.init(gameMode, playerColorBlack, null);
+            WindowManager.initialWindow("GameStage", "game_title");
+            ((Controller) WindowManager.getController("GameStage")).init(gameMode, playerColorBlack, null);
+            WindowManager.getStage("GameStage").show();
         }
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.show();
 
         // Hide this current window
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        WindowManager.closeStage("MenuStage");
     }
 
 

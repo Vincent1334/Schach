@@ -16,7 +16,7 @@ public class Promotion {
     private Position startPosition;
     private Position targetPosition;
     @FXML
-    Pane promotion;
+    public Pane promotion;
 
     protected void init(Position startPosition, Position targetPosition,Logic logic){
         this.startPosition = startPosition;
@@ -49,33 +49,5 @@ public class Promotion {
     @FXML
     private void setLanguage(){
         LanguageManager.nextLocale();
-
-        getLabelPromotion().setText(LanguageManager.getText("promotion_label"));
-        getButtonQueen().setText(LanguageManager.getText("queen_label"));
-        getButtonBishop().setText(LanguageManager.getText("bishop_label"));
-        getButtonRook().setText(LanguageManager.getText("rook_label"));
-        getButtonKnight().setText(LanguageManager.getText("knight_label"));
-        getLanguage().setText(LanguageManager.getText("language"));
-    }
-
-
-
-    private Label getLabelPromotion(){
-        return (Label) promotion.getChildren().get(1);
-    }
-    private Button getButtonQueen(){
-        return (Button) promotion.getChildren().get(2);
-    }
-    private Button getButtonBishop(){
-        return (Button) promotion.getChildren().get(3);
-    }
-    private Button getButtonRook(){
-        return (Button) promotion.getChildren().get(4);
-    }
-    private Button getButtonKnight(){
-        return (Button) promotion.getChildren().get(5);
-    }
-    private Button getLanguage(){
-        return (Button) promotion.getChildren().get(6);
     }
 }

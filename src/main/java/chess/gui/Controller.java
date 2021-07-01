@@ -44,7 +44,7 @@ public class Controller {
 
 
     @FXML
-    private Pane menu;
+    public Pane menu;
 
     /**
      * initiates the controller and the logic
@@ -84,18 +84,12 @@ public class Controller {
      * @param event the mouse event
      */
     public void backToMenu(MouseEvent event) {
+        WindowManager.initialWindow("MenuStage", "menu_title");
+        WindowManager.showStage("MenuStage");
 
-
-        Stage stage = new Stage();
-        stage.setTitle(LanguageManager.getText("menu_title"));
-        stage.setScene(new Scene(WindowManager.createWindow("MainMenu.fxml")));
-        stage.show();
-
-        // Hide this current window
-        if(logic.getPromotionStage() != null){
-            logic.getPromotionStage().close();
-        }
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        //Close all other Stage
+        WindowManager.closeStage("PromotionStage");
+        WindowManager.closeStage("GameStage");
         logic.killNetworkPlayer();
     }
 
@@ -477,33 +471,7 @@ public class Controller {
      */
     @FXML
     private void setLanguage() {
-        ResourceBundle oldLanguage = LanguageManager.getResourceBundle();
         LanguageManager.nextLocale();
-
-        switchFlagLanguage(oldLanguage, "blackCheck_label");
-        switchFlagLanguage(oldLanguage, "whiteCheck_label");
-        switchFlagLanguage(oldLanguage, "blackCheckmate_label");
-        switchFlagLanguage(oldLanguage, "whiteCheckmate_label");
-        switchFlagLanguage(oldLanguage, "stalemate_label");
-        getBackToMenu().setText(LanguageManager.getText("menu_button"));
-        getLanguage().setText(LanguageManager.getText("language"));
-        getLabelHistory().setText(LanguageManager.getText("history_label"));
-        getTouchMove().setText(LanguageManager.getText("touch_move_button"));
-        getPossibleMove().setText(LanguageManager.getText("possible_moves_button"));
-        getRotate().setText(LanguageManager.getText("rotate_button"));
-        getShowFlags().setText(LanguageManager.getText("flag_button"));
-    }
-
-    /**
-     * switch the language of the gui elements
-     *
-     * @param oldLanguage the current language of the gui elements
-     * @param label the label of the language you want to switch to (e.g. "fr" according to french)
-     */
-    private void switchFlagLanguage(ResourceBundle oldLanguage, String label) {
-        if (getLabelCheck().getText().equals(oldLanguage.getString(label))) {
-            getLabelCheck().setText(LanguageManager.getText(label));
-        }
     }
 
     /**
@@ -699,10 +667,6 @@ public class Controller {
         return (GridPane) menu.getChildren().get(1);
     }
 
-    private Label getLabelHistory() {
-        return (Label) menu.getChildren().get(2);
-    }
-
     protected ScrollPane getScrollPaneHistory() {
             return (ScrollPane) menu.getChildren().get(3);
         }
@@ -735,20 +699,12 @@ public class Controller {
         return (CheckBox) menu.getChildren().get(9);
     }
 
-    private Button getBackToMenu() {
-        return (Button) menu.getChildren().get(10);
-    }
-
     private Rectangle getRectangleWhite() {
         return (Rectangle) menu.getChildren().get(11);
     }
 
     private Rectangle getRectangleBlack() {
         return (Rectangle) menu.getChildren().get(12);
-    }
-
-    private Button getLanguage() {
-        return (Button) menu.getChildren().get(13);
     }
 
     private GridPane getBeatenFiguresBlack() {

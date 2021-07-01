@@ -90,18 +90,12 @@ public class Logic implements Runnable {
         if (coreGame.getCurrentBoard().getFigure(startPosition) instanceof Pawn &&
                 (targetPosition.getPosY() == 0 || targetPosition.getPosY() == 7) &&
                 Rules.possibleTargetFields(startPosition, coreGame.getCurrentBoard()).contains(targetPosition)) {
+
             controller.getBoard().setMouseTransparent(true);
 
-            promotionStage = new Stage();
-            promotionStage.setTitle(LanguageManager.getText("promotion_title"));
-            promotionStage.initStyle(StageStyle.UNDECORATED);
-            promotionStage.setAlwaysOnTop(true);
-            promotionStage.setScene(new Scene(WindowManager.createWindow("Promotion.fxml")));
-
-            Promotion promotion = (Promotion) WindowManager.getController();
-            promotion.init(startPosition, targetPosition, this);
-
-            promotionStage.show();
+            WindowManager.initialWindow("PromotionStage", "promotion_title");
+            ((Promotion) WindowManager.getController("PromotionStage")).init(startPosition, targetPosition, this);
+            WindowManager.showStage("PromotionStage");
         } else performMove(new Move(startPosition, targetPosition));
     }
 

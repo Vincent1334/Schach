@@ -24,7 +24,7 @@ public class NetworkMenu {
     private Stage stage = new Stage();
 
     @FXML
-    private Pane menu;
+    public Pane menu;
     @FXML
     private Rectangle white;
     @FXML
@@ -38,18 +38,12 @@ public class NetworkMenu {
             if(getButtonJoinGame().isSelected()) network = new NetworkPlayer(getIPInput().getText(), Integer.valueOf(getPortInput().getText()));
             else network = new NetworkPlayer(Integer.valueOf(getPortInput().getText()), isBlack);
 
-            Stage stage = new Stage();
-            stage.setTitle(LanguageManager.getText("game_title"));
-            stage.setScene(new Scene(WindowManager.createWindow("schachbrett.fxml")));
-            stage.centerOnScreen();
-
-            Controller controller = (Controller) WindowManager.getController();
-            controller.init(GameMode.NETWORK,isBlack, network);
-
-            stage.show();
+            WindowManager.initialWindow("GameStage", "game_title");
+            ((Controller) WindowManager.getController("GameStage")).init(GameMode.NETWORK, isBlack, network);
+            WindowManager.showStage("GameStage");
 
             // Hide this current window
-            ((Node) (event.getSource())).getScene().getWindow().hide();
+            WindowManager.closeStage("NetworkStage");
         }catch(Exception x){
             getNetworkError().setVisible(true);
         }
@@ -58,12 +52,11 @@ public class NetworkMenu {
 
     @FXML
     private void backToMenu(MouseEvent event){
-        stage.setTitle(LanguageManager.getText("menu_title"));
-        stage.setScene(new Scene(WindowManager.createWindow("MainMenu.fxml")));
-        stage.show();
+        WindowManager.initialWindow("MenuStage", "menu_title");
+        WindowManager.showStage("MenuStage");
 
         // Hide this current window
-        ((Node) (event.getSource())).getScene().getWindow().hide();
+        WindowManager.closeStage("NetworkStage");
     }
 
     @FXML
@@ -88,17 +81,6 @@ public class NetworkMenu {
     @FXML
     private void setLanguage(){
         LanguageManager.nextLocale();
-
-        getButtonLanguage().setText(LanguageManager.getText("language"));
-        getTitle().setText(LanguageManager.getText("networkSettingsTitle"));
-        getButtonNewGame().setText(LanguageManager.getText("newGame"));
-        getTextColor().setText(LanguageManager.getText("yourColor"));
-        getButtonJoinGame().setText(LanguageManager.getText("joinGame"));
-        getTextIP().setText(LanguageManager.getText("ip"));
-        getTextPort().setText(LanguageManager.getText("port"));
-        getButtonMenu().setText(LanguageManager.getText("menu_button"));
-        getButtonStart().setText(LanguageManager.getText("start_button"));
-        getNetworkError().setText(LanguageManager.getText("network_error"));
     }
 
     @FXML
@@ -122,26 +104,11 @@ public class NetworkMenu {
         }
     }
 
-    private Text getTitle() {
-        return (Text) menu.getChildren().get(2);
-    }
-    private Text getTextPort(){
-        return (Text) menu.getChildren().get(4);
-    }
-    private Button getButtonStart(){
-        return (Button) menu.getChildren().get(5);
-    }
-    private Button getButtonMenu(){
-        return (Button) menu.getChildren().get(6);
-    }
     private Text getTextColor(){
         return (Text) menu.getChildren().get(7);
     }
     private Text getTextIP(){
         return (Text) menu.getChildren().get(11);
-    }
-    private Button getButtonLanguage(){
-        return (Button) menu.getChildren().get(12);
     }
     private RadioButton getButtonNewGame(){
         return (RadioButton) menu.getChildren().get(13);
