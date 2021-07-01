@@ -51,16 +51,10 @@ public class Server implements Runnable{
     @Override
     public void run() {
         try{
-            if(!isConnected){
-                serverSocket = new ServerSocket(port);
-                clientSocket = serverSocket.accept();
-                out = new PrintWriter(clientSocket.getOutputStream(), true);
-                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            }
+            initConnection();
             while(true){
                 String input = in.readLine();
                 if(input != null){
-                    System.out.println(input);
                     //check if new client is connected
                     if(!isConnected){
                         if(input.equals("start")){
@@ -86,6 +80,16 @@ public class Server implements Runnable{
             }
 
         }catch(Exception x){
+            x.printStackTrace();
+        }
+    }
+
+    private void initConnection() throws IOException {
+        if(!isConnected){
+            serverSocket = new ServerSocket(port);
+            clientSocket = serverSocket.accept();
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         }
     }
 

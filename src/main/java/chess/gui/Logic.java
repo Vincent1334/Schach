@@ -176,10 +176,7 @@ public class Logic implements Runnable {
     public boolean isBlack(){
         return isBlack;
     }
-
-    public Stage getPromotionStage(){
-        return promotionStage;
-    }
+    
     /**
      * executes the computer move
      */
@@ -188,6 +185,7 @@ public class Logic implements Runnable {
         if (gameMode == GameMode.COMPUTER) {
             controller.setCalculating(false, LanguageManager.getText("calculating_label"));
             Move computerMove = computer.getMove();
+            System.out.println("Computer: " + computerMove.toString());
             coreGame.chessMove(computerMove);
             controller.updateHistory(computerMove);
             controller.updateScene();

@@ -295,24 +295,30 @@ public class Computer implements Runnable{
     private void performMove(Position actualPos, Position targetPos, Board tmpBoard){
         if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {
             Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
+            updateCheckFlags(tmpBoard);
             return;
         }
         if (Rules.checkCastling(actualPos, targetPos, tmpBoard)) {
             Rules.performCastlingMove(actualPos, targetPos, tmpBoard);
+            tmpBoard.setCastlingFlag(true, tmpBoard.getFigure(actualPos).isBlack());
+            updateCheckFlags(tmpBoard);
             return;
         }
         if (Rules.checkPawnConversion(actualPos, targetPos, tmpBoard)) {
             Rules.performPawnConversion(actualPos, targetPos, 5, tmpBoard);
+            updateCheckFlags(tmpBoard);
             return;
         }
         if (Rules.checkDefaultMove(actualPos, targetPos, tmpBoard)) {
             Rules.performDefaultMove(actualPos, targetPos, tmpBoard);
+            updateCheckFlags(tmpBoard);
         }
+    }
 
-        //update Flags
-        Board.kingInCheck(board, PLAYER_MAX);
-        Board.kingInCheck(board, PLAYER_MIN);
-
+    private void updateCheckFlags(Board tmpBoard){
+        //Check check and set Flags
+        Board.kingInCheck(tmpBoard, PLAYER_MAX);
+        Board.kingInCheck(tmpBoard, PLAYER_MIN);
     }
 
     /**
