@@ -1,4 +1,4 @@
-package chess;
+package chess.enums;
 
 /**
  * This class contains the enums for the specific gamemodes

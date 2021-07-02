@@ -40,32 +40,45 @@ public class Heuristic {
     private static final float ENDGAME_POINTS = 25;
 
     /**
-     *
-     * @param move the current move
-     * @param lastMove the last move
-     * @return zero when current and last move are the same
+     * @param move      the current move
+     * @param lastMove  the last move (the latest move?)
+     * @param playerMax zero when current and last move are the same
+     * @return TODO ?
      */
-   public static float checkRepeat(Move move, Move lastMove, boolean playerMax){
-        if(lastMove != null && move.getActualFigure() == lastMove.getActualFigure() && move.getActualFigure().isBlack() == playerMax) return -REPEAT_POINTS;
+    public static float checkRepeat(Move move, Move lastMove, boolean playerMax) {
+        if (lastMove != null &&
+                move.getActualFigure() == lastMove.getActualFigure() &&
+                move.getActualFigure().isBlack() == playerMax) {
+            return -REPEAT_POINTS;
+        }
         return 0;
     }
 
     /**
-     *
-     * @param move the current move
+     * @param move      the current move
      * @param playerMax maximizing player
      * @return figure score
      */
-    public static float checkFigureScore(Move move, boolean playerMax){
+    public static float checkFigureScore(Move move, boolean playerMax) {
         float figureScore = 0;
-        switch(move.getActualFigure().getFigureID()){
-            case 1: figureScore = PAWN_BONUS; break;
-            case 2: figureScore = ROOK_BONUS; break;
-            case 3: figureScore = BISHOP_BONUS; break;
-            case 4: figureScore = KNIGHT_BONUS; break;
-            case 5: figureScore = QUEEN_BONUS; break;
+        switch (move.getActualFigure().getFigureID()) {
+            case 1:
+                figureScore = PAWN_BONUS;
+                break;
+            case 2:
+                figureScore = ROOK_BONUS;
+                break;
+            case 3:
+                figureScore = BISHOP_BONUS;
+                break;
+            case 4:
+                figureScore = KNIGHT_BONUS;
+                break;
+            case 5:
+                figureScore = QUEEN_BONUS;
+                break;
         }
-        if(move.getActualFigure().isBlack() != playerMax){
+        if (move.getActualFigure().isBlack() != playerMax) {
             figureScore = figureScore * (-1);
         }
         return figureScore;
@@ -73,89 +86,100 @@ public class Heuristic {
 
     /**
      * checks for a pawn chain
-     * @param board the current board
-     * @param move the current move
+     *
+     * @param board     the current board
+     * @param move      the current move
      * @param playerMax maximizing player
      * @return the determined value of the pawn chain score
      */
-    public static float checkPawnChain(Board board, Move move, boolean playerMax){
+    public static float checkPawnChain(Board board, Move move, boolean playerMax) {
         float score = 0;
-        if(move.getActualFigure() instanceof Pawn){
-            for(int i = 0; i < 4; i++){
+        if (move.getActualFigure() instanceof Pawn) {
+            for (int i = 0; i < 4; i++) {
                 Figure tmpFigure;
-                try{
-                    switch(i){
-                        case 0: tmpFigure = board.getFigure(move.getTargetPosition().getPosX()-1, move.getTargetPosition().getPosY()-1); break;
-                        case 1: tmpFigure = board.getFigure(move.getTargetPosition().getPosX()-1, move.getTargetPosition().getPosY()+1); break;
-                        case 2: tmpFigure = board.getFigure(move.getTargetPosition().getPosX()+1, move.getTargetPosition().getPosY()-1); break;
-                        case 3: tmpFigure = board.getFigure(move.getTargetPosition().getPosX()+1, move.getTargetPosition().getPosY()+1); break;
-                        default: continue;
+                try {
+                    switch (i) {
+                        case 0:
+                            tmpFigure = board.getFigure(move.getTargetPosition().getPosX() - 1, move.getTargetPosition().getPosY() - 1);
+                            break;
+                        case 1:
+                            tmpFigure = board.getFigure(move.getTargetPosition().getPosX() - 1, move.getTargetPosition().getPosY() + 1);
+                            break;
+                        case 2:
+                            tmpFigure = board.getFigure(move.getTargetPosition().getPosX() + 1, move.getTargetPosition().getPosY() - 1);
+                            break;
+                        case 3:
+                            tmpFigure = board.getFigure(move.getTargetPosition().getPosX() + 1, move.getTargetPosition().getPosY() + 1);
+                            break;
+                        default:
+                            continue;
                     }
-                }catch(Exception x){
+                } catch (Exception x) {
                     continue;
                 }
-                if(tmpFigure instanceof Pawn && tmpFigure.isBlack() == move.getActualFigure().isBlack()){
+                if (tmpFigure instanceof Pawn && tmpFigure.isBlack() == move.getActualFigure().isBlack()) {
                     score += PAWN_CHAIN_POINTS;
                 }
-                if(move.getActualFigure().isBlack() != playerMax) score = -score;
+                if (move.getActualFigure().isBlack() != playerMax) {
+                    score = -score;
+                }
             }
         }
         return score;
     }
 
     /**
-     *
-     * @param material material for each figure
+     * @param material  material for each figure
      * @param playerMax maximizing player
      * @return the determined value for the material score
      */
-    public static float checkMaterial(int[][] material, boolean playerMax){
+    public static float checkMaterial(int[][] material, boolean playerMax) {
         float score = 0;
         int playerMaxID = playerMax ? 1 : 0;
         int playerMinID = !playerMax ? 1 : 0;
-        score += QUEEN_MATERIAL *material[playerMaxID][4]- QUEEN_MATERIAL *material[playerMinID][4];
-        score += ROOK_MATERIAL *material[playerMaxID][1]- ROOK_MATERIAL *material[playerMinID][1];
-        score += BISHOP_MATERIAL *material[playerMaxID][2]- BISHOP_MATERIAL *material[playerMinID][2];
-        score += KNIGHT_MATERIAL *material[playerMaxID][3]- KNIGHT_MATERIAL *material[playerMinID][3];
-        score += PAWN_MATERIAL *material[playerMaxID][0]- PAWN_MATERIAL *material[playerMinID][0];
+        score += QUEEN_MATERIAL * material[playerMaxID][4] - QUEEN_MATERIAL * material[playerMinID][4];
+        score += ROOK_MATERIAL * material[playerMaxID][1] - ROOK_MATERIAL * material[playerMinID][1];
+        score += BISHOP_MATERIAL * material[playerMaxID][2] - BISHOP_MATERIAL * material[playerMinID][2];
+        score += KNIGHT_MATERIAL * material[playerMaxID][3] - KNIGHT_MATERIAL * material[playerMinID][3];
+        score += PAWN_MATERIAL * material[playerMaxID][0] - PAWN_MATERIAL * material[playerMinID][0];
 
         return score;
     }
 
     /**
-     *
      * @param fieldScore the fields score
-     * @param playerMax maximizing player
+     * @param playerMax  maximizing player
      * @return the determined value of the field score
      */
-    public static float checkFieldScore(int[][] fieldScore, boolean playerMax){
+    public static float checkFieldScore(int[][] fieldScore, boolean playerMax) {
         float score = 0;
         int playerMaxID = playerMax ? 1 : 0;
         int playerMinID = !playerMax ? 1 : 0;
-        score += fieldScore[playerMaxID][0]-fieldScore[playerMinID][0];
-        score += fieldScore[playerMaxID][1]-fieldScore[playerMinID][1];
-        score += fieldScore[playerMaxID][4]-fieldScore[playerMinID][4];
-        score += fieldScore[playerMaxID][5]-fieldScore[playerMinID][5];
+        score += fieldScore[playerMaxID][0] - fieldScore[playerMinID][0];
+        score += fieldScore[playerMaxID][1] - fieldScore[playerMinID][1];
+        score += fieldScore[playerMaxID][4] - fieldScore[playerMinID][4];
+        score += fieldScore[playerMaxID][5] - fieldScore[playerMinID][5];
 
         return score;
     }
 
     /**
      * checks for the endgame and adds endgame points to score
-     * @param board the current board
+     *
+     * @param board     the current board
      * @param playerMax the maximizing player
      * @param isEndGame whether it is the endgame
      * @return the determined value of the endgame score
      */
-    public static float checkEndGame(Board board, boolean playerMax, boolean isEndGame){
+    public static float checkEndGame(Board board, boolean playerMax, boolean isEndGame) {
         float score = 0;
-        if(isEndGame){
-            for(int y = 0; y < 8; y++){
-                for(int x = 0; x < 8; x++){
-                    if (board.getFigure(x, y) instanceof Knight && board.getFigure(x, y).isBlack() == playerMax){
+        if (isEndGame) {
+            for (int y = 0; y < 8; y++) {
+                for (int x = 0; x < 8; x++) {
+                    if (board.getFigure(x, y) instanceof Knight && board.getFigure(x, y).isBlack() == playerMax) {
                         score -= ENDGAME_POINTS;
                     }
-                    if (board.getFigure(x, y) instanceof Knight && board.getFigure(x, y).isBlack() != playerMax){
+                    if (board.getFigure(x, y) instanceof Knight && board.getFigure(x, y).isBlack() != playerMax) {
                         score += ENDGAME_POINTS;
                     }
                 }
@@ -165,32 +189,29 @@ public class Heuristic {
     }
 
     /**
-     *
-     * @param board the current board
+     * @param board     the current board
      * @param playerMax maximizing player
      * @return castling points
      */
-    public static float checkCastling(Board board, boolean playerMax){
+    public static float checkCastling(Board board, boolean playerMax) {
         return (board.isCastlingFlag(playerMax) ? CASTLING_POINTS : 0) - (board.isCastlingFlag(!playerMax) ? CASTLING_POINTS : 0);
     }
 
     /**
-     *
-     * @param board the current board
+     * @param board     the current board
      * @param playerMax maximizing player
      * @return chess mate points
      */
-    public static float checkChessMate(Board board, boolean playerMax){
+    public static float checkChessMate(Board board, boolean playerMax) {
         return (board.isCheckMateFlag(!playerMax) ? CHECK_MATE_POINTS : 0) - (board.isCheckMateFlag(playerMax) ? CHECK_MATE_POINTS : 0);
     }
 
     /**
-     *
-     * @param board the current board
+     * @param board     the current board
      * @param playerMax maximizing player
      * @return check points
      */
-    public static float checkChess(Board board, boolean playerMax){
+    public static float checkChess(Board board, boolean playerMax) {
         return (board.isCheckFlag(!playerMax) ? CHECK_POINTS : 0) - (board.isCheckFlag(playerMax) ? CHECK_POINTS : 0);
     }
 }

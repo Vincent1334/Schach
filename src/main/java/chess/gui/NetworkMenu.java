@@ -1,6 +1,6 @@
 package chess.gui;
 
-import chess.GameMode;
+import chess.enums.GameMode;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import chess.network.NetworkPlayer;
@@ -9,15 +9,22 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+
 import static javafx.scene.paint.Color.*;
 
+/**
+ * TODO: JavaDoc
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-07-02
+ */
+@SuppressWarnings({"PMD.UnusedPrivateMethod"})
+// the methods backToMenu, setColor, setLanguage and setDisableIP are used by the gui but PMD does not recognize this
 public class NetworkMenu {
 
     private boolean isBlack = true;
-
     @FXML
     public Pane menu;
     @FXML
@@ -25,13 +32,18 @@ public class NetworkMenu {
     @FXML
     private Rectangle black;
 
-
+    /**
+     *
+     */
     @FXML
-    private void start(MouseEvent event){
-        try{
+    private void start() {
+        try {
             NetworkPlayer network;
-            if(getButtonJoinGame().isSelected()) network = new NetworkPlayer(getIPInput().getText(), Integer.valueOf(getPortInput().getText()));
-            else network = new NetworkPlayer(Integer.valueOf(getPortInput().getText()), isBlack);
+            if (getButtonJoinGame().isSelected()) {
+                network = new NetworkPlayer(getIPInput().getText(), Integer.parseInt(getPortInput().getText()));
+            } else {
+                network = new NetworkPlayer(Integer.parseInt(getPortInput().getText()), isBlack);
+            }
 
             WindowManager.initialWindow("GameStage", "game_title");
             ((Controller) WindowManager.getController("GameStage")).init(GameMode.NETWORK, isBlack, network);
@@ -39,14 +51,17 @@ public class NetworkMenu {
 
             // Hide this current window
             WindowManager.closeStage("NetworkStage");
-        }catch(Exception x){
+        } catch (Exception x) {
             getNetworkError().setVisible(true);
         }
 
     }
 
+    /**
+     *
+     */
     @FXML
-    private void backToMenu(MouseEvent event){
+    private void backToMenu() {
         WindowManager.initialWindow("MenuStage", "menu_title");
         WindowManager.showStage("MenuStage");
 
@@ -54,33 +69,33 @@ public class NetworkMenu {
         WindowManager.closeStage("NetworkStage");
     }
 
+    /**
+     * @param event the mouseEvent
+     */
     @FXML
-    private void setColor(MouseEvent event){
+    private void setColor(MouseEvent event) {
         Rectangle clickedField = (Rectangle) event.getTarget();
-        if(clickedField == black){
+        if (clickedField == black) {
             isBlack = true;
             black.setStroke(valueOf("#8fbe00"));
             black.setStrokeWidth(2.5);
-            white.setStroke(Color.BLACK);
+            white.setStroke(BLACK);
             white.setStrokeWidth(1.0);
-            }
-        else{
+        } else {
             isBlack = false;
-            black.setStroke(Color.BLACK);
+            black.setStroke(BLACK);
             black.setStrokeWidth(1.0);
             white.setStroke(valueOf("#8fbe00"));
             white.setStrokeWidth(2.5);
         }
     }
 
+    /**
+     *
+     */
     @FXML
-    private void setLanguage(){
-        LanguageManager.nextLocale();
-    }
-
-    @FXML
-    private void setDissableIP(){
-        if(getButtonNewGame().isSelected()){
+    private void setDisableIP() {
+        if (getButtonNewGame().isSelected()) {
             getIPInput().setDisable(true);
             getTextIP().setOpacity(0.5);
             getTextColor().setOpacity(1.0);
@@ -88,7 +103,7 @@ public class NetworkMenu {
             black.setOpacity(1.0);
             white.setDisable(false);
             white.setOpacity(1.0);
-        }else{
+        } else {
             getIPInput().setDisable(false);
             getTextIP().setOpacity(1);
             getTextColor().setOpacity(0.5);
@@ -99,21 +114,39 @@ public class NetworkMenu {
         }
     }
 
-    private Text getTextColor(){
+
+    //--------------getter / setter---------------------------------------------------------------------------------------------------------------
+
+    @FXML
+    private void setLanguage() {
+        LanguageManager.nextLocale();
+    }
+
+    private Text getTextColor() {
         return (Text) menu.getChildren().get(7);
     }
-    private Text getTextIP(){
+
+    private Text getTextIP() {
         return (Text) menu.getChildren().get(11);
     }
-    private RadioButton getButtonNewGame(){
+
+    private RadioButton getButtonNewGame() {
         return (RadioButton) menu.getChildren().get(13);
     }
-    private RadioButton getButtonJoinGame(){
+
+    private RadioButton getButtonJoinGame() {
         return (RadioButton) menu.getChildren().get(14);
     }
-    private TextField getPortInput() {return (TextField) menu.getChildren().get(3);}
-    private TextField getIPInput() {return (TextField) menu.getChildren().get(10);}
-    private Text getNetworkError(){
+
+    private TextField getPortInput() {
+        return (TextField) menu.getChildren().get(3);
+    }
+
+    private TextField getIPInput() {
+        return (TextField) menu.getChildren().get(10);
+    }
+
+    private Text getNetworkError() {
         return (Text) menu.getChildren().get(15);
     }
 }

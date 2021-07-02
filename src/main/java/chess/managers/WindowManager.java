@@ -13,17 +13,17 @@ import javafx.stage.StageStyle;
  */
 public class WindowManager {
 
-    private static  FXMLLoader[] fxmlLoader = new FXMLLoader[4];
-
+    private static FXMLLoader[] fxmlLoader = new FXMLLoader[4];
     private static Stage[] stages = new Stage[4];
 
     /**
      * Load FXML code from File
-     * @param key file name
-     * @return parent object
+     *
+     * @param key      file name
+     * @param titleKey parent object
      */
-    public static void initialWindow(String key, String titleKey){
-        try{
+    public static void initialWindow(String key, String titleKey) {
+        try {
             //load FXML file
             ClassLoader classLoader = ClassLoader.getSystemClassLoader();
             fxmlLoader[keyToStage(key)] = new FXMLLoader(classLoader.getResource("chess/gui/" + key + ".fxml"));
@@ -36,56 +36,65 @@ public class WindowManager {
             stages[keyToStage(key)].setScene(new Scene(fxmlLoader[keyToStage(key)].load()));
 
             //Special Settings
-            switch (key){
-                case "PromotionStage":{
-                    stages[keyToStage(key)].initStyle(StageStyle.UNDECORATED);
-                    stages[keyToStage(key)].setAlwaysOnTop(true);
-                    break;
-                }
+            if ("PromotionStage".equals(key)) {
+                stages[keyToStage(key)].initStyle(StageStyle.UNDECORATED);
+                stages[keyToStage(key)].setAlwaysOnTop(true);
             }
 
-        }catch (Exception x){
+        } catch (Exception x) {
             x.printStackTrace();
         }
     }
 
     /**
      * Convert key to a stage
+     *
      * @param key keyword
      * @return Stage
      */
-    private static int keyToStage(String key){
-        switch (key){
-            case "MenuStage": return 0;
-            case "GameStage": return 1;
-            case "PromotionStage": return 2;
-            case "NetworkStage": return 3;
-            default: return 4;
+    private static int keyToStage(String key) {
+        switch (key) {
+            case "MenuStage":
+                return 0;
+            case "GameStage":
+                return 1;
+            case "PromotionStage":
+                return 2;
+            case "NetworkStage":
+                return 3;
+            default:
+                return 4;
         }
     }
 
     /**
-     * Set visible of stage
+     * Set stage to visible
+     *
      * @param key keyword
      */
-    public static void showStage(String key){
+    public static void showStage(String key) {
         stages[keyToStage(key)].show();
     }
 
     /**
      * Close a Stage
+     *
      * @param key keyword
      */
-    public static void closeStage(String key){
-        if(stages[keyToStage(key)] != null) stages[keyToStage(key)].hide();
+    public static void closeStage(String key) {
+        if (stages[keyToStage(key)] != null) {
+            stages[keyToStage(key)].hide();
+        }
     }
+
+    //--------------getter / setter---------------------------------------------------------------------------------------------------------------
 
     /**
      * Returns controller object
      * @param key keyword
      * @return controller
      */
-    public static Object getController(String key){
+    public static Object getController(String key) {
         return fxmlLoader[keyToStage(key)].getController();
     }
 
@@ -94,7 +103,7 @@ public class WindowManager {
      * @param key keyword
      * @return Stage
      */
-    public static Stage getStage(String key){
+    public static Stage getStage(String key) {
         return stages[keyToStage(key)];
     }
 }

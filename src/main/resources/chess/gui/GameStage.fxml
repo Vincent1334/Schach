@@ -1113,7 +1113,7 @@
       </Label>
       <ScrollPane hbarPolicy="NEVER" layoutX="685.0" layoutY="100.0" onMouseClicked="#undoRedoClicked" prefHeight="510.0" prefWidth="120.0" style="-fx-border-color: #00A8C6; -fx-border-width: 2;">
          <content>
-            <GridPane fx:id="history" alignment="TOP_CENTER" maxWidth="120.0" minWidth="106.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="106.0">
+            <GridPane alignment="TOP_CENTER" maxWidth="120.0" minWidth="106.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="106.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" />
                </columnConstraints>
@@ -1221,7 +1221,8 @@
                   <Image url="@Undo.png" />
                </image>
             </ImageView>
-         </graphic></Button>
+         </graphic>
+      </Button>
       <Button fx:id="redo" cacheShape="false" centerShape="false" contentDisplay="CENTER" focusTraversable="false" graphicTextGap="0.0" layoutX="746.0" layoutY="613.0" maxHeight="25.0" maxWidth="58.0" minHeight="25.0" minWidth="58.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#redo" prefHeight="25.0" prefWidth="58.0" scaleShape="false" style="-fx-background-color: #00A8C6; -fx-max-height: 25; -fx-min-height: 25; -fx-pref-height: 25;" textAlignment="CENTER" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />

@@ -9,22 +9,36 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
+/**
+ * TODO: JavaDoc
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-07-02
+ */
+@SuppressWarnings({"PMD.UnusedPrivateMethod"})
+// the methods getPromotionFigure and setLanguage are used by the gui but PMD does not recognize this
 public class Promotion {
 
     private Logic logic;
     private Position startPosition;
     private Position targetPosition;
     @FXML
-    public Pane promotion;
+    public Pane promotionPane;
 
-    protected void init(Position startPosition, Position targetPosition,Logic logic){
+    /**
+     * @param startPosition
+     * @param targetPosition
+     * @param logic
+     */
+    protected void init(Position startPosition, Position targetPosition, Logic logic) {
         this.startPosition = startPosition;
         this.targetPosition = targetPosition;
         this.logic = logic;
-
     }
 
-
+    /**
+     * @param event
+     */
     @FXML
     private void getPromotionFigure(MouseEvent event) {
         int id = 0;
@@ -46,7 +60,7 @@ public class Promotion {
     }
 
     @FXML
-    private void setLanguage(){
+    private void setLanguage() {
         LanguageManager.nextLocale();
     }
 }

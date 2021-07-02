@@ -1,14 +1,10 @@
 package chess.gui;
 
-import chess.GameMode;
+import chess.enums.GameMode;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 /**
  * manages the main menu options
@@ -17,20 +13,28 @@ import javafx.stage.Stage;
  * 2021-06-09
  */
 @SuppressWarnings({"PMD.UnusedPrivateMethod"})
-// the methods setMode... and startGame are used by the gui but PMD didn't recognize
+// the methods setMode, ... and startGame are used by the gui but PMD does not recognize this
 public class MainMenu {
     private GameMode gameMode;
     private boolean playerColorBlack;
     @FXML
     public Pane pane;
 
-
     /**
-     * sets the language
+     * starts the game
      */
     @FXML
-    private void setLanguage(){
-        LanguageManager.nextLocale();
+    private void startGame() {
+        if (gameMode == GameMode.NETWORK) {
+            WindowManager.initialWindow("NetworkStage", "network_title");
+            WindowManager.getStage("NetworkStage").show();
+        } else {
+            WindowManager.initialWindow("GameStage", "game_title");
+            ((Controller) WindowManager.getController("GameStage")).init(gameMode, playerColorBlack, null);
+            WindowManager.getStage("GameStage").show();
+        }
+        // Hide this current window
+        WindowManager.closeStage("MenuStage");
     }
 
     /**
@@ -41,26 +45,13 @@ public class MainMenu {
         System.exit(0);
     }
 
-    /**
-     * starts the game
-     *
-     * @param event the mouse event
-     */
+
+    //--------------getter / setter---------------------------------------------------------------------------------------------------------------
+
     @FXML
-    private void startGame(MouseEvent event) {
-        if(gameMode== GameMode.NETWORK){
-            WindowManager.initialWindow("NetworkStage", "network_title");
-            WindowManager.getStage("NetworkStage").show();
-        }else{
-            WindowManager.initialWindow("GameStage", "game_title");
-            ((Controller) WindowManager.getController("GameStage")).init(gameMode, playerColorBlack, null);
-            WindowManager.getStage("GameStage").show();
-        }
-
-        // Hide this current window
-        WindowManager.closeStage("MenuStage");
+    private void setLanguage() {
+        LanguageManager.nextLocale();
     }
-
 
     /**
      * sets the game mode for a local game against a friend

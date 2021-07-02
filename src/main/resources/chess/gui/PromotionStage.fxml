@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="promotion" prefHeight="163.0" prefWidth="610.0" style="-fx-background-color: #ffffff; -fx-border-color: #00A8C6; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.Promotion">
+<Pane fx:id="promotionPane" prefHeight="163.0" prefWidth="610.0" style="-fx-background-color: #ffffff; -fx-border-color: #00A8C6; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chess.gui.Promotion">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#333333" height="60.0" layoutX="3.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="604.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="3.0" layoutY="29.0" prefHeight="30.0" prefWidth="604.0" text="%promotion_label" textAlignment="CENTER" textFill="WHITE">

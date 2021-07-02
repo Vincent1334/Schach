@@ -22,7 +22,7 @@ import java.util.*;
 public class LanguageManager {
 
     private static int index = 0;
-    private static List<Locale> locale = new ArrayList<Locale>(Arrays.asList(new Locale("en", "US"),
+    private static List<Locale> locale = new ArrayList<>(Arrays.asList(new Locale("en", "US"),
                                                                              new Locale("de", "DE"),
                                                                              new Locale("fr", "FR")));
 
@@ -105,7 +105,7 @@ public class LanguageManager {
 
     private static void updateLanguagePromotionStage(){
         if(WindowManager.getStage("PromotionStage") != null){
-            Pane promotion = ((Promotion) WindowManager.getController(NETWORKSTAGE)).promotion;
+            Pane promotion = ((Promotion) WindowManager.getController(NETWORKSTAGE)).promotionPane;
 
             ((Label) promotion.getChildren().get(1)).setText(LanguageManager.getText("promotion_label"));
             ((Button) promotion.getChildren().get(2)).setText(LanguageManager.getText("queen_label"));

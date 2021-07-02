@@ -319,9 +319,10 @@ public class Rules {
 
     /**
      * determines a list of possible target fields on the board
+     *
      * @param actualPos the actual pos
-     * @param board the used board
-     * @return a list of poosible target fields
+     * @param board     the used board
+     * @return a list of possible target fields
      */
     public static List<Position> possibleTargetFields(Position actualPos, Board board) {
         List<Position> fields = new ArrayList<>();

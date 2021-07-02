@@ -1,6 +1,6 @@
 package chess.gui;
 
-import chess.GameMode;
+import chess.enums.GameMode;
 import chess.controller.*;
 import chess.ai.Computer;
 import chess.managers.LanguageManager;
@@ -9,11 +9,9 @@ import chess.network.NetworkPlayer;
 import chess.figures.Pawn;
 import chess.model.*;
 import javafx.application.Platform;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * transposes the logic of a move
@@ -29,9 +27,7 @@ public class Logic implements Runnable {
     private Controller controller;
     private GameMode gameMode;
     private NetworkPlayer network;
-    private boolean isBlack;
-    
-    private Stage promotionStage;
+    private boolean playerBlack;
 
     /**
      * initializes gameMode, coreGame, computer, beatenFigureList and conversion
@@ -39,6 +35,7 @@ public class Logic implements Runnable {
      * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
      * @param playerColorBlack the color you want to play
      * @param controller       the controller
+     * @param networkPlayer    the networkPlayer
      */
     public Logic(GameMode gameMode, boolean playerColorBlack, Controller controller, NetworkPlayer networkPlayer) {
         this.gameMode = gameMode;
@@ -80,7 +77,6 @@ public class Logic implements Runnable {
      *
      * @param startField  the start field of the move
      * @param targetField the target field of the move
-     * @return move from the startField to the targetField
      */
     private void move(Rectangle startField, Rectangle targetField) {
         Position startPosition = new Position(GridPane.getColumnIndex(startField) - 1, 8 - GridPane.getRowIndex(startField));
@@ -96,7 +92,9 @@ public class Logic implements Runnable {
             WindowManager.initialWindow("PromotionStage", "promotion_title");
             ((Promotion) WindowManager.getController("PromotionStage")).init(startPosition, targetPosition, this);
             WindowManager.showStage("PromotionStage");
-        } else performMove(new Move(startPosition, targetPosition));
+        } else {
+            performMove(new Move(startPosition, targetPosition));
+        }
     }
 
     /**
@@ -108,8 +106,8 @@ public class Logic implements Runnable {
         controller.getBoard().setMouseTransparent(false);
         controller.setMark(startField, false, coreGame.getCurrentBoard());
         if (coreGame.chessMove(move)) {
-            if (!controller.getUndoRedoMovesAsText().isEmpty()) {
-                controller.resetUndoRedo();
+            if (!controller.getUndoRedo().getUndoRedoMovesAsText().isEmpty()) {
+                controller.getUndoRedo().resetUndoRedo(controller.getHistory(), this);
             }
             controller.updateHistory(move);
             controller.updateScene();
@@ -136,25 +134,6 @@ public class Logic implements Runnable {
         controller.setCalculating(true, LanguageManager.getText("calculating_label"));
     }
 
-
-    /**
-     * return core game
-     *
-     * @return CoreGame
-     */
-    public CoreGame getCoreGame() {
-        return coreGame;
-    }
-
-    /**
-     * Returns the start field
-     *
-     * @return Rectangle startField
-     */
-    public Rectangle getStartField() {
-        return startField;
-    }
-
     /**
      * Turns the task into thread if the computer thread is terminated
      */
@@ -166,17 +145,11 @@ public class Logic implements Runnable {
      * Turns the task into thread if the networkPlayer thread is terminated
      */
     public void killNetworkPlayer() {
-        if (network != null) network.killNetwork();
+        if (network != null) {
+            network.killNetwork();
+        }
     }
 
-    public GameMode getGameMode(){
-        return gameMode;
-    }
-
-    public boolean isBlack(){
-        return isBlack;
-    }
-    
     /**
      * executes the computer move
      */
@@ -198,16 +171,65 @@ public class Logic implements Runnable {
                 controller.updateHistory(networkMove);
                 controller.updateScene();
             } else {
-                isBlack = network.team();
+                playerBlack = network.team();
                 network.setReadyToPlay(true);
-                if (isBlack) {
+                if (playerBlack) {
                     controller.setCalculating(true, LanguageManager.getText("network_player_waiting_label"));
                     controller.getBoard().setRotate(180);
-                    controller.turnFigures(180);
-                }else {
+                    turnFigures(180);
+                } else {
                     controller.setCalculating(false, "");
                 }
             }
         }
+    }
+
+    /**
+     * turns the chessboard so that the figures of the actualPlayer are always on the bottom
+     *
+     * @param reset reset the boardTurning
+     */
+    public void turnBoard(boolean reset) {
+        if (reset) {
+            controller.getBoard().setRotate(0);
+            turnFigures(0);
+        } else {
+            if (coreGame.isActivePlayer()) {
+                controller.getBoard().setRotate(180);
+                turnFigures(180);
+            } else {
+                controller.getBoard().setRotate(0);
+                turnFigures(0);
+            }
+        }
+    }
+
+    /**
+     * rotates the figures themselves
+     *
+     * @param angle the angle around which the figures are rotated
+     */
+    public void turnFigures(int angle) {
+        for (Node node : controller.getBoard().getChildren()) {
+            node.setRotate(angle);
+        }
+    }
+
+    // -------------getter---------------------------------------------------------------------------------------------------------------
+
+    public CoreGame getCoreGame() {
+        return coreGame;
+    }
+
+    public Rectangle getStartField() {
+        return startField;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
+    public boolean isPlayerBlack() {
+        return playerBlack;
     }
 }

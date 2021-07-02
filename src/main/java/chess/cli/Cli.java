@@ -1,6 +1,6 @@
 package chess.cli;
 
-import chess.GameMode;
+import chess.enums.GameMode;
 import chess.controller.CoreGame;
 import chess.ai.Computer;
 import chess.managers.LanguageManager;
@@ -90,7 +90,7 @@ public class Cli {
             drawBoard();
             String input = scan.nextLine();
 
-            if(checkCommands(input)){
+            if (checkCommands(input)) {
                 continue;
             }
 
@@ -114,10 +114,11 @@ public class Cli {
 
     /**
      * Check command input
+     *
      * @param input keyword
      * @return True when command performed
      */
-    private static boolean checkCommands(String input){
+    private static boolean checkCommands(String input) {
         //check Commands
         if (input.equals("beaten")) {
             System.out.println(LanguageManager.getText("beaten_figures_label"));
@@ -147,7 +148,7 @@ public class Cli {
     /**
      * checks and performs the computer move
      */
-    public static void checkComputerMove(){
+    public static void checkComputerMove() {
         //check computer move
         if (gameMode2 == GameMode.COMPUTER) {
             //draw human input
@@ -187,11 +188,7 @@ public class Cli {
             coreGame.setCurrentBoard(new Board(newBoard));
 
             // Spielerwechsel
-            if (pointer % 2 == 0) {
-                coreGame.setActivePlayer(true);
-            } else {
-                coreGame.setActivePlayer(false);
-            }
+            coreGame.setActivePlayer(pointer % 2 == 0);
         }
     }
 
@@ -216,11 +213,7 @@ public class Cli {
             undoRedoMovesAsBoard.remove(coreGame.getMoveHistory().get(pointer));
             coreGame.setCurrentBoard(new Board(currentBoard));
 
-            if (pointer % 2 == 0) {
-                coreGame.setActivePlayer(true);
-            } else {
-                coreGame.setActivePlayer(false);
-            }
+            coreGame.setActivePlayer(pointer % 2 == 0);
         }
     }
 

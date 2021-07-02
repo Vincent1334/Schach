@@ -15,10 +15,11 @@ import javafx.scene.image.Image;
 public class ImageHandler {
 
     private static ImageHandler instance;
-    private Map<String, Image> imgs = new HashMap<String, Image>();
+    private Map<String, Image> imgs = new HashMap<>();
 
     /**
      * returns the ImageHandler
+     *
      * @return the instance
      */
     public static ImageHandler getInstance() {
@@ -30,7 +31,8 @@ public class ImageHandler {
 
     /**
      * loads an image
-     * @param name the name of the image
+     *
+     * @param name       the name of the image
      * @param extensions the datatype of the Image
      */
     private void loadImage(String name, String... extensions) {
@@ -47,6 +49,7 @@ public class ImageHandler {
 
     /**
      * returns a image
+     *
      * @param key the key of the image
      * @return the image
      */

@@ -3,6 +3,7 @@ package chess.network;
 import chess.gui.Logic;
 import chess.model.Move;
 import chess.model.Parser;
+
 import java.net.*;
 import java.io.*;
 
@@ -12,7 +13,7 @@ import java.io.*;
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-06-28
  */
-public class Client implements Runnable{
+public class Client implements Runnable {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
@@ -28,11 +29,12 @@ public class Client implements Runnable{
 
     /**
      * Client constructor
+     *
      * @param ipAddress Server address
-     * @param port Server port
-     * @param gui gui for Thread
+     * @param port      Server port
+     * @param gui       gui for Thread
      */
-    public Client(String ipAddress, int port, Logic gui){
+    public Client(String ipAddress, int port, Logic gui) {
         try {
             this.ipAddress = ipAddress;
             this.port = port;
@@ -49,67 +51,61 @@ public class Client implements Runnable{
      */
     @Override
     public void run() {
-        if(!isConnected){
-            try{
+        if (!isConnected) {
+            try {
                 clientSocket = new Socket(ipAddress, port);
                 out = new PrintWriter(clientSocket.getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 out.println("start");
-            }catch (Exception x){
+            } catch (Exception x) {
                 System.out.println("Cant connect");
             }
         }
-        while(true){
-            try{
+        while (true) {
+            try {
                 String input = in.readLine();
-                if(input != null){
-                    if(isConnected){
+                if (input != null) {
+                    if (isConnected) {
                         networkMove = Parser.parse(input);
                         gui.computerOrNetworkIsFinish();
                         break;
                     }
                     System.out.println("Client: " + input);
-                    if(input.equals("white")){
+                    if (input.equals("white")) {
                         isBlack = false;
                         isConnected = true;
                         out.println("ready");
                         gui.computerOrNetworkIsFinish();
                         break;
                     }
-                    if(input.equals("black")){
+                    if (input.equals("black")) {
                         isBlack = true;
                         isConnected = true;
                         out.println("ready");
                         gui.computerOrNetworkIsFinish();
                     }
                 }
-            }catch (Exception x){
+            } catch (Exception x) {
                 x.printStackTrace();
             }
         }
     }
 
     /**
-     * Get client thread
-     * @return Thread
-     */
-    public Thread getThread(){
-        return thread;
-    }
-
-    /**
      * get move from Server
+     *
      * @return move
      */
-    public Move getMove(){
+    public Move getMove() {
         return networkMove;
     }
 
     /**
      * Send move to Server
+     *
      * @param move Move
      */
-    public void sendMove(Move move){
+    public void sendMove(Move move) {
         out.println(move.toString());
         thread = new Thread(this);
         thread.start();
@@ -117,9 +113,10 @@ public class Client implements Runnable{
 
     /**
      * Returns Client team
+     *
      * @return isBlack
      */
-    public boolean clientTeam(){
+    public boolean clientTeam() {
         return isBlack;
     }
 
