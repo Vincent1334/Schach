@@ -90,27 +90,7 @@ public class Cli {
             drawBoard();
             String input = scan.nextLine();
 
-            //check Commands
-            if (input.equals("beaten")) {
-                System.out.println(LanguageManager.getText("beaten_figures_label"));
-                for (int i = 0; i < coreGame.getCurrentBoard().getBeatenFigures().size(); i++) {
-                    System.out.println(coreGame.getCurrentBoard().getBeatenFigures().get(i).getSymbol());
-                }
-                continue;
-            }
-            if (input.equals("language")) {
-                LanguageManager.nextLocale();
-                System.out.println(LanguageManager.getText("language"));
-                continue;
-            }
-
-            if (input.equals("undo")) {
-                undo();
-                continue;
-            }
-
-            if (input.equals("redo")) {
-                redo();
+            if(checkCommands(input)){
                 continue;
             }
 
@@ -130,6 +110,38 @@ public class Cli {
             }
             checkComputerMove();
         } while (!coreGame.isGameOver());
+    }
+
+    /**
+     * Check command input
+     * @param input keyword
+     * @return True when command performed
+     */
+    private static boolean checkCommands(String input){
+        //check Commands
+        if (input.equals("beaten")) {
+            System.out.println(LanguageManager.getText("beaten_figures_label"));
+            for (int i = 0; i < coreGame.getCurrentBoard().getBeatenFigures().size(); i++) {
+                System.out.println(coreGame.getCurrentBoard().getBeatenFigures().get(i).getSymbol());
+            }
+            return true;
+        }
+        if (input.equals("language")) {
+            LanguageManager.nextLocale();
+            System.out.println(LanguageManager.getText("language"));
+            return true;
+        }
+
+        if (input.equals("undo")) {
+            undo();
+            return true;
+        }
+
+        if (input.equals("redo")) {
+            redo();
+            return true;
+        }
+        return false;
     }
 
     /**

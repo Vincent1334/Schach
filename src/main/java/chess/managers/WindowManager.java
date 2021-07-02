@@ -49,6 +49,11 @@ public class WindowManager {
         }
     }
 
+    /**
+     * Convert key to a stage
+     * @param key keyword
+     * @return Stage
+     */
     private static int keyToStage(String key){
         switch (key){
             case "MenuStage": return 0;
@@ -59,18 +64,36 @@ public class WindowManager {
         }
     }
 
+    /**
+     * Set visible of stage
+     * @param key keyword
+     */
     public static void showStage(String key){
         stages[keyToStage(key)].show();
     }
 
+    /**
+     * Close a Stage
+     * @param key keyword
+     */
     public static void closeStage(String key){
         if(stages[keyToStage(key)] != null) stages[keyToStage(key)].hide();
     }
 
+    /**
+     * Returns controller object
+     * @param key keyword
+     * @return controller
+     */
     public static Object getController(String key){
         return fxmlLoader[keyToStage(key)].getController();
     }
 
+    /**
+     * Returns a stage
+     * @param key keyword
+     * @return Stage
+     */
     public static Stage getStage(String key){
         return stages[keyToStage(key)];
     }

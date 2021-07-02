@@ -150,39 +150,41 @@ public class Controller {
     public void redo() {
         if (undoRedoMovesAsText.size() > 0) {
             pointer++;
-
-            Text undoMove = (Text) getHistory().getChildren().get(pointer);
-            undoMove.setOpacity(1);
-            undoRedoMovesAsText.remove(undoRedoMovesAsText.size() - 1);
-
-            // im Computermodus werden jeweils zwei Züge wiederhergestellt
-            if (logic.getGameMode() == GameMode.COMPUTER) {
-                Text undoMove2 = (Text) getHistory().getChildren().get(pointer + 1);
-                undoMove2.setOpacity(1);
+            if(getHistory().getChildren().size() != pointer){
+                Text undoMove = (Text) getHistory().getChildren().get(pointer);
+                undoMove.setOpacity(1);
                 undoRedoMovesAsText.remove(undoRedoMovesAsText.size() - 1);
 
-                pointer++;
-                undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer - 1));
-            }
+                // im Computermodus werden jeweils zwei Züge wiederhergestellt
+                if (logic.getGameMode() == GameMode.COMPUTER) {
+                    Text undoMove2 = (Text) getHistory().getChildren().get(pointer + 1);
+                    undoMove2.setOpacity(1);
+                    undoRedoMovesAsText.remove(undoRedoMovesAsText.size() - 1);
 
-            Board currentBoard;
-            if (pointer >= 0) {
-                currentBoard = logic.getCoreGame().getMoveHistory().get(pointer);
-            } else {
-                currentBoard = logic.getCoreGame().getMoveHistory().get(0);
-            }
-            undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer));
-            logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
+                    pointer++;
+                    undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer - 1));
+                }
+
+                Board currentBoard;
+                if (pointer >= 0) {
+                    currentBoard = logic.getCoreGame().getMoveHistory().get(pointer);
+                } else {
+                    currentBoard = logic.getCoreGame().getMoveHistory().get(0);
+                }
+                undoRedoMovesAsBoard.remove(logic.getCoreGame().getMoveHistory().get(pointer));
+                logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
 
 
-            // ggf- Spielerwechsel
-            if (pointer % 2 == 0) {
-                logic.getCoreGame().setActivePlayer(true);
-            } else {
-                logic.getCoreGame().setActivePlayer(false);
+                // ggf- Spielerwechsel
+                if (pointer % 2 == 0) {
+                    logic.getCoreGame().setActivePlayer(true);
+                } else {
+                    logic.getCoreGame().setActivePlayer(false);
+                }
+                updateScene();
+            }else{
+                pointer --;
             }
-            //Board.checkChessAndStaleMate(logic.getCoreGame().getCurrentBoard(),logic.getCoreGame().isActivePlayer());
-            updateScene();
         }
     }
 

@@ -56,20 +56,12 @@ public class Server implements Runnable{
                 String input = in.readLine();
                 if(input != null){
                     //check if new client is connected
-                    if(!isConnected){
-                        if(input.equals("start")){
-                            //send Team color
-                            out.println(isBlack ? "white" : "black");
-                            System.out.println("Server: " + (isBlack ? "black" : "white"));
-                            continue;
-                        }
-                        if(input.equals("ready")){
-                            //leave listener if server starts with white
-                            isConnected = true;
-                            gui.computerOrNetworkIsFinish();
-                            if(!isBlack) break;
-                            else continue;
-                        }
+                    if(!isConnected && startCommand(input)){
+                        continue;
+                    }
+                    switch (readyCommand(input)){
+                        case 0: break;
+                        case 1: continue;
                     }
 
                     //get Move message
@@ -84,6 +76,43 @@ public class Server implements Runnable{
         }
     }
 
+    /**
+     * Perform code when ready command arrives
+     * @param input equals ready
+     * @return 0 or 1 when command was successful
+     */
+    private int readyCommand(String input){
+        if(!isConnected && input.equals("ready")){
+            //leave listener if server starts with white
+            isConnected = true;
+            gui.computerOrNetworkIsFinish();
+            if(!isBlack){
+                return 0;
+            }
+            return 1;
+        }
+        return 2;
+    }
+
+    /**
+     * Perform code when start command arrives
+     * @param input equals start
+     * @return True when command was successful
+     */
+    private boolean startCommand(String input){
+        if(input.equals("start")){
+            //send Team color
+            out.println(isBlack ? "white" : "black");
+            System.out.println("Server: " + (isBlack ? "black" : "white"));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Initial connection
+     * @throws IOException Connection fails
+     */
     private void initConnection() throws IOException {
         if(!isConnected){
             serverSocket = new ServerSocket(port);

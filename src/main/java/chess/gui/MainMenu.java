@@ -1,17 +1,11 @@
 package chess.gui;
 
-
 import chess.GameMode;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -54,9 +48,6 @@ public class MainMenu {
      */
     @FXML
     private void startGame(MouseEvent event) {
-        FXMLLoader fxmlLoader;
-        Stage stage = new Stage();
-        Parent root;
         if(gameMode== GameMode.NETWORK){
             WindowManager.initialWindow("NetworkStage", "network_title");
             WindowManager.getStage("NetworkStage").show();

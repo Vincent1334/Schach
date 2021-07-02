@@ -5,9 +5,6 @@ import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import chess.network.NetworkPlayer;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -15,13 +12,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import static javafx.scene.paint.Color.*;
 
 public class NetworkMenu {
 
     private boolean isBlack = true;
-    private Stage stage = new Stage();
 
     @FXML
     public Pane menu;

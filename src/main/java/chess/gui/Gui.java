@@ -1,9 +1,7 @@
 package chess.gui;
 
-import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -22,8 +20,7 @@ public class Gui extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         WindowManager.initialWindow("MenuStage", "menu_title");
-        primaryStage = WindowManager.getStage("MenuStage");
-        primaryStage.show();
+        WindowManager.showStage("MenuStage");
     }
 
     /**

@@ -28,6 +28,8 @@ public class LanguageManager {
 
     private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", locale.get(index));
     private static ResourceBundle oldLanguage;
+    private final static String LANGUAGE = "language";
+    private final static String NETWORKSTAGE = "NetworkStage";
 
     /**
      * Change to the next Language file in the list
@@ -76,17 +78,17 @@ public class LanguageManager {
             ((RadioButton) pane.getChildren().get(9)).setText(getText("gamemode03"));
             ((Button) pane.getChildren().get(10)).setText(getText("start_button"));
             ((Button) pane.getChildren().get(11)).setText(getText("quit_button"));
-            ((Button) pane.getChildren().get(13)).setText(getText("language"));
+            ((Button) pane.getChildren().get(13)).setText(getText(LANGUAGE));
 
             WindowManager.getStage("MenuStage").setTitle(getText("menu_title"));
         }
     }
 
     private static void updateLanguageNetworkStage(){
-        if(WindowManager.getStage("NetworkStage") != null){
-            Pane menu = ((NetworkMenu) WindowManager.getController("NetworkStage")).menu;
+        if(WindowManager.getStage(NETWORKSTAGE) != null){
+            Pane menu = ((NetworkMenu) WindowManager.getController(NETWORKSTAGE)).menu;
 
-            ((Button) menu.getChildren().get(12)).setText(LanguageManager.getText("language"));
+            ((Button) menu.getChildren().get(12)).setText(LanguageManager.getText(LANGUAGE));
             ((Text) menu.getChildren().get(2)).setText(LanguageManager.getText("networkSettingsTitle"));
             ((RadioButton) menu.getChildren().get(13)).setText(LanguageManager.getText("newGame"));
             ((Text) menu.getChildren().get(7)).setText(LanguageManager.getText("yourColor"));
@@ -97,20 +99,20 @@ public class LanguageManager {
             ((Button) menu.getChildren().get(5)).setText(LanguageManager.getText("start_button"));
             ((Text) menu.getChildren().get(15)).setText(LanguageManager.getText("network_error"));
 
-            WindowManager.getStage("NetworkStage").setTitle(getText("network_title"));
+            WindowManager.getStage(NETWORKSTAGE).setTitle(getText("network_title"));
         }
     }
 
     private static void updateLanguagePromotionStage(){
         if(WindowManager.getStage("PromotionStage") != null){
-            Pane promotion = ((Promotion) WindowManager.getController("NetworkStage")).promotion;
+            Pane promotion = ((Promotion) WindowManager.getController(NETWORKSTAGE)).promotion;
 
             ((Label) promotion.getChildren().get(1)).setText(LanguageManager.getText("promotion_label"));
             ((Button) promotion.getChildren().get(2)).setText(LanguageManager.getText("queen_label"));
             ((Button) promotion.getChildren().get(3)).setText(LanguageManager.getText("bishop_label"));
             ((Button) promotion.getChildren().get(4)).setText(LanguageManager.getText("rook_label"));
             ((Button) promotion.getChildren().get(5)).setText(LanguageManager.getText("knight_label"));
-            ((Button) promotion.getChildren().get(6)).setText(LanguageManager.getText("language"));
+            ((Button) promotion.getChildren().get(6)).setText(LanguageManager.getText(LANGUAGE));
 
             WindowManager.getStage("PromotionStage").setTitle(getText("promotion_title"));
         }
@@ -126,7 +128,7 @@ public class LanguageManager {
             switchFlagLanguage(oldLanguage, "whiteCheckmate_label", menu);
             switchFlagLanguage(oldLanguage, "stalemate_label", menu);
             ((Button) menu.getChildren().get(10)).setText(LanguageManager.getText("menu_button"));
-            ((Button) menu.getChildren().get(13)).setText(LanguageManager.getText("language"));
+            ((Button) menu.getChildren().get(13)).setText(LanguageManager.getText(LANGUAGE));
             ((Label) menu.getChildren().get(2)).setText(LanguageManager.getText("history_label"));
             ((CheckBox) menu.getChildren().get(6)).setText(LanguageManager.getText("touch_move_button"));
             ((CheckBox) menu.getChildren().get(7)).setText(LanguageManager.getText("possible_moves_button"));
