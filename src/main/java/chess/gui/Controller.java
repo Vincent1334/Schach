@@ -173,10 +173,10 @@ public class Controller {
      */
     public void updateHistory(Move move) {
         String space = "   ";
-        if (getHistory().getRowCount() < 100) {
-            space = "     ";
-        } else if (getHistory().getRowCount() < 10) {
+        if (getHistory().getRowCount() < 10) {
             space = "       ";
+        } else if (getHistory().getRowCount() < 100) {
+            space = "     ";
         }
         Text t = new Text(getHistory().getRowCount() + space + move.toString());
         t.setFill(valueOf("#515151"));
@@ -466,30 +466,39 @@ public class Controller {
     //-----simple setter / getter---------------------------------------------------------------------------------------------------------------
 
     /**
-     * returns the gui element "white rectangle" which shows whether it is white's turn
+     * returns the gui element gridPane which shows white's beaten figures
      *
-     * @return the gui element "white rectangle" which shows whether it is white's turn
+     * @return the gui element gridPane which shows white's beaten figures
      */
-    private Rectangle getRectangleWhite() {
-        return (Rectangle) menu.getChildren().get(11);
+    public GridPane getBeatenFiguresWhite() {
+        return (GridPane) menu.getChildren().get(0);
     }
 
     /**
-     * returns the gui element "black rectangle" which shows whether it is white's turn
+     * returns the gui element "chessboard" as a gridPane
      *
-     * @return the gui element "black rectangle" which shows whether it is white's turn
+     * @return the gui element "chessboard" as a gridPane
      */
-    private Rectangle getRectangleBlack() {
-        return (Rectangle) menu.getChildren().get(12);
+    protected GridPane getBoard() {
+        return (GridPane) menu.getChildren().get(1);
     }
 
     /**
-     * returns the gui element gridPane which shows black's beaten figures
+     * returns the gui element "History" as a scrollPane
      *
-     * @return the gui element gridPane which shows black's beaten figures
+     * @return the gui element "History" as a scrollPane
      */
-    private GridPane getBeatenFiguresBlack() {
-        return (GridPane) menu.getChildren().get(14);
+    protected ScrollPane getScrollPaneHistory() {
+        return (ScrollPane) menu.getChildren().get(3);
+    }
+
+    /**
+     * returns the gui elements within the "History"-scrollPane as a gridPane
+     *
+     * @return the gui elements within the "History"-scrollPane as a gridPane
+     */
+    protected GridPane getHistory() {
+        return (GridPane) getScrollPaneHistory().getContent();
     }
 
     /**
@@ -547,39 +556,30 @@ public class Controller {
     }
 
     /**
-     * returns the gui element gridPane which shows white's beaten figures
+     * returns the gui element "white rectangle" which shows whether it is white's turn
      *
-     * @return the gui element gridPane which shows white's beaten figures
+     * @return the gui element "white rectangle" which shows whether it is white's turn
      */
-    public GridPane getBeatenFiguresWhite() {
-        return (GridPane) menu.getChildren().get(0);
+    private Rectangle getRectangleWhite() {
+        return (Rectangle) menu.getChildren().get(11);
     }
 
     /**
-     * returns the gui element "chessboard" as a gridPane
+     * returns the gui element "black rectangle" which shows whether it is white's turn
      *
-     * @return the gui element "chessboard" as a gridPane
+     * @return the gui element "black rectangle" which shows whether it is white's turn
      */
-    protected GridPane getBoard() {
-        return (GridPane) menu.getChildren().get(1);
+    private Rectangle getRectangleBlack() {
+        return (Rectangle) menu.getChildren().get(12);
     }
 
     /**
-     * returns the gui element "History" as a scrollPane
+     * returns the gui element gridPane which shows black's beaten figures
      *
-     * @return the gui element "History" as a scrollPane
+     * @return the gui element gridPane which shows black's beaten figures
      */
-    protected ScrollPane getScrollPaneHistory() {
-        return (ScrollPane) menu.getChildren().get(3);
-    }
-
-    /**
-     * returns the gui elements within the "History"-scrollPane as a gridPane
-     *
-     * @return the gui elements within the "History"-scrollPane as a gridPane
-     */
-    protected GridPane getHistory() {
-        return (GridPane) getScrollPaneHistory().getContent();
+    private GridPane getBeatenFiguresBlack() {
+        return (GridPane) menu.getChildren().get(14);
     }
 
     public UndoRedo getUndoRedo() {
