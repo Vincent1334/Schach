@@ -26,6 +26,8 @@ public class Promotion {
     public Pane promotionPane;
 
     /**
+     * TODO
+     *
      * @param startPosition the start position
      * @param targetPosition the target position
      * @param logic TODO
@@ -37,6 +39,8 @@ public class Promotion {
     }
 
     /**
+     * TODO
+     *
      * @param event the mouseclick event
      */
     @FXML

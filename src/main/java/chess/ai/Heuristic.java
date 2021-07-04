@@ -40,6 +40,8 @@ public class Heuristic {
     private static final float ENDGAME_POINTS = 25;
 
     /**
+     * checks for repeated moves
+     *
      * @param move      the current move
      * @param lastMove  the last move (the latest move?)
      * @param playerMax zero when current and last move are the same
@@ -55,6 +57,8 @@ public class Heuristic {
     }
 
     /**
+     * checks for figure bonus when a figure is captured and adds result to figure score
+     *
      * @param move      the current move
      * @param playerMax maximizing player
      * @return figure score
@@ -85,7 +89,7 @@ public class Heuristic {
     }
 
     /**
-     * checks for a pawn chain
+     * checks for a pawn chain and adds points to score
      *
      * @param board     the current board
      * @param move      the current move
@@ -129,6 +133,8 @@ public class Heuristic {
     }
 
     /**
+     * checks material worth and adds that to the score
+     *
      * @param material  material for each figure
      * @param playerMax maximizing player
      * @return the determined value for the material score
@@ -147,6 +153,8 @@ public class Heuristic {
     }
 
     /**
+     * determines field score
+     *
      * @param fieldScore the fields score
      * @param playerMax  maximizing player
      * @return the determined value of the field score
@@ -189,6 +197,8 @@ public class Heuristic {
     }
 
     /**
+     * checks for castling and adds castling points to score
+     *
      * @param board     the current board
      * @param playerMax maximizing player
      * @return castling points
@@ -198,6 +208,8 @@ public class Heuristic {
     }
 
     /**
+     * checks for checkmate and adds checkmate points to score
+     *
      * @param board     the current board
      * @param playerMax maximizing player
      * @return chess mate points
@@ -207,6 +219,8 @@ public class Heuristic {
     }
 
     /**
+     * checks for check and adds check points to score
+     *
      * @param board     the current board
      * @param playerMax maximizing player
      * @return check points

@@ -33,7 +33,7 @@ public class NetworkMenu {
     private Rectangle black;
 
     /**
-     *
+     * TODO
      */
     @FXML
     private void start() {
@@ -58,7 +58,7 @@ public class NetworkMenu {
     }
 
     /**
-     *
+     * TODO
      */
     @FXML
     private void backToMenu() {
@@ -70,6 +70,8 @@ public class NetworkMenu {
     }
 
     /**
+     * TODO
+     *
      * @param event the mouseEvent
      */
     @FXML
@@ -91,7 +93,7 @@ public class NetworkMenu {
     }
 
     /**
-     *
+     * TODO
      */
     @FXML
     private void setDisableIP() {

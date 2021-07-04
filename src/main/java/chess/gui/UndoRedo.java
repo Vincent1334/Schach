@@ -23,6 +23,8 @@ public class UndoRedo {
     private final List<Board> undoRedoMovesAsBoard;
 
     /**
+     * undo/redo constructor
+     *
      * @param pointer    pointer in coreGame's moveHistory to the current board
      * @param controller the controller
      */
@@ -34,6 +36,8 @@ public class UndoRedo {
     }
 
     /**
+     * undo function in GUI game
+     *
      * @param history the gui element history as gridPane which contains all made moves
      * @param logic   the logic
      */

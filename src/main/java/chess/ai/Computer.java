@@ -33,6 +33,7 @@ public class Computer implements Runnable{
 
     /**
      *the constructor of the computer for the CLI game
+     *
      * @param isBlack color of the player
      */
     public Computer(boolean isBlack) {
@@ -50,6 +51,7 @@ public class Computer implements Runnable{
 
     /**
      * The constructor of the computer for the GUI game
+     *
      * @param isBlack color of the player
      * @param gui the graphical user interface
      */
@@ -71,6 +73,7 @@ public class Computer implements Runnable{
     /**
      * calls the alpha beta pruning to determine the best move and
      * saves it in lastMove
+     *
      * @param board the current board
      */
     public void makeMove(Board board) {
@@ -82,6 +85,7 @@ public class Computer implements Runnable{
 
     /**
      * returns the determined best move
+     *
      * @return the best move
      */
     public Move getMove(){
@@ -104,6 +108,7 @@ public class Computer implements Runnable{
 
     /**
      * calculates the max values of the search tree
+     *
      * @param depth depth of the search tree
      * @param alpha alpha value
      * @param beta beta value
@@ -146,6 +151,7 @@ public class Computer implements Runnable{
 
     /**
      * calculates the min values of the search tree
+     *
      * @param depth depth of the search tree
      * @param alpha alpha value
      * @param beta beta value
@@ -189,6 +195,7 @@ public class Computer implements Runnable{
 
     /**
      * determines the value of the move
+     *
      * @param board the current board
      * @return the value of the searched move
      */
@@ -245,6 +252,7 @@ public class Computer implements Runnable{
 
     /**
      * pre-sorts the moves
+     *
      * @param moves list of possible moves
      * @param cutOff list of cutoff moves
      */
@@ -263,6 +271,7 @@ public class Computer implements Runnable{
 
     /**
      * Generate a list with all possible moves. Also add used figure and attacked Figure
+     *
      * @param player the checked team
      * @return list of possible moves
      */
@@ -287,6 +296,7 @@ public class Computer implements Runnable{
 
 
     /**
+     * TODO
      *
      * @param actualPos the actual position
      * @param targetPos the target position
@@ -315,6 +325,11 @@ public class Computer implements Runnable{
         }
     }
 
+    /**
+     * updates the check flag in board class
+     *
+     * @param tmpBoard the temporary board
+     */
     private void updateCheckFlags(Board tmpBoard){
         //Check check and set Flags
         Board.kingInCheck(tmpBoard, PLAYER_MAX);
@@ -323,6 +338,7 @@ public class Computer implements Runnable{
 
     /**
      * Waiting for thread
+     *
      * @return thread
      */
     public Thread getThread(){
