@@ -67,7 +67,6 @@ public class CoreGame {
 
     /**
      * check special move for pawn
-     *
      * @param move consists out of the actual and target position and the ID of the conversion figure
      * @return true if a pawn makes a conversion or an en passant
      */
@@ -93,7 +92,6 @@ public class CoreGame {
 
     /**
      * Check special moves for King
-     *
      * @param move consists out of the actual and target position and the ID of the conversion figure
      * @return true if the king performs castling
      */
@@ -112,7 +110,6 @@ public class CoreGame {
 
     /**
      * return the current board
-     *
      * @return Board
      */
     public Board getCurrentBoard() {
@@ -163,20 +160,19 @@ public class CoreGame {
         Board.kingInCheck(currentBoard, activePlayer);
         Board.kingInCheck(currentBoard, !activePlayer);
         if (Board.checkChessAndStaleMate(currentBoard, activePlayer)) {
-            if (currentBoard.isCheckMateFlag(false)) System.out.println("Player white is checkmate!");
-            if (currentBoard.isCheckMateFlag(true)) System.out.println("Player black is checkmate!");
-            if (currentBoard.isStaleMateFlag()) System.out.println("Game ends because stalemate!");
+            if(currentBoard.isCheckMateFlag(false)) System.out.println("Player white is checkmate!");
+            if(currentBoard.isCheckMateFlag(true)) System.out.println("Player black is checkmate!");
+            if(currentBoard.isStaleMateFlag()) System.out.println("Game ends because stalemate!");
             gameOver = true;
         }
-        if (currentBoard.isCheckFlag(false)) System.out.println("Player white is in check!");
-        if (currentBoard.isCheckFlag(true)) System.out.println("Player black is in check!");
+        if(currentBoard.isCheckFlag(false)) System.out.println("Player white is in check!");
+        if(currentBoard.isCheckFlag(true)) System.out.println("Player black is in check!");
         moveHistory.add(new Board(currentBoard));
     }
 
     /**
      * Check GameOver
-     *
-     * @return whether the game is over
+     * @return gameover
      */
     public boolean isGameOver() {
         return gameOver;
@@ -184,7 +180,6 @@ public class CoreGame {
 
     /**
      * Set active player manual. Important for JUnit test
-     *
      * @param activePlayer the active player, true if its blacks turn
      */
     public void setActivePlayer(boolean activePlayer) {
@@ -193,10 +188,9 @@ public class CoreGame {
 
     /**
      * return the active player
-     *
      * @return activePlayer, true if its blacks turn
      */
-    public boolean isActivePlayer() {
+    public boolean isActivePlayer(){
         return activePlayer;
     }
 
