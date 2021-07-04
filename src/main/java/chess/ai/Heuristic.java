@@ -43,7 +43,7 @@ public class Heuristic {
      * @param move      the current move
      * @param lastMove  the last move (the latest move?)
      * @param playerMax zero when current and last move are the same
-     * @return TODO ?
+     * @return negative repeat points when move is repeated and zero if it is not
      */
     public static float checkRepeat(Move move, Move lastMove, boolean playerMax) {
         if (lastMove != null &&

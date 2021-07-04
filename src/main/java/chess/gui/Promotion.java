@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 /**
- * TODO: JavaDoc
+ * This class contains information about the pawn conversion menu, it´s structure and functions
  *
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-07-02
@@ -26,9 +26,9 @@ public class Promotion {
     public Pane promotionPane;
 
     /**
-     * @param startPosition
-     * @param targetPosition
-     * @param logic
+     * @param startPosition the start position
+     * @param targetPosition the target position
+     * @param logic TODO
      */
     protected void init(Position startPosition, Position targetPosition, Logic logic) {
         this.startPosition = startPosition;
@@ -37,7 +37,7 @@ public class Promotion {
     }
 
     /**
-     * @param event
+     * @param event the mouseclick event
      */
     @FXML
     private void getPromotionFigure(MouseEvent event) {

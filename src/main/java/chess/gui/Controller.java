@@ -49,7 +49,7 @@ public class Controller {
      *
      * @param gameMode      against a local friend (0) or a network game (1) or against the computer (2)
      * @param isBlack       the current player
-     * @param networkPlayer TODO ?
+     * @param networkPlayer the network player
      */
     public void init(GameMode gameMode, boolean isBlack, NetworkPlayer networkPlayer) {
         logic = new Logic(gameMode, isBlack, this, networkPlayer);
@@ -349,7 +349,8 @@ public class Controller {
     /**
      * shows in the gui whether the computer is calculating or not
      *
-     * @param isCalculating whether the computer (ki) is currently calculating
+     * @param isCalculating whether the computer (AI) is currently calculating
+     * @param message the calculating message
      */
     protected void setCalculating(boolean isCalculating, String message) {
         if (isCalculating) {

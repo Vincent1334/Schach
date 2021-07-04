@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 import static javafx.scene.paint.Color.*;
 
 /**
- * TODO: JavaDoc
+ * This class contains information about the network menu, it´s structure and functions
  *
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-07-02

@@ -32,7 +32,7 @@ public class Computer implements Runnable{
     private Move bestMove, lastMove;
 
     /**
-     *the constructor of the computer
+     *the constructor of the computer for the CLI game
      * @param isBlack color of the player
      */
     public Computer(boolean isBlack) {
@@ -49,7 +49,7 @@ public class Computer implements Runnable{
     }
 
     /**
-     * The constructor of the computer
+     * The constructor of the computer for the GUI game
      * @param isBlack color of the player
      * @param gui the graphical user interface
      */
@@ -69,8 +69,8 @@ public class Computer implements Runnable{
     }
 
     /**
-     * calls the alpha beta pruning to determine the best move and executes it
-     * saves the move in lastMove
+     * calls the alpha beta pruning to determine the best move and
+     * saves it in lastMove
      * @param board the current board
      */
     public void makeMove(Board board) {
@@ -81,7 +81,7 @@ public class Computer implements Runnable{
     }
 
     /**
-     * returns the determined move
+     * returns the determined best move
      * @return the best move
      */
     public Move getMove(){
