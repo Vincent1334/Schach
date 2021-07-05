@@ -32,6 +32,8 @@ public abstract class Figure {
     }
 
     /**
+     * checks if the move is valid
+     *
      * @param actualPos the actual position of the figure
      * @param targetPos the target position of the figure
      * @param board     the current board
@@ -79,6 +81,8 @@ public abstract class Figure {
     }
 
     /**
+     * TODO
+     *
      * @param other an object
      * @return whether the objects are equal but not identical
      */
@@ -92,6 +96,8 @@ public abstract class Figure {
     }
 
     /**
+     * the hash code of the object
+     *
      * @return hash code of the object
      */
     @Override

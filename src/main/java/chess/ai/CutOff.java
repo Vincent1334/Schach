@@ -17,6 +17,7 @@ public class CutOff {
 
     /**
      * The cutOff constructor
+     *
      * @param parentCutOff parent cutoff
      * @param lastMove the last move
      */
@@ -25,34 +26,20 @@ public class CutOff {
         this.lastMove = lastMove;
     }
 
-    /**
-     * getParentCutOff
-     * @return parentCutOff
-     */
+    //--------------getter / setter---------------------------------------------------------------------------------------------------------------
+
     public List<Move> getParentCutOff() {
         return parentCutOff;
     }
 
-    /**
-     * set ParentCutOff
-     * @param parentCutOff parentCutOff
-     */
     public void setParentCutOff(List<Move> parentCutOff) {
         this.parentCutOff = parentCutOff;
     }
 
-    /**
-     * getLastMove
-     * @return the last move
-     */
     public Move getLastMove() {
         return lastMove;
     }
 
-    /**
-     * set last move
-     * @param lastMove the last move
-     */
     public void setLastMove(Move lastMove) {
         this.lastMove = lastMove;
     }

@@ -12,8 +12,8 @@ import chess.model.Position;
 public class None extends Figure {
 
     /**
-     * the constructor of a none figure
-     * nones team and figure ID are initialized here
+     * the constructor of a none figure.
+     * Nones team and figure ID are initialized here.
      */
     public None() {
         super.figureID = 0;

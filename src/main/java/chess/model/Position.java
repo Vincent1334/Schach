@@ -25,6 +25,8 @@ public class Position {
         this.posY = posY;
     }
 
+    //--------------getter / setter---------------------------------------------------------------------------------------------------------------
+
     /**
      * return x-position
      *
@@ -49,6 +51,7 @@ public class Position {
      * @param other the other position
      * @return if two positions are equal
      */
+
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;

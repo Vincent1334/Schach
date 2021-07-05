@@ -13,8 +13,9 @@ import chess.model.Position;
 public class King extends Figure {
 
     /**
-     * The constructor of a king
+     * The constructor of a king.
      * The kings team and figure ID are initialized here.
+     *
      * @param blackTeam the black team
      */
     public King(boolean blackTeam) {
@@ -49,6 +50,7 @@ public class King extends Figure {
 
     /**
      * return Symbol
+     *
      * @return the Symbol of a King
      */
     @Override

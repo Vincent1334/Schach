@@ -15,8 +15,9 @@ public class Pawn extends Figure {
     private boolean enPassant = false;
 
     /**
-     * The constructor of a pawn
+     * The constructor of a pawn.
      * The pawns team and figure ID are initialized here.
+     *
      * @param blackTeam white or not
      */
     public Pawn(boolean blackTeam) {
@@ -115,6 +116,7 @@ public class Pawn extends Figure {
 
     /**
      * Set enPassant status
+     *
      * @param enPassant the new enPassant status
      */
     public void setEnPassant(boolean enPassant) {
@@ -123,6 +125,7 @@ public class Pawn extends Figure {
 
     /**
      * return Symbol
+     *
      * @return Symbol of the pawn
      */
     @Override

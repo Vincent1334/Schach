@@ -67,6 +67,7 @@ public class CoreGame {
 
     /**
      * check special move for pawn
+     *
      * @param move consists out of the actual and target position and the ID of the conversion figure
      * @return true if a pawn makes a conversion or an en passant
      */
@@ -92,6 +93,7 @@ public class CoreGame {
 
     /**
      * Check special moves for King
+     *
      * @param move consists out of the actual and target position and the ID of the conversion figure
      * @return true if the king performs castling
      */
@@ -110,6 +112,7 @@ public class CoreGame {
 
     /**
      * return the current board
+     *
      * @return Board
      */
     public Board getCurrentBoard() {
@@ -169,6 +172,8 @@ public class CoreGame {
         if(currentBoard.isCheckFlag(true)) System.out.println("Player black is in check!");
         moveHistory.add(new Board(currentBoard));
     }
+
+    //--------------getter / setter---------------------------------------------------------------------------------------------------------------
 
     /**
      * Check GameOver

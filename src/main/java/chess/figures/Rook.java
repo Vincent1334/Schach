@@ -13,8 +13,9 @@ import chess.model.Position;
 public class Rook extends Figure {
 
     /**
-     * The constructor of a rook
+     * The constructor of a rook.
      * The rooks team and figure ID are initialized here.
+     *
      * @param blackTeam white or not
      */
     public Rook(boolean blackTeam) {
@@ -61,6 +62,7 @@ public class Rook extends Figure {
 
     /**
      * return Direction
+     *
      * @param actualPos actual position of the Rook
      * @param targetPos new input position for Rook
      * @param axis true = y, false = x
@@ -74,6 +76,7 @@ public class Rook extends Figure {
 
     /**
      * return Symbol
+     *
      * @return the symbol of a Rook
      */
     @Override
