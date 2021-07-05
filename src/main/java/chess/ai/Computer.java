@@ -168,7 +168,12 @@ public class Computer implements Runnable{
         sortMove(possibleMove, ParentCutOff.getParentCutOff());
 
         //Game over?
-        if (possibleMove.size() == 0) return Float.POSITIVE_INFINITY;
+        if (possibleMove.size() == 0){
+            if(board.isCheckMateFlag(true)){
+                return Float.POSITIVE_INFINITY;
+            }
+            return Float.NEGATIVE_INFINITY;
+        }
 
         //create CutOff
         List<Move> cutOff = new ArrayList<Move>();
