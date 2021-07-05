@@ -296,7 +296,7 @@ public class Computer implements Runnable{
 
 
     /**
-     * TODO
+     * Perform move in board node
      *
      * @param actualPos the actual position
      * @param targetPos the target position

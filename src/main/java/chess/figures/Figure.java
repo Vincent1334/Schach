@@ -81,7 +81,7 @@ public abstract class Figure {
     }
 
     /**
-     * TODO
+     * Whether the objects are equal but not identical
      *
      * @param other an object
      * @return whether the objects are equal but not identical

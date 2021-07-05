@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-
 import java.util.*;
 
 /**
@@ -65,6 +64,9 @@ public class LanguageManager {
         return messages.getString(key);
     }
 
+    /**
+     * Update language in menu stage
+     */
     private static void updateLanguageMenuStage(){
         if(WindowManager.getStage("MenuStage") != null){
             Pane pane = ((MainMenu) WindowManager.getController("MenuStage")).pane;
@@ -84,6 +86,9 @@ public class LanguageManager {
         }
     }
 
+    /**
+     * Update language in network stage
+     */
     private static void updateLanguageNetworkStage(){
         if(WindowManager.getStage(NETWORKSTAGE) != null){
             Pane menu = ((NetworkMenu) WindowManager.getController(NETWORKSTAGE)).menu;
@@ -103,9 +108,12 @@ public class LanguageManager {
         }
     }
 
+    /**
+     * Update language in promotion stage
+     */
     private static void updateLanguagePromotionStage(){
         if(WindowManager.getStage("PromotionStage") != null){
-            Pane promotion = ((Promotion) WindowManager.getController(NETWORKSTAGE)).promotionPane;
+            Pane promotion = ((Promotion) WindowManager.getController("PromotionStage")).promotionPane;
 
             ((Label) promotion.getChildren().get(1)).setText(LanguageManager.getText("promotion_label"));
             ((Button) promotion.getChildren().get(2)).setText(LanguageManager.getText("queen_label"));
@@ -118,6 +126,9 @@ public class LanguageManager {
         }
     }
 
+    /**
+     * Update language in game stage
+     */
     private static void updateLanguageGameStage(){
         if(WindowManager.getStage("GameStage") != null){
             Pane menu = ((Controller) WindowManager.getController("GameStage")).menu;
@@ -139,6 +150,12 @@ public class LanguageManager {
         }
     }
 
+    /**
+     * Get new language ID
+     * @param oldLanguage old language pack
+     * @param label language ID
+     * @param menu container for objects
+     */
     private static void switchFlagLanguage(ResourceBundle oldLanguage, String label, Pane menu) {
         if (((Label) menu.getChildren().get(4)).getText().equals(oldLanguage.getString(label))) {
             ((Label) menu.getChildren().get(4)).setText(LanguageManager.getText(label));
