@@ -79,6 +79,14 @@ public class NetworkPlayer {
         }
     }
 
+    public void sendUndoRedo(int index){
+        if (server != null) {
+            server.sendUndoRedo(index);
+        } else {
+            client.sendUndoRedo(index);
+        }
+    }
+
     /**
      * Returns team
      *

@@ -119,9 +119,23 @@ public class Controller {
     @FXML
     public void undoRedoClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Text) {
-            undoRedo.undoRedoClicked(getHistory(), logic, (Text) mouseEvent.getTarget());
+            int index = 0;
+            // auf welchen Zug wurde geklickt?
+            for (int i = 0; i < getHistory().getRowCount() - 1; i++) {
+                if (getHistory().getChildren().get(i).equals(mouseEvent.getTarget())) {
+                    index = i;
+                }
+            }
+            if(logic.getGameMode()==GameMode.NETWORK){
+                logic.getNetwork().sendUndoRedo(index);
+            }
+            undoRedo.undoRedoClicked(getHistory(), logic, index);
         }
         getScrollPaneHistory().vvalueProperty().unbind();
+    }
+
+    public void undoRedoSend(String index){
+        undoRedo.undoRedoClicked(getHistory(), logic, Integer.getInteger(index));
     }
 
     // ----------------------------------Update----------------------------------------------------------------------------------------------

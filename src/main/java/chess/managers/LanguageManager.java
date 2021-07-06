@@ -144,12 +144,21 @@ public class LanguageManager {
             switchFlagLanguage(oldLanguage, "stalemate_label", menu);
             ((Button) menu.getChildren().get(10)).setText(LanguageManager.getText("menu_button"));
             ((Label) menu.getChildren().get(2)).setText(LanguageManager.getText("history_label"));
+            switchMessengerLanguage(oldLanguage,"calculating_label",menu);
+            switchMessengerLanguage(oldLanguage,"network_waiting_label",menu);
+            switchMessengerLanguage(oldLanguage,"network_player_waiting_label",menu);
             ((CheckBox) menu.getChildren().get(6)).setText(LanguageManager.getText("touch_move_button"));
             ((CheckBox) menu.getChildren().get(7)).setText(LanguageManager.getText("possible_moves_button"));
             ((CheckBox) menu.getChildren().get(8)).setText(LanguageManager.getText("rotate_button"));
             ((CheckBox) menu.getChildren().get(9)).setText(LanguageManager.getText("flag_button"));
 
             WindowManager.getStage("GameStage").setTitle(getText("game_title"));
+        }
+    }
+
+    private static void switchMessengerLanguage(ResourceBundle oldLanguage, String label, Pane menu) {
+        if (((Label) menu.getChildren().get(5)).getText().equals(oldLanguage.getString(label))) {
+            ((Label) menu.getChildren().get(5)).setText(LanguageManager.getText(label));
         }
     }
 

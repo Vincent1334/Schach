@@ -66,8 +66,14 @@ public class Client implements Runnable {
                 String input = in.readLine();
                 if (input != null) {
                     if (isConnected) {
-                        networkMove = Parser.parse(input);
-                        gui.computerOrNetworkIsFinish();
+                        if(input.contains("-")){
+                            //get Move message
+                            networkMove = Parser.parse(input);
+                            gui.computerOrNetworkIsFinish();
+                        }else{
+                            //update undoRedo
+                            gui.getController().undoRedoSend(input);
+                        }
                         break;
                     }
                     System.out.println("Client: " + input);
@@ -109,6 +115,10 @@ public class Client implements Runnable {
         out.println(move.toString());
         thread = new Thread(this);
         thread.start();
+    }
+
+    public void sendUndoRedo(int index){
+        out.println(index);
     }
 
     /**

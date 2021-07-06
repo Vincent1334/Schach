@@ -63,10 +63,14 @@ public class Server implements Runnable{
                         case 0: break;
                         case 1: continue;
                     }
-
-                    //get Move message
-                    networkMove = Parser.parse(input);
-                    gui.computerOrNetworkIsFinish();
+                    if(input.contains("-")){
+                        //get Move message
+                        networkMove = Parser.parse(input);
+                        gui.computerOrNetworkIsFinish();
+                    }else{
+                        //update undoRedo
+                        gui.getController().undoRedoSend(input);
+                    }
                     break;
                 }
             }
@@ -138,6 +142,10 @@ public class Server implements Runnable{
         out.println(move.toString());
         thread = new Thread(this);
         thread.start();
+    }
+
+    public void sendUndoRedo(int index){
+        out.println(index);
     }
 
     /**
