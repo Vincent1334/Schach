@@ -121,6 +121,7 @@ public class Controller {
         if (mouseEvent.getTarget() instanceof Text) {
             undoRedo.undoRedoClicked(getHistory(), logic, (Text) mouseEvent.getTarget());
         }
+        getScrollPaneHistory().vvalueProperty().unbind();
     }
 
     // ----------------------------------Update----------------------------------------------------------------------------------------------
