@@ -62,8 +62,12 @@ public class Cli {
                     gameMode2 = input.charAt(0) == 49 ? GameMode.NORMAL : GameMode.COMPUTER;
                     coreGame = new CoreGame();
                     break;
-                } else if (input.equals("language")) {
-                    LanguageManager.nextLocale();
+                } else if (input.equals("de")) {
+                    LanguageManager.setLanguage("de");
+                }else if (input.equals("fr")) {
+                    LanguageManager.setLanguage("fr");
+                }else if (input.equals("en")) {
+                    LanguageManager.setLanguage("en");
                 }
             } while (true);
             //Enter simpleMode
@@ -127,11 +131,12 @@ public class Cli {
             }
             return true;
         }
-        if (input.equals("language")) {
-            LanguageManager.nextLocale();
-            System.out.println(LanguageManager.getText("language"));
-            return true;
-        }
+        if (input.equals("de")) {
+            LanguageManager.setLanguage("de");}
+        if (input.equals("fr")) {
+            LanguageManager.setLanguage("fr");}
+        if (input.equals("en")) {
+            LanguageManager.setLanguage("en");}
 
         if (input.equals("undo")) {
             undo();

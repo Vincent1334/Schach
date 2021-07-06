@@ -6,6 +6,8 @@ import chess.model.Position;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -64,7 +66,7 @@ public class Promotion {
     }
 
     @FXML
-    private void setLanguage() {
-        LanguageManager.nextLocale();
+    private void setLanguage(MouseEvent event) {
+        LanguageManager.setLanguage(((ImageView) event.getTarget()).getImage().getUrl().substring(64,66));
     }
 }

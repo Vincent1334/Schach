@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import java.util.*;
@@ -33,11 +34,16 @@ public class LanguageManager {
     /**
      * Change to the next Language file in the list
      */
-    public static void nextLocale(){
-        index ++;
-        if(index == locale.size()){
-            index = 0;
-        }
+    public static void setLanguage(String language){
+
+          if(language.equals("en")){
+              index = 0;
+          }else if(language.equals("de")){
+              index = 1;
+          }else if(language.equals("fr")){
+              index = 2;
+          }
+
         oldLanguage = messages;
         messages = ResourceBundle.getBundle("/languages/MessagesBundle", locale.get(index));
 
@@ -80,7 +86,6 @@ public class LanguageManager {
             ((RadioButton) pane.getChildren().get(9)).setText(getText("gamemode03"));
             ((Button) pane.getChildren().get(10)).setText(getText("start_button"));
             ((Button) pane.getChildren().get(11)).setText(getText("quit_button"));
-            ((Button) pane.getChildren().get(13)).setText(getText(LANGUAGE));
 
             WindowManager.getStage("MenuStage").setTitle(getText("menu_title"));
         }
@@ -93,16 +98,15 @@ public class LanguageManager {
         if(WindowManager.getStage(NETWORKSTAGE) != null){
             Pane menu = ((NetworkMenu) WindowManager.getController(NETWORKSTAGE)).menu;
 
-            ((Button) menu.getChildren().get(12)).setText(LanguageManager.getText(LANGUAGE));
             ((Text) menu.getChildren().get(2)).setText(LanguageManager.getText("networkSettingsTitle"));
-            ((RadioButton) menu.getChildren().get(13)).setText(LanguageManager.getText("newGame"));
+            ((RadioButton) menu.getChildren().get(12)).setText(LanguageManager.getText("newGame"));
             ((Text) menu.getChildren().get(7)).setText(LanguageManager.getText("yourColor"));
-            ((RadioButton) menu.getChildren().get(14)).setText(LanguageManager.getText("joinGame"));
+            ((RadioButton) menu.getChildren().get(13)).setText(LanguageManager.getText("joinGame"));
             ((Text) menu.getChildren().get(11)).setText(LanguageManager.getText("ip"));
             ((Text) menu.getChildren().get(4)).setText(LanguageManager.getText("port"));
             ((Button) menu.getChildren().get(6)).setText(LanguageManager.getText("menu_button"));
             ((Button) menu.getChildren().get(5)).setText(LanguageManager.getText("start_button"));
-            ((Text) menu.getChildren().get(15)).setText(LanguageManager.getText("network_error"));
+            ((Text) menu.getChildren().get(14)).setText(LanguageManager.getText("network_error"));
 
             WindowManager.getStage(NETWORKSTAGE).setTitle(getText("network_title"));
         }
@@ -139,7 +143,6 @@ public class LanguageManager {
             switchFlagLanguage(oldLanguage, "whiteCheckmate_label", menu);
             switchFlagLanguage(oldLanguage, "stalemate_label", menu);
             ((Button) menu.getChildren().get(10)).setText(LanguageManager.getText("menu_button"));
-            ((Button) menu.getChildren().get(13)).setText(LanguageManager.getText(LANGUAGE));
             ((Label) menu.getChildren().get(2)).setText(LanguageManager.getText("history_label"));
             ((CheckBox) menu.getChildren().get(6)).setText(LanguageManager.getText("touch_move_button"));
             ((CheckBox) menu.getChildren().get(7)).setText(LanguageManager.getText("possible_moves_button"));

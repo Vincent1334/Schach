@@ -68,10 +68,6 @@
             <Font name="Calibri" size="18.0" />
          </font>
       </Text>
-      <Button layoutX="535.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="25.0" prefWidth="51.0" style="-fx-background-color: #292929;" text="%language" textFill="WHITE">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
       <RadioButton fx:id="newGame" layoutX="29.0" layoutY="130.0" mnemonicParsing="false" onMouseClicked="#setDisableIP" selected="true" text="%newGame" textFill="#656565">
          <font>
             <Font name="Calibri" size="21.0" />
@@ -96,5 +92,29 @@
             <Font name="Calibri" size="18.0" />
          </font>
       </Text>
+      <ImageView fitHeight="18.0" fitWidth="31.0" layoutX="556.0" layoutY="11.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@en.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="31.0" layoutX="509.0" layoutY="11.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@de.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="31.0" layoutX="461.0" layoutY="11.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fr.jpg" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
    </children>
 </Pane>

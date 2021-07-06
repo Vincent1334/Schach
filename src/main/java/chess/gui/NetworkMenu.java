@@ -7,6 +7,8 @@ import chess.network.NetworkPlayer;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -119,9 +121,10 @@ public class NetworkMenu {
 
     //--------------getter / setter---------------------------------------------------------------------------------------------------------------
 
+
     @FXML
-    private void setLanguage() {
-        LanguageManager.nextLocale();
+    private void setLanguage(MouseEvent event) {
+        LanguageManager.setLanguage(((ImageView) event.getTarget()).getImage().getUrl().substring(64,66));
     }
 
     private Text getTextColor() {
@@ -133,11 +136,11 @@ public class NetworkMenu {
     }
 
     private RadioButton getButtonNewGame() {
-        return (RadioButton) menu.getChildren().get(13);
+        return (RadioButton) menu.getChildren().get(12);
     }
 
     private RadioButton getButtonJoinGame() {
-        return (RadioButton) menu.getChildren().get(14);
+        return (RadioButton) menu.getChildren().get(13);
     }
 
     private TextField getPortInput() {
@@ -149,6 +152,6 @@ public class NetworkMenu {
     }
 
     private Text getNetworkError() {
-        return (Text) menu.getChildren().get(15);
+        return (Text) menu.getChildren().get(14);
     }
 }

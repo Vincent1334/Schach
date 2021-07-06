@@ -12,6 +12,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -459,8 +460,8 @@ public class Controller {
      * switches the language of the gui elements
      */
     @FXML
-    private void setLanguage() {
-        LanguageManager.nextLocale();
+    private void setLanguage(MouseEvent event) {
+        LanguageManager.setLanguage(((ImageView) event.getTarget()).getImage().getUrl().substring(64,66));
     }
 
 
@@ -580,7 +581,7 @@ public class Controller {
      * @return the gui element gridPane which shows black's beaten figures
      */
     private GridPane getBeatenFiguresBlack() {
-        return (GridPane) menu.getChildren().get(14);
+        return (GridPane) menu.getChildren().get(13);
     }
 
     public UndoRedo getUndoRedo() {

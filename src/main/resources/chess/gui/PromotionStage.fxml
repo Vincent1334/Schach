@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
@@ -51,10 +53,30 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="555.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="26.0" prefWidth="35.0" style="-fx-background-color: #282828;" text="%language" textFill="WHITE">
+      <ImageView fitHeight="18.0" fitWidth="31.0" layoutX="566.0" layoutY="13.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@en.png" />
+         </image>
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="31.0" layoutX="519.0" layoutY="13.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@de.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="31.0" layoutX="471.0" layoutY="13.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fr.jpg" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
    </children>
    <effect>
       <DropShadow height="90.0" radius="44.5" spread="0.26" width="90.0">

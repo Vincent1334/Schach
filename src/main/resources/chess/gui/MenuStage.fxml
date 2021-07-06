@@ -98,9 +98,29 @@
          </cursor>
       </Button>
       <Rectangle arcHeight="2.0" arcWidth="2.0" fill="#363535" height="38.0" layoutX="-18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="496.0" />
-      <Button fx:id="language" layoutX="424.0" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#setLanguage" prefHeight="26.0" prefWidth="47.0" style="-fx-background-color: #282828;" text="%language" textFill="WHITE">
+      <ImageView fitHeight="18.0" fitWidth="31.0" layoutX="436.0" layoutY="10.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@en.png" />
+         </image>
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="31.0" layoutX="389.0" layoutY="10.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@de.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="18.0" fitWidth="31.0" layoutX="341.0" layoutY="10.0" onMouseClicked="#setLanguage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fr.jpg" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
    </children>
 </Pane>

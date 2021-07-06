@@ -4,6 +4,9 @@ import chess.enums.GameMode;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 /**
@@ -48,9 +51,10 @@ public class MainMenu {
 
     //--------------getter / setter---------------------------------------------------------------------------------------------------------------
 
+
     @FXML
-    private void setLanguage() {
-        LanguageManager.nextLocale();
+    private void setLanguage(MouseEvent event) {
+        LanguageManager.setLanguage(((ImageView) event.getTarget()).getImage().getUrl().substring(64,66));
     }
 
     /**
