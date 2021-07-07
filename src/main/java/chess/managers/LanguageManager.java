@@ -79,7 +79,7 @@ public class LanguageManager {
         if(WindowManager.getStage("MenuStage") != null){
             Pane pane = ((MainMenu) WindowManager.getController("MenuStage")).pane;
 
-            ((Label) pane.getChildren().get(3)).setText(getText("game_title"));
+            ((Label) pane.getChildren().get(3)).setText(getText("chess_label"));
             ((RadioButton) pane.getChildren().get(4)).setText(getText("gamemode01"));
             ((RadioButton) pane.getChildren().get(5)).setText(getText("gamemode02"));
             ((Label) pane.getChildren().get(6)).setText(getText("team_label"));
