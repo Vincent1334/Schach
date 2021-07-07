@@ -23,7 +23,7 @@ public class Cli {
     private static Computer computer;
     private static int pointer;
 
-    private static List<Board> undoRedoMovesAsBoard = new ArrayList<>();
+    private static final List<Board> UNDO_REDO_MOVES_AS_BOARD = new ArrayList<>();
 
     /**
      * The entry point of the CLI application.
@@ -104,7 +104,7 @@ public class Cli {
                     continue;
                 } else {
                     pointer = coreGame.getMoveHistory().size() - 1;
-                    if (!undoRedoMovesAsBoard.isEmpty()) {
+                    if (!UNDO_REDO_MOVES_AS_BOARD.isEmpty()) {
                         resetUndoRedo();
                     }
                 }
@@ -177,10 +177,10 @@ public class Cli {
      */
     public static void undo() {
         if (pointer >= 0) {
-            undoRedoMovesAsBoard.add(coreGame.getMoveHistory().get(pointer));
+            UNDO_REDO_MOVES_AS_BOARD.add(coreGame.getMoveHistory().get(pointer));
 
             if (gameMode2 == GameMode.COMPUTER) {
-                undoRedoMovesAsBoard.add(coreGame.getMoveHistory().get(pointer - 1));
+                UNDO_REDO_MOVES_AS_BOARD.add(coreGame.getMoveHistory().get(pointer - 1));
                 pointer--;
             }
             pointer--;
@@ -201,12 +201,12 @@ public class Cli {
      * redo one move for games against a friend and two for a game against the computer
      */
     public static void redo() {
-        if (undoRedoMovesAsBoard.size() > 0) {
+        if (UNDO_REDO_MOVES_AS_BOARD.size() > 0) {
             pointer++;
 
             if (gameMode2 == GameMode.COMPUTER) {
                 pointer++;
-                undoRedoMovesAsBoard.remove(coreGame.getMoveHistory().get(pointer - 1));
+                UNDO_REDO_MOVES_AS_BOARD.remove(coreGame.getMoveHistory().get(pointer - 1));
             }
 
             Board currentBoard;
@@ -215,7 +215,7 @@ public class Cli {
             } else {
                 currentBoard = coreGame.getMoveHistory().get(0);
             }
-            undoRedoMovesAsBoard.remove(coreGame.getMoveHistory().get(pointer));
+            UNDO_REDO_MOVES_AS_BOARD.remove(coreGame.getMoveHistory().get(pointer));
             coreGame.setCurrentBoard(new Board(currentBoard));
 
             coreGame.setActivePlayer(pointer % 2 == 0);
@@ -227,11 +227,11 @@ public class Cli {
      */
     public static void resetUndoRedo() {
         // MoveHistory von CoreGame & entsprechend Pointer
-        for (Board board : undoRedoMovesAsBoard) {
+        for (Board board : UNDO_REDO_MOVES_AS_BOARD) {
             coreGame.getMoveHistory().remove(board);
         }
         pointer = coreGame.getMoveHistory().size() - 1;
-        undoRedoMovesAsBoard.clear();
+        UNDO_REDO_MOVES_AS_BOARD.clear();
     }
 
     /**

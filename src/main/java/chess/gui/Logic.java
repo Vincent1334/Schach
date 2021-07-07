@@ -106,7 +106,7 @@ public class Logic implements Runnable {
         controller.getBoard().setMouseTransparent(false);
         controller.setMark(startField, false, coreGame.getCurrentBoard());
         if (coreGame.chessMove(move)) {
-            if (!controller.getUndoRedo().getUNDOREDOMOVESASTEXT().isEmpty()) {
+            if (!controller.getUndoRedo().getUNDO_REDO_MOVES_AS_TEXT().isEmpty()) {
                 controller.getUndoRedo().resetUndoRedo(controller.getHistory(), this);
             }
             controller.updateHistory(move);
