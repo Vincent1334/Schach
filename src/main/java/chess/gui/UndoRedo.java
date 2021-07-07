@@ -156,17 +156,12 @@ public class UndoRedo {
      *
      * @param history     the gui element history as gridPane which contains all made moves
      * @param logic       the logic
-     * @param clickedText the move that was clicked
+     * @param pointer     the pointer
      */
-    public void undoRedoClicked(GridPane history, Logic logic, Text clickedText) {
-        int oldPointer = pointer;
+    public void undoRedoClicked(GridPane history, Logic logic, int pointer) {
+        int oldPointer = this.pointer;
+        this.pointer = pointer;
 
-        // auf welchen Zug wurde geklickt?
-        for (int i = 0; i < history.getRowCount() - 1; i++) {
-            if (history.getChildren().get(i).equals(clickedText)) {
-                pointer = i;
-            }
-        }
         // im Spiel gegen den Computer ist nur jeder zweite Zug anklickbar
         if (logic.getGameMode() == GameMode.COMPUTER && pointer % 2 == 0) {
             return;

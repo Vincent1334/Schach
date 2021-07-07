@@ -232,4 +232,8 @@ public class Logic implements Runnable {
     public boolean isPlayerBlack() {
         return playerBlack;
     }
+
+    public Controller getController(){return controller;}
+
+    public NetworkPlayer getNetwork(){return network;}
 }
