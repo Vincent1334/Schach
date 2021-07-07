@@ -3,6 +3,8 @@ package chess.network;
 import chess.gui.Logic;
 import chess.model.Move;
 
+import java.net.Inet4Address;
+
 /**
  * This class contains the network logic
  *

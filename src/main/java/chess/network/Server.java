@@ -68,10 +68,10 @@ public class Server implements Runnable{
                     if(input.contains("-")){
                         //get Move message
                         networkMove = Parser.parse(input);
-                        gui.computerOrNetworkIsFinish();
+                        if(gui != null) gui.computerOrNetworkIsFinish();
                     }else{
                         //update undoRedo
-                        gui.getController().undoRedoSend(input);
+                        if(gui != null) gui.getController().undoRedoSend(input);
                     }
 
                     break;
@@ -83,12 +83,10 @@ public class Server implements Runnable{
         }
         if(killThread){
             try {
-                if(clientSocket != null){
-                    in.close();
-                    out.close();
-                    clientSocket.close();
-                }
+                in.close();
+                out.close();
                 serverSocket.close();
+                clientSocket.close();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -104,7 +102,7 @@ public class Server implements Runnable{
         if(!isConnected && input.equals("ready")){
             //leave listener if server starts with white
             isConnected = true;
-            gui.computerOrNetworkIsFinish();
+            if(gui != null) gui.computerOrNetworkIsFinish();
             if(!isBlack){
                 return 0;
             }
@@ -160,7 +158,12 @@ public class Server implements Runnable{
     }
 
     public String getIPAddress(){
-        return serverSocket.getInetAddress().toString();
+        try{
+            return serverSocket.getInetAddress().getHostAddress();
+        }catch (Exception x){
+            return "localhost";
+        }
+
     }
 
     public void sendUndoRedo(int index) {
@@ -172,5 +175,7 @@ public class Server implements Runnable{
          */
     public void stop() {
         killThread = true;
+        thread = new Thread();
+        thread.start();
     }
 }

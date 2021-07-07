@@ -70,10 +70,10 @@ public class Client implements Runnable {
                         if(input.contains("-")){
                             //get Move message
                             networkMove = Parser.parse(input);
-                            gui.computerOrNetworkIsFinish();
+                            if(gui != null) gui.computerOrNetworkIsFinish();
                         }else{
                             //update undoRedo
-                            gui.getController().undoRedoSend(input);
+                            if(gui != null) gui.getController().undoRedoSend(input);
                         }
                         break;
                     }
@@ -82,14 +82,14 @@ public class Client implements Runnable {
                         isBlack = false;
                         isConnected = true;
                         out.println("ready");
-                        gui.computerOrNetworkIsFinish();
+                        if(gui != null) gui.computerOrNetworkIsFinish();
                         break;
                     }
                     if (input.equals("black")) {
                         isBlack = true;
                         isConnected = true;
                         out.println("ready");
-                        gui.computerOrNetworkIsFinish();
+                        if(gui != null) gui.computerOrNetworkIsFinish();
                     }
                 }
             } catch (Exception x) {
@@ -149,5 +149,7 @@ public class Client implements Runnable {
      */
     public void stop() {
         killThread = true;
+        thread = new Thread();
+        thread.start();
     }
 }

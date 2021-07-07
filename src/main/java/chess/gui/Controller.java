@@ -53,7 +53,7 @@ public class Controller {
      * @param networkPlayer the network player
      */
     public void init(GameMode gameMode, boolean isBlack, NetworkPlayer networkPlayer) {
-        logic = new Logic(gameMode, isBlack, this, networkPlayer);
+        logic = new Logic(gameMode, isBlack, networkPlayer);
         undoRedo = new UndoRedo(logic.getCoreGame().getMoveHistory().size() - 1, this);
 
         // style fields (hover effekt)

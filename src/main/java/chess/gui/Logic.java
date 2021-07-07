@@ -34,13 +34,12 @@ public class Logic implements Runnable {
      *
      * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
      * @param playerColorBlack the color you want to play
-     * @param controller       the controller
      * @param networkPlayer    the networkPlayer
      */
-    public Logic(GameMode gameMode, boolean playerColorBlack, Controller controller, NetworkPlayer networkPlayer) {
+    public Logic(GameMode gameMode, boolean playerColorBlack, NetworkPlayer networkPlayer) {
         this.gameMode = gameMode;
         coreGame = new CoreGame();
-        this.controller = controller;
+        this.controller = ((Controller)WindowManager.getController("GameStage"));
 
         if (gameMode == GameMode.COMPUTER) {
             computer = new Computer(!playerColorBlack, this);
