@@ -109,6 +109,20 @@ public class NetworkPlayer {
         return connected;
     }
 
+    public String getIpAddress(){
+        if (server != null) {
+            return server.getIPAddress();
+        }
+        if (client != null) {
+            return client.getIpAddress();
+        }
+        return "localhost";
+    }
+
+    public int getPort(){
+        return port;
+    }
+
     /**
      * Stop network and all components
      */

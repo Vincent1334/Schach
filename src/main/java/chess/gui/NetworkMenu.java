@@ -48,6 +48,8 @@ public class NetworkMenu {
             }
 
             WindowManager.initialWindow("GameStage", "game_title");
+            LanguageManager.networkID = " - " + network.getIpAddress() + ":" + network.getPort();
+            WindowManager.getStage("GameStage").setTitle(WindowManager.getStage("GameStage").getTitle() + " - " + network.getIpAddress() + ":" + network.getPort());
             ((Controller) WindowManager.getController("GameStage")).init(GameMode.NETWORK, isBlack, network);
             WindowManager.showStage("GameStage");
 

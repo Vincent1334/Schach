@@ -84,13 +84,14 @@ public class Controller {
      * closes the actual window and opens the menu-window
      */
     public void backToMenu() {
+        LanguageManager.networkID = "";
+        logic.killNetworkPlayer();
+
         WindowManager.initialWindow("MenuStage", "menu_title");
         WindowManager.showStage("MenuStage");
-
         // Close all other Stage
         WindowManager.closeStage("PromotionStage");
         WindowManager.closeStage("GameStage");
-        logic.killNetworkPlayer();
     }
 
     //----------------------------------Undo/Redo----------------------------------------------------------------------------------------------

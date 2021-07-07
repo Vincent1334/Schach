@@ -31,6 +31,8 @@ public class LanguageManager {
     private final static String LANGUAGE = "language";
     private final static String NETWORKSTAGE = "NetworkStage";
 
+    public static String networkID = "";
+
     /**
      * Change to the next Language file in the list
      */
@@ -149,7 +151,7 @@ public class LanguageManager {
             ((CheckBox) menu.getChildren().get(8)).setText(LanguageManager.getText("rotate_button"));
             ((CheckBox) menu.getChildren().get(9)).setText(LanguageManager.getText("flag_button"));
 
-            WindowManager.getStage("GameStage").setTitle(getText("game_title"));
+            WindowManager.getStage("GameStage").setTitle(getText("game_title") + networkID);
         }
     }
 
