@@ -275,7 +275,7 @@ public class Computer implements Runnable{
      */
 
     /**
-     * Generate a list with all possible moves. Also add used figure and attacked Figure
+     * Generates a list with all possible moves. Also adds used figure and attacked figure
      *
      * @param player the checked team
      * @return list of possible moves
