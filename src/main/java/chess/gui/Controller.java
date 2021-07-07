@@ -477,7 +477,8 @@ public class Controller {
      */
     @FXML
     private void setLanguage(MouseEvent event) {
-        LanguageManager.setLanguage(((ImageView) event.getTarget()).getImage().getUrl().substring(64,66));
+        String url = ((ImageView) event.getTarget()).getImage().getUrl();
+        LanguageManager.setLanguage(url.substring(url.length()-6,url.length()-4));
     }
 
 
