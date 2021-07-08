@@ -81,26 +81,24 @@ public class HeuristicTest {
      * tests whether the check castling flag is noticed correctly
      */
     @Test
-    @Disabled
     public void testCheckCastling() {
         Board testBoard = new Board();
         testBoard.setCastlingFlag(true, false);
 
-        assertEquals(0, Heuristic.checkCastling(testBoard, true), "Castling test fail");
-        assertNotEquals(0, Heuristic.checkCastling(testBoard, false), "Castling test fail");
+        assertTrue(0 > Heuristic.checkCastling(testBoard, true), "Castling test fail");
+        assertTrue(0 < Heuristic.checkCastling(testBoard, false), "Castling test fail");
     }
 
     /**
      * tests whether the check chess mate flag is noticed correctly
      */
     @Test
-    @Disabled
     public void testCheckChessMate() {
         Board testBoard = new Board();
         testBoard.setCheckMateFlag(true, false);
 
-        assertEquals(0, Heuristic.checkChessMate(testBoard, true), "check chess mate test fail");
-        assertNotEquals(0, Heuristic.checkChessMate(testBoard, false), "check chess mate test fail");
+        assertEquals(Float.POSITIVE_INFINITY, Heuristic.checkChessMate(testBoard, true), "check chess mate test fail");
+        assertEquals(Float.NEGATIVE_INFINITY, Heuristic.checkChessMate(testBoard, false), "check chess mate test fail");
     }
 
     /**
@@ -116,5 +114,24 @@ public class HeuristicTest {
         testBoard.setCheckFlag(true, false);
 
         assertNotEquals(0, Heuristic.checkChess(testBoard, false), "Check test fail");
+    }
+
+    /**
+     * tests whether the endgame points set correctly
+     */
+    @Test
+    public void testCheckEndGame(){
+        Board testBoard = new Board();
+        //Delete black Knights
+        testBoard.setFigure(1, 7, new None());
+        testBoard.setFigure(6, 7, new None());
+
+        assertTrue(Heuristic.checkEndGame(testBoard, true, true) > Heuristic.checkEndGame(testBoard, false, true), "Endgame test fail");
+
+        //Delete white Knights
+        testBoard.setFigure(1, 0, new None());
+        testBoard.setFigure(6, 0, new None());
+
+        assertEquals(Heuristic.checkEndGame(testBoard, true, true), Heuristic.checkEndGame(testBoard, false, true), "Endgame test fail");
     }
 }
