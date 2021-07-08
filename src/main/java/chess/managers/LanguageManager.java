@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import java.util.*;
@@ -38,13 +37,11 @@ public class LanguageManager {
      */
     public static void setLanguage(String language){
 
-          if(language.equals("en")){
-              index = 0;
-          }else if(language.equals("de")){
-              index = 1;
-          }else if(language.equals("fr")){
-              index = 2;
-          }
+        switch(language){
+            case "en": index = 0; break;
+            case "de": index = 1; break;
+            case "fr": index = 2; break;
+        }
 
         oldLanguage = messages;
         messages = ResourceBundle.getBundle("/languages/MessagesBundle", locale.get(index));
