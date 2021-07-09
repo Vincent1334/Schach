@@ -150,7 +150,7 @@ public class Logic implements Runnable {
     }
 
     /**
-     * executes the computer move
+     * executes the computer or network move
      */
     @Override
     public void run() {
@@ -164,11 +164,16 @@ public class Logic implements Runnable {
         }
         if (gameMode == GameMode.NETWORK) {
             if (network.isReadyToPlay()) {
-                Move networkMove = network.getMove();
-                coreGame.chessMove(networkMove);
-                controller.setCalculating(false, "");
-                controller.updateHistory(networkMove);
-                controller.updateScene();
+                int index = network.getAndResetUndoRedoIndex();
+                if(index > 0){
+                    this.getController().undoRedoSend(index);
+                }else{
+                    Move networkMove = network.getMove();
+                    coreGame.chessMove(networkMove);
+                    controller.setCalculating(false, "");
+                    controller.updateHistory(networkMove);
+                    controller.updateScene();
+                }
             } else {
                 playerBlack = network.team();
                 network.setReadyToPlay(true);

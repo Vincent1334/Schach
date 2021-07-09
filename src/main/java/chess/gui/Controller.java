@@ -135,8 +135,8 @@ public class Controller {
         getScrollPaneHistory().vvalueProperty().unbind();
     }
 
-    public void undoRedoSend(String index){
-        undoRedo.undoRedoClicked(getHistory(), logic, Integer.getInteger(index));
+    public void undoRedoSend(int index){
+        undoRedo.undoRedoClicked(getHistory(), logic, index);
     }
 
     // ----------------------------------Update----------------------------------------------------------------------------------------------

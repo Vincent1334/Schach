@@ -22,6 +22,7 @@ public class Client implements Runnable {
     private boolean killThread = false;
     private Logic gui;
     private Move networkMove;
+    private int undoRedoIndex;
 
     private String ipAddress;
     private int port;
@@ -71,10 +72,12 @@ public class Client implements Runnable {
                             //get Move message
                             networkMove = Parser.parse(input);
                             if(gui != null) gui.computerOrNetworkIsFinish();
-                        }else{
+                        }else if(!input.equals("ready") && gui != null){
                             //update undoRedo
-                            if(gui != null) gui.getController().undoRedoSend(input);
+                            undoRedoIndex = Integer.parseInt(input);
+                            gui.computerOrNetworkIsFinish();
                         }
+                        System.out.println("Client: " + input);
                         break;
                     }
                     System.out.println("Client: " + input);
@@ -127,8 +130,20 @@ public class Client implements Runnable {
         thread.start();
     }
 
-    public void sendUndoRedo(int index){
+    public void sendUndoRedoIndex(int index) {
         out.println(index);
+        thread.stop();
+        gui.computerOrNetworkIsFinish();
+        if(index%2 == 0 && isBlack || index%2 != 0 && !isBlack){
+            thread = new Thread(this);
+            thread.start();
+        }
+    }
+
+    public int getAndResetUndoRedoIndex(){
+        int index = undoRedoIndex;
+        undoRedoIndex = 0;
+        return index;
     }
 
     /**

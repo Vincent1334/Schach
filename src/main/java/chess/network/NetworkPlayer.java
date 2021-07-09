@@ -3,8 +3,6 @@ package chess.network;
 import chess.gui.Logic;
 import chess.model.Move;
 
-import java.net.Inet4Address;
-
 /**
  * This class contains the network logic
  *
@@ -81,11 +79,19 @@ public class NetworkPlayer {
         }
     }
 
+    public int getAndResetUndoRedoIndex(){
+        if (server != null) {
+           return server.getAndResetUndoRedoIndex();
+        } else {
+            return client.getAndResetUndoRedoIndex();
+        }
+    }
+
     public void sendUndoRedo(int index){
         if (server != null) {
-            server.sendUndoRedo(index);
+            server.sendUndoRedoIndex(index);
         } else {
-            client.sendUndoRedo(index);
+            client.sendUndoRedoIndex(index);
         }
     }
 

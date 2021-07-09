@@ -27,6 +27,7 @@ public class Server implements Runnable{
     private BufferedReader in;
     private int port;
     private boolean isConnected;
+    private int undoRedoIndex;
 
     /**
      * Server constructor
@@ -64,16 +65,15 @@ public class Server implements Runnable{
                         case 0: break;
                         case 1: continue;
                     }
-
                     if(input.contains("-")){
                         //get Move message
                         networkMove = Parser.parse(input);
-                        if(gui != null) gui.computerOrNetworkIsFinish();
-                    }else{
+                    }else if(!input.equals("ready")){
                         //update undoRedo
-                        if(gui != null) gui.getController().undoRedoSend(input);
+                        undoRedoIndex = Integer.parseInt(input);
                     }
-
+                    System.out.println("Server: " + input);
+                    gui.computerOrNetworkIsFinish();
                     break;
                 }
             }
@@ -166,11 +166,23 @@ public class Server implements Runnable{
 
     }
 
-    public void sendUndoRedo(int index) {
+    public void sendUndoRedoIndex(int index) {
         out.println(index);
+        thread.stop();
+        gui.computerOrNetworkIsFinish();
+        if(index%2 == 0 && isBlack || index%2 != 0 && !isBlack){
+            thread = new Thread(this);
+            thread.start();
+        }
     }
 
-        /**
+    public int getAndResetUndoRedoIndex(){
+        int index = undoRedoIndex;
+        undoRedoIndex = 0;
+        return index;}
+
+
+    /**
          * Stops the server and all components
          */
     public void stop() {
