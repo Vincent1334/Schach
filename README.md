@@ -57,4 +57,4 @@ Kurzübersicht nützlicher Maven-Befehle. Weitere Informationen finden sich im T
 * `mvn javafx:run` führt das Projekt aus
 * `mvn javafx:run -Dargs="--no-gui"` führt das Projekt mit Command-Line-Parameter `--no-gui` aus.
 
-![Bildtext](documentation/images/ReadMe_banner.jpg "Banner")
+![Bildtext](images/ReadMe_banner.jpg "Banner")
