@@ -26,7 +26,8 @@ public class Server implements Runnable{
     private BufferedReader in;
     private int port;
     private boolean isConnected;
-    private int undoRedoIndex;
+    private int undoRedoIndex = -1;
+    private boolean exit = false;
 
     /**
      * Server constructor
@@ -67,9 +68,18 @@ public class Server implements Runnable{
                     if(input.contains("-")){
                         //get Move message
                         networkMove = Parser.parse(input);
-                    }else if(!input.equals("ready")){
+                    }
+                    if(isNumeric(input)){
                         //update undoRedo
                         undoRedoIndex = Integer.parseInt(input);
+                        if(gui != null) gui.computerOrNetworkIsFinish();
+                        //Let the thread alive
+                        if(undoRedoIndex%2 == 0 && isBlack || undoRedoIndex%2 != 0 && !isBlack){
+                            continue;
+                        }
+                    }
+                    if(input.equals("exit")){
+                        exit = true;
                     }
                     System.out.println("Server: " + input);
                     if(gui != null) gui.computerOrNetworkIsFinish();
@@ -146,6 +156,10 @@ public class Server implements Runnable{
         thread.start();
     }
 
+    public void sendExit(){
+        out.println("exit");
+    }
+
     public String getIPAddress(){
         try{
             return serverSocket.getInetAddress().getHostAddress();
@@ -157,8 +171,9 @@ public class Server implements Runnable{
 
     public void sendUndoRedoIndex(int index) {
         out.println(index);
-        thread.stop();
+        undoRedoIndex = index;
         gui.computerOrNetworkIsFinish();
+        thread.interrupt();
         if(index%2 == 0 && isBlack || index%2 != 0 && !isBlack){
             thread = new Thread(this);
             thread.start();
@@ -167,8 +182,13 @@ public class Server implements Runnable{
 
     public int getAndResetUndoRedoIndex(){
         int index = undoRedoIndex;
-        undoRedoIndex = 0;
-        return index;}
+        undoRedoIndex = -1;
+        return index;
+    }
+
+    public boolean isExit(){
+        return exit;
+    }
 
 
     /**
@@ -176,7 +196,7 @@ public class Server implements Runnable{
          */
     public void stop() {
        try{
-          thread.interrupt();
+           thread.interrupt();
            in.close();
            out.close();
            serverSocket.close();
@@ -184,5 +204,14 @@ public class Server implements Runnable{
        }catch (Exception x){
 
        }
+    }
+
+    private boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 }

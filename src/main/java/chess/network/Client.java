@@ -21,12 +21,13 @@ public class Client implements Runnable {
     private boolean isBlack;
     private Logic gui;
     private Move networkMove;
-    private int undoRedoIndex;
+    private int undoRedoIndex = -1;
 
     private String ipAddress;
     private int port;
 
     private boolean isConnected;
+    private boolean exit = false;
 
     /**
      * Client constructor
@@ -52,33 +53,35 @@ public class Client implements Runnable {
      */
     @Override
     public void run() {
-        if (!isConnected) {
-            try {
-                clientSocket = new Socket(ipAddress, port);
-                out = new PrintWriter(clientSocket.getOutputStream(), true);
-                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                out.println("start");
-            } catch (Exception x) {
-                System.out.println("Cant connect");
-            }
-        }
+        initConnection();
         while (!thread.isInterrupted()) {
             try {
                 String input = in.readLine();
                 if (input != null) {
+                    //Game traffic
                     if (isConnected) {
                         if(input.contains("-")){
                             //get Move message
                             networkMove = Parser.parse(input);
                             if(gui != null) gui.computerOrNetworkIsFinish();
-                        }else if(!input.equals("ready") && gui != null){
+                        }
+                        if(isNumeric(input)){
                             //update undoRedo
                             undoRedoIndex = Integer.parseInt(input);
-                            gui.computerOrNetworkIsFinish();
+                            if(gui != null) gui.computerOrNetworkIsFinish();
+                            //Let the thread alive
+                            if(undoRedoIndex%2 == 0 && isBlack || undoRedoIndex%2 != 0 && !isBlack){
+                                continue;
+                            }
+                        }
+                        if(input.equals("exit")){
+                            exit = true;
+                            if(gui != null) gui.computerOrNetworkIsFinish();
                         }
                         System.out.println("Client: " + input);
                         break;
                     }
+                    //Init traffic
                     System.out.println("Client: " + input);
                     if (input.equals("white")) {
                         isBlack = false;
@@ -96,6 +99,19 @@ public class Client implements Runnable {
                 }
             } catch (Exception x) {
                 x.printStackTrace();
+            }
+        }
+    }
+
+    private void initConnection(){
+        if (!isConnected) {
+            try {
+                clientSocket = new Socket(ipAddress, port);
+                out = new PrintWriter(clientSocket.getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                out.println("start");
+            } catch (Exception x) {
+                System.out.println("Cant connect");
             }
         }
     }
@@ -120,10 +136,15 @@ public class Client implements Runnable {
         thread.start();
     }
 
+    public void sendExit(){
+        out.println("exit");
+    }
+
     public void sendUndoRedoIndex(int index) {
         out.println(index);
-        thread.stop();
+        undoRedoIndex = index;
         gui.computerOrNetworkIsFinish();
+        thread.interrupt();
         if(index%2 == 0 && isBlack || index%2 != 0 && !isBlack){
             thread = new Thread(this);
             thread.start();
@@ -132,7 +153,7 @@ public class Client implements Runnable {
 
     public int getAndResetUndoRedoIndex(){
         int index = undoRedoIndex;
-        undoRedoIndex = 0;
+        undoRedoIndex = -1;
         return index;
     }
 
@@ -147,6 +168,19 @@ public class Client implements Runnable {
 
     public String getIpAddress(){
         return ipAddress;
+    }
+
+    private boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+
+    public boolean isExit(){
+        return exit;
     }
 
     /**

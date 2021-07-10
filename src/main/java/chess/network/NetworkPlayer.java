@@ -107,6 +107,16 @@ public class NetworkPlayer {
         return client.clientTeam();
     }
 
+    public boolean isExit(){
+        if (server != null) {
+            return server.isExit();
+        }
+        if (client != null) {
+            return client.isExit();
+        }
+        return false;
+    }
+
     /**
      * Set ready to play
      *
@@ -133,6 +143,15 @@ public class NetworkPlayer {
             return client.getIpAddress();
         }
         return "localhost";
+    }
+
+    public void sendExit(){
+        if (server != null) {
+            server.sendExit();
+        }
+        if (client != null) {
+            client.sendExit();
+        }
     }
 
     public int getPort(){
