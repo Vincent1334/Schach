@@ -18,8 +18,7 @@ public class Server implements Runnable{
 
     private Thread thread;
     private Logic gui;
-    
-    private Move networkMove;
+    private Object networkOutput;
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private PrintWriter out;
@@ -61,29 +60,26 @@ public class Server implements Runnable{
                     if(!isConnected && startCommand(input)){
                         continue;
                     }
-                    switch (readyCommand(input)){
-                        case 0: break;
-                        case 1: continue;
+                    //Is Client ready?
+                    if(!isConnected && readyCommand(input)){
+                       continue;
                     }
+                    //send move
                     if(input.contains("-")){
                         //get Move message
-                        networkMove = Parser.parse(input);
+                        networkOutput = Parser.parse(input);
                     }
+                    //send undo redo
                     if(isNumeric(input)){
                         //update undoRedo
-                        undoRedoIndex = Integer.parseInt(input);
-                        if(gui != null) gui.computerOrNetworkIsFinish();
-                        //Let the thread alive
-                        if(undoRedoIndex%2 == 0 && isBlack || undoRedoIndex%2 != 0 && !isBlack){
-                            continue;
-                        }
+                        networkOutput = Integer.parseInt(input);
                     }
+                    //send exit
                     if(input.equals("exit")){
                         exit = true;
                     }
                     System.out.println("Server: " + input);
                     if(gui != null) gui.computerOrNetworkIsFinish();
-                    break;
                 }
             }
 
@@ -95,19 +91,13 @@ public class Server implements Runnable{
     /**
      * Perform code when ready command arrives
      * @param input equals ready
-     * @return 0 or 1 when command was successful
+     * @return true when command was successful
      */
-    private int readyCommand(String input){
-        if(!isConnected && input.equals("ready")){
-            //leave listener if server starts with white
-            isConnected = true;
-            if(gui != null) gui.computerOrNetworkIsFinish();
-            if(!isBlack){
-                return 0;
-            }
-            return 1;
+    private boolean readyCommand(String input){
+        if(input.equals("ready")) {
+            return false;
         }
-        return 2;
+        return true;
     }
 
     /**
@@ -139,11 +129,11 @@ public class Server implements Runnable{
     }
 
     /**
-     * Return move
-     * @return move
+     * Return output
+     * @return output
      */
-    public Move getMove(){
-        return networkMove;
+    public Object getOutput(){
+        return networkOutput;
     }
 
     /**
@@ -152,8 +142,7 @@ public class Server implements Runnable{
      */
     public void sendMove(Move move){
         out.println(move.toString());
-        thread = new Thread(this);
-        thread.start();
+        System.out.println("Server: send Move " + move.toString());
     }
 
     /**
@@ -182,33 +171,7 @@ public class Server implements Runnable{
      */
     public void sendUndoRedoIndex(int index) {
         out.println(index);
-        undoRedoIndex = index;
-        gui.computerOrNetworkIsFinish();
-        thread.interrupt();
-        if(index%2 == 0 && isBlack || index%2 != 0 && !isBlack){
-            thread = new Thread(this);
-            thread.start();
-        }
     }
-
-    /**
-     * resets undoRedoIndex
-     * @return the movehistory index to which should be jumped back
-     */
-    public int getAndResetUndoRedoIndex(){
-        int index = undoRedoIndex;
-        undoRedoIndex = -1;
-        return index;
-    }
-
-    /**
-     * returns, if the server exited
-     * @return true, if the server exited
-     */
-    public boolean isExit(){
-        return exit;
-    }
-
 
     /**
          * Stops the server and all components
@@ -225,11 +188,6 @@ public class Server implements Runnable{
        }
     }
 
-    /**
-     * checks if str is a number
-     * @param str the String you want to check
-     * @return true, if the str is a number
-     */
     private boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);

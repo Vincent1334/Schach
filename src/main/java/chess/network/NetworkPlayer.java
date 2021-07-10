@@ -55,15 +55,15 @@ public class NetworkPlayer {
     }
 
     /**
-     * Returns move from opponent
+     * Returns Output
      *
-     * @return Move
+     * @return output
      */
-    public Move getMove() {
+    public Object getOutput() {
         if (server != null) {
-            return server.getMove();
+            return server.getOutput();
         }
-        return client.getMove();
+        return client.getOutput();
     }
 
     /**
@@ -76,18 +76,6 @@ public class NetworkPlayer {
             server.sendMove(move);
         } else {
             client.sendMove(move);
-        }
-    }
-
-    /**
-     * resets the undoRedoIndex
-     * @return the undoRedoIndex
-     */
-    public int getAndResetUndoRedoIndex(){
-        if (server != null) {
-           return server.getAndResetUndoRedoIndex();
-        } else {
-            return client.getAndResetUndoRedoIndex();
         }
     }
 
@@ -113,16 +101,6 @@ public class NetworkPlayer {
             return isBlack;
         }
         return client.clientTeam();
-    }
-
-    public boolean isExit(){
-        if (server != null) {
-            return server.isExit();
-        }
-        if (client != null) {
-            return client.isExit();
-        }
-        return false;
     }
 
     /**

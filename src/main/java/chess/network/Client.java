@@ -20,14 +20,11 @@ public class Client implements Runnable {
     private Thread thread;
     private boolean isBlack;
     private Logic gui;
-    private Move networkMove;
-    private int undoRedoIndex = -1;
+    private Object networkOutput;
 
     private String ipAddress;
     private int port;
-
     private boolean isConnected;
-    private boolean exit = false;
 
     /**
      * Client constructor
@@ -60,40 +57,35 @@ public class Client implements Runnable {
                 if (input != null) {
                     //Game traffic
                     if (isConnected) {
+                        //chess move input
                         if(input.contains("-")){
                             //get Move message
-                            networkMove = Parser.parse(input);
-                            if(gui != null) gui.computerOrNetworkIsFinish();
+                            networkOutput = Parser.parse(input);
                         }
+                        //undo redo input
                         if(isNumeric(input)){
                             //update undoRedo
-                            undoRedoIndex = Integer.parseInt(input);
-                            if(gui != null) gui.computerOrNetworkIsFinish();
-                            //Let the thread alive
-                            if(undoRedoIndex%2 == 0 && isBlack || undoRedoIndex%2 != 0 && !isBlack){
-                                continue;
-                            }
+                            networkOutput = Integer.parseInt(input);
                         }
+                        //exit input
                         if(input.equals("exit")){
-                            exit = true;
-                            if(gui != null) gui.computerOrNetworkIsFinish();
+                            networkOutput = true;
                         }
-                        System.out.println("Client: " + input);
-                        break;
-                    }
-                    //Init traffic
-                    System.out.println("Client: " + input);
-                    if (input.equals("white")) {
-                        isBlack = false;
-                        isConnected = true;
-                        out.println("ready");
                         if(gui != null) gui.computerOrNetworkIsFinish();
-                        break;
-                    }
-                    if (input.equals("black")) {
-                        isBlack = true;
-                        isConnected = true;
-                        out.println("ready");
+                        System.out.println("Client: " + input);
+                    }else{
+                        //Init traffic
+                        System.out.println("Client: " + input);
+                        if (input.equals("white")) {
+                            isBlack = false;
+                            isConnected = true;
+                            out.println("ready");
+                        }
+                        if (input.equals("black")) {
+                            isBlack = true;
+                            isConnected = true;
+                            out.println("ready");
+                        }
                         if(gui != null) gui.computerOrNetworkIsFinish();
                     }
                 }
@@ -120,12 +112,12 @@ public class Client implements Runnable {
     }
 
     /**
-     * get move from Server
+     * get output from Server
      *
      * @return move
      */
-    public Move getMove() {
-        return networkMove;
+    public Object getOutput() {
+        return networkOutput;
     }
 
     /**
@@ -135,8 +127,7 @@ public class Client implements Runnable {
      */
     public void sendMove(Move move) {
         out.println(move.toString());
-        thread = new Thread(this);
-        thread.start();
+        System.out.println("Client: send Move " + move.toString());
     }
 
     /**
@@ -152,24 +143,9 @@ public class Client implements Runnable {
      */
     public void sendUndoRedoIndex(int index) {
         out.println(index);
-        undoRedoIndex = index;
-        gui.computerOrNetworkIsFinish();
-        thread.interrupt();
-        if(index%2 == 0 && isBlack || index%2 != 0 && !isBlack){
-            thread = new Thread(this);
-            thread.start();
-        }
     }
 
-    /**
-     * resets undoRedoIndex
-     * @return the movehistory index to which should be jumped back
-     */
-    public int getAndResetUndoRedoIndex(){
-        int index = undoRedoIndex;
-        undoRedoIndex = -1;
-        return index;
-    }
+
 
     /**
      * Returns Client team
@@ -180,19 +156,10 @@ public class Client implements Runnable {
         return isBlack;
     }
 
-    /**
-     * returns the IP address of the server
-     * @return the IP address of the server
-     */
     public String getIpAddress(){
         return ipAddress;
     }
 
-    /**
-     * checks if str is a number
-     * @param str the String you want to check
-     * @return true, if the str is a number
-     */
     private boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
@@ -200,14 +167,6 @@ public class Client implements Runnable {
         } catch(NumberFormatException e){
             return false;
         }
-    }
-
-    /**
-     * returns, if the client exited
-     * @return true, if the client exited
-     */
-    public boolean isExit(){
-        return exit;
     }
 
     /**
