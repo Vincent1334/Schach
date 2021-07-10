@@ -229,4 +229,8 @@ public class UndoRedo {
         return UNDO_REDO_MOVES_AS_TEXT;
     }
 
+    public int getPointer(){
+        return pointer;
+    }
+
 }

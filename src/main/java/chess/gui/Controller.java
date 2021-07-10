@@ -102,6 +102,9 @@ public class Controller {
     @FXML
     public void undo() {
         undoRedo.undo(getHistory(), logic);
+        if(logic.getGameMode()==GameMode.NETWORK){
+            logic.getNetwork().sendUndoRedo(undoRedo.getPointer());
+        }
     }
 
     /**
@@ -110,6 +113,9 @@ public class Controller {
     @FXML
     public void redo() {
         undoRedo.redo(getHistory(), logic);
+        if(logic.getGameMode()==GameMode.NETWORK){
+            logic.getNetwork().sendUndoRedo(undoRedo.getPointer());
+        }
     }
 
     /**

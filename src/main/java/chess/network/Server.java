@@ -72,11 +72,6 @@ public class Server implements Runnable{
                     if(isNumeric(input)){
                         //update undoRedo
                         undoRedoIndex = Integer.parseInt(input);
-                        if(gui != null) gui.computerOrNetworkIsFinish();
-                        //Let the thread alive
-                        if(undoRedoIndex%2 == 0 && isBlack || undoRedoIndex%2 != 0 && !isBlack){
-                            continue;
-                        }
                     }
                     if(input.equals("exit")){
                         exit = true;
@@ -171,8 +166,6 @@ public class Server implements Runnable{
 
     public void sendUndoRedoIndex(int index) {
         out.println(index);
-        undoRedoIndex = index;
-        gui.computerOrNetworkIsFinish();
         thread.interrupt();
         if(index%2 == 0 && isBlack || index%2 != 0 && !isBlack){
             thread = new Thread(this);

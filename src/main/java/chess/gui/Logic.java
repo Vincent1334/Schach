@@ -145,6 +145,7 @@ public class Logic implements Runnable {
      */
     public void killNetworkPlayer() {
         if (network != null) {
+            network.sendExit();
             network.killNetwork();
         }
     }
@@ -167,6 +168,12 @@ public class Logic implements Runnable {
                 int index = network.getAndResetUndoRedoIndex();
                 if(index >= 0){
                     this.getController().undoRedoSend(index);
+                    if(index%2 == 0 && playerBlack || index%2 != 0 && !playerBlack){
+                        controller.setCalculating(false, "");
+                    }else{
+                        controller.setCalculating(true, LanguageManager.getText("network_player_waiting_label"));
+                    }
+                    controller.updateScene();
                     return;
                 }
                 if(network.isExit()) {
