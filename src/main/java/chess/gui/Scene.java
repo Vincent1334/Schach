@@ -11,6 +11,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -181,16 +182,18 @@ public class Scene {
      * @param isActivePlayerBlack true if the actual player is black
      */
     protected void setPlayerLabel(boolean isActivePlayerBlack) {
+        Rectangle b = CONTROLLER.getRectangleBlack();
+        Rectangle w = CONTROLLER.getRectangleWhite();
         if (isActivePlayerBlack) {
-            CONTROLLER.getRectangleBlack().setStroke(valueOf("#8fbe00"));
-            CONTROLLER.getRectangleBlack().setStrokeWidth(3);
-            CONTROLLER.getRectangleWhite().setStroke(BLACK);
-            CONTROLLER.getRectangleWhite().setStrokeWidth(1);
+            b.setStroke(valueOf("#8fbe00"));
+            b.setStrokeWidth(3);
+            w.setStroke(BLACK);
+            w.setStrokeWidth(1);
         } else {
-            CONTROLLER.getRectangleWhite().setStroke(valueOf("#8fbe00"));
-            CONTROLLER.getRectangleWhite().setStrokeWidth(3);
-            CONTROLLER.getRectangleBlack().setStroke(BLACK);
-            CONTROLLER.getRectangleBlack().setStrokeWidth(1);
+            w.setStroke(valueOf("#8fbe00"));
+            w.setStrokeWidth(3);
+            b.setStroke(BLACK);
+            b.setStrokeWidth(1);
         }
     }
 

@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
@@ -34,7 +33,6 @@ import static javafx.scene.paint.Color.*;
 // the methods updateFlagButton(), updatePossibleMovesButton() and updateRotateButton() are used by the gui but PMD does not recognize this
 public class Controller {
 
-    private final Color disabledColor = valueOf("#8fbe00");
     private Logic logic;
     private UndoRedo undoRedo;
     private Scene scene;
@@ -176,7 +174,7 @@ public class Controller {
     private void markPossibleFields(Rectangle field, boolean mark, Board board) {
         for (Rectangle f : getPossibleFields(field, board)) {
             if (mark && getPossibleMove().isSelected()) {
-                f.setStroke(disabledColor);
+                f.setStroke(valueOf("#8fbe00"));
                 f.setStrokeWidth(5);
                 f.setStrokeType(StrokeType.INSIDE);
             } else {
