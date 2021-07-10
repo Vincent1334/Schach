@@ -1,14 +1,12 @@
 package chess.gui;
 
 import chess.enums.GameMode;
-import chess.figures.Figure;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import chess.model.*;
 import chess.network.NetworkPlayer;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
@@ -19,7 +17,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.*;
@@ -40,6 +37,7 @@ public class Controller {
     private final Color disabledColor = valueOf("#8fbe00");
     private Logic logic;
     private UndoRedo undoRedo;
+    private Scene scene;
 
     @FXML
     public Pane menu;
@@ -52,6 +50,7 @@ public class Controller {
      * @param networkPlayer the network player
      */
     public void init(GameMode gameMode, boolean isBlack, NetworkPlayer networkPlayer) {
+        scene = new Scene(this);
         logic = new Logic(gameMode, isBlack, networkPlayer);
         undoRedo = new UndoRedo(logic.getCoreGame().getMoveHistory().size() - 1, this);
 
@@ -99,7 +98,7 @@ public class Controller {
      * undo a move (button "undo")
      */
     @FXML
-    public void undo() {
+    private void undo() {
         undoRedo.undo(getHistory(), logic);
         if(logic.getGameMode()==GameMode.NETWORK){
             logic.getNetwork().sendUndoRedo(undoRedo.getPointer());
@@ -110,7 +109,7 @@ public class Controller {
      * redo a move after an undo (button "redo")
      */
     @FXML
-    public void redo() {
+    private void redo() {
         undoRedo.redo(getHistory(), logic);
         if(logic.getGameMode()==GameMode.NETWORK){
             logic.getNetwork().sendUndoRedo(undoRedo.getPointer());
@@ -123,7 +122,7 @@ public class Controller {
      * @param mouseEvent the mouseEvent
      */
     @FXML
-    public void undoRedoClicked(MouseEvent mouseEvent) {
+    private void undoRedoClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Text) {
             int index = 0;
             // which move was clicked?
@@ -141,160 +140,14 @@ public class Controller {
         getScrollPaneHistory().vvalueProperty().unbind();
     }
 
-    /**
-     * executes undo/redo to the move with the given index
-     * @param index index of the move you want to go back
-     */
-    public void undoRedoSend(int index){
-        undoRedo.undoRedoClicked(getHistory(), logic, index);
-    }
-
     // ----------------------------------Update----------------------------------------------------------------------------------------------
-
-    /**
-     * updates the scene (the board, the history, the beaten-figure-list, possible notifications, possible board turns)
-     */
-    public void updateScene() {
-        drawBoard();
-        updateNotifications();
-        updateBeatenFigures();
-        if (getRotate().isSelected()) {
-            logic.turnBoard(false);
-        }
-        setPlayerLabel(logic.getCoreGame().isActivePlayerBlack());
-    }
-
-    /**
-     * Sets a label in the gui if a player is in check, checkmate or stalemate
-     */
-    private void updateNotifications() {
-        getLabelCheck().setVisible(false);
-        if (getShowFlags().isSelected()) {
-            if (logic.getCoreGame().getCurrentBoard().isCheckFlag(true)) {
-                getLabelCheck().setVisible(true);
-                getLabelCheck().setText(LanguageManager.getText("blackCheck_label"));
-            }
-            if (logic.getCoreGame().getCurrentBoard().isCheckFlag(false)) {
-                getLabelCheck().setVisible(true);
-                getLabelCheck().setText(LanguageManager.getText("whiteCheck_label"));
-            }
-            if (logic.getCoreGame().getCurrentBoard().isCheckMateFlag(true)) {
-                getLabelCheck().setVisible(true);
-                getLabelCheck().setText(LanguageManager.getText("blackCheckmate_label"));
-            }
-            if (logic.getCoreGame().getCurrentBoard().isCheckMateFlag(false)) {
-                getLabelCheck().setVisible(true);
-                getLabelCheck().setText(LanguageManager.getText("whiteCheckmate_label"));
-            }
-            if (logic.getCoreGame().getCurrentBoard().isStaleMateFlag()) {
-                getLabelCheck().setVisible(true);
-                getLabelCheck().setText(LanguageManager.getText("stalemate_label"));
-            }
-        }
-    }
-
-    /**
-     * updates the history in the gui
-     *
-     * @param move the move that should be added to the history
-     */
-    public void updateHistory(Move move) {
-        String space = "   ";
-        if (getHistory().getRowCount() < 10) {
-            space = "       ";
-        } else if (getHistory().getRowCount() < 100) {
-            space = "     ";
-        }
-        Text t = new Text(getHistory().getRowCount() + space + move.toString());
-        t.setFill(valueOf("#515151"));
-        t.setFont(new Font("Calibri", 15.0));
-
-        if (logic.getGameMode() != GameMode.COMPUTER || getHistory().getRowCount() % 2 == 0) {
-            t.setCursor(Cursor.HAND);
-            t.setOnMouseEntered((event) -> {
-                t.setFill(disabledColor);
-                t.setFont(new Font("Calibri", 16.0));
-            });
-            t.setOnMouseExited((event) -> {
-                t.setFill(valueOf("#515151"));
-                t.setFont(new Font("Calibri", 15.0));
-            });
-        }
-
-        getHistory().add(t, 0, getHistory().getRowCount());
-
-        undoRedo.setPointer(logic.getCoreGame().getMoveHistory().size() - 1);
-        getScrollPaneHistory().vvalueProperty().bind(getHistory().heightProperty());
-    }
-
-
-    /**
-     * updates the beaten figure list in the gui
-     */
-    public void updateBeatenFigures() {
-        int whiteIndex = 0;
-        int blackIndex = 0;
-        int whiteCol = 0;
-        int blackCol = 0;
-
-        getBeatenFiguresBlack().getChildren().clear();
-        getBeatenFiguresWhite().getChildren().clear();
-
-        for (Figure figure : logic.getCoreGame().getCurrentBoard().getBeatenFigures()) {
-            ImageView iv = new ImageView(ImageHandler.getImageBySymbol(figure.getSymbol()));
-            iv.setEffect(new DropShadow(2.0, 2.0, 2.0, valueOf("#777777")));
-            iv.preserveRatioProperty().setValue(true);
-            iv.setFitHeight(50.0);
-            iv.setRotate(0);
-
-            GridPane.setColumnIndex(iv, figure.isBlack() ? blackCol : whiteCol);
-            GridPane.setRowIndex(iv, figure.isBlack() ? blackIndex : whiteIndex);
-            if (figure.isBlack()) {
-                getBeatenFiguresBlack().getChildren().add(iv);
-                blackIndex++;
-                if (blackIndex == 8) {
-                    blackIndex = 0;
-                    blackCol = 1;
-                }
-            } else {
-                getBeatenFiguresWhite().getChildren().add(iv);
-                whiteIndex++;
-                if (whiteIndex == 8) {
-                    whiteIndex = 0;
-                    whiteCol = 1;
-                }
-            }
-        }
-    }
-
-    /**
-     * draws the chess board
-     */
-    private void drawBoard() {
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                this.getBoard().getChildren().remove(getImageViewByIndex(x + 1, 8 - y));
-                if (ImageHandler.getImageBySymbol(logic.getCoreGame().getCurrentBoard().getFigure(x, y).getSymbol()) != null) {
-                    ImageView iv = new ImageView(ImageHandler.getImageBySymbol(logic.getCoreGame().getCurrentBoard().getFigure(x, y).getSymbol()));
-                    iv.preserveRatioProperty().setValue(true);
-                    iv.setFitHeight(50.0);
-                    iv.setMouseTransparent(true);
-                    iv.setEffect(new Reflection(0.0, 0.12, 0.24, 0.0));
-                    this.getBoard().add(iv, x + 1, 8 - y);
-                }
-            }
-        }
-        if (logic.getGameMode() != GameMode.NORMAL && logic.isPlayerBlack()) {
-            logic.turnFigures(180);
-        }
-    }
 
     /**
      * update FlagButton event
      */
     @FXML
     private void updateFlagButton() {
-        updateNotifications();
+        scene.updateNotifications();
     }
 
     /**
@@ -320,7 +173,7 @@ public class Controller {
      * @param mark  mark or unmark
      * @param board the current chessboard
      */
-    protected void markPossibleFields(Rectangle field, boolean mark, Board board) {
+    private void markPossibleFields(Rectangle field, boolean mark, Board board) {
         for (Rectangle f : getPossibleFields(field, board)) {
             if (mark && getPossibleMove().isSelected()) {
                 f.setStroke(disabledColor);
@@ -333,25 +186,18 @@ public class Controller {
     }
 
 
-    //--------------setter / getter---------------------------------------------------------------------------------------------------------------
+    //--------------setter---------------------------------------------------------------------------------------------------------------
 
     /**
-     * updates the label that shows which player's turn it is.
-     *
-     * @param isActivePlayerBlack true if the actual player is black
+     * switches the language of the gui elements
+     * @param event the mouse event, used to know which flag was clicked
      */
-    private void setPlayerLabel(boolean isActivePlayerBlack) {
-        if (isActivePlayerBlack) {
-            getRectangleBlack().setStroke(disabledColor);
-            getRectangleBlack().setStrokeWidth(3);
-            getRectangleWhite().setStroke(BLACK);
-            getRectangleWhite().setStrokeWidth(1);
-        } else {
-            getRectangleWhite().setStroke(disabledColor);
-            getRectangleWhite().setStrokeWidth(3);
-            getRectangleBlack().setStroke(BLACK);
-            getRectangleBlack().setStrokeWidth(1);
-        }
+    @FXML
+    private void setLanguage(MouseEvent event) {
+        //the url of the clicked image
+        String url = ((ImageView) event.getTarget()).getImage().getUrl();
+        //sets the language after the name of the image
+        LanguageManager.setLanguage(url.substring(url.length()-6,url.length()-4));
     }
 
     /**
@@ -373,29 +219,16 @@ public class Controller {
         }
     }
 
-    /**
-     * sets the notification message and ist visibility
-     *
-     * @param notificationVisible whether the notification is visible
-     * @param message the notification message
-     */
-    protected void setNotification(boolean notificationVisible, String message) {
-        if (notificationVisible) {
-            getLabelCalculating().setText(message);
-            getLabelCalculating().setVisible(true);
-            getBoard().setMouseTransparent(true);
-        } else {
-            getLabelCalculating().setVisible(false);
-            getBoard().setMouseTransparent(false);
-        }
-    }
+
+    //--------------is...---------------------------------------------------------------------------------------------------------------
 
     /**
      * performs a move if the target position is clicked after the start position was clicked and if the move is allowed
      *
      * @param mouseEvent the clicked field
      */
-    public void isFieldClicked(MouseEvent mouseEvent) {
+    @FXML
+    private void isFieldClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
             Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
             logic.handleFieldClick(clickedField, logic.getCoreGame().isActivePlayerBlack());
@@ -416,6 +249,8 @@ public class Controller {
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("QueenBlack").getUrl()) ||
                 iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("PawnBlack").getUrl());
     }
+
+    //--------------getter---------------------------------------------------------------------------------------------------------------
 
     /**
      * returns the figure of the field on the gridPane
@@ -468,7 +303,7 @@ public class Controller {
      * @param row    of the ImageView you want to get
      * @return the ImageView with the columnIndex column and the rowIndex row in the gridPane
      */
-    private Node getImageViewByIndex(int column, int row) {
+    protected Node getImageViewByIndex(int column, int row) {
         Node result = null;
         ObservableList<Node> children = getBoard().getChildren();
 
@@ -482,27 +317,15 @@ public class Controller {
         return result;
     }
 
-    /**
-     * switches the language of the gui elements
-     * @param event the mouse event, used to know which flag was clicked
-     */
-    @FXML
-    private void setLanguage(MouseEvent event) {
-        //the url of the clicked image
-        String url = ((ImageView) event.getTarget()).getImage().getUrl();
-        //sets the language after the name of the image
-        LanguageManager.setLanguage(url.substring(url.length()-6,url.length()-4));
-    }
 
-
-    //-----simple setter / getter---------------------------------------------------------------------------------------------------------------
+    //-----simple getter---------------------------------------------------------------------------------------------------------------
 
     /**
      * returns the gui element gridPane which shows white's beaten figures
      *
      * @return the gui element gridPane which shows white's beaten figures
      */
-    public GridPane getBeatenFiguresWhite() {
+    protected GridPane getBeatenFiguresWhite() {
         return (GridPane) menu.getChildren().get(0);
     }
 
@@ -538,7 +361,7 @@ public class Controller {
      *
      * @return the gui label which shows whether one team is in check
      */
-    private Label getLabelCheck() {
+    protected Label getLabelCheck() {
         return (Label) menu.getChildren().get(4);
     }
 
@@ -547,7 +370,7 @@ public class Controller {
      *
      * @return the gui label which shows whether the computer is still calculating
      */
-    private Label getLabelCalculating() {
+    protected Label getLabelCalculating() {
         return (Label) menu.getChildren().get(5);
     }
 
@@ -592,7 +415,7 @@ public class Controller {
      *
      * @return the gui element "white rectangle" which shows whether it is white's turn
      */
-    private Rectangle getRectangleWhite() {
+    protected Rectangle getRectangleWhite() {
         return (Rectangle) menu.getChildren().get(11);
     }
 
@@ -601,7 +424,7 @@ public class Controller {
      *
      * @return the gui element "black rectangle" which shows whether it is black's turn
      */
-    private Rectangle getRectangleBlack() {
+    protected Rectangle getRectangleBlack() {
         return (Rectangle) menu.getChildren().get(12);
     }
 
@@ -610,7 +433,7 @@ public class Controller {
      *
      * @return the gui element gridPane which shows black's beaten figures
      */
-    private GridPane getBeatenFiguresBlack() {
+    protected GridPane getBeatenFiguresBlack() {
         return (GridPane) menu.getChildren().get(13);
     }
 
@@ -618,7 +441,15 @@ public class Controller {
      * returns the UndoRedo class
      * @return the UndoRedo class
      */
-    public UndoRedo getUndoRedo() {
+    protected UndoRedo getUndoRedo() {
         return undoRedo;
+    }
+
+    protected Logic getLogic(){
+        return logic;
+    }
+
+    protected Scene getScene(){
+        return scene;
     }
 }

@@ -71,7 +71,7 @@ public class UndoRedo {
             // possibly change of players
             logic.getCoreGame().setActivePlayerBlack(pointer % 2 == 0);
 
-            CONTROLLER.updateScene();
+            CONTROLLER.getScene().updateScene();
             unmark();
         }
     }
@@ -123,7 +123,7 @@ public class UndoRedo {
                 // possibly change of players
                 logic.getCoreGame().setActivePlayerBlack(pointer % 2 == 0);
 
-                CONTROLLER.updateScene();
+                CONTROLLER.getScene().updateScene();
             } else {
                 pointer--;
             }
@@ -180,7 +180,7 @@ public class UndoRedo {
         // possibly change of players
         logic.getCoreGame().setActivePlayerBlack(pointer % 2 == 0);
 
-        CONTROLLER.updateScene();
+        CONTROLLER.getScene().updateScene();
         unmark();
     }
 

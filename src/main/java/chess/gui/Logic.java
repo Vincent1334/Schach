@@ -49,7 +49,7 @@ public class Logic implements Runnable {
             }
         }
         if (GAME_MODE == GameMode.NETWORK) {
-            CONTROLLER.setNotification(true, LanguageManager.getText("network_waiting_label"));
+            setNotification(true, LanguageManager.getText("network_waiting_label"));
             this.network = networkPlayer;
             this.network.initNetworkPlayer(this);
             CONTROLLER.getRotate().setDisable(true);
@@ -108,15 +108,15 @@ public class Logic implements Runnable {
             if (!CONTROLLER.getUndoRedo().getUNDO_REDO_MOVES_AS_TEXT().isEmpty()) {
                 CONTROLLER.getUndoRedo().resetUndoRedo(CONTROLLER.getHistory(), this);
             }
-            CONTROLLER.updateHistory(move);
-            CONTROLLER.updateScene();
+            CONTROLLER.getScene().updateHistory(move);
+            CONTROLLER.getScene().updateScene();
             startField = null;
             if (GAME_MODE == GameMode.COMPUTER) {
                 computerMove();
             }
             if (GAME_MODE == GameMode.NETWORK) {
                 network.sendMove(move);
-                CONTROLLER.setNotification(true, LanguageManager.getText("network_player_waiting_label"));
+                setNotification(true, LanguageManager.getText("network_player_waiting_label"));
             }
         } else if (CONTROLLER.getTouchMove().isSelected() && !CONTROLLER.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
             CONTROLLER.setMark(startField, true, coreGame.getCurrentBoard());
@@ -130,7 +130,7 @@ public class Logic implements Runnable {
      */
     public void computerMove() {
         computer.makeMove(coreGame.getCurrentBoard());
-        CONTROLLER.setNotification(true, LanguageManager.getText("calculating_label"));
+        setNotification(true, LanguageManager.getText("calculating_label"));
     }
 
     /**
@@ -155,12 +155,12 @@ public class Logic implements Runnable {
     @Override
     public void run() {
         if (GAME_MODE == GameMode.COMPUTER) {
-            CONTROLLER.setNotification(false, LanguageManager.getText("calculating_label"));
+            setNotification(false, LanguageManager.getText("calculating_label"));
             Move computerMove = computer.getMove();
             System.out.println("Computer: " + computerMove.toString());
             coreGame.chessMove(computerMove);
-            CONTROLLER.updateHistory(computerMove);
-            CONTROLLER.updateScene();
+            CONTROLLER.getScene().updateHistory(computerMove);
+            CONTROLLER.getScene().updateScene();
         }
         if (GAME_MODE == GameMode.NETWORK) {
             if (network.isReadyToPlay()) {
@@ -168,20 +168,20 @@ public class Logic implements Runnable {
                 if(network.getOutput() instanceof Move){
                     Move networkMove = (Move) network.getOutput();
                     coreGame.chessMove(networkMove);
-                    CONTROLLER.setNotification(false, "");
-                    CONTROLLER.updateHistory(networkMove);
-                    CONTROLLER.updateScene();
+                    setNotification(false, "");
+                    CONTROLLER.getScene().updateHistory(networkMove);
+                    CONTROLLER.getScene().updateScene();
                     return;
                 }
                 //Undo Redo
                 if(network.getOutput() instanceof Integer){
-                    this.getController().undoRedoSend((Integer) network.getOutput());
-                    CONTROLLER.updateScene();
+                    getController().getUndoRedo().undoRedoClicked(getController().getHistory(),this,(Integer) network.getOutput());
+                    CONTROLLER.getScene().updateScene();
                     return;
                 }
                 //Exit
                 if(network.getOutput() instanceof String){
-                    CONTROLLER.setNotification(true, LanguageManager.getText("network_exit"));
+                    setNotification(true, LanguageManager.getText("network_exit"));
                     return;
                 }
             } else {
@@ -189,11 +189,11 @@ public class Logic implements Runnable {
                 playerBlack = network.team();
                 network.setReadyToPlay(true);
                 if (playerBlack) {
-                    CONTROLLER.setNotification(true, LanguageManager.getText("network_player_waiting_label"));
+                    setNotification(true, LanguageManager.getText("network_player_waiting_label"));
                     CONTROLLER.getBoard().setRotate(180);
                     turnFigures(180);
                 } else {
-                    CONTROLLER.setNotification(false, "");
+                    setNotification(false, "");
                 }
             }
         }
@@ -227,6 +227,24 @@ public class Logic implements Runnable {
     public void turnFigures(int angle) {
         for (Node node : CONTROLLER.getBoard().getChildren()) {
             node.setRotate(angle);
+        }
+    }
+
+    // -------------setter---------------------------------------------------------------------------------------------------------------
+    /**
+     * sets the notification message and ist visibility
+     *
+     * @param notificationVisible whether the notification is visible
+     * @param message the notification message
+     */
+    protected void setNotification(boolean notificationVisible, String message) {
+        if (notificationVisible) {
+            CONTROLLER.getLabelCalculating().setText(message);
+            CONTROLLER.getLabelCalculating().setVisible(true);
+            CONTROLLER.getBoard().setMouseTransparent(true);
+        } else {
+            CONTROLLER.getLabelCalculating().setVisible(false);
+            CONTROLLER.getBoard().setMouseTransparent(false);
         }
     }
 
