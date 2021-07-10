@@ -39,7 +39,7 @@ public class Logic implements Runnable {
     public Logic(GameMode GAME_MODE, boolean playerColorBlack, NetworkPlayer networkPlayer) {
         this.GAME_MODE = GAME_MODE;
         coreGame = new CoreGame();
-        this.CONTROLLER = ((Controller)WindowManager.getController("GameStage"));
+        this.CONTROLLER = (Controller)WindowManager.getController("GameStage");
 
         if (GAME_MODE == GameMode.COMPUTER) {
             computer = new Computer(!playerColorBlack, this);
@@ -232,23 +232,50 @@ public class Logic implements Runnable {
 
     // -------------getter---------------------------------------------------------------------------------------------------------------
 
+    /**
+     * returns the coreGame
+     * @return coreGame
+     */
     public CoreGame getCoreGame() {
         return coreGame;
     }
 
+
+    /**
+     * returns the startField
+     * @return startField
+     */
     public Rectangle getStartField() {
         return startField;
     }
 
+    /**
+     * returns the GAME_MODE
+     * @return GAME_MODE
+     */
     public GameMode getGameMode() {
         return GAME_MODE;
     }
 
+
+    /**
+     * returns the playerBlack
+     * @return playerBlack
+     */
     public boolean isPlayerBlack() {
         return playerBlack;
     }
 
+    /**
+     * returns the CONTROLLER
+     * @return CONTROLLER
+     */
     public Controller getController(){return CONTROLLER;}
 
+
+    /**
+     * returns the network
+     * @return network
+     */
     public NetworkPlayer getNetwork(){return network;}
 }

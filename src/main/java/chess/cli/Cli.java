@@ -44,44 +44,47 @@ public class Cli {
      */
     public static void init(String[] args) {
         if (!Arrays.asList(args).contains("--simple")) {
-            do {
-                System.out.println(" ██████╗██╗  ██╗███████╗███████╗███████╗");
-                System.out.println("██╔════╝██║  ██║██╔════╝██╔════╝██╔════╝");
-                System.out.println("██║     ███████║█████╗  ███████╗███████╗");
-                System.out.println("██║     ██╔══██║██╔══╝  ╚════██║╚════██║");
-                System.out.println("╚██████╗██║  ██║███████╗███████║███████║");
-                System.out.println(" ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝");
-                System.out.println("");
-                System.out.println(LanguageManager.getText("gamemode_title"));
-                System.out.println("1. " + LanguageManager.getText("gamemode01"));
-                System.out.println("2. " + LanguageManager.getText("gamemode02"));
-                System.out.print(LanguageManager.getText("input_label"));
-
-                String input = scan.nextLine();
-                if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 50) {
-                    gameMode2 = input.charAt(0) == 49 ? GameMode.NORMAL : GameMode.COMPUTER;
-                    coreGame = new CoreGame();
-                    break;
-                } else if (input.equals("de")) {
-                    LanguageManager.setLanguage("de");
-                }else if (input.equals("fr")) {
-                    LanguageManager.setLanguage("fr");
-                }else if (input.equals("en")) {
-                    LanguageManager.setLanguage("en");
-                }
-            } while (true);
+            startLoop();
             //Enter simpleMode
         } else {
             coreGame = new CoreGame();
         }
-
         //create Computer
         if (gameMode2 == GameMode.COMPUTER) {
             computer = new Computer(true);
         }
-
         //initialize pointer
         pointer = coreGame.getMoveHistory().size() - 1;
+    }
+
+    /**
+     * the start loop
+     * (main menu with options to choose the gamemode and language)
+     */
+    public static void startLoop(){
+        do {
+            System.out.println(" ██████╗██╗  ██╗███████╗███████╗███████╗");
+            System.out.println("██╔════╝██║  ██║██╔════╝██╔════╝██╔════╝");
+            System.out.println("██║     ███████║█████╗  ███████╗███████╗");
+            System.out.println("██║     ██╔══██║██╔══╝  ╚════██║╚════██║");
+            System.out.println("╚██████╗██║  ██║███████╗███████║███████║");
+            System.out.println(" ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝");
+            System.out.println("");
+            System.out.println(LanguageManager.getText("gamemode_title"));
+            System.out.println("1. " + LanguageManager.getText("gamemode01"));
+            System.out.println("2. " + LanguageManager.getText("gamemode02"));
+            System.out.println(LanguageManager.getText("chooseLanguage"));
+            System.out.print(LanguageManager.getText("input_label"));
+
+            String input = scan.nextLine();
+            if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 50) {
+                gameMode2 = input.charAt(0) == 49 ? GameMode.NORMAL : GameMode.COMPUTER;
+                coreGame = new CoreGame();
+                break;
+            }else if (input.equals("de")||input.equals("fr")||input.equals("en")){
+                LanguageManager.setLanguage(input);
+            }
+        } while (true);
     }
 
     /**
@@ -131,12 +134,9 @@ public class Cli {
             }
             return true;
         }
-        if (input.equals("de")) {
-            LanguageManager.setLanguage("de");}
-        if (input.equals("fr")) {
-            LanguageManager.setLanguage("fr");}
-        if (input.equals("en")) {
-            LanguageManager.setLanguage("en");}
+        if (input.equals("de")||input.equals("fr")||input.equals("en")){
+            LanguageManager.setLanguage(input);
+        }
 
         if (input.equals("undo")) {
             undo();

@@ -4,7 +4,6 @@ import chess.figures.*;
 import chess.model.Board;
 import chess.model.Move;
 import chess.model.Position;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

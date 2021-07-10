@@ -34,6 +34,7 @@ public class LanguageManager {
 
     /**
      * Change the language file to the given language
+     * @param language the language you want
      */
     public static void setLanguage(String language){
 

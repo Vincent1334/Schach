@@ -1,6 +1,5 @@
 package chess.network;
 
-import chess.gui.Logic;
 import chess.model.Move;
 import chess.model.Position;
 import org.junit.jupiter.api.Test;

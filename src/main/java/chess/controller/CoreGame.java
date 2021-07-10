@@ -199,6 +199,10 @@ public class CoreGame {
         return activePlayerBlack;
     }
 
+    /**
+     * returns the MOVE_HISTORY
+     * @return MOVE_HISTORY
+     */
     public List<Board> getMoveHistory() {
         return MOVE_HISTORY;
     }

@@ -45,12 +45,12 @@ public class NetworkMenu {
             } else {
                 network = new NetworkPlayer(Integer.parseInt(getPortInput().getText()), isBlack);
             }
-
-            WindowManager.initialWindow("GameStage", "game_title");
+            String stage = "GameStage";
+            WindowManager.initialWindow(stage, "game_title");
             LanguageManager.networkID = " - " + network.getIpAddress() + ":" + network.getPORT();
-            WindowManager.getStage("GameStage").setTitle(WindowManager.getStage("GameStage").getTitle() + " - " + network.getIpAddress() + ":" + network.getPORT());
-            ((Controller) WindowManager.getController("GameStage")).init(GameMode.NETWORK, isBlack, network);
-            WindowManager.showStage("GameStage");
+            WindowManager.getStage(stage).setTitle(WindowManager.getStage(stage).getTitle() + " - " + network.getIpAddress() + ":" + network.getPORT());
+            ((Controller) WindowManager.getController(stage)).init(GameMode.NETWORK, isBlack, network);
+            WindowManager.showStage(stage);
 
             // Hide this current window
             WindowManager.closeStage("NetworkStage");
