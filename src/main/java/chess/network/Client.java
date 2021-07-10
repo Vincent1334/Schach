@@ -19,7 +19,6 @@ public class Client implements Runnable {
     private BufferedReader in;
     private Thread thread;
     private boolean isBlack;
-    private boolean killThread = false;
     private Logic gui;
     private Move networkMove;
     private int undoRedoIndex;
@@ -63,7 +62,7 @@ public class Client implements Runnable {
                 System.out.println("Cant connect");
             }
         }
-        while (!killThread) {
+        while (!thread.isInterrupted()) {
             try {
                 String input = in.readLine();
                 if (input != null) {
@@ -97,15 +96,6 @@ public class Client implements Runnable {
                 }
             } catch (Exception x) {
                 x.printStackTrace();
-            }
-        }
-        if(killThread){
-            try {
-                in.close();
-                out.close();
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -162,9 +152,18 @@ public class Client implements Runnable {
     /**
      * Stop client and all components
      */
-    public void stop() {
-        killThread = true;
-        thread = new Thread();
-        thread.start();
+    public void stop(){
+        try{
+            thread.interrupt();
+            Thread.sleep(20);
+            in.close();
+            out.close();
+            clientSocket.close();
+        }catch(Exception x){
+
+        }
+
+
+
     }
 }

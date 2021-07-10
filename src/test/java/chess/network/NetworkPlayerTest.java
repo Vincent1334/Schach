@@ -39,8 +39,8 @@ public class NetworkPlayerTest {
         server.killNetwork();
 
         //Setup Network: client is white and server is black
-        client = new NetworkPlayer("localhost", 5554);
-        server = new NetworkPlayer(5554, true);
+        client = new NetworkPlayer("localhost", 5555);
+        server = new NetworkPlayer(5555, true);
 
         server.initNetworkPlayer(null);
         client.initNetworkPlayer(null);
@@ -63,8 +63,8 @@ public class NetworkPlayerTest {
     @Test
     public void testNetworkFeatures() throws InterruptedException {
         //Setup Network: client is black and server is white
-        NetworkPlayer client = new NetworkPlayer("localhost", 5553);
-        NetworkPlayer server = new NetworkPlayer(5553, false);
+        NetworkPlayer client = new NetworkPlayer("localhost", 5555);
+        NetworkPlayer server = new NetworkPlayer(5555, false);
 
         server.initNetworkPlayer(null);
         client.initNetworkPlayer(null);

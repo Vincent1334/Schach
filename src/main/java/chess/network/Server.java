@@ -15,7 +15,6 @@ import java.io.*;
 public class Server implements Runnable{
     
     private boolean isBlack;
-    private boolean killThread = false;
 
     private Thread thread;
     private Logic gui;
@@ -54,7 +53,7 @@ public class Server implements Runnable{
     public void run() {
         try{
             initConnection();
-            while(!killThread){
+            while(!thread.isInterrupted()){
                 String input = in.readLine();
                 if(input != null){
                     //check if new client is connected
@@ -73,23 +72,13 @@ public class Server implements Runnable{
                         undoRedoIndex = Integer.parseInt(input);
                     }
                     System.out.println("Server: " + input);
-                    gui.computerOrNetworkIsFinish();
+                    if(gui != null) gui.computerOrNetworkIsFinish();
                     break;
                 }
             }
 
         }catch(Exception x){
             x.printStackTrace();
-        }
-        if(killThread){
-            try {
-                in.close();
-                out.close();
-                serverSocket.close();
-                clientSocket.close();
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
         }
     }
 
@@ -186,8 +175,14 @@ public class Server implements Runnable{
          * Stops the server and all components
          */
     public void stop() {
-        killThread = true;
-        thread = new Thread();
-        thread.start();
+       try{
+          thread.interrupt();
+           in.close();
+           out.close();
+           serverSocket.close();
+           clientSocket.close();
+       }catch (Exception x){
+
+       }
     }
 }
