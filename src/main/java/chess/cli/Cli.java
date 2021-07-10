@@ -192,8 +192,8 @@ public class Cli {
             }
             coreGame.setCurrentBoard(new Board(newBoard));
 
-            // Spielerwechsel
-            coreGame.setActivePlayer(pointer % 2 == 0);
+            // Change of players
+            coreGame.setActivePlayerBlack(pointer % 2 == 0);
         }
     }
 
@@ -218,7 +218,7 @@ public class Cli {
             UNDO_REDO_MOVES_AS_BOARD.remove(coreGame.getMoveHistory().get(pointer));
             coreGame.setCurrentBoard(new Board(currentBoard));
 
-            coreGame.setActivePlayer(pointer % 2 == 0);
+            coreGame.setActivePlayerBlack(pointer % 2 == 0);
         }
     }
 
@@ -226,7 +226,7 @@ public class Cli {
      * updates the moveHistory, pointer and clears the undoRedoMovesAsBoard
      */
     public static void resetUndoRedo() {
-        // MoveHistory von CoreGame & entsprechend Pointer
+        // MoveHistory of CoreGame and corresponding Pointer
         for (Board board : UNDO_REDO_MOVES_AS_BOARD) {
             coreGame.getMoveHistory().remove(board);
         }

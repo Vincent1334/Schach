@@ -12,7 +12,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -56,7 +55,7 @@ public class Controller {
         logic = new Logic(gameMode, isBlack, networkPlayer);
         undoRedo = new UndoRedo(logic.getCoreGame().getMoveHistory().size() - 1, this);
 
-        // style fields (hover effekt)
+        // style fields (hover effect)
         for (int i = 0; i < 96; i++) {
             int finalI = i;
             this.getBoard().getChildren().get(i).setOnMouseEntered((event) -> {
@@ -114,14 +113,14 @@ public class Controller {
 
     /**
      * is triggered if the user clicks on a move in the history-panel
-     *
+     * undoes/redoes to the clicked move
      * @param mouseEvent the mouseEvent
      */
     @FXML
     public void undoRedoClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Text) {
             int index = 0;
-            // auf welchen Zug wurde geklickt?
+            // which move was clicked?
             for (int i = 0; i < getHistory().getRowCount() - 1; i++) {
                 if (getHistory().getChildren().get(i).equals(mouseEvent.getTarget())) {
                     index = i;
@@ -132,9 +131,14 @@ public class Controller {
             }
             undoRedo.undoRedoClicked(getHistory(), logic, index);
         }
+        // makes the ScrollPane of the history scrollable
         getScrollPaneHistory().vvalueProperty().unbind();
     }
 
+    /**
+     * executes undo/redo to the move with the given index
+     * @param index index of the move you want to go back
+     */
     public void undoRedoSend(int index){
         undoRedo.undoRedoClicked(getHistory(), logic, index);
     }
@@ -151,7 +155,7 @@ public class Controller {
         if (getRotate().isSelected()) {
             logic.turnBoard(false);
         }
-        setPlayerLabel(logic.getCoreGame().isActivePlayer());
+        setPlayerLabel(logic.getCoreGame().isActivePlayerBlack());
     }
 
     /**
@@ -328,10 +332,10 @@ public class Controller {
     /**
      * updates the label that shows which player's turn it is.
      *
-     * @param black true if the actual player is black
+     * @param isActivePlayerBlack true if the actual player is black
      */
-    private void setPlayerLabel(boolean black) {
-        if (black) {
+    private void setPlayerLabel(boolean isActivePlayerBlack) {
+        if (isActivePlayerBlack) {
             getRectangleBlack().setStroke(disabledColor);
             getRectangleBlack().setStrokeWidth(3);
             getRectangleWhite().setStroke(BLACK);
@@ -364,13 +368,13 @@ public class Controller {
     }
 
     /**
-     * shows in the gui whether the computer is calculating or not
+     * sets the notification message and ist visibility
      *
-     * @param isCalculating whether the computer (AI) is currently calculating
-     * @param message the calculating message
+     * @param notificationVisible whether the notification is visible
+     * @param message the notification message
      */
-    protected void setCalculating(boolean isCalculating, String message) {
-        if (isCalculating) {
+    protected void setNotification(boolean notificationVisible, String message) {
+        if (notificationVisible) {
             getLabelCalculating().setText(message);
             getLabelCalculating().setVisible(true);
             getBoard().setMouseTransparent(true);
@@ -388,7 +392,7 @@ public class Controller {
     public void isFieldClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getTarget() instanceof Rectangle) {
             Rectangle clickedField = (Rectangle) mouseEvent.getTarget();
-            logic.handleFieldClick(clickedField, logic.getCoreGame().isActivePlayer());
+            logic.handleFieldClick(clickedField, logic.getCoreGame().isActivePlayerBlack());
         }
     }
 
@@ -446,7 +450,7 @@ public class Controller {
         List<Rectangle> fields = new ArrayList<>();
 
         for (Position position : positions) {
-            fields.add((Rectangle) getField(8 - position.getPosY(), position.getPosX() + 1));
+            fields.add((Rectangle) getField(8 - position.getPOS_Y(), position.getPOS_X() + 1));
         }
         return fields;
     }
@@ -474,10 +478,13 @@ public class Controller {
 
     /**
      * switches the language of the gui elements
+     * @param event the mouse event, used to know which flag was clicked
      */
     @FXML
     private void setLanguage(MouseEvent event) {
+        //the url of the clicked image
         String url = ((ImageView) event.getTarget()).getImage().getUrl();
+        //sets the language after the name of the image
         LanguageManager.setLanguage(url.substring(url.length()-6,url.length()-4));
     }
 
@@ -584,9 +591,9 @@ public class Controller {
     }
 
     /**
-     * returns the gui element "black rectangle" which shows whether it is white's turn
+     * returns the gui element "black rectangle" which shows whether it is black's turn
      *
-     * @return the gui element "black rectangle" which shows whether it is white's turn
+     * @return the gui element "black rectangle" which shows whether it is black's turn
      */
     private Rectangle getRectangleBlack() {
         return (Rectangle) menu.getChildren().get(12);
@@ -601,6 +608,10 @@ public class Controller {
         return (GridPane) menu.getChildren().get(13);
     }
 
+    /**
+     * returns the UndoRedo class
+     * @return the UndoRedo class
+     */
     public UndoRedo getUndoRedo() {
         return undoRedo;
     }

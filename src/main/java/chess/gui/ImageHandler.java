@@ -15,7 +15,7 @@ import javafx.scene.image.Image;
 public class ImageHandler {
 
     private static ImageHandler instance;
-    private Map<String, Image> imgs = new HashMap<>();
+    private final Map<String, Image> IMGS = new HashMap<>();
 
     /**
      * returns the ImageHandler
@@ -44,7 +44,7 @@ public class ImageHandler {
             }
         }
         Image image = new Image(url.toExternalForm(), true);
-        imgs.put(name, image);
+        IMGS.put(name, image);
     }
 
     /**
@@ -54,10 +54,10 @@ public class ImageHandler {
      * @return the image
      */
     public Image getImage(final String key) {
-        if (imgs.get(key) == null) {
+        if (IMGS.get(key) == null) {
             loadImage(key, "jpg", "png", "bmp", "gif");
         }
-        return imgs.get(key);
+        return IMGS.get(key);
     }
 
     /**

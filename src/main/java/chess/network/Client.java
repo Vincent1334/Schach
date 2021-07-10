@@ -103,6 +103,9 @@ public class Client implements Runnable {
         }
     }
 
+    /**
+     * initializes the connection
+     */
     private void initConnection(){
         if (!isConnected) {
             try {
@@ -136,10 +139,17 @@ public class Client implements Runnable {
         thread.start();
     }
 
+    /**
+     * send exit to Server
+     */
     public void sendExit(){
         out.println("exit");
     }
 
+    /**
+     * send undoRedoIndex to Server and manage thread
+     * @param index of the movehistory you want to go back
+     */
     public void sendUndoRedoIndex(int index) {
         out.println(index);
         undoRedoIndex = index;
@@ -151,6 +161,10 @@ public class Client implements Runnable {
         }
     }
 
+    /**
+     * resets undoRedoIndex
+     * @return the movehistory index to which should be jumped back
+     */
     public int getAndResetUndoRedoIndex(){
         int index = undoRedoIndex;
         undoRedoIndex = -1;
@@ -166,10 +180,19 @@ public class Client implements Runnable {
         return isBlack;
     }
 
+    /**
+     * returns the IP address of the server
+     * @return the IP address of the server
+     */
     public String getIpAddress(){
         return ipAddress;
     }
 
+    /**
+     * checks if str is a number
+     * @param str the String you want to check
+     * @return true, if the str is a number
+     */
     private boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
@@ -179,6 +202,10 @@ public class Client implements Runnable {
         }
     }
 
+    /**
+     * returns, if the client exited
+     * @return true, if the client exited
+     */
     public boolean isExit(){
         return exit;
     }

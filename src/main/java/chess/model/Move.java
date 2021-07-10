@@ -9,8 +9,8 @@ import java.util.Objects;
  */
 public class Move {
 
-    private Position actualPosition;
-    private Position targetPosition;
+    private final Position ACTUAL_POSITION;
+    private final Position TARGET_POSITION;
 
     private int pawnConversionTo = 5;
 
@@ -24,8 +24,8 @@ public class Move {
      * @param pawnConversionTo the id of the figure the pawn should be converted to
      */
     public Move(Position actualPosition, Position targetPosition, int pawnConversionTo) {
-        this.actualPosition = actualPosition;
-        this.targetPosition = targetPosition;
+        this.ACTUAL_POSITION = actualPosition;
+        this.TARGET_POSITION = targetPosition;
         this.pawnConversionTo = pawnConversionTo;
     }
 
@@ -36,8 +36,8 @@ public class Move {
      * @param targetPosition the target position of the move
      */
     public Move(Position actualPosition, Position targetPosition) {
-        this.actualPosition = actualPosition;
-        this.targetPosition = targetPosition;
+        this.ACTUAL_POSITION = actualPosition;
+        this.TARGET_POSITION = targetPosition;
     }
 
     /**
@@ -47,8 +47,8 @@ public class Move {
      */
     @Override
     public String toString() {
-        return Character.toString(actualPosition.getPosX() + 97) + (actualPosition.getPosY() + 1) + "-" +
-                Character.toString(targetPosition.getPosX() + 97) + (targetPosition.getPosY() + 1) + getConversionLetter(pawnConversionTo);
+        return Character.toString(ACTUAL_POSITION.getPOS_X() + 97) + (ACTUAL_POSITION.getPOS_Y() + 1) + "-" +
+                Character.toString(TARGET_POSITION.getPOS_X() + 97) + (TARGET_POSITION.getPOS_Y() + 1) + getConversionLetter(pawnConversionTo);
     }
 
     /**
@@ -56,8 +56,8 @@ public class Move {
      *
      * @return actualPosition
      */
-    public Position getActualPosition() {
-        return actualPosition;
+    public Position getACTUAL_POSITION() {
+        return ACTUAL_POSITION;
     }
 
     /**
@@ -65,8 +65,8 @@ public class Move {
      *
      * @return targetPosition
      */
-    public Position getTargetPosition() {
-        return targetPosition;
+    public Position getTARGET_POSITION() {
+        return TARGET_POSITION;
     }
 
     /**
@@ -111,7 +111,7 @@ public class Move {
     }
 
     /**
-     * Override equals
+     * returns, whether the Moves are semantically equal
      *
      * @param other the compared Move
      * @return whether the Moves are semantically equal
@@ -121,17 +121,17 @@ public class Move {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         Move move = (Move) other;
-        return pawnConversionTo == move.pawnConversionTo && Objects.equals(actualPosition, move.actualPosition) && Objects.equals(targetPosition, move.targetPosition);
+        return pawnConversionTo == move.pawnConversionTo && Objects.equals(ACTUAL_POSITION, move.ACTUAL_POSITION) && Objects.equals(TARGET_POSITION, move.TARGET_POSITION);
     }
 
     /**
-     * Override hashCode
+     * returns the hash code of a move
      *
      * @return the hash code of a move
      */
     @Override
     public int hashCode() {
-        return Objects.hash(actualPosition, targetPosition, pawnConversionTo);
+        return Objects.hash(ACTUAL_POSITION, TARGET_POSITION, pawnConversionTo);
     }
 
     /**
@@ -141,7 +141,7 @@ public class Move {
      * @return Letter of the figure you want the pawn to convert to
      */
     public String getConversionLetter(int pawnConversion) {
-        if(targetPosition.getPosY() == 0 || targetPosition.getPosY() == 7){
+        if(TARGET_POSITION.getPOS_Y() == 0 || TARGET_POSITION.getPOS_Y() == 7){
             switch (pawnConversion) {
                 case 1:
                     return "P";

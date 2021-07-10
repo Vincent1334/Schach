@@ -13,7 +13,7 @@ import javafx.scene.text.Text;
 import java.util.*;
 
 /**
- * This class contains the Language Manager for the program
+ * This class contains the Language Manager for the gui and cli
  *
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-06-25
@@ -33,7 +33,7 @@ public class LanguageManager {
     public static String networkID = "";
 
     /**
-     * Change to the next Language file in the list
+     * Change the language file to the given language
      */
     public static void setLanguage(String language){
 
@@ -155,6 +155,12 @@ public class LanguageManager {
         }
     }
 
+    /**
+     * Switches the language of the text on the messenger label
+     * @param oldLanguage the old language
+     * @param label the text of the messenger label
+     * @param menu the container which contains the label
+     */
     private static void switchMessengerLanguage(ResourceBundle oldLanguage, String label, Pane menu) {
         if (((Label) menu.getChildren().get(5)).getText().equals(oldLanguage.getString(label))) {
             ((Label) menu.getChildren().get(5)).setText(LanguageManager.getText(label));
@@ -162,10 +168,10 @@ public class LanguageManager {
     }
 
     /**
-     * Get new language ID
+     * Switches the language of the text on the flags label
      * @param oldLanguage old language pack
-     * @param label language ID
-     * @param menu container for objects
+     * @param label the text of the flag label
+     * @param menu the container which contains the label
      */
     private static void switchFlagLanguage(ResourceBundle oldLanguage, String label, Pane menu) {
         if (((Label) menu.getChildren().get(4)).getText().equals(oldLanguage.getString(label))) {

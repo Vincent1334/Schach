@@ -4,7 +4,6 @@ import chess.enums.GameMode;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -52,9 +51,15 @@ public class MainMenu {
     //--------------getter / setter---------------------------------------------------------------------------------------------------------------
 
 
+    /**
+     * switches the language of the gui elements
+     * @param event the mouse event, used to know which flag was clicked
+     */
     @FXML
     private void setLanguage(MouseEvent event) {
+        //the url of the clicked image
         String url = ((ImageView) event.getTarget()).getImage().getUrl();
+        //sets the language after the name of the image
         LanguageManager.setLanguage(url.substring(url.length()-6,url.length()-4));
     }
 

@@ -85,7 +85,7 @@ public class Rules {
     public static boolean checkEnPassant(Position actualPos, Position targetPos, Board board) {
 
         Figure actualFigure = board.getFigure(actualPos);
-        Figure targetFigure = board.getFigure(targetPos.getPosX(), actualPos.getPosY());
+        Figure targetFigure = board.getFigure(targetPos.getPOS_X(), actualPos.getPOS_Y());
 
         //check target field is valid
         if (!(board.getFigure(targetPos) instanceof None)) return false;
@@ -93,8 +93,8 @@ public class Rules {
         //check EnPassant is possible
         if (actualFigure instanceof Pawn && targetFigure instanceof Pawn
                 && actualFigure.isBlack() != targetFigure.isBlack()
-                && Math.abs(actualPos.getPosX() - targetPos.getPosX()) == 1
-                && Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 1
+                && Math.abs(actualPos.getPOS_X() - targetPos.getPOS_X()) == 1
+                && Math.abs(actualPos.getPOS_Y() - targetPos.getPOS_Y()) == 1
                 && ((Pawn) targetFigure).isEnPassant()
                 && ((Pawn) actualFigure).checkRightDirection(actualPos, targetPos)) {
 
@@ -103,7 +103,7 @@ public class Rules {
             //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal
             tmpBoard.setFigure(targetPos, tmpBoard.getFigure(actualPos));
             tmpBoard.setFigure(actualPos, new None());
-            tmpBoard.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
+            tmpBoard.setFigure(targetPos.getPOS_X(), actualPos.getPOS_Y(), new None());
 
             return !(Board.kingInCheck(tmpBoard, actualFigure.isBlack()));
         }
@@ -121,11 +121,11 @@ public class Rules {
     public static void performEnPassantMove(Position actualPos, Position targetPos, Board board) {
 
         Figure actualFigure = board.getFigure(actualPos);
-        Figure targetFigure = board.getFigure(targetPos.getPosX(), actualPos.getPosY());
+        Figure targetFigure = board.getFigure(targetPos.getPOS_X(), actualPos.getPOS_Y());
 
         board.getBeatenFigures().add(targetFigure);
 
-        board.setFigure(targetPos.getPosX(), actualPos.getPosY(), new None());
+        board.setFigure(targetPos.getPOS_X(), actualPos.getPOS_Y(), new None());
         board.setFigure(targetPos, actualFigure);
         board.setFigure(actualPos, new None());
     }
@@ -147,7 +147,7 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         //check chess or wrong input
-        if (actualPos.getPosY() != targetPos.getPosY() || Board.kingInCheck(board, actualFigure.isBlack()))
+        if (actualPos.getPOS_Y() != targetPos.getPOS_Y() || Board.kingInCheck(board, actualFigure.isBlack()))
             return false;
 
         if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved())) {
@@ -167,17 +167,17 @@ public class Rules {
      */
     private static boolean checkLongCastling(Board board, Position actualPos, Position targetPos) {
         //check long castling left (queenSide)
-        if (targetPos.getPosX() == 2 && board.getFigure(0, actualPos.getPosY()) instanceof Rook
-                && !(board.getFigure(0, actualPos.getPosY()).isAlreadyMoved())) {
+        if (targetPos.getPOS_X() == 2 && board.getFigure(0, actualPos.getPOS_Y()) instanceof Rook
+                && !(board.getFigure(0, actualPos.getPOS_Y()).isAlreadyMoved())) {
             //check, whether all field between are empty and are not threatened
             for (int j = 3; j > 0; j--) {
-                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None)
-                        || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).isBlack())) {
+                if (!(board.getFigure(j, actualPos.getPOS_Y()) instanceof None)
+                        || Board.isThreatened(board, new Position(j, actualPos.getPOS_Y()), !board.getFigure(actualPos).isBlack())) {
                     return false;
                 }
             }
             //check Rook is not threatened
-            return !Board.isThreatened(board, new Position(0, actualPos.getPosY()), !board.getFigure(actualPos).isBlack());
+            return !Board.isThreatened(board, new Position(0, actualPos.getPOS_Y()), !board.getFigure(actualPos).isBlack());
             //Castling is possible
         }
         return false;
@@ -193,17 +193,17 @@ public class Rules {
      */
     private static boolean checkShortCastling(Board board, Position actualPos, Position targetPos) {
         //check short castling right (kingSide)
-        if (targetPos.getPosX() == 6 && board.getFigure(7, actualPos.getPosY()) instanceof Rook
-                && !(board.getFigure(7, actualPos.getPosY()).isAlreadyMoved())) {
+        if (targetPos.getPOS_X() == 6 && board.getFigure(7, actualPos.getPOS_Y()) instanceof Rook
+                && !(board.getFigure(7, actualPos.getPOS_Y()).isAlreadyMoved())) {
             //check, whether all field between are empty and are not threatened
             for (int j = 5; j < 7; j++) {
-                if (!(board.getFigure(j, actualPos.getPosY()) instanceof None)
-                        || Board.isThreatened(board, new Position(j, actualPos.getPosY()), !board.getFigure(actualPos).isBlack())) {
+                if (!(board.getFigure(j, actualPos.getPOS_Y()) instanceof None)
+                        || Board.isThreatened(board, new Position(j, actualPos.getPOS_Y()), !board.getFigure(actualPos).isBlack())) {
                     return false;
                 }
             }
             //check Rook is not threatened
-            return !Board.isThreatened(board, new Position(7, actualPos.getPosY()), !board.getFigure(actualPos).isBlack());
+            return !Board.isThreatened(board, new Position(7, actualPos.getPOS_Y()), !board.getFigure(actualPos).isBlack());
             //Castling is possible
         }
         return false;
@@ -221,7 +221,7 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         //perform short castling
-        if (targetPos.getPosX() == 6) {
+        if (targetPos.getPOS_X() == 6) {
             //set King
             board.setFigure(targetPos, actualFigure);
             board.setFigure(actualPos, new None());
@@ -229,14 +229,14 @@ public class Rules {
             board.getFigure(targetPos).setAlreadyMoved(true);
 
             //set Rook
-            board.setFigure(5, actualPos.getPosY(), board.getFigure(7, actualPos.getPosY()));
-            board.setFigure(7, actualPos.getPosY(), new None());
+            board.setFigure(5, actualPos.getPOS_Y(), board.getFigure(7, actualPos.getPOS_Y()));
+            board.setFigure(7, actualPos.getPOS_Y(), new None());
 
-            board.getFigure(5, actualPos.getPosY()).setAlreadyMoved(true);
+            board.getFigure(5, actualPos.getPOS_Y()).setAlreadyMoved(true);
         }
 
         //perform long castling
-        if (targetPos.getPosX() == 2) {
+        if (targetPos.getPOS_X() == 2) {
             //set King
             board.setFigure(targetPos, actualFigure);
             board.setFigure(actualPos, new None());
@@ -244,10 +244,10 @@ public class Rules {
             board.getFigure(targetPos).setAlreadyMoved(true);
 
             //set Rook
-            board.setFigure(3, actualPos.getPosY(), board.getFigure(0, actualPos.getPosY()));
-            board.setFigure(0, actualPos.getPosY(), new None());
+            board.setFigure(3, actualPos.getPOS_Y(), board.getFigure(0, actualPos.getPOS_Y()));
+            board.setFigure(0, actualPos.getPOS_Y(), new None());
 
-            board.getFigure(3, actualPos.getPosY()).setAlreadyMoved(true);
+            board.getFigure(3, actualPos.getPOS_Y()).setAlreadyMoved(true);
         }
     }
 
@@ -268,7 +268,7 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         //check valid move
-        if (actualFigure instanceof Pawn && actualFigure.validMove(actualPos, targetPos, board) && (targetPos.getPosY() == 7 || targetPos.getPosY() == 0)) {
+        if (actualFigure instanceof Pawn && actualFigure.validMove(actualPos, targetPos, board) && (targetPos.getPOS_Y() == 7 || targetPos.getPOS_Y() == 0)) {
             //create a tmpBoard with the new untested figure position
             Board tmpBoard = new Board(board);
             //perform the Figure move on a temporary board. IMPORTANT this move is untested and can be illegal

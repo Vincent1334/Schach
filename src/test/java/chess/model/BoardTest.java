@@ -94,15 +94,15 @@ public class BoardTest {
 
         //white default King
         Position pos1 = new Position(4, 0);
-        assertEquals(Board.getKingPos(boardA, false).getPosX(), pos1.getPosX(), x);
-        assertEquals(Board.getKingPos(boardA, false).getPosY(), pos1.getPosY(), y);
+        assertEquals(Board.getKingPos(boardA, false).getPOS_X(), pos1.getPOS_X(), x);
+        assertEquals(Board.getKingPos(boardA, false).getPOS_Y(), pos1.getPOS_Y(), y);
 
         //white random king position
         Position pos3 = new Position(2, 4);
         boardA.setFigure(4, 0, null);
         boardA.setFigure(2, 4, new King(false));
-        assertEquals(Board.getKingPos(boardA, false).getPosX(), pos3.getPosX(), x);
-        assertEquals(Board.getKingPos(boardA, false).getPosY(), pos3.getPosY(), y);
+        assertEquals(Board.getKingPos(boardA, false).getPOS_X(), pos3.getPOS_X(), x);
+        assertEquals(Board.getKingPos(boardA, false).getPOS_Y(), pos3.getPOS_Y(), y);
     }
     /**
      * Tests the black kings position
@@ -115,15 +115,15 @@ public class BoardTest {
 
         //black default King
         Position pos2 = new Position(4, 7);
-        assertEquals(Board.getKingPos(boardA, true).getPosX(), pos2.getPosX(), x);
-        assertEquals(Board.getKingPos(boardA, true).getPosY(), pos2.getPosY(), y);
+        assertEquals(Board.getKingPos(boardA, true).getPOS_X(), pos2.getPOS_X(), x);
+        assertEquals(Board.getKingPos(boardA, true).getPOS_Y(), pos2.getPOS_Y(), y);
 
         //black random king position
         Position pos4 = new Position(7, 2);
         boardA.setFigure(4, 7, null);
         boardA.setFigure(7, 2, new King(true));
-        assertEquals(Board.getKingPos(boardA, true).getPosX(), pos4.getPosX(), x);
-        assertEquals(Board.getKingPos(boardA, true).getPosY(), pos4.getPosY(), y);
+        assertEquals(Board.getKingPos(boardA, true).getPOS_X(), pos4.getPOS_X(), x);
+        assertEquals(Board.getKingPos(boardA, true).getPOS_Y(), pos4.getPOS_Y(), y);
     }
 
     /**

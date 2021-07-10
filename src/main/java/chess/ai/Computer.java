@@ -89,7 +89,7 @@ public class Computer implements Runnable{
      * @return the best move
      */
     public Move getMove(){
-        lastMove = new Move(bestMove.getActualPosition(), bestMove.getTargetPosition());
+        lastMove = new Move(bestMove.getACTUAL_POSITION(), bestMove.getTARGET_POSITION());
         lastMove.setActualFigure(bestMove.getActualFigure());
         lastMove.setTargetFigure(bestMove.getTargetFigure());
         return bestMove;
@@ -132,7 +132,7 @@ public class Computer implements Runnable{
 
         Board tmpBoard = new Board(board);
         for (Move move : possibleMove) {
-            performMove(move.getActualPosition(), move.getTargetPosition(), board);
+            performMove(move.getACTUAL_POSITION(), move.getTARGET_POSITION(), board);
             float value = min(depth - 1, maxValue, beta, new CutOff(cutOff, move));
             board = new Board(tmpBoard);
             if (value > maxValue) {
@@ -180,7 +180,7 @@ public class Computer implements Runnable{
 
         Board tmpBoard = new Board(board);
         for (Move move : possibleMove) {
-            performMove(move.getActualPosition(), move.getTargetPosition(), board);
+            performMove(move.getACTUAL_POSITION(), move.getTARGET_POSITION(), board);
             float value = max(depth - 1, alpha, minValue, new CutOff(cutOff, move));
             board = new Board(tmpBoard);
             if (value < minValue) {

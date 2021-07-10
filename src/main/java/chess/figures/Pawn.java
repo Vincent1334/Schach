@@ -71,7 +71,7 @@ public class Pawn extends Figure {
      * @return pawn makes an normal move
      */
     private boolean normalMove(Position actualPos, Position targetPos, Board board) {
-        return Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 1 && actualPos.getPosX() == targetPos.getPosX() && board.getFigure(targetPos) instanceof None;
+        return Math.abs(actualPos.getPOS_Y() - targetPos.getPOS_Y()) == 1 && actualPos.getPOS_X() == targetPos.getPOS_X() && board.getFigure(targetPos) instanceof None;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Pawn extends Figure {
      * @return pawn makes an normal attack
      */
     private boolean normalAttack(Position actualPos, Position targetPos, Board board) {
-        return Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 1 && Math.abs(actualPos.getPosX() - targetPos.getPosX()) == 1 && !(board.getFigure(targetPos) instanceof None);
+        return Math.abs(actualPos.getPOS_Y() - targetPos.getPOS_Y()) == 1 && Math.abs(actualPos.getPOS_X() - targetPos.getPOS_X()) == 1 && !(board.getFigure(targetPos) instanceof None);
     }
 
     /**
@@ -94,8 +94,8 @@ public class Pawn extends Figure {
      */
     private boolean firstMove(Position actualPos, Position targetPos, Board board) {
 
-        if (!alreadyMoved && Math.abs(actualPos.getPosY() - targetPos.getPosY()) == 2 && actualPos.getPosX() == targetPos.getPosX() && board.getFigure(targetPos) instanceof None
-            && board.getFigure(new Position(targetPos.getPosX(), targetPos.getPosY()  + (blackTeam ? 1 : -1))) instanceof None) {
+        if (!alreadyMoved && Math.abs(actualPos.getPOS_Y() - targetPos.getPOS_Y()) == 2 && actualPos.getPOS_X() == targetPos.getPOS_X() && board.getFigure(targetPos) instanceof None
+            && board.getFigure(new Position(targetPos.getPOS_X(), targetPos.getPOS_Y()  + (blackTeam ? 1 : -1))) instanceof None) {
             enPassant = true;
             return true;
         }
@@ -110,8 +110,8 @@ public class Pawn extends Figure {
      * @return whether the pawn moves in correct direction
      */
     public boolean checkRightDirection(Position actualPos, Position targetPos) {
-        return !blackTeam && targetPos.getPosY() > actualPos.getPosY()
-                || blackTeam && targetPos.getPosY() < actualPos.getPosY();
+        return !blackTeam && targetPos.getPOS_Y() > actualPos.getPOS_Y()
+                || blackTeam && targetPos.getPOS_Y() < actualPos.getPOS_Y();
     }
 
     /**

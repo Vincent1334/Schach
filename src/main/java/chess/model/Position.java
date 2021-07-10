@@ -11,7 +11,8 @@ import java.util.Objects;
  */
 public class Position {
 
-    private int posX, posY;
+    private final int POS_X;
+    private final int POS_Y;
 
     /**
      * The constructor of a Position
@@ -21,8 +22,8 @@ public class Position {
      * @param posY y Position
      */
     public Position(int posX, int posY) {
-        this.posX = posX;
-        this.posY = posY;
+        this.POS_X = posX;
+        this.POS_Y = posY;
     }
 
     //--------------getter / setter---------------------------------------------------------------------------------------------------------------
@@ -32,8 +33,8 @@ public class Position {
      *
      * @return x-position
      */
-    public int getPosX() {
-        return this.posX;
+    public int getPOS_X() {
+        return this.POS_X;
     }
 
     /**
@@ -41,8 +42,8 @@ public class Position {
      *
      * @return y-position
      */
-    public int getPosY() {
-        return this.posY;
+    public int getPOS_Y() {
+        return this.POS_Y;
     }
 
     /**
@@ -57,7 +58,7 @@ public class Position {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         Position position = (Position) other;
-        return posX == position.posX && posY == position.posY;
+        return POS_X == position.POS_X && POS_Y == position.POS_Y;
     }
 
     /**
@@ -67,6 +68,6 @@ public class Position {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(posX, posY);
+        return Objects.hash(POS_X, POS_Y);
     }
 }

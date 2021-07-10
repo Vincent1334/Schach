@@ -49,7 +49,7 @@ public class UndoRedo {
 
             UNDO_REDO_MOVES_AS_BOARD.add(logic.getCoreGame().getMoveHistory().get(pointer));
 
-            // im Computermodus jeweils zwei Züge zurück gehen
+            // in computermode always go back two moves
             if (logic.getGameMode() == GameMode.COMPUTER && pointer > 0) {
                 Text undoMove2 = (Text) history.getChildren().get(pointer - 1);
                 undoMove2.setOpacity(0.5);
@@ -68,8 +68,8 @@ public class UndoRedo {
             }
             logic.getCoreGame().setCurrentBoard(new Board(newBoard));
 
-            // ggf. Spielerwechsel
-            logic.getCoreGame().setActivePlayer(pointer % 2 == 0);
+            // possibly change of players
+            logic.getCoreGame().setActivePlayerBlack(pointer % 2 == 0);
 
             CONTROLLER.updateScene();
             unmark();
@@ -101,7 +101,7 @@ public class UndoRedo {
                 undoMove.setOpacity(1);
                 UNDO_REDO_MOVES_AS_TEXT.remove(UNDO_REDO_MOVES_AS_TEXT.size() - 1);
 
-                // im Computermodus werden jeweils zwei Züge wiederhergestellt
+                // in computermode always two moves are restored
                 if (logic.getGameMode() == GameMode.COMPUTER) {
                     Text undoMove2 = (Text) history.getChildren().get(pointer + 1);
                     undoMove2.setOpacity(1);
@@ -120,8 +120,8 @@ public class UndoRedo {
                 UNDO_REDO_MOVES_AS_BOARD.remove(logic.getCoreGame().getMoveHistory().get(pointer));
                 logic.getCoreGame().setCurrentBoard(new Board(currentBoard));
 
-                // ggf- Spielerwechsel
-                logic.getCoreGame().setActivePlayer(pointer % 2 == 0);
+                // possibly change of players
+                logic.getCoreGame().setActivePlayerBlack(pointer % 2 == 0);
 
                 CONTROLLER.updateScene();
             } else {
@@ -137,13 +137,13 @@ public class UndoRedo {
      * @param logic   the logic
      */
     public void resetUndoRedo(GridPane history, Logic logic) {
-        // Texte (für Anzeige)
+        // Texts (for display)
         for (Text move : UNDO_REDO_MOVES_AS_TEXT) {
             history.getChildren().removeIf(node -> node.equals(move));
         }
         UNDO_REDO_MOVES_AS_TEXT.clear();
 
-        // Boards (für Logik)
+        // Boards (for the logic)
         for (Board board : UNDO_REDO_MOVES_AS_BOARD) {
             logic.getCoreGame().getMoveHistory().remove(board);
         }
@@ -162,14 +162,14 @@ public class UndoRedo {
         int oldPointer = this.pointer;
         this.pointer = pointer;
 
-        // im Spiel gegen den Computer ist nur jeder zweite Zug anklickbar
+        // In the game against the computer, only every second move can be clicked
         if (logic.getGameMode() == GameMode.COMPUTER && pointer % 2 == 0) {
             return;
         }
-        // Wähle entsprechenden BoardZustand
+        // Select the appropriate board condition
         Board newBoard = pointer >= 0 ? logic.getCoreGame().getMoveHistory().get(pointer) : new Board();
 
-        // pack alle Züge dazwischen auf eine Liste / entferne alle Züge dazwischen von Liste
+        // add all moves between to the list/ remove all moves between form the list
         if (oldPointer > pointer) {
             pushToList(history, logic);
         } else if (oldPointer < pointer) {
@@ -177,8 +177,8 @@ public class UndoRedo {
         }
         logic.getCoreGame().setCurrentBoard(new Board(newBoard));
 
-        // ggf. Spielerwechsel
-        logic.getCoreGame().setActivePlayer(pointer % 2 == 0);
+        // possibly change of players
+        logic.getCoreGame().setActivePlayerBlack(pointer % 2 == 0);
 
         CONTROLLER.updateScene();
         unmark();
@@ -192,9 +192,9 @@ public class UndoRedo {
      */
     private void pushToList(GridPane history, Logic logic) {
         for (int i = pointer + 1; i < history.getRowCount() - 1; i++) {
-            // Boards (für Logik)
+            // Boards (for the logic)
             UNDO_REDO_MOVES_AS_BOARD.add(logic.getCoreGame().getMoveHistory().get(i));
-            // Texte (für Anzeige)
+            // Texts (for the Display)
             Text undoMove = (Text) history.getChildren().get(i);
             undoMove.setOpacity(0.5);
             UNDO_REDO_MOVES_AS_TEXT.add(undoMove);
@@ -210,9 +210,9 @@ public class UndoRedo {
      */
     private void removeFromList(GridPane history, Logic logic, int oldPointer) {
         for (int i = oldPointer + 1; i <= pointer; i++) {
-            // boards (für Logik)
+            // Boards (for the logic)
             UNDO_REDO_MOVES_AS_BOARD.remove(logic.getCoreGame().getMoveHistory().get(i));
-            // texte (für Anzeige)
+            // Texts (for the Display)
             Text undoMove = (Text) history.getChildren().get(i);
             undoMove.setOpacity(1);
             UNDO_REDO_MOVES_AS_TEXT.remove(undoMove);

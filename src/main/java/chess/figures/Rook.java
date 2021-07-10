@@ -45,15 +45,15 @@ public class Rook extends Figure {
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
         // don't stay at the same place
-        if (actualPos.getPosX() != targetPos.getPosX() && actualPos.getPosY() != targetPos.getPosY()) return false;
+        if (actualPos.getPOS_X() != targetPos.getPOS_X() && actualPos.getPOS_Y() != targetPos.getPOS_Y()) return false;
 
-        if(actualPos.getPosX() == targetPos.getPosX()){
-            for(int i = 1; i < Math.abs(actualPos.getPosY()- targetPos.getPosY()); i++){
-                if(!(board.getFigure(actualPos.getPosX(), actualPos.getPosY()+i*getDirection(actualPos, targetPos, true)) instanceof None)) return false;
+        if(actualPos.getPOS_X() == targetPos.getPOS_X()){
+            for(int i = 1; i < Math.abs(actualPos.getPOS_Y()- targetPos.getPOS_Y()); i++){
+                if(!(board.getFigure(actualPos.getPOS_X(), actualPos.getPOS_Y()+i*getDirection(actualPos, targetPos, true)) instanceof None)) return false;
             }
         }else{
-            for(int i = 1; i < Math.abs(actualPos.getPosX()- targetPos.getPosX()); i++){
-                if(!(board.getFigure(actualPos.getPosX()+i*getDirection(actualPos, targetPos, false), actualPos.getPosY()) instanceof None)) return false;
+            for(int i = 1; i < Math.abs(actualPos.getPOS_X()- targetPos.getPOS_X()); i++){
+                if(!(board.getFigure(actualPos.getPOS_X()+i*getDirection(actualPos, targetPos, false), actualPos.getPOS_Y()) instanceof None)) return false;
             }
         }
 
@@ -69,8 +69,8 @@ public class Rook extends Figure {
      * @return 1 or -1
      */
     private int getDirection(Position actualPos, Position targetPos, boolean axis){
-        if(actualPos.getPosX() > targetPos.getPosX() && !axis) return -1;
-        if(actualPos.getPosY() > targetPos.getPosY() && axis) return -1;
+        if(actualPos.getPOS_X() > targetPos.getPOS_X() && !axis) return -1;
+        if(actualPos.getPOS_Y() > targetPos.getPOS_Y() && axis) return -1;
         return 1;
     }
 

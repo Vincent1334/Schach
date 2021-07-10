@@ -59,7 +59,7 @@ public class CoreGameTest {
                 testGame.getCurrentBoard().setFigure(x, y, new None());
             }
         }
-        testGame.setActivePlayer(false);
+        testGame.setActivePlayerBlack(false);
 
         testGame.getCurrentBoard().setFigure(new Position(4,0),new King(false));
         testGame.getCurrentBoard().setFigure(new Position(7,0),new Rook(false));
@@ -79,7 +79,7 @@ public class CoreGameTest {
                 testGame.getCurrentBoard().setFigure(x, y, new None());
             }
         }
-        testGame.setActivePlayer(false);
+        testGame.setActivePlayerBlack(false);
         testGame.getCurrentBoard().setFigure(new Position(4,0),new King(false));
         testGame.getCurrentBoard().setFigure(new Position(0,0),new Rook(false));
         testGame.getCurrentBoard().setFigure(4,7,new King(true)); // otherwise CheckChessMate() would not find any possible move to avoid checkmate and would return "checkMate"
@@ -105,25 +105,25 @@ public class CoreGameTest {
 
         testGame.getCurrentBoard().setFigure(new Position(3,7),new None());
         testGame.getCurrentBoard().setFigure(new Position(3,6),new Pawn(false));
-        testGame.setActivePlayer(false);
+        testGame.setActivePlayerBlack(false);
         Move move2 = new Move(new Position(3,6),new Position(3,7),3);
         assertTrue(testGame.chessMove(move2), "PawnConversion move to Knight is not accepted even if it is correct");
 
         testGame.getCurrentBoard().setFigure(new Position(3,7),new None());
         testGame.getCurrentBoard().setFigure(new Position(3,6),new Pawn(false));
-        testGame.setActivePlayer(false);
+        testGame.setActivePlayerBlack(false);
         Move move3 = new Move(new Position(3,6),new Position(3,7),4);
         assertTrue(testGame.chessMove(move3), "PawnConversion move to Bishop is not accepted even if it is correct");
 
         testGame.getCurrentBoard().setFigure(new Position(3,7),new None());
         testGame.getCurrentBoard().setFigure(new Position(3,6),new Pawn(false));
-        testGame.setActivePlayer(false);
+        testGame.setActivePlayerBlack(false);
         Move move4 = new Move(new Position(3,6),new Position(3,7),2);
         assertTrue(testGame.chessMove(move4), "PawnConversion move to Rook is not accepted even if it is correct");
 
         testGame.getCurrentBoard().setFigure(new Position(3,7),new None());
         testGame.getCurrentBoard().setFigure(new Position(3,6),new Pawn(false));
-        testGame.setActivePlayer(false);
+        testGame.setActivePlayerBlack(false);
         Move move5 = new Move(new Position(3,6),new Position(3,7),5);
         assertTrue(testGame.chessMove(move5), "PawnConversion move to Queen is not accepted even if it is correct");
     }

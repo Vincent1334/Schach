@@ -45,7 +45,7 @@ public class King extends Figure {
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
         // normal move
-        return Math.abs(actualPos.getPosX() - targetPos.getPosX()) <= 1 && Math.abs(actualPos.getPosY() - targetPos.getPosY()) <= 1;
+        return Math.abs(actualPos.getPOS_X() - targetPos.getPOS_X()) <= 1 && Math.abs(actualPos.getPOS_Y() - targetPos.getPOS_Y()) <= 1;
     }
 
     /**

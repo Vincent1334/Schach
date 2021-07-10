@@ -15,20 +15,20 @@ import java.util.Objects;
  */
 public class Board {
 
-    private Figure[][] internalBoard;
+    private final Figure[][] INTERNAL_BOARD;
     private List<Figure> beatenFigures = new ArrayList<>();
 
     // flags
-    private boolean[] castling = new boolean[2];
-    private boolean[] check = new boolean[2];
-    private boolean[] checkMate = new boolean[2];
+    private final boolean[] CASTLING = new boolean[2];
+    private final boolean[] CHECK = new boolean[2];
+    private final boolean[] CHECK_MATE = new boolean[2];
     private boolean staleMate;
 
     /**
      * Creates a new board with the standard figure setup
      */
     public Board() {
-        internalBoard = new Figure[8][8];
+        INTERNAL_BOARD = new Figure[8][8];
         boolean blackTeam;
 
         for (int i = 0; i <= 1; i++) {
@@ -37,31 +37,31 @@ public class Board {
 
             //create Pawns
             for (int j = 0; j < 8; j++) {
-                internalBoard[j][1 + i * 5] = new Pawn(blackTeam);
+                INTERNAL_BOARD[j][1 + i * 5] = new Pawn(blackTeam);
             }
             //create King
-            internalBoard[4][i * 7] = new King(blackTeam);
+            INTERNAL_BOARD[4][i * 7] = new King(blackTeam);
 
             //create Queen
-            internalBoard[3][i * 7] = new Queen(blackTeam);
+            INTERNAL_BOARD[3][i * 7] = new Queen(blackTeam);
 
             //create Rooks
             for (int j = 0; j <= 1; j++) {
-                internalBoard[j * 7][i * 7] = new Rook(blackTeam);
+                INTERNAL_BOARD[j * 7][i * 7] = new Rook(blackTeam);
             }
             //create Bishops
             for (int j = 0; j <= 1; j++) {
-                internalBoard[2 + j * 3][i * 7] = new Bishop(blackTeam);
+                INTERNAL_BOARD[2 + j * 3][i * 7] = new Bishop(blackTeam);
             }
             //create Knights
             for (int j = 0; j <= 1; j++) {
-                internalBoard[1 + j * 5][i * 7] = new Knight(blackTeam);
+                INTERNAL_BOARD[1 + j * 5][i * 7] = new Knight(blackTeam);
             }
         }
         //create None
         for (int y = 2; y < 6; y++) {
             for (int x = 0; x < 8; x++) {
-                internalBoard[x][y] = new None();
+                INTERNAL_BOARD[x][y] = new None();
             }
         }
     }
@@ -73,7 +73,7 @@ public class Board {
      * @param sourceClass the board-object you want to copy
      */
     public Board(Board sourceClass) {
-        internalBoard = new Figure[8][8];
+        INTERNAL_BOARD = new Figure[8][8];
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 copyFigures(sourceClass.getFigure(x, y), x, y);
@@ -82,12 +82,12 @@ public class Board {
 
         beatenFigures = new ArrayList<>();
         beatenFigures.addAll(sourceClass.getBeatenFigures());
-        castling[0] = sourceClass.isCastlingFlag(false);
-        castling[1] = sourceClass.isCastlingFlag(true);
-        check[0] = sourceClass.isCheckFlag(false);
-        check[1] = sourceClass.isCheckFlag(true);
-        checkMate[0] = sourceClass.isCheckMateFlag(false);
-        checkMate[1] = sourceClass.isCheckMateFlag(true);
+        CASTLING[0] = sourceClass.isCastlingFlag(false);
+        CASTLING[1] = sourceClass.isCastlingFlag(true);
+        CHECK[0] = sourceClass.isCheckFlag(false);
+        CHECK[1] = sourceClass.isCheckFlag(true);
+        CHECK_MATE[0] = sourceClass.isCheckMateFlag(false);
+        CHECK_MATE[1] = sourceClass.isCheckMateFlag(true);
         staleMate = sourceClass.isStaleMateFlag();
     }
 
@@ -101,25 +101,25 @@ public class Board {
     private void copyFigures(Figure figure, int x, int y) {
         switch (figure.getFigureID()) {
             case 0:
-                internalBoard[x][y] = new None((None) figure);
+                INTERNAL_BOARD[x][y] = new None((None) figure);
                 break;
             case 1:
-                internalBoard[x][y] = new Pawn((Pawn) figure);
+                INTERNAL_BOARD[x][y] = new Pawn((Pawn) figure);
                 break;
             case 2:
-                internalBoard[x][y] = new Rook((Rook) figure);
+                INTERNAL_BOARD[x][y] = new Rook((Rook) figure);
                 break;
             case 3:
-                internalBoard[x][y] = new Knight((Knight) figure);
+                INTERNAL_BOARD[x][y] = new Knight((Knight) figure);
                 break;
             case 4:
-                internalBoard[x][y] = new Bishop((Bishop) figure);
+                INTERNAL_BOARD[x][y] = new Bishop((Bishop) figure);
                 break;
             case 5:
-                internalBoard[x][y] = new Queen((Queen) figure);
+                INTERNAL_BOARD[x][y] = new Queen((Queen) figure);
                 break;
             case 6:
-                internalBoard[x][y] = new King((King) figure);
+                INTERNAL_BOARD[x][y] = new King((King) figure);
                 break;
         }
     }
@@ -161,7 +161,7 @@ public class Board {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 //don't check the target position, don't check empty fields
-                if (!(x == targetPos.getPosX() && y == targetPos.getPosY())
+                if (!(x == targetPos.getPOS_X() && y == targetPos.getPOS_Y())
                         && tmpBoard.getFigure(x, y).isBlack() == blackTeam
                         && !(tmpBoard.getFigure(new Position(x, y)) instanceof None)
                         && tmpBoard.getFigure(new Position(x, y)).validMove(new Position(x, y), targetPos, tmpBoard)) {
@@ -264,7 +264,7 @@ public class Board {
     }
 
     /**
-     * Important for copy constructor
+     * returns, if the other board and the actual board are the same
      *
      * @param other the other board
      * @return true, if the other board and the actual board are the same
@@ -278,7 +278,7 @@ public class Board {
             return false;
         }
         Board board1 = (Board) other;
-        return Arrays.deepEquals(internalBoard, board1.internalBoard) && Objects.equals(beatenFigures, board1.beatenFigures);
+        return Arrays.deepEquals(INTERNAL_BOARD, board1.INTERNAL_BOARD) && Objects.equals(beatenFigures, board1.beatenFigures);
     }
 
     /**
@@ -289,7 +289,7 @@ public class Board {
     @Override
     public int hashCode() {
         int result = Objects.hash(beatenFigures);
-        result = 31 * result + Arrays.deepHashCode(internalBoard);
+        result = 31 * result + Arrays.deepHashCode(INTERNAL_BOARD);
         return result;
     }
 
@@ -303,7 +303,7 @@ public class Board {
      * @param isBlack  white or not
      */
     public void setCastlingFlag(boolean castling, boolean isBlack) {
-        this.castling[isBlack ? 1 : 0] = castling;
+        this.CASTLING[isBlack ? 1 : 0] = castling;
     }
 
     /**
@@ -313,7 +313,7 @@ public class Board {
      * @return flag
      */
     public boolean isCastlingFlag(boolean isBlack) {
-        return castling[isBlack ? 1 : 0];
+        return CASTLING[isBlack ? 1 : 0];
     }
 
     /**
@@ -323,7 +323,7 @@ public class Board {
      * @param isBlack   white or not
      */
     public void setCheckMateFlag(boolean checkMate, boolean isBlack) {
-        this.checkMate[isBlack ? 1 : 0] = checkMate;
+        this.CHECK_MATE[isBlack ? 1 : 0] = checkMate;
     }
 
     /**
@@ -333,7 +333,7 @@ public class Board {
      * @return flag
      */
     public boolean isCheckMateFlag(boolean isBlack) {
-        return checkMate[isBlack ? 1 : 0];
+        return CHECK_MATE[isBlack ? 1 : 0];
     }
 
     /**
@@ -361,7 +361,7 @@ public class Board {
      * @param isBlack white or not
      */
     public void setCheckFlag(boolean check, boolean isBlack) {
-        this.check[isBlack ? 1 : 0] = check;
+        this.CHECK[isBlack ? 1 : 0] = check;
     }
 
     /**
@@ -371,7 +371,7 @@ public class Board {
      * @return flag
      */
     public boolean isCheckFlag(boolean isBlack) {
-        return check[isBlack ? 1 : 0];
+        return CHECK[isBlack ? 1 : 0];
     }
 
     /**
@@ -382,7 +382,7 @@ public class Board {
      * @return the figure at this position of the board
      */
     public Figure getFigure(int x, int y) {
-        return internalBoard[x][y];
+        return INTERNAL_BOARD[x][y];
     }
 
     /**
@@ -392,7 +392,7 @@ public class Board {
      * @return the figure at this position of the board
      */
     public Figure getFigure(Position position) {
-        return internalBoard[position.getPosX()][position.getPosY()];
+        return INTERNAL_BOARD[position.getPOS_X()][position.getPOS_Y()];
     }
 
     /**
@@ -403,7 +403,7 @@ public class Board {
      * @param figure the figure you want to set to the position on the board
      */
     public void setFigure(int x, int y, Figure figure) {
-        internalBoard[x][y] = figure;
+        INTERNAL_BOARD[x][y] = figure;
     }
 
     /**
@@ -413,7 +413,7 @@ public class Board {
      * @param figure   the figure you want to set to the position on the board
      */
     public void setFigure(Position position, Figure figure) {
-        internalBoard[position.getPosX()][position.getPosY()] = figure;
+        INTERNAL_BOARD[position.getPOS_X()][position.getPOS_Y()] = figure;
     }
 
     /**

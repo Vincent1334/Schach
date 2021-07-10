@@ -14,7 +14,7 @@ public class NetworkPlayer {
     private Server server;
     private Client client;
 
-    private int port;
+    private final int PORT;
     private boolean connected = false;
     private String ipAddress;
     private boolean isBlack;
@@ -26,7 +26,7 @@ public class NetworkPlayer {
      * @param isBlack client team
      */
     public NetworkPlayer(int port, boolean isBlack) {
-        this.port = port;
+        this.PORT = port;
         this.isBlack = isBlack;
     }
 
@@ -38,7 +38,7 @@ public class NetworkPlayer {
      */
     public NetworkPlayer(String ipAddress, int port) {
         this.ipAddress = ipAddress;
-        this.port = port;
+        this.PORT = port;
     }
 
     /**
@@ -48,9 +48,9 @@ public class NetworkPlayer {
      */
     public void initNetworkPlayer(Logic gui) {
         if (ipAddress != null) {
-            client = new Client(ipAddress, port, gui);
+            client = new Client(ipAddress, PORT, gui);
         } else {
-            server = new Server(port, isBlack, gui);
+            server = new Server(PORT, isBlack, gui);
         }
     }
 
@@ -79,6 +79,10 @@ public class NetworkPlayer {
         }
     }
 
+    /**
+     * resets the undoRedoIndex
+     * @return the undoRedoIndex
+     */
     public int getAndResetUndoRedoIndex(){
         if (server != null) {
            return server.getAndResetUndoRedoIndex();
@@ -87,6 +91,10 @@ public class NetworkPlayer {
         }
     }
 
+    /**
+     * sends the undoRedoIndex
+     * @param index the index of the movehistory you want to jump back
+     */
     public void sendUndoRedo(int index){
         if (server != null) {
             server.sendUndoRedoIndex(index);
@@ -145,6 +153,9 @@ public class NetworkPlayer {
         return "localhost";
     }
 
+    /**
+     * sends exit
+     */
     public void sendExit(){
         if (server != null) {
             server.sendExit();
@@ -154,8 +165,12 @@ public class NetworkPlayer {
         }
     }
 
-    public int getPort(){
-        return port;
+    /**
+     * returns the port of the game
+     * @return the port of the game
+     */
+    public int getPORT(){
+        return PORT;
     }
 
     /**

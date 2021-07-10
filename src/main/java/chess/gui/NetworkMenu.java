@@ -7,7 +7,6 @@ import chess.network.NetworkPlayer;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -35,7 +34,7 @@ public class NetworkMenu {
     private Rectangle black;
 
     /**
-     * TODO
+     * starts the networkgame
      */
     @FXML
     private void start() {
@@ -48,8 +47,8 @@ public class NetworkMenu {
             }
 
             WindowManager.initialWindow("GameStage", "game_title");
-            LanguageManager.networkID = " - " + network.getIpAddress() + ":" + network.getPort();
-            WindowManager.getStage("GameStage").setTitle(WindowManager.getStage("GameStage").getTitle() + " - " + network.getIpAddress() + ":" + network.getPort());
+            LanguageManager.networkID = " - " + network.getIpAddress() + ":" + network.getPORT();
+            WindowManager.getStage("GameStage").setTitle(WindowManager.getStage("GameStage").getTitle() + " - " + network.getIpAddress() + ":" + network.getPORT());
             ((Controller) WindowManager.getController("GameStage")).init(GameMode.NETWORK, isBlack, network);
             WindowManager.showStage("GameStage");
 
@@ -62,7 +61,7 @@ public class NetworkMenu {
     }
 
     /**
-     * TODO
+     * returns to the main menu
      */
     @FXML
     private void backToMenu() {
@@ -74,8 +73,7 @@ public class NetworkMenu {
     }
 
     /**
-     * TODO
-     *
+     * marks the clicked player color
      * @param event the mouseEvent
      */
     @FXML
@@ -97,7 +95,7 @@ public class NetworkMenu {
     }
 
     /**
-     * TODO
+     * Disables the IP textfield if a new networkgame is started
      */
     @FXML
     private void setDisableIP() {
@@ -124,12 +122,17 @@ public class NetworkMenu {
     //--------------getter / setter---------------------------------------------------------------------------------------------------------------
 
 
+    /**
+     * switches the language of the gui elements
+     * @param event the mouse event, used to know which flag was clicked
+     */
     @FXML
     private void setLanguage(MouseEvent event) {
+        //the url of the clicked image
         String url = ((ImageView) event.getTarget()).getImage().getUrl();
+        //sets the language after the name of the image
         LanguageManager.setLanguage(url.substring(url.length()-6,url.length()-4));
     }
-
     private Text getTextColor() {
         return (Text) menu.getChildren().get(7);
     }

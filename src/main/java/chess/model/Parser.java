@@ -8,10 +8,10 @@ package chess.model;
 public class Parser {
 
     /**
-     * Converts user input into coordinates. e.g. a3 == x: 0 y: 2
+     * checks the syntax of the move
      *
      * @param input User input
-     * @return Move coordinates
+     * @return if the syntax of the move is valid
      */
     public static boolean validSyntax(String input) {
         // e.g. "b2-e5Q"
@@ -23,22 +23,47 @@ public class Parser {
         return correct;
     }
 
+    /**
+     * checks if the input has the correct length (5 or 6)
+     * @param input User input
+     * @return true, if the input has the correct length
+     */
     private static boolean checkLength(String input) {
         return input.length() == 5 || input.length() == 6;
     }
 
+    /**
+     * checks, if on the index 2 of the input is an hyphen
+     * @param input User input
+     * @return true, if on the index 2 of the input is an hyphen
+     */
     private static boolean checkHyphen(String input) {
         return input.charAt(2) == 45;
     }
 
+    /**
+     * checks, if on the index 0 and 3 of the input are figure letters
+     * @param input user input
+     * @return true, if on the index 0 and 3 of the input are figure letters
+     */
     private static boolean checkLetters(String input) {
         return input.charAt(0) >= 97 && input.charAt(0) <= 104 && input.charAt(3) >= 97 && input.charAt(3) <= 104;
     }
 
+    /**
+     * checks, if on the index 1 and 4 of the input are numbers between 1 and 8
+     * @param input user input
+     * @return true, if on the index 1 and 4 of the input are numbers between 1 and 8
+     */
     private static boolean checkNumbers(String input) {
         return input.charAt(1) >= 49 && input.charAt(1) <= 56 && input.charAt(4) >= 49 && input.charAt(4) <= 56;
     }
 
+    /**
+     * checks, if on the index 5 of the input is a promotion figure letter
+     * @param input user input
+     * @return true, if on the index 5 of the input is a promotion figure letter
+     */
     private static boolean checkConversionLetter(String input) {
         return input.charAt(5) == 66 || input.charAt(5) == 78 || input.charAt(5) == 81 || input.charAt(5) == 82;
     }

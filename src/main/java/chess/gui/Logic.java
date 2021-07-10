@@ -24,35 +24,35 @@ public class Logic implements Runnable {
     private static CoreGame coreGame;
     private Computer computer;
     private Rectangle startField;
-    private Controller controller;
-    private GameMode gameMode;
+    private final Controller CONTROLLER;
+    private final GameMode GAME_MODE;
     private NetworkPlayer network;
     private boolean playerBlack;
 
     /**
      * initializes gameMode, coreGame, computer, beatenFigureList and conversion
      *
-     * @param gameMode         against a local friend (0) or a network game (1) or against the computer (2)
-     * @param playerColorBlack the color you want to play
+     * @param GAME_MODE         against a local friend (NORMAL) or a network game (NETWORK) or against the computer (COMPUTER)
+     * @param playerColorBlack the color you want to play (true if you want to play black)
      * @param networkPlayer    the networkPlayer
      */
-    public Logic(GameMode gameMode, boolean playerColorBlack, NetworkPlayer networkPlayer) {
-        this.gameMode = gameMode;
+    public Logic(GameMode GAME_MODE, boolean playerColorBlack, NetworkPlayer networkPlayer) {
+        this.GAME_MODE = GAME_MODE;
         coreGame = new CoreGame();
-        this.controller = ((Controller)WindowManager.getController("GameStage"));
+        this.CONTROLLER = ((Controller)WindowManager.getController("GameStage"));
 
-        if (gameMode == GameMode.COMPUTER) {
+        if (GAME_MODE == GameMode.COMPUTER) {
             computer = new Computer(!playerColorBlack, this);
-            controller.getRotate().setDisable(true);
+            CONTROLLER.getRotate().setDisable(true);
             if (playerColorBlack) {
                 computerMove();
             }
         }
-        if (gameMode == GameMode.NETWORK) {
-            controller.setCalculating(true, LanguageManager.getText("network_waiting_label"));
+        if (GAME_MODE == GameMode.NETWORK) {
+            CONTROLLER.setNotification(true, LanguageManager.getText("network_waiting_label"));
             this.network = networkPlayer;
             this.network.initNetworkPlayer(this);
-            controller.getRotate().setDisable(true);
+            CONTROLLER.getRotate().setDisable(true);
         }
     }
 
@@ -63,10 +63,10 @@ public class Logic implements Runnable {
      * @param blacksTurn   is black on turn?
      */
     public void handleFieldClick(Rectangle clickedField, boolean blacksTurn) {
-        if (startField == null && controller.getFigure(clickedField) != null && controller.isImageBlack(controller.getFigure(clickedField)) == blacksTurn) {
+        if (startField == null && CONTROLLER.getFigure(clickedField) != null && CONTROLLER.isImageBlack(CONTROLLER.getFigure(clickedField)) == blacksTurn) {
             startField = clickedField;
-            controller.setMark(startField, true, coreGame.getCurrentBoard());
-        } else if (startField != null && controller.getFigure(startField) != null) {
+            CONTROLLER.setMark(startField, true, coreGame.getCurrentBoard());
+        } else if (startField != null && CONTROLLER.getFigure(startField) != null) {
             move(startField, clickedField);
         }
     }
@@ -83,10 +83,10 @@ public class Logic implements Runnable {
 
         // Pawn conversion popup
         if (coreGame.getCurrentBoard().getFigure(startPosition) instanceof Pawn &&
-                (targetPosition.getPosY() == 0 || targetPosition.getPosY() == 7) &&
+                (targetPosition.getPOS_Y() == 0 || targetPosition.getPOS_Y() == 7) &&
                 Rules.possibleTargetFields(startPosition, coreGame.getCurrentBoard()).contains(targetPosition)) {
 
-            controller.getBoard().setMouseTransparent(true);
+            CONTROLLER.getBoard().setMouseTransparent(true);
 
             WindowManager.initialWindow("PromotionStage", "promotion_title");
             ((Promotion) WindowManager.getController("PromotionStage")).init(startPosition, targetPosition, this);
@@ -102,24 +102,24 @@ public class Logic implements Runnable {
      * @param move the move which should be performed
      */
     protected void performMove(Move move) {
-        controller.getBoard().setMouseTransparent(false);
-        controller.setMark(startField, false, coreGame.getCurrentBoard());
+        CONTROLLER.getBoard().setMouseTransparent(false);
+        CONTROLLER.setMark(startField, false, coreGame.getCurrentBoard());
         if (coreGame.chessMove(move)) {
-            if (!controller.getUndoRedo().getUNDO_REDO_MOVES_AS_TEXT().isEmpty()) {
-                controller.getUndoRedo().resetUndoRedo(controller.getHistory(), this);
+            if (!CONTROLLER.getUndoRedo().getUNDO_REDO_MOVES_AS_TEXT().isEmpty()) {
+                CONTROLLER.getUndoRedo().resetUndoRedo(CONTROLLER.getHistory(), this);
             }
-            controller.updateHistory(move);
-            controller.updateScene();
+            CONTROLLER.updateHistory(move);
+            CONTROLLER.updateScene();
             startField = null;
-            if (gameMode == GameMode.COMPUTER) {
+            if (GAME_MODE == GameMode.COMPUTER) {
                 computerMove();
             }
-            if (gameMode == GameMode.NETWORK) {
+            if (GAME_MODE == GameMode.NETWORK) {
                 network.sendMove(move);
-                controller.setCalculating(true, LanguageManager.getText("network_player_waiting_label"));
+                CONTROLLER.setNotification(true, LanguageManager.getText("network_player_waiting_label"));
             }
-        } else if (controller.getTouchMove().isSelected() && !controller.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
-            controller.setMark(startField, true, coreGame.getCurrentBoard());
+        } else if (CONTROLLER.getTouchMove().isSelected() && !CONTROLLER.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
+            CONTROLLER.setMark(startField, true, coreGame.getCurrentBoard());
         } else {
             startField = null;
         }
@@ -130,11 +130,11 @@ public class Logic implements Runnable {
      */
     public void computerMove() {
         computer.makeMove(coreGame.getCurrentBoard());
-        controller.setCalculating(true, LanguageManager.getText("calculating_label"));
+        CONTROLLER.setNotification(true, LanguageManager.getText("calculating_label"));
     }
 
     /**
-     * Turns the task into thread if the computer thread is terminated
+     * Turns the task into thread if the computer or network thread is terminated
      */
     public void computerOrNetworkIsFinish() {
         Platform.runLater(this);
@@ -154,39 +154,43 @@ public class Logic implements Runnable {
      */
     @Override
     public void run() {
-        if (gameMode == GameMode.COMPUTER) {
-            controller.setCalculating(false, LanguageManager.getText("calculating_label"));
+        if (GAME_MODE == GameMode.COMPUTER) {
+            CONTROLLER.setNotification(false, LanguageManager.getText("calculating_label"));
             Move computerMove = computer.getMove();
             System.out.println("Computer: " + computerMove.toString());
             coreGame.chessMove(computerMove);
-            controller.updateHistory(computerMove);
-            controller.updateScene();
+            CONTROLLER.updateHistory(computerMove);
+            CONTROLLER.updateScene();
         }
-        if (gameMode == GameMode.NETWORK) {
+        if (GAME_MODE == GameMode.NETWORK) {
             if (network.isReadyToPlay()) {
+                //executes undo/redo
                 int index = network.getAndResetUndoRedoIndex();
                 if(index >= 0){
                     this.getController().undoRedoSend(index);
                     return;
                 }
+                //sets message if opponent exited the game
                 if(network.isExit()) {
-                    controller.setCalculating(true, LanguageManager.getText("network_exit"));
+                    CONTROLLER.setNotification(true, LanguageManager.getText("network_exit"));
                     return;
                 }
+                //executes networkMove
                 Move networkMove = network.getMove();
                 coreGame.chessMove(networkMove);
-                controller.setCalculating(false, "");
-                controller.updateHistory(networkMove);
-                controller.updateScene();
+                CONTROLLER.setNotification(false, "");
+                CONTROLLER.updateHistory(networkMove);
+                CONTROLLER.updateScene();
             } else {
+                //init the networkgame
                 playerBlack = network.team();
                 network.setReadyToPlay(true);
                 if (playerBlack) {
-                    controller.setCalculating(true, LanguageManager.getText("network_player_waiting_label"));
-                    controller.getBoard().setRotate(180);
+                    CONTROLLER.setNotification(true, LanguageManager.getText("network_player_waiting_label"));
+                    CONTROLLER.getBoard().setRotate(180);
                     turnFigures(180);
                 } else {
-                    controller.setCalculating(false, "");
+                    CONTROLLER.setNotification(false, "");
                 }
             }
         }
@@ -199,14 +203,14 @@ public class Logic implements Runnable {
      */
     public void turnBoard(boolean reset) {
         if (reset) {
-            controller.getBoard().setRotate(0);
+            CONTROLLER.getBoard().setRotate(0);
             turnFigures(0);
         } else {
-            if (coreGame.isActivePlayer()) {
-                controller.getBoard().setRotate(180);
+            if (coreGame.isActivePlayerBlack()) {
+                CONTROLLER.getBoard().setRotate(180);
                 turnFigures(180);
             } else {
-                controller.getBoard().setRotate(0);
+                CONTROLLER.getBoard().setRotate(0);
                 turnFigures(0);
             }
         }
@@ -218,7 +222,7 @@ public class Logic implements Runnable {
      * @param angle the angle around which the figures are rotated
      */
     public void turnFigures(int angle) {
-        for (Node node : controller.getBoard().getChildren()) {
+        for (Node node : CONTROLLER.getBoard().getChildren()) {
             node.setRotate(angle);
         }
     }
@@ -234,14 +238,14 @@ public class Logic implements Runnable {
     }
 
     public GameMode getGameMode() {
-        return gameMode;
+        return GAME_MODE;
     }
 
     public boolean isPlayerBlack() {
         return playerBlack;
     }
 
-    public Controller getController(){return controller;}
+    public Controller getController(){return CONTROLLER;}
 
     public NetworkPlayer getNetwork(){return network;}
 }

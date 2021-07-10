@@ -104,16 +104,16 @@ public class Heuristic {
                 try {
                     switch (i) {
                         case 0:
-                            tmpFigure = board.getFigure(move.getTargetPosition().getPosX() - 1, move.getTargetPosition().getPosY() - 1);
+                            tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() - 1, move.getTARGET_POSITION().getPOS_Y() - 1);
                             break;
                         case 1:
-                            tmpFigure = board.getFigure(move.getTargetPosition().getPosX() - 1, move.getTargetPosition().getPosY() + 1);
+                            tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() - 1, move.getTARGET_POSITION().getPOS_Y() + 1);
                             break;
                         case 2:
-                            tmpFigure = board.getFigure(move.getTargetPosition().getPosX() + 1, move.getTargetPosition().getPosY() - 1);
+                            tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() + 1, move.getTARGET_POSITION().getPOS_Y() - 1);
                             break;
                         case 3:
-                            tmpFigure = board.getFigure(move.getTargetPosition().getPosX() + 1, move.getTargetPosition().getPosY() + 1);
+                            tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() + 1, move.getTARGET_POSITION().getPOS_Y() + 1);
                             break;
                         default:
                             continue;

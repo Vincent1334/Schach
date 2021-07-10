@@ -42,13 +42,10 @@ public class Knight extends Figure {
      * @param board     actual state of chessboard
      * @return whether move was successful
      */
-
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
-
-        //is the move legal?
-        return Math.abs(actualPos.getPosX()-targetPos.getPosX()) == 2 && Math.abs(actualPos.getPosY()-targetPos.getPosY()) == 1
-                || Math.abs(actualPos.getPosX()-targetPos.getPosX()) == 1 && Math.abs(actualPos.getPosY()-targetPos.getPosY()) == 2;
+        return Math.abs(actualPos.getPOS_X()-targetPos.getPOS_X()) == 2 && Math.abs(actualPos.getPOS_Y()-targetPos.getPOS_Y()) == 1
+                || Math.abs(actualPos.getPOS_X()-targetPos.getPOS_X()) == 1 && Math.abs(actualPos.getPOS_Y()-targetPos.getPOS_Y()) == 2;
     }
 
     /**
