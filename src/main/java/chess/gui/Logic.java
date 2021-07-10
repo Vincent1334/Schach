@@ -165,26 +165,26 @@ public class Logic implements Runnable {
         }
         if (gameMode == GameMode.NETWORK) {
             if (network.isReadyToPlay()) {
-                int index = network.getAndResetUndoRedoIndex();
-                if(index >= 0){
-                    this.getController().undoRedoSend(index);
-                    if(index%2 == 0 && playerBlack || index%2 != 0 && !playerBlack){
-                        controller.setCalculating(false, "");
-                    }else{
-                        controller.setCalculating(true, LanguageManager.getText("network_player_waiting_label"));
-                    }
+                //Normal move
+                if(network.getOutput() instanceof Move){
+                    Move networkMove = (Move) network.getOutput();
+                    coreGame.chessMove(networkMove);
+                    controller.setCalculating(false, "");
+                    controller.updateHistory(networkMove);
                     controller.updateScene();
                     return;
                 }
-                if(network.isExit()) {
+                //Undo Redo
+                if(network.getOutput() instanceof Integer){
+                    this.getController().undoRedoSend((Integer) network.getOutput());
+                    controller.updateScene();
+                    return;
+                }
+                //Exit
+                if(network.getOutput() instanceof String){
                     controller.setCalculating(true, LanguageManager.getText("network_exit"));
                     return;
                 }
-                Move networkMove = network.getMove();
-                coreGame.chessMove(networkMove);
-                controller.setCalculating(false, "");
-                controller.updateHistory(networkMove);
-                controller.updateScene();
             } else {
                 playerBlack = network.team();
                 network.setReadyToPlay(true);
