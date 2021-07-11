@@ -200,6 +200,10 @@ public class Logic implements Runnable {
                 network.setFlag(NetworkFlags.InGame);
             }
             if(network.getFlag() == NetworkFlags.Exit){
+                CONTROLLER.getBoard().setMouseTransparent(true);
+                CONTROLLER.getHistory().setMouseTransparent(true);
+                CONTROLLER.getButtonRedo().setMouseTransparent(true);
+                CONTROLLER.getButtonUndo().setMouseTransparent(true);
                 setNotification(true, LanguageManager.getText("network_exit"));
             }
         }
