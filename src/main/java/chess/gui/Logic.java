@@ -3,6 +3,7 @@ package chess.gui;
 import chess.enums.GameMode;
 import chess.controller.*;
 import chess.ai.Computer;
+import chess.enums.NetworkFlags;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import chess.network.NetworkPlayer;
@@ -163,38 +164,35 @@ public class Logic implements Runnable {
             CONTROLLER.getScene().updateScene();
         }
         if (GAME_MODE == GameMode.NETWORK) {
-            if (network.isReadyToPlay()) {
-                //Normal move
-                if(network.getOutput() instanceof Move){
-                    Move networkMove = (Move) network.getOutput();
-                    coreGame.chessMove(networkMove);
-                    setNotification(false, "");
-                    CONTROLLER.getScene().updateHistory(networkMove);
-                    CONTROLLER.getScene().updateScene();
-                    return;
-                }
-                //Undo Redo
-                if(network.getOutput() instanceof Integer){
-                    getController().getUndoRedo().undoRedoClicked(getController().getHistory(),this,(Integer) network.getOutput());
-                    CONTROLLER.getScene().updateScene();
-                    return;
-                }
-                //Exit
-                if(network.getOutput() instanceof String){
-                    setNotification(true, LanguageManager.getText("network_exit"));
-                    return;
-                }
-            } else {
-                //init the networkgame
-                playerBlack = network.team();
-                network.setReadyToPlay(true);
-                if (playerBlack) {
+            if(network.getFlag() == NetworkFlags.Connecting){
+                setNotification(true, LanguageManager.getText("network_player_waiting_label"));
+            }
+            if(network.getFlag() == NetworkFlags.SetupTeams){
+                playerBlack = network.getIsBlack();
+                if(network.getIsBlack()){
                     setNotification(true, LanguageManager.getText("network_player_waiting_label"));
                     CONTROLLER.getBoard().setRotate(180);
                     turnFigures(180);
-                } else {
+                }else{
                     setNotification(false, "");
                 }
+                network.setFlag(NetworkFlags.InGame);
+            }
+            if(network.getFlag() == NetworkFlags.Move){
+                Move networkMove = (Move) network.getNetworkOutput();
+                coreGame.chessMove(networkMove);
+                setNotification(false, "");
+                CONTROLLER.getScene().updateHistory(networkMove);
+                CONTROLLER.getScene().updateScene();
+                network.setFlag(NetworkFlags.InGame);
+            }
+            if(network.getFlag() == NetworkFlags.UndoRedo){
+                getController().getUndoRedo().undoRedoClicked(getController().getHistory(),this,(Integer) network.getNetworkOutput());
+                CONTROLLER.getScene().updateScene();
+                network.setFlag(NetworkFlags.InGame);
+            }
+            if(network.getFlag() == NetworkFlags.Exit){
+                setNotification(true, LanguageManager.getText("network_exit"));
             }
         }
     }

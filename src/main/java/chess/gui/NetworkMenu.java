@@ -40,15 +40,12 @@ public class NetworkMenu {
     private void start() {
         try {
             NetworkPlayer network;
-            if (getButtonJoinGame().isSelected()) {
-                network = new NetworkPlayer(getIPInput().getText(), Integer.parseInt(getPortInput().getText()));
-            } else {
-                network = new NetworkPlayer(Integer.parseInt(getPortInput().getText()), isBlack);
-            }
+            network = new NetworkPlayer(Integer.parseInt(getPortInput().getText()), getIPInput().getText(), !getButtonJoinGame().isSelected(), isBlack);
+
             String stage = "GameStage";
             WindowManager.initialWindow(stage, "game_title");
-            LanguageManager.networkID = " - " + network.getIpAddress() + ":" + network.getPORT();
-            WindowManager.getStage(stage).setTitle(WindowManager.getStage(stage).getTitle() + " - " + network.getIpAddress() + ":" + network.getPORT());
+            LanguageManager.networkID = " - " + getIPInput().getText() + ":" + getPortInput().getText();
+            WindowManager.getStage(stage).setTitle(WindowManager.getStage(stage).getTitle() + " - " + getIPInput().getText() + ":" + getPortInput().getText());
             ((Controller) WindowManager.getController(stage)).init(GameMode.NETWORK, isBlack, network);
             WindowManager.showStage(stage);
 
