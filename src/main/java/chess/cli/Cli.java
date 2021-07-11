@@ -63,6 +63,7 @@ public class Cli {
      */
     public static void startLoop(){
         do {
+            System.out.println(" ");
             System.out.println(" ██████╗██╗  ██╗███████╗███████╗███████╗");
             System.out.println("██╔════╝██║  ██║██╔════╝██╔════╝██╔════╝");
             System.out.println("██║     ███████║█████╗  ███████╗███████╗");
