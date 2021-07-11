@@ -102,22 +102,7 @@ public class Heuristic {
             for (int i = 0; i < 4; i++) {
                 Figure tmpFigure;
                 try {
-                    switch (i) {
-                        case 0:
-                            tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() - 1, move.getTARGET_POSITION().getPOS_Y() - 1);
-                            break;
-                        case 1:
-                            tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() - 1, move.getTARGET_POSITION().getPOS_Y() + 1);
-                            break;
-                        case 2:
-                            tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() + 1, move.getTARGET_POSITION().getPOS_Y() - 1);
-                            break;
-                        case 3:
-                            tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() + 1, move.getTARGET_POSITION().getPOS_Y() + 1);
-                            break;
-                        default:
-                            continue;
-                    }
+                    tmpFigure = getNeighborPawn(board,move,i);
                 } catch (Exception x) {
                     continue;
                 }
@@ -131,6 +116,33 @@ public class Heuristic {
         }
         return score;
     }
+
+    /**
+     * looks if there is any neighbor pawn
+     * @param board the current board
+     * @param move the current move
+     * @param i left, right, up or down from actual pawn
+     * @return the neighbor pawn
+     */
+    private static Figure getNeighborPawn(Board board, Move move, int i) {
+        Figure tmpFigure = null;
+        switch (i) {
+            case 0:
+                tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() - 1, move.getTARGET_POSITION().getPOS_Y() - 1);
+                break;
+            case 1:
+                tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() - 1, move.getTARGET_POSITION().getPOS_Y() + 1);
+                break;
+            case 2:
+                tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() + 1, move.getTARGET_POSITION().getPOS_Y() - 1);
+                break;
+            case 3:
+                tmpFigure = board.getFigure(move.getTARGET_POSITION().getPOS_X() + 1, move.getTARGET_POSITION().getPOS_Y() + 1);
+                break;
+        }
+          return tmpFigure;
+    }
+
 
     /**
      * checks material worth and adds that to the score

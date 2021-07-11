@@ -29,6 +29,7 @@ public class Logic implements Runnable {
     private final GameMode GAME_MODE;
     private NetworkPlayer network;
     private boolean playerBlack;
+    private final String WAITING = "network_waiting_label";
 
     /**
      * initializes gameMode, coreGame, computer, beatenFigureList and conversion
@@ -50,7 +51,7 @@ public class Logic implements Runnable {
             }
         }
         if (GAME_MODE == GameMode.NETWORK) {
-            setNotification(true, LanguageManager.getText("network_waiting_label"));
+            setNotification(true, LanguageManager.getText(WAITING));
             this.network = networkPlayer;
             this.network.initNetworkPlayer(this);
             CONTROLLER.getRotate().setDisable(true);
@@ -117,7 +118,7 @@ public class Logic implements Runnable {
             }
             if (GAME_MODE == GameMode.NETWORK) {
                 network.sendMove(move);
-                setNotification(true, LanguageManager.getText("network_player_waiting_label"));
+                setNotification(true, LanguageManager.getText(WAITING));
             }
         } else if (CONTROLLER.getTouchMove().isSelected() && !CONTROLLER.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
             CONTROLLER.setMark(startField, true, coreGame.getCurrentBoard());
@@ -165,48 +166,71 @@ public class Logic implements Runnable {
         }
         if (GAME_MODE == GameMode.NETWORK) {
             if(network.getFlag() == NetworkFlags.Connecting){
-                setNotification(true, LanguageManager.getText("network_player_waiting_label"));
-            }
-            if(network.getFlag() == NetworkFlags.SetupTeams){
-                playerBlack = network.getIsBlack();
-                if(network.getIsBlack()){
-                    setNotification(true, LanguageManager.getText("network_player_waiting_label"));
-                    CONTROLLER.getBoard().setRotate(180);
-                    turnFigures(180);
-                }else{
-                    setNotification(false, "");
-                }
-                network.setFlag(NetworkFlags.InGame);
-            }
-            if(network.getFlag() == NetworkFlags.Move){
-                Move networkMove = (Move) network.getNetworkOutput();
-                coreGame.chessMove(networkMove);
-                setNotification(false, "");
-                CONTROLLER.getUndoRedo().resetUndoRedo(CONTROLLER.getHistory(), this);
-                CONTROLLER.getScene().updateHistory(networkMove);
-                CONTROLLER.getScene().updateScene();
-                network.setFlag(NetworkFlags.InGame);
-            }
-            if(network.getFlag() == NetworkFlags.UndoRedo){
-                CONTROLLER.getUndoRedo().undoRedoClicked(CONTROLLER.getHistory(),this,(Integer) network.getNetworkOutput());
-                if((Integer) network.getNetworkOutput() == -1) CONTROLLER.getUndoRedo().undo(CONTROLLER.getHistory(), this);
-
-                if(coreGame.isActivePlayerBlack() && network.getIsBlack()){
-                    setNotification(false, "");
-                }else{
-                    setNotification(true, LanguageManager.getText("network_player_waiting_label"));
-                }
-                CONTROLLER.getScene().updateScene();
-                network.setFlag(NetworkFlags.InGame);
-            }
-            if(network.getFlag() == NetworkFlags.Exit){
-                CONTROLLER.getBoard().setMouseTransparent(true);
-                CONTROLLER.getHistory().setMouseTransparent(true);
-                CONTROLLER.getButtonRedo().setMouseTransparent(true);
-                CONTROLLER.getButtonUndo().setMouseTransparent(true);
-                setNotification(true, LanguageManager.getText("network_exit"));
+                setNotification(true, LanguageManager.getText(WAITING));
+            }else if(network.getFlag() == NetworkFlags.SetupTeams){
+                networkSetupTeams();
+            }else if(network.getFlag() == NetworkFlags.Move){
+                networkPerformMove();
+            }else if(network.getFlag() == NetworkFlags.UndoRedo){
+                networkUndoRedo();
+            }else if(network.getFlag() == NetworkFlags.Exit){
+                exit();
             }
         }
+    }
+
+    /**
+     * setups the teams in a networkgame
+     */
+    private void networkSetupTeams(){
+        playerBlack = network.getIsBlack();
+        if(network.getIsBlack()){
+            setNotification(true, LanguageManager.getText(WAITING));
+            CONTROLLER.getBoard().setRotate(180);
+            turnFigures(180);
+        }else{
+            setNotification(false, "");
+        }
+        network.setFlag(NetworkFlags.InGame);
+    }
+
+    /**
+     * performs a network move
+     */
+    private void networkPerformMove(){
+        Move networkMove = (Move) network.getNetworkOutput();
+        coreGame.chessMove(networkMove);
+        setNotification(false, "");
+        CONTROLLER.getUndoRedo().resetUndoRedo(CONTROLLER.getHistory(), this);
+        CONTROLLER.getScene().updateHistory(networkMove);
+        CONTROLLER.getScene().updateScene();
+        network.setFlag(NetworkFlags.InGame);
+    }
+    /**
+     * performs undo redo
+     */
+    private void networkUndoRedo(){
+        CONTROLLER.getUndoRedo().undoRedoClicked(CONTROLLER.getHistory(),this,(Integer) network.getNetworkOutput());
+        if((Integer) network.getNetworkOutput() == -1) CONTROLLER.getUndoRedo().undo(CONTROLLER.getHistory(), this);
+
+        if(coreGame.isActivePlayerBlack() && network.getIsBlack()){
+            setNotification(false, "");
+        }else{
+            setNotification(true, LanguageManager.getText(WAITING));
+        }
+        CONTROLLER.getScene().updateScene();
+        network.setFlag(NetworkFlags.InGame);
+    }
+
+    /**
+     * disables board and undo redo and sets notification
+     */
+    private void exit(){
+        CONTROLLER.getBoard().setMouseTransparent(true);
+        CONTROLLER.getHistory().setMouseTransparent(true);
+        CONTROLLER.getButtonRedo().setMouseTransparent(true);
+        CONTROLLER.getButtonUndo().setMouseTransparent(true);
+        setNotification(true, LanguageManager.getText("network_exit"));
     }
 
     /**
