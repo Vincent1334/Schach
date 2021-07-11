@@ -30,8 +30,6 @@ public class LanguageManager {
     private final static String LANGUAGE = "language";
     private final static String NETWORKSTAGE = "NetworkStage";
 
-    public static String networkID = "";
-
     /**
      * Change the language file to the given language
      * @param language the language you want
@@ -152,7 +150,7 @@ public class LanguageManager {
             ((CheckBox) menu.getChildren().get(8)).setText(LanguageManager.getText("rotate_button"));
             ((CheckBox) menu.getChildren().get(9)).setText(LanguageManager.getText("flag_button"));
 
-            WindowManager.getStage("GameStage").setTitle(getText("game_title") + networkID);
+            WindowManager.getStage("GameStage").setTitle(getText("game_title"));
         }
     }
 

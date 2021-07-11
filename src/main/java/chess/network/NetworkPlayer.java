@@ -226,8 +226,8 @@ public class NetworkPlayer implements Runnable{
             thread.interrupt();
             in.close();
             out.close();
-            if(serverSocket != null) serverSocket.close();
             clientSocket.close();
+            if(serverSocket != null) serverSocket.close();
         }catch (Exception x){
             x.printStackTrace();
         }
