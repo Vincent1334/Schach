@@ -17,7 +17,7 @@ public class NetworkPlayerTest {
 
     /**
      * Test default network features
-     * @throws InterruptedException
+     * @throws InterruptedException network issue
      */
     @Test
     public void testNetworkServerWhite() throws InterruptedException {
@@ -54,7 +54,7 @@ public class NetworkPlayerTest {
 
     /**
      * Test default network features
-     * @throws InterruptedException
+     * @throws InterruptedException network issue
      */
     @Test
     public void testNetworkServerBlack() throws InterruptedException {
