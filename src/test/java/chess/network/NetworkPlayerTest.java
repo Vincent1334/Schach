@@ -58,5 +58,12 @@ public class NetworkPlayerTest {
         Thread.sleep(500);
 
         assertEquals(testMove.toString(), ((Move) server.getNetworkOutput()).toString());
+
+        //Check UndoRedo
+        client.sendUndoRedo(2);
+
+        Thread.sleep(500);
+
+        assertEquals(2, ((Integer) server.getNetworkOutput()));
     }
 }

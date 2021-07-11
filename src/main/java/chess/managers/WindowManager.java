@@ -67,6 +67,10 @@ public class WindowManager {
         }
     }
 
+    public static void setStages(Stage stage, int index){
+        stages[index] = stage;
+    }
+
     /**
      * Set stage to visible
      *

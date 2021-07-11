@@ -184,6 +184,9 @@
                         <exclude>chess/cli/**/*</exclude>
                         <exclude>chess/gui/**/*</exclude>
                         <exclude>chess/Main.class</exclude>
+                        <exclude>chess/managers/**/*</exclude>
+                        <!-- Ignore ENUMS classes for coverage -->
+                        <exclude>chess/enums/**/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
