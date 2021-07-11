@@ -5,14 +5,25 @@ import chess.model.Position;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * This class contains tests to check all network features
+ *
+ * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
+ * 2021-07-11
+ */
 public class NetworkPlayerTest {
 
+    private final String IP = "localhost";
+
+    /**
+     * Test default network features
+     * @throws InterruptedException
+     */
     @Test
-    public void testNetwork() throws InterruptedException {
+    public void testNetworkServerWhite() throws InterruptedException {
         //Setup Network: client is black and server is white
-        NetworkPlayer client = new NetworkPlayer(5555,"localhost", false, false);
-        NetworkPlayer server = new NetworkPlayer(5555, "localhost", true, false);
+        NetworkPlayer client = new NetworkPlayer(5555,IP, false, false);
+        NetworkPlayer server = new NetworkPlayer(5555, IP, true, false);
 
         server.initNetworkPlayer(null);
         client.initNetworkPlayer(null);
@@ -38,9 +49,18 @@ public class NetworkPlayerTest {
         client.killNetwork();
         server.killNetwork();
 
+
+    }
+
+    /**
+     * Test default network features
+     * @throws InterruptedException
+     */
+    @Test
+    public void testNetworkServerBlack() throws InterruptedException {
         //Setup Network: client is white and server is black
-        client = new NetworkPlayer(5555,"localhost", false, false);
-        server = new NetworkPlayer(5555, "localhost", true, true);
+        NetworkPlayer client = new NetworkPlayer(5555,IP, false, false);
+        NetworkPlayer server = new NetworkPlayer(5555, IP, true, true);
 
         server.initNetworkPlayer(null);
         client.initNetworkPlayer(null);
@@ -53,6 +73,7 @@ public class NetworkPlayerTest {
         assertTrue(server.getIsBlack());
 
         //Check move
+        Move testMove = new Move(new Position(1, 1), new Position(3, 3));
         client.sendMove(testMove);
 
         Thread.sleep(500);
@@ -64,6 +85,10 @@ public class NetworkPlayerTest {
 
         Thread.sleep(500);
 
-        assertEquals(2, ((Integer) server.getNetworkOutput()));
+        assertEquals(2, (Integer) server.getNetworkOutput());
+
+        //kill Network
+        client.killNetwork();
+        server.killNetwork();
     }
 }
