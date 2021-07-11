@@ -235,11 +235,11 @@ public class NetworkPlayer implements Runnable{
     public void sendUndoRedo(int pointer){
         out.println(pointer);
         if(pointer%2 == 0 && !isBlack || pointer%2 != 0 && isBlack){
-            gui.setNotification(true, LanguageManager.getText("network_player_waiting_label"));
+            if(gui != null) gui.setNotification(true, LanguageManager.getText("network_player_waiting_label"));
         }else{
-            gui.setNotification(false, "");
+            if(gui != null) gui.setNotification(false, "");
         }
-        gui.getController().getScene().updateScene();
+        if(gui != null) gui.getController().getScene().updateScene();
     }
 
     /**
