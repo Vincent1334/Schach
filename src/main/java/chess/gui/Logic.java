@@ -183,8 +183,8 @@ public class Logic implements Runnable {
      * setups the teams in a networkgame
      */
     private void networkSetupTeams(){
-        playerBlack = network.getIsBlack();
-        if(network.getIsBlack()){
+        playerBlack = network.isNetworkPlayerBlack();
+        if(network.isNetworkPlayerBlack()){
             setNotification(true, LanguageManager.getText(WAITING));
             CONTROLLER.getBoard().setRotate(180);
             turnFigures(180);
@@ -213,7 +213,7 @@ public class Logic implements Runnable {
         CONTROLLER.getUndoRedo().undoRedoClicked(CONTROLLER.getHistory(),this,(Integer) network.getNetworkOutput());
         if((Integer) network.getNetworkOutput() == -1) CONTROLLER.getUndoRedo().undo(CONTROLLER.getHistory(), this);
 
-        if(coreGame.isActivePlayerBlack() && network.getIsBlack()){
+        if(coreGame.isActivePlayerBlack() && network.isNetworkPlayerBlack()){
             setNotification(false, "");
         }else{
             setNotification(true, LanguageManager.getText(WAITING));

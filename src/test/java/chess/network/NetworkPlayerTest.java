@@ -32,8 +32,8 @@ public class NetworkPlayerTest {
         Thread.sleep(500);
 
         //Check if the teams were distributed correctly
-        assertFalse(server.getIsBlack());
-        assertTrue(client.getIsBlack());
+        assertFalse(server.isNetworkPlayerBlack());
+        assertTrue(client.isNetworkPlayerBlack());
 
         //Check move
         Move testMove = new Move(new Position(1, 1), new Position(3, 3));
@@ -69,8 +69,8 @@ public class NetworkPlayerTest {
         Thread.sleep(500);
 
         //Check if the teams were distributed correctly
-        assertFalse(client.getIsBlack());
-        assertTrue(server.getIsBlack());
+        assertFalse(client.isNetworkPlayerBlack());
+        assertTrue(server.isNetworkPlayerBlack());
 
         //Check move
         Move testMove = new Move(new Position(1, 1), new Position(3, 3));

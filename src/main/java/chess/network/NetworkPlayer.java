@@ -5,7 +5,6 @@ import chess.gui.Logic;
 import chess.managers.LanguageManager;
 import chess.model.Move;
 import chess.model.Parser;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,16 +21,12 @@ import java.net.Socket;
 public class NetworkPlayer implements Runnable{
 
     private Logic gui;
-    private final int PORT;
-    private final String IPADDRESS;
     private boolean isBlack;
-    private final boolean IS_SERVER;
     private Thread thread;
 
     //Server objects
-    private ServerSocket serverSocket;
+    private Connection connection;
     //Client objects
-    private Socket clientSocket;
     //Network objects
     private PrintWriter out;
     private BufferedReader in;
@@ -50,9 +45,10 @@ public class NetworkPlayer implements Runnable{
      * @param isBlack client team
      */
     public NetworkPlayer(int port, String ipAddress, boolean IS_SERVER, boolean isBlack) {
-        this.PORT = port;
-        this.IPADDRESS = ipAddress;
-        this.IS_SERVER = IS_SERVER;
+        connection = new Connection();
+        connection.setPort(port);
+        connection.setIp(ipAddress);
+        connection.setIsServer(IS_SERVER);
         flag = NetworkFlags.Connecting;
         this.isBlack = isBlack;
     }
@@ -72,10 +68,10 @@ public class NetworkPlayer implements Runnable{
      */
     private void initServer(){
         try {
-            serverSocket = new ServerSocket(PORT);
-            clientSocket = serverSocket.accept();
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            connection.setServerSocket(new ServerSocket(connection.getPort()));
+            connection.setClientSocket(connection.getServerSocket().accept());
+            out = new PrintWriter(connection.getClientSocket().getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(connection.getClientSocket().getInputStream()));
 
             while(!thread.isInterrupted() && flag == NetworkFlags.Connecting){
                 String input = in.readLine();
@@ -119,9 +115,9 @@ public class NetworkPlayer implements Runnable{
      */
     private void initClient(){
         try {
-            clientSocket = new Socket(IPADDRESS, PORT);
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            connection.setClientSocket(new Socket(connection.getIp(), connection.getPort()));
+            out = new PrintWriter(connection.getClientSocket().getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(connection.getClientSocket().getInputStream()));
             out.println("startUR");
 
             while(!thread.isInterrupted() && flag == NetworkFlags.Connecting){
@@ -164,7 +160,7 @@ public class NetworkPlayer implements Runnable{
      */
     @Override
     public void run() {
-        if(IS_SERVER){
+        if(connection.isServer()){
             initServer();
         }else{
             initClient();
@@ -270,7 +266,7 @@ public class NetworkPlayer implements Runnable{
      * returns, if the networkplayer is black
      * @return true, if the networkplayer is black
      */
-    public boolean getIsBlack(){
+    public boolean isNetworkPlayerBlack(){
         return isBlack;
     }
 
@@ -282,8 +278,8 @@ public class NetworkPlayer implements Runnable{
             out.println("exit");
             thread.interrupt();
             Thread.sleep(30);
-            clientSocket.close();
-            if(serverSocket != null) serverSocket.close();
+            connection.getClientSocket().close();
+            if(connection.getServerSocket() != null) connection.getServerSocket().close();
             in.close();
             out.close();
         }catch (Exception x){
