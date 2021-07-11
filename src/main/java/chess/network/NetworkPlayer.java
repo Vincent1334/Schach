@@ -22,11 +22,10 @@ import java.net.Socket;
 public class NetworkPlayer implements Runnable{
 
     private Logic gui;
-
     private final int PORT;
     private final String IPADDRESS;
     private boolean isBlack;
-    private boolean isServer;
+    private final boolean IS_SERVER;
     private Thread thread;
 
     //Server objects
@@ -40,26 +39,37 @@ public class NetworkPlayer implements Runnable{
     //Network FLags
     NetworkFlags flag;
 
+    private static final String WHITE = "white";
+    private static final String BLACK = "black";
+    private static final String READY = "ready";
+
     /**
      * NetworkPlayer constructor (Server)
      *
      * @param port    Server port
      * @param isBlack client team
      */
-    public NetworkPlayer(int port, String ipAddress, boolean isServer, boolean isBlack) {
+    public NetworkPlayer(int port, String ipAddress, boolean IS_SERVER, boolean isBlack) {
         this.PORT = port;
         this.IPADDRESS = ipAddress;
-        this.isServer = isServer;
+        this.IS_SERVER = IS_SERVER;
         flag = NetworkFlags.Connecting;
         this.isBlack = isBlack;
     }
 
+    /**
+     * initializes the network
+     * @param gui the gui of the game
+     */
     public void initNetworkPlayer(Logic gui){
         this.gui = gui;
         thread = new Thread(this);
         thread.start();
     }
 
+    /**
+     * initializes the server
+     */
     private void initServer(){
         try {
             serverSocket = new ServerSocket(PORT);
@@ -70,22 +80,7 @@ public class NetworkPlayer implements Runnable{
             while(!thread.isInterrupted() && flag == NetworkFlags.Connecting){
                 String input = in.readLine();
                 if(input != null){
-                    //Game without UndoRedo
-                    if(input.equals("start")){
-                        gui.disableUndoRedo();
-                        flag = NetworkFlags.SetupTeams;
-                        out.println(isBlack ? "white" : "black");
-                        System.out.println("Server: " + (isBlack ? "black" : "white"));
-                    }
-                    //Game with undo Redo
-                    if(input.equals("startUR")){
-                        flag = NetworkFlags.SetupTeams;
-                        out.println(isBlack ? "whiteUR" : "blackUR");
-                        System.out.println("Server: " + (isBlack ? "black" : "white"));
-                    }
-                    if(input.equals("ready")){
-                        flag = NetworkFlags.InGame;
-                    }
+                    interpretServerInput(input);
                 }
                 //Update gui
                 updateGUI();
@@ -95,6 +90,33 @@ public class NetworkPlayer implements Runnable{
         }
     }
 
+    /**
+     * interprets server input
+     * @param input ,input which should be interpreted
+     */
+    private void interpretServerInput(String input){
+        //Game without UndoRedo
+        if(input.equals("start")){
+            gui.disableUndoRedo();
+            flag = NetworkFlags.SetupTeams;
+            out.println(isBlack ? WHITE : BLACK);
+            System.out.println("Server: " + (isBlack ? BLACK : WHITE));
+        }
+        //Game with undo Redo
+        if(input.equals("startUR")){
+            flag = NetworkFlags.SetupTeams;
+            out.println(isBlack ? "whiteUR" : "blackUR");
+            System.out.println("Server: " + (isBlack ? BLACK : WHITE));
+        }
+        if(input.equals(READY)){
+            flag = NetworkFlags.InGame;
+        }
+    }
+
+
+    /**
+     * initializes the client
+     */
     private void initClient(){
         try {
             clientSocket = new Socket(IPADDRESS, PORT);
@@ -105,27 +127,27 @@ public class NetworkPlayer implements Runnable{
             while(!thread.isInterrupted() && flag == NetworkFlags.Connecting){
                 String input = in.readLine();
                 if(input != null){
-                    if (input.equals("white")) {
+                    if (input.equals(WHITE)) {
                         isBlack = false;
                         flag = NetworkFlags.SetupTeams;
                         gui.disableUndoRedo();
-                        out.println("ready");
+                        out.println(READY);
                     }
-                    if (input.equals("black")) {
+                    if (input.equals(BLACK)) {
                         isBlack = true;
                         flag = NetworkFlags.SetupTeams;
                         gui.disableUndoRedo();
-                        out.println("ready");
+                        out.println(READY);
                     }
                     if (input.equals("whiteUR")) {
                         isBlack = false;
                         flag = NetworkFlags.SetupTeams;
-                        out.println("ready");
+                        out.println(READY);
                     }
                     if (input.equals("blackUR")) {
                         isBlack = true;
                         flag = NetworkFlags.SetupTeams;
-                        out.println("ready");
+                        out.println(READY);
                     }
                     //UPdate GUI
                     updateGUI();
@@ -137,9 +159,12 @@ public class NetworkPlayer implements Runnable{
     }
 
 
+    /**
+     * the game loop of a networkgame
+     */
     @Override
     public void run() {
-        if(isServer){
+        if(IS_SERVER){
             initServer();
         }else{
             initClient();
@@ -174,10 +199,18 @@ public class NetworkPlayer implements Runnable{
         }
     }
 
+    /**
+     * updates the gui
+     */
     private void updateGUI(){
         if(gui != null) gui.computerOrNetworkIsFinish();
     }
 
+    /**
+     * Test if str is a number
+     * @param str the string you want to test
+     * @return true, if str is a number
+     */
     private boolean isNumeric(String str) {
         try {
             Integer.parseInt(str);
@@ -187,10 +220,18 @@ public class NetworkPlayer implements Runnable{
         }
     }
 
+    /**
+     * sends a move
+     * @param move the move you want to send
+     */
     public void sendMove(Move move){
         out.println(move.toString());
     }
 
+    /**
+     * send undo/redo
+     * @param pointer the index of the move you want to go back
+     */
     public void sendUndoRedo(int pointer){
         out.println(pointer);
         if(pointer%2 == 0 && !isBlack || pointer%2 != 0 && isBlack){
@@ -201,22 +242,41 @@ public class NetworkPlayer implements Runnable{
         gui.getController().getScene().updateScene();
     }
 
+    /**
+     * the output of the network
+     * @return network output
+     */
     public Object getNetworkOutput(){
         return networkOutput;
     }
 
+    /**
+     * returns the network flag
+     * @return flag
+     */
     public NetworkFlags getFlag(){
         return flag;
     }
 
+    /**
+     * sets the network flag
+     * @param flag the flag you want to set
+     */
     public void setFlag(NetworkFlags flag){
         this.flag = flag;
     }
 
+    /**
+     * returns, if the networkplayer is black
+     * @return true, if the networkplayer is black
+     */
     public boolean getIsBlack(){
         return isBlack;
     }
 
+    /**
+     * terminates the network
+     */
     public void killNetwork(){
         try{
             out.println("exit");
