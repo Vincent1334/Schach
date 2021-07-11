@@ -75,7 +75,7 @@ public class NetworkPlayer implements Runnable{
                 if(input != null){
                     //Game without UndoRedo
                     if(input.equals("start")){
-                        //TODO: disableUndoRedo()
+                        gui.disableUndoRedo();
                         flag = NetworkFlags.SetupTeams;
                         out.println(isBlack ? "white" : "black");
                         System.out.println("Server: " + (isBlack ? "black" : "white"));
