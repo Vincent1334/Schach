@@ -80,7 +80,6 @@ public class Controller {
      * closes the actual window and opens the menu-window
      */
     public void backToMenu() {
-        LanguageManager.networkID = "";
         logic.killNetworkPlayer();
 
         WindowManager.initialWindow("MenuStage", "menu_title");

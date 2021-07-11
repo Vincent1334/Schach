@@ -172,7 +172,7 @@ public class NetworkPlayer implements Runnable{
                     }
                 }
             }catch (Exception x){
-                x.printStackTrace();
+                System.out.println("lost connection!");
             }
         }
     }
@@ -224,10 +224,11 @@ public class NetworkPlayer implements Runnable{
         try{
             out.println("exit");
             thread.interrupt();
-            in.close();
-            out.close();
+            Thread.sleep(30);
             clientSocket.close();
             if(serverSocket != null) serverSocket.close();
+            in.close();
+            out.close();
         }catch (Exception x){
             x.printStackTrace();
         }
