@@ -1,7 +1,9 @@
 package chess.network;
 
 import chess.enums.NetworkFlags;
+import chess.gui.Controller;
 import chess.gui.Logic;
+import chess.managers.LanguageManager;
 import chess.model.Move;
 import chess.model.Parser;
 
@@ -150,7 +152,7 @@ public class NetworkPlayer implements Runnable{
                 String input = in.readLine();
                 if(input != null){
                     //Move
-                    if(input.contains("-")){
+                    if(input.length() > 3 && input.charAt(2) == 45){
                         //get Move message
                         networkOutput = Parser.parse(input);
                         flag = NetworkFlags.Move;
@@ -170,7 +172,7 @@ public class NetworkPlayer implements Runnable{
                     }
                 }
             }catch (Exception x){
-                System.out.println("Network Error!");
+                x.printStackTrace();
             }
         }
     }
@@ -194,6 +196,12 @@ public class NetworkPlayer implements Runnable{
 
     public void sendUndoRedo(int pointer){
         out.println(pointer);
+        if(pointer%2 == 0 && !isBlack || pointer%2 != 0 && isBlack){
+            gui.setNotification(true, LanguageManager.getText("network_player_waiting_label"));
+        }else{
+            gui.setNotification(false, "");
+        }
+        gui.getController().getScene().updateScene();
     }
 
     public Object getNetworkOutput(){

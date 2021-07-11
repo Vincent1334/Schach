@@ -182,12 +182,20 @@ public class Logic implements Runnable {
                 Move networkMove = (Move) network.getNetworkOutput();
                 coreGame.chessMove(networkMove);
                 setNotification(false, "");
+                CONTROLLER.getUndoRedo().resetUndoRedo(CONTROLLER.getHistory(), this);
                 CONTROLLER.getScene().updateHistory(networkMove);
                 CONTROLLER.getScene().updateScene();
                 network.setFlag(NetworkFlags.InGame);
             }
             if(network.getFlag() == NetworkFlags.UndoRedo){
-                getController().getUndoRedo().undoRedoClicked(getController().getHistory(),this,(Integer) network.getNetworkOutput());
+                CONTROLLER.getUndoRedo().undoRedoClicked(CONTROLLER.getHistory(),this,(Integer) network.getNetworkOutput());
+                if((Integer) network.getNetworkOutput() == -1) CONTROLLER.getUndoRedo().undo(CONTROLLER.getHistory(), this);
+
+                if(coreGame.isActivePlayerBlack() && network.getIsBlack()){
+                    setNotification(false, "");
+                }else{
+                    setNotification(true, LanguageManager.getText("network_player_waiting_label"));
+                }
                 CONTROLLER.getScene().updateScene();
                 network.setFlag(NetworkFlags.InGame);
             }
@@ -235,7 +243,7 @@ public class Logic implements Runnable {
      * @param notificationVisible whether the notification is visible
      * @param message the notification message
      */
-    protected void setNotification(boolean notificationVisible, String message) {
+    public void setNotification(boolean notificationVisible, String message) {
         if (notificationVisible) {
             CONTROLLER.getLabelCalculating().setText(message);
             CONTROLLER.getLabelCalculating().setVisible(true);

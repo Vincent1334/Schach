@@ -447,7 +447,7 @@ public class Controller {
         return logic;
     }
 
-    protected Scene getScene(){
+    public Scene getScene(){
         return scene;
     }
 }
