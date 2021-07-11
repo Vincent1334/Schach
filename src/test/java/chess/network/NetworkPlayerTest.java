@@ -2,16 +2,13 @@ package chess.network;
 
 import chess.model.Move;
 import chess.model.Position;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class NetworkPlayerTest {
 
     @Test
-    @Disabled
     public void testNetwork() throws InterruptedException {
         //Setup Network: client is black and server is white
         NetworkPlayer client = new NetworkPlayer(5555,"localhost", false, false);
