@@ -436,6 +436,25 @@ public class Controller {
     }
 
     /**
+     * returns the undo button
+     *
+     * @return undo button
+     */
+    protected Button getButtonUndo() {
+        return (Button) menu.getChildren().get(14);
+    }
+
+    /**
+     * returns the redo button
+     *
+     * @return redo button
+     */
+    protected Button getButtonRedo() {
+        return (Button) menu.getChildren().get(15);
+    }
+
+
+    /**
      * returns the UndoRedo class
      * @return the UndoRedo class
      */

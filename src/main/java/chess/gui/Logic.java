@@ -206,6 +206,17 @@ public class Logic implements Runnable {
     }
 
     /**
+     * disables undo redo function
+     */
+    public void disableUndoRedo(){
+        CONTROLLER.getHistory().setMouseTransparent(true);
+        CONTROLLER.getButtonRedo().setOpacity(0);
+        CONTROLLER.getButtonRedo().setDisable(true);
+        CONTROLLER.getButtonUndo().setOpacity(0);
+        CONTROLLER.getButtonUndo().setDisable(true);
+    }
+
+    /**
      * turns the chessboard so that the figures of the actualPlayer are always on the bottom
      *
      * @param reset reset the boardTurning

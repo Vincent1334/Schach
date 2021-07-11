@@ -111,13 +111,13 @@ public class NetworkPlayer implements Runnable{
                     if (input.equals("white")) {
                         isBlack = false;
                         flag = NetworkFlags.SetupTeams;
-                        //TODO: disableUndoRedo()
+                        gui.disableUndoRedo();
                         out.println("ready");
                     }
                     if (input.equals("black")) {
                         isBlack = true;
                         flag = NetworkFlags.SetupTeams;
-                        //TODO: disableUndoRedo()
+                        gui.disableUndoRedo();
                         out.println("ready");
                     }
                     if (input.equals("whiteUR")) {
