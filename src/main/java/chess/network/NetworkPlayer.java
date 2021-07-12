@@ -43,6 +43,8 @@ public class NetworkPlayer implements Runnable{
      *
      * @param port    Server port
      * @param isBlack client team
+     * @param ipAddress the ip address of the network player
+     * @param IS_SERVER whether the current user started the game
      */
     public NetworkPlayer(int port, String ipAddress, boolean IS_SERVER, boolean isBlack) {
         connection = new Connection();
