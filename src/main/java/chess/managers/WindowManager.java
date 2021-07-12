@@ -13,8 +13,8 @@ import javafx.stage.StageStyle;
  */
 public class WindowManager {
 
-    private static FXMLLoader[] fxmlLoader = new FXMLLoader[4];
-    private static Stage[] stages = new Stage[4];
+    private static final FXMLLoader[] FXML_LOADER = new FXMLLoader[4];
+    private static final Stage[] STAGES = new Stage[4];
 
     /**
      * Load FXML code from File
@@ -26,19 +26,19 @@ public class WindowManager {
         try {
             //load FXML file
             ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-            fxmlLoader[keyToStage(key)] = new FXMLLoader(classLoader.getResource("chess/gui/" + key + ".fxml"));
-            fxmlLoader[keyToStage(key)].setResources(LanguageManager.getResourceBundle());
+            FXML_LOADER[keyToStage(key)] = new FXMLLoader(classLoader.getResource("chess/gui/" + key + ".fxml"));
+            FXML_LOADER[keyToStage(key)].setResources(LanguageManager.getResourceBundle());
 
-            stages[keyToStage(key)] = new Stage();
-            stages[keyToStage(key)].setTitle(LanguageManager.getText(titleKey));
-            stages[keyToStage(key)].setResizable(false);
-            stages[keyToStage(key)].centerOnScreen();
-            stages[keyToStage(key)].setScene(new Scene(fxmlLoader[keyToStage(key)].load()));
+            STAGES[keyToStage(key)] = new Stage();
+            STAGES[keyToStage(key)].setTitle(LanguageManager.getText(titleKey));
+            STAGES[keyToStage(key)].setResizable(false);
+            STAGES[keyToStage(key)].centerOnScreen();
+            STAGES[keyToStage(key)].setScene(new Scene(FXML_LOADER[keyToStage(key)].load()));
 
             //Special Settings
             if ("PromotionStage".equals(key)) {
-                stages[keyToStage(key)].initStyle(StageStyle.UNDECORATED);
-                stages[keyToStage(key)].setAlwaysOnTop(true);
+                STAGES[keyToStage(key)].initStyle(StageStyle.UNDECORATED);
+                STAGES[keyToStage(key)].setAlwaysOnTop(true);
             }
 
         } catch (Exception x) {
@@ -73,7 +73,7 @@ public class WindowManager {
      * @param key keyword
      */
     public static void showStage(String key) {
-        stages[keyToStage(key)].show();
+        STAGES[keyToStage(key)].show();
     }
 
     /**
@@ -82,8 +82,8 @@ public class WindowManager {
      * @param key keyword
      */
     public static void closeStage(String key) {
-        if (stages[keyToStage(key)] != null) {
-            stages[keyToStage(key)].hide();
+        if (STAGES[keyToStage(key)] != null) {
+            STAGES[keyToStage(key)].hide();
         }
     }
 
@@ -95,7 +95,7 @@ public class WindowManager {
      * @return controller
      */
     public static Object getController(String key) {
-        return fxmlLoader[keyToStage(key)].getController();
+        return FXML_LOADER[keyToStage(key)].getController();
     }
 
     /**
@@ -104,6 +104,6 @@ public class WindowManager {
      * @return Stage
      */
     public static Stage getStage(String key) {
-        return stages[keyToStage(key)];
+        return STAGES[keyToStage(key)];
     }
 }

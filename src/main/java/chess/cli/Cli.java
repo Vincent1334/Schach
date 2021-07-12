@@ -70,7 +70,7 @@ public class Cli {
             System.out.println("██║     ██╔══██║██╔══╝  ╚════██║╚════██║");
             System.out.println("╚██████╗██║  ██║███████╗███████║███████║");
             System.out.println(" ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝");
-            System.out.println("");
+            System.out.println(" ");
             System.out.println(LanguageManager.getText("gamemode_title"));
             System.out.println("1. " + LanguageManager.getText("gamemode01"));
             System.out.println("2. " + LanguageManager.getText("gamemode02"));
@@ -251,10 +251,10 @@ public class Cli {
             for (int x = 0; x < 8; x++) {
                 System.out.print(coreGame.getCurrentBoard().getFigure(x, 7 - y).getSymbol() + " ");
             }
-            System.out.println("");
+            System.out.println(" ");
         }
         System.out.println("  a b c d e f g h");
-        System.out.println("");
+        System.out.println(" ");
     }
 
 }

@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
  */
 public class ParserTest {
 
-    @Test
     /**
      * Tests basic parser functionality
      */
+    @Test
     public void testParser() {
         // Testcase 1 (correct default input)
         Move testMove1 = new Move(new Position(0, 0), new Position(0, 1), 5);

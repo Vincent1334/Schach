@@ -12,35 +12,28 @@ import java.util.List;
  */
 public class CutOff {
 
-    private List<Move> parentCutOff;
-    private Move lastMove;
+    private final List<Move> PARENT_CUT_OFF;
+    private final Move LASTMOVE;
 
     /**
      * The cutOff constructor
      *
-     * @param parentCutOff parent cutoff
-     * @param lastMove the last move
+     * @param PARENT_CUT_OFF parent cutoff
+     * @param LASTMOVE the last move
      */
-    public CutOff(List<Move> parentCutOff, Move lastMove){
-        this.parentCutOff = parentCutOff;
-        this.lastMove = lastMove;
+    public CutOff(List<Move> PARENT_CUT_OFF, Move LASTMOVE){
+        this.PARENT_CUT_OFF = PARENT_CUT_OFF;
+        this.LASTMOVE = LASTMOVE;
     }
 
     //--------------getter / setter---------------------------------------------------------------------------------------------------------------
 
-    public List<Move> getParentCutOff() {
-        return parentCutOff;
+    public List<Move> getPARENT_CUT_OFF() {
+        return PARENT_CUT_OFF;
     }
 
-    public void setParentCutOff(List<Move> parentCutOff) {
-        this.parentCutOff = parentCutOff;
+    public Move getLASTMOVE() {
+        return LASTMOVE;
     }
 
-    public Move getLastMove() {
-        return lastMove;
-    }
-
-    public void setLastMove(Move lastMove) {
-        this.lastMove = lastMove;
-    }
 }

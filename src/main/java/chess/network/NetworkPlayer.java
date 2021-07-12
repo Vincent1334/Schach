@@ -24,9 +24,8 @@ public class NetworkPlayer implements Runnable{
     private boolean isBlack;
     private Thread thread;
 
-    //Server objects
-    private Connection connection;
-    //Client objects
+    //Server and client objects
+    private final Connection CONNECTION;
     //Network objects
     private PrintWriter out;
     private BufferedReader in;
@@ -47,10 +46,10 @@ public class NetworkPlayer implements Runnable{
      * @param IS_SERVER whether the current user started the game
      */
     public NetworkPlayer(int port, String ipAddress, boolean IS_SERVER, boolean isBlack) {
-        connection = new Connection();
-        connection.setPort(port);
-        connection.setIp(ipAddress);
-        connection.setIsServer(IS_SERVER);
+        CONNECTION = new Connection();
+        CONNECTION.setPort(port);
+        CONNECTION.setIp(ipAddress);
+        CONNECTION.setIsServer(IS_SERVER);
         flag = NetworkFlags.Connecting;
         this.isBlack = isBlack;
     }
@@ -70,10 +69,10 @@ public class NetworkPlayer implements Runnable{
      */
     private void initServer(){
         try {
-            connection.setServerSocket(new ServerSocket(connection.getPort()));
-            connection.setClientSocket(connection.getServerSocket().accept());
-            out = new PrintWriter(connection.getClientSocket().getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(connection.getClientSocket().getInputStream()));
+            CONNECTION.setServerSocket(new ServerSocket(CONNECTION.getPort()));
+            CONNECTION.setClientSocket(CONNECTION.getServerSocket().accept());
+            out = new PrintWriter(CONNECTION.getClientSocket().getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(CONNECTION.getClientSocket().getInputStream()));
 
             while(!thread.isInterrupted() && flag == NetworkFlags.Connecting){
                 String input = in.readLine();
@@ -118,9 +117,9 @@ public class NetworkPlayer implements Runnable{
         boolean connect = false;
         while(!connect && !thread.isInterrupted()){
             try{
-                connection.setClientSocket(new Socket(connection.getIp(), connection.getPort()));
-                out = new PrintWriter(connection.getClientSocket().getOutputStream(), true);
-                in = new BufferedReader(new InputStreamReader(connection.getClientSocket().getInputStream()));
+                CONNECTION.setClientSocket(new Socket(CONNECTION.getIp(), CONNECTION.getPort()));
+                out = new PrintWriter(CONNECTION.getClientSocket().getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(CONNECTION.getClientSocket().getInputStream()));
                 out.println("startUR");
                 connect = true;
             }catch (Exception x){
@@ -160,7 +159,7 @@ public class NetworkPlayer implements Runnable{
                         flag = NetworkFlags.SetupTeams;
                         out.println(READY);
                     }
-                    //UPdate GUI
+                    //Update GUI
                     updateGUI();
                 }
             }
@@ -175,7 +174,7 @@ public class NetworkPlayer implements Runnable{
      */
     @Override
     public void run() {
-        if(connection.isServer()){
+        if(CONNECTION.isServer()){
             initServer();
         }else{
             initClient();
@@ -293,10 +292,10 @@ public class NetworkPlayer implements Runnable{
             if(out != null) out.println("exit");
             thread.interrupt();
             Thread.sleep(30);
-            if(connection.getClientSocket() != null) connection.getClientSocket().close();
-            if(connection.getServerSocket() != null) connection.getServerSocket().close();
-            if(out != null) in.close();
-            if(in != null) out.close();
+            if(CONNECTION.getClientSocket() != null) CONNECTION.getClientSocket().close();
+            if(CONNECTION.getServerSocket() != null) CONNECTION.getServerSocket().close();
+            if(in != null) in.close();
+            if(out != null) out.close();
         }catch (Exception x){
             x.printStackTrace();
         }

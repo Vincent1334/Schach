@@ -33,8 +33,6 @@ public class BishopTest {
         assertTrue(whiteBishop.validMove(new Position(7,7), new Position(0,0), board), "!white bishop can't move to the bottom left correctly");
         assertTrue(whiteBishop.validMove(new Position(7,0), new Position(0,7), board), "!white bishop can't move to the upper left correctly");
         assertTrue(whiteBishop.validMove(new Position(0,7), new Position(7,0), board), "!white bishop can't move to the bottom right correctly");
-
-        //assertFalse(whiteBishop.validMove(new Position(0,0), new Position(0,0), board), "!white bishop can stay in the same place for a move");
     }
 
     /**

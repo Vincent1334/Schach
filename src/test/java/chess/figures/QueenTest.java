@@ -30,9 +30,6 @@ public class QueenTest {
         assertTrue(whiteQueen.validMove(new Position(0, 2), new Position(5, 2), board), "!white queen can't move horizontal");
 
         assertTrue(whiteQueen.validMove(new Position(2, 2), new Position(5, 5), board), "!white queen can't move diagonal");
-
-       // assertFalse(whiteQueen.validMove(new Position(0, 2), new Position(0, 2), board), "!white queen can stay in the same place for a move");
-
     }
 
     /**
@@ -46,9 +43,6 @@ public class QueenTest {
         assertTrue(blackQueen.validMove(new Position(0, 2), new Position(5, 2), board), "!black queen can't move horizontal");
 
         assertTrue(blackQueen.validMove(new Position(2, 2), new Position(5, 5), board), "!black queen can't move diagonal");
-
-       // assertFalse(blackQueen.validMove(new Position(0, 2), new Position(0, 2), board), "!black queen can stay in the same place for a move");
-
     }
 
     /**
@@ -107,14 +101,6 @@ public class QueenTest {
 
     }
 
-    /**
-     * Tests if the right symbol for the queens is used
-     */
-    /*@Test
-    public void testGetSymbol() {
-        assertEquals('\u265B',whiteQueen.getSymbol(), "!wrong Symbol for white queen");
-        assertEquals('\u2655',blackQueen.getSymbol(), "!wrong Symbol for black queen");
-    }*/
     /**
      * Tests if the right symbol for the queens is used
      */

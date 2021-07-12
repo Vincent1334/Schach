@@ -21,11 +21,11 @@ import java.util.*;
 public class LanguageManager {
 
     private static int index = 0;
-    private static List<Locale> locale = new ArrayList<>(Arrays.asList(new Locale("en", "US"),
+    private static final List<Locale> LOCALE = new ArrayList<>(Arrays.asList(new Locale("en", "US"),
                                                                              new Locale("de", "DE"),
                                                                              new Locale("fr", "FR")));
 
-    private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", locale.get(index));
+    private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", LOCALE.get(index));
     private static ResourceBundle oldLanguage;
     private final static String LANGUAGE = "language";
     private final static String NETWORKSTAGE = "NetworkStage";
@@ -43,7 +43,7 @@ public class LanguageManager {
         }
 
         oldLanguage = messages;
-        messages = ResourceBundle.getBundle("/languages/MessagesBundle", locale.get(index));
+        messages = ResourceBundle.getBundle("/languages/MessagesBundle", LOCALE.get(index));
 
         updateLanguageGameStage();
         updateLanguageMenuStage();

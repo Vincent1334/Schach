@@ -43,7 +43,7 @@ public class NetworkPlayerTest {
         Thread.sleep(500);
 
 
-        assertEquals(testMove.toString(), ((Move) client.getNetworkOutput()).toString());
+        assertEquals(testMove.toString(), client.getNetworkOutput().toString());
 
         //kill Network
         client.killNetwork();
@@ -78,7 +78,7 @@ public class NetworkPlayerTest {
 
         Thread.sleep(500);
 
-        assertEquals(testMove.toString(), ((Move) server.getNetworkOutput()).toString());
+        assertEquals(testMove.toString(), server.getNetworkOutput().toString());
 
         //Check UndoRedo
         client.sendUndoRedo(2);

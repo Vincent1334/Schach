@@ -1,8 +1,5 @@
 package propositional;
 
-//import org.junit.jupiter.api.Test;
-//import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * This class contains printer tests
  *

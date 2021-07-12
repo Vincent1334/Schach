@@ -1,6 +1,5 @@
 package chess.figures;
 
-import chess.controller.CoreGame;
 import chess.model.Board;
 import chess.model.Position;
 import org.junit.jupiter.api.Test;
@@ -15,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class PawnTest {
 
-    //CoreGame game = new CoreGame(0);
-    CoreGame game = new CoreGame();
     Board board = new Board();
     Figure pawnWhite = new Pawn(false);
     Figure pawnBlack = new Pawn(true);

@@ -97,7 +97,7 @@ public class Computer implements Runnable{
 
     @Override
     public void run(){
-        if(!thread.isInterrupted()) max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new CutOff(new ArrayList<Move>(), null));
+        if(!thread.isInterrupted()) max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new CutOff(new ArrayList<>(), null));
         if(gui != null && !thread.isInterrupted()) gui.computerOrNetworkIsFinish();
     }
 
@@ -117,18 +117,18 @@ public class Computer implements Runnable{
      */
     private float max(int depth, float alpha, float beta, CutOff ParentCutOff){
         if(thread.isInterrupted()) return 0;
-        if(depth == 0) return heuristic(board, ParentCutOff.getLastMove());
+        if(depth == 0) return heuristic(board, ParentCutOff.getLASTMOVE());
         float maxValue = alpha;
 
         //generate possible moves
         List<Move> possibleMove = generatePossibleMove(PLAYER_MAX);
-        sortMove(possibleMove, ParentCutOff.getParentCutOff());
+        sortMove(possibleMove, ParentCutOff.getPARENT_CUT_OFF());
 
         //Game over?
         if (possibleMove.size() == 0) return Float.NEGATIVE_INFINITY;
 
         //create CutOff
-        ArrayList<Move> cutOff = new ArrayList<Move>();
+        ArrayList<Move> cutOff = new ArrayList<>();
 
         Board tmpBoard = new Board(board);
         for (Move move : possibleMove) {
@@ -141,7 +141,7 @@ public class Computer implements Runnable{
                     bestMove = move;
                 }
                 if (maxValue >= beta) {
-                    ParentCutOff.getParentCutOff().add(move);
+                    ParentCutOff.getPARENT_CUT_OFF().add(move);
                     break;
                 }
             }
@@ -161,12 +161,12 @@ public class Computer implements Runnable{
      */
     private float min(int depth, float alpha, float beta, CutOff ParentCutOff){
         if(thread.isInterrupted()) return 0;
-        if(depth == 0) return heuristic(board, ParentCutOff.getLastMove());
+        if(depth == 0) return heuristic(board, ParentCutOff.getLASTMOVE());
         float minValue = beta;
 
         //create Possible Moves
         List<Move> possibleMove = generatePossibleMove(PLAYER_MIN);
-        sortMove(possibleMove, ParentCutOff.getParentCutOff());
+        sortMove(possibleMove, ParentCutOff.getPARENT_CUT_OFF());
 
         //Game over?
         if (possibleMove.size() == 0){
@@ -177,7 +177,7 @@ public class Computer implements Runnable{
         }
 
         //create CutOff
-        List<Move> cutOff = new ArrayList<Move>();
+        List<Move> cutOff = new ArrayList<>();
 
         Board tmpBoard = new Board(board);
         for (Move move : possibleMove) {
@@ -187,7 +187,7 @@ public class Computer implements Runnable{
             if (value < minValue) {
                 minValue = value;
                 if (minValue <= alpha) {
-                    ParentCutOff.getParentCutOff().add(move);
+                    ParentCutOff.getPARENT_CUT_OFF().add(move);
                     break;
                 }
             }
@@ -301,7 +301,7 @@ public class Computer implements Runnable{
      */
      private List<Move> generatePossibleMove(boolean player){
          //generate possible moves
-         List<Move> possibleMove = new ArrayList<Move>();
+         List<Move> possibleMove = new ArrayList<>();
          for(int y = 0; y < 8; y++){
              for(int x = 0; x < 8; x++){
                  if(board.getFigure(x, y).isBlack() == player && !(board.getFigure(x, y) instanceof None)){

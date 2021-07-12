@@ -27,8 +27,6 @@ public class KingTest {
         assertTrue(whiteKing.validMove(new Position(4, 3), new Position(4, 4), board), "!white king can't move one field vertical correctly");
 
         assertTrue(whiteKing.validMove(new Position(4, 3), new Position(5, 4), board), "!white king can't move one field horizontal correctly");
-
-        //assertFalse(whiteKing.validMove(new Position(4, 0), new Position(4, 0), board), "!white king can stay in the same place for a move");
     }
 
     /**
@@ -40,8 +38,6 @@ public class KingTest {
         assertTrue(blackKing.validMove(new Position(4, 3), new Position(4, 4), board), "!black king can't move one field vertical correctly");
 
         assertTrue(blackKing.validMove(new Position(4, 3), new Position(5, 4), board), "!black king can't move one field horizontal correctly");
-
-       // assertFalse(blackKing.validMove(new Position(4, 7), new Position(4 ,7), board), "!black king can stay in the same place for a move");
     }
 
     /**
@@ -100,12 +96,6 @@ public class KingTest {
 
     }
 
-
-    /*@Test
-    public void testGetSymbol() {
-        assertEquals('\u265A',whiteKing.getSymbol(), "!wrong Symbol for white King");
-        assertEquals('\u2654',blackKing.getSymbol(), "!wrong Symbol for black King");
-    }*/
     /**
      * Tests if the right symbol for the kings is used
      */
