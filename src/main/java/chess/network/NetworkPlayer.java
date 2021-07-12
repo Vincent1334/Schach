@@ -111,17 +111,30 @@ public class NetworkPlayer implements Runnable{
         }
     }
 
+    /**
+     * Try to connect to a server
+     */
+    private void startClientConnection(){
+        boolean connect = false;
+        while(!connect && !thread.isInterrupted()){
+            try{
+                connection.setClientSocket(new Socket(connection.getIp(), connection.getPort()));
+                out = new PrintWriter(connection.getClientSocket().getOutputStream(), true);
+                in = new BufferedReader(new InputStreamReader(connection.getClientSocket().getInputStream()));
+                out.println("startUR");
+                connect = true;
+            }catch (Exception x){
+                connect = false;
+            }
+        }
+    }
 
     /**
      * initializes the client
      */
     private void initClient(){
+       startClientConnection();
         try {
-            connection.setClientSocket(new Socket(connection.getIp(), connection.getPort()));
-            out = new PrintWriter(connection.getClientSocket().getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(connection.getClientSocket().getInputStream()));
-            out.println("startUR");
-
             while(!thread.isInterrupted() && flag == NetworkFlags.Connecting){
                 String input = in.readLine();
                 if(input != null){
@@ -277,41 +290,15 @@ public class NetworkPlayer implements Runnable{
      */
     public void killNetwork(){
         try{
-            out.println("exit");
+            if(out != null) out.println("exit");
             thread.interrupt();
             Thread.sleep(30);
-            connection.getClientSocket().close();
+            if(connection.getClientSocket() != null) connection.getClientSocket().close();
             if(connection.getServerSocket() != null) connection.getServerSocket().close();
-            in.close();
-            out.close();
+            if(out != null) in.close();
+            if(in != null) out.close();
         }catch (Exception x){
             x.printStackTrace();
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -170,7 +170,7 @@ public class Computer implements Runnable{
 
         //Game over?
         if (possibleMove.size() == 0){
-            if(board.isCheckMateFlag(true)){
+            if(board.isCheckMateFlag(PLAYER_MIN)){
                 return Float.POSITIVE_INFINITY;
             }
             return Float.NEGATIVE_INFINITY;

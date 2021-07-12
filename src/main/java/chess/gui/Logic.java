@@ -29,7 +29,8 @@ public class Logic implements Runnable {
     private final GameMode GAME_MODE;
     private NetworkPlayer network;
     private boolean playerBlack;
-    private final String WAITING = "network_waiting_label";
+    private final String WAITING_NETWORK = "network_player_waiting_label";
+
 
     /**
      * initializes gameMode, coreGame, computer, beatenFigureList and conversion
@@ -51,7 +52,7 @@ public class Logic implements Runnable {
             }
         }
         if (GAME_MODE == GameMode.NETWORK) {
-            setNotification(true, LanguageManager.getText(WAITING));
+            setNotification(true, LanguageManager.getText("network_waiting_label"));
             this.network = networkPlayer;
             this.network.initNetworkPlayer(this);
             CONTROLLER.getRotate().setDisable(true);
@@ -118,7 +119,7 @@ public class Logic implements Runnable {
             }
             if (GAME_MODE == GameMode.NETWORK) {
                 network.sendMove(move);
-                setNotification(true, LanguageManager.getText(WAITING));
+                setNotification(true, LanguageManager.getText(WAITING_NETWORK));
             }
         } else if (CONTROLLER.getTouchMove().isSelected() && !CONTROLLER.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
             CONTROLLER.setMark(startField, true, coreGame.getCurrentBoard());
@@ -166,7 +167,7 @@ public class Logic implements Runnable {
         }
         if (GAME_MODE == GameMode.NETWORK) {
             if(network.getFlag() == NetworkFlags.Connecting){
-                setNotification(true, LanguageManager.getText(WAITING));
+                setNotification(true, LanguageManager.getText("network_waiting_label"));
             }else if(network.getFlag() == NetworkFlags.SetupTeams){
                 networkSetupTeams();
             }else if(network.getFlag() == NetworkFlags.Move){
@@ -185,7 +186,7 @@ public class Logic implements Runnable {
     private void networkSetupTeams(){
         playerBlack = network.isNetworkPlayerBlack();
         if(network.isNetworkPlayerBlack()){
-            setNotification(true, LanguageManager.getText(WAITING));
+            setNotification(true, LanguageManager.getText(WAITING_NETWORK));
             CONTROLLER.getBoard().setRotate(180);
             turnFigures(180);
         }else{
@@ -216,7 +217,7 @@ public class Logic implements Runnable {
         if(coreGame.isActivePlayerBlack() && network.isNetworkPlayerBlack()){
             setNotification(false, "");
         }else{
-            setNotification(true, LanguageManager.getText(WAITING));
+            setNotification(true, LanguageManager.getText(WAITING_NETWORK));
         }
         CONTROLLER.getScene().updateScene();
         network.setFlag(NetworkFlags.InGame);
