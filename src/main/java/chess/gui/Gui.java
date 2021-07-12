@@ -14,6 +14,7 @@ public class Gui extends Application {
 
     /**
      * opens the menu
+     *
      * @param primaryStage the stage on which the menu should be opened
      * @throws Exception contains exception type
      */
@@ -25,6 +26,7 @@ public class Gui extends Application {
 
     /**
      * The entry point of the GUI application.
+     *
      * @param args The command line arguments passed to the application
      */
     public static void main(String[] args) {
@@ -32,7 +34,7 @@ public class Gui extends Application {
     }
 
     @Override
-    public void stop(){
+    public void stop() {
         System.exit(0);
     }
 }

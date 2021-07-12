@@ -2,7 +2,6 @@ package chess.managers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -92,6 +91,7 @@ public class WindowManager {
 
     /**
      * Returns controller object
+     *
      * @param key keyword
      * @return controller
      */
@@ -101,6 +101,7 @@ public class WindowManager {
 
     /**
      * Returns a stage
+     *
      * @param key keyword
      * @return Stage
      */

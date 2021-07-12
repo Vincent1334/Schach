@@ -5,6 +5,7 @@ import chess.gui.Logic;
 import chess.managers.LanguageManager;
 import chess.model.Move;
 import chess.model.Parser;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +19,7 @@ import java.net.Socket;
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-06-28
  */
-public class NetworkPlayer implements Runnable{
+public class NetworkPlayer implements Runnable {
 
     private Logic gui;
     private boolean isBlack;
@@ -40,8 +41,8 @@ public class NetworkPlayer implements Runnable{
     /**
      * NetworkPlayer constructor (Server)
      *
-     * @param port    Server port
-     * @param isBlack client team
+     * @param port      Server port
+     * @param isBlack   client team
      * @param ipAddress the ip address of the network player
      * @param IS_SERVER whether the current user started the game
      */
@@ -56,9 +57,10 @@ public class NetworkPlayer implements Runnable{
 
     /**
      * initializes the network
+     *
      * @param gui the gui of the game
      */
-    public void initNetworkPlayer(Logic gui){
+    public void initNetworkPlayer(Logic gui) {
         this.gui = gui;
         thread = new Thread(this);
         thread.start();
@@ -67,16 +69,16 @@ public class NetworkPlayer implements Runnable{
     /**
      * initializes the server
      */
-    private void initServer(){
+    private void initServer() {
         try {
             CONNECTION.setServerSocket(new ServerSocket(CONNECTION.getPort()));
             CONNECTION.setClientSocket(CONNECTION.getServerSocket().accept());
             out = new PrintWriter(CONNECTION.getClientSocket().getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(CONNECTION.getClientSocket().getInputStream()));
 
-            while(!thread.isInterrupted() && flag == NetworkFlags.Connecting){
+            while (!thread.isInterrupted() && flag == NetworkFlags.Connecting) {
                 String input = in.readLine();
-                if(input != null){
+                if (input != null) {
                     interpretServerInput(input);
                 }
                 //Update gui
@@ -89,23 +91,24 @@ public class NetworkPlayer implements Runnable{
 
     /**
      * interprets server input
+     *
      * @param input ,input which should be interpreted
      */
-    private void interpretServerInput(String input){
+    private void interpretServerInput(String input) {
         //Game without UndoRedo
-        if(input.equals("start")){
+        if (input.equals("start")) {
             gui.disableUndoRedo();
             flag = NetworkFlags.SetupTeams;
             out.println(isBlack ? WHITE : BLACK);
             System.out.println("Server: " + (isBlack ? BLACK : WHITE));
         }
         //Game with undo Redo
-        if(input.equals("startUR")){
+        if (input.equals("startUR")) {
             flag = NetworkFlags.SetupTeams;
             out.println(isBlack ? "whiteUR" : "blackUR");
             System.out.println("Server: " + (isBlack ? BLACK : WHITE));
         }
-        if(input.equals(READY)){
+        if (input.equals(READY)) {
             flag = NetworkFlags.InGame;
         }
     }
@@ -113,16 +116,16 @@ public class NetworkPlayer implements Runnable{
     /**
      * Try to connect to a server
      */
-    private void startClientConnection(){
+    private void startClientConnection() {
         boolean connect = false;
-        while(!connect && !thread.isInterrupted()){
-            try{
+        while (!connect && !thread.isInterrupted()) {
+            try {
                 CONNECTION.setClientSocket(new Socket(CONNECTION.getIp(), CONNECTION.getPort()));
                 out = new PrintWriter(CONNECTION.getClientSocket().getOutputStream(), true);
                 in = new BufferedReader(new InputStreamReader(CONNECTION.getClientSocket().getInputStream()));
                 out.println("startUR");
                 connect = true;
-            }catch (Exception x){
+            } catch (Exception x) {
                 connect = false;
             }
         }
@@ -131,12 +134,12 @@ public class NetworkPlayer implements Runnable{
     /**
      * initializes the client
      */
-    private void initClient(){
-       startClientConnection();
+    private void initClient() {
+        startClientConnection();
         try {
-            while(!thread.isInterrupted() && flag == NetworkFlags.Connecting){
+            while (!thread.isInterrupted() && flag == NetworkFlags.Connecting) {
                 String input = in.readLine();
-                if(input != null){
+                if (input != null) {
                     if (input.equals(WHITE)) {
                         isBlack = false;
                         flag = NetworkFlags.SetupTeams;
@@ -174,36 +177,36 @@ public class NetworkPlayer implements Runnable{
      */
     @Override
     public void run() {
-        if(CONNECTION.isServer()){
+        if (CONNECTION.isServer()) {
             initServer();
-        }else{
+        } else {
             initClient();
         }
-        while(!thread.isInterrupted()){
-            try{
+        while (!thread.isInterrupted()) {
+            try {
                 String input = in.readLine();
-                if(input != null){
+                if (input != null) {
                     //Move
-                    if(input.length() > 3 && input.charAt(2) == 45){
+                    if (input.length() > 3 && input.charAt(2) == 45) {
                         //get Move message
                         networkOutput = Parser.parse(input);
                         flag = NetworkFlags.Move;
                         updateGUI();
                     }
                     //UndoRedo
-                    if(isNumeric(input)){
+                    if (isNumeric(input)) {
                         //update undoRedo
                         networkOutput = Integer.parseInt(input);
                         flag = NetworkFlags.UndoRedo;
                         updateGUI();
                     }
                     //Exit
-                    if(input.equals("exit")){
+                    if (input.equals("exit")) {
                         flag = NetworkFlags.Exit;
                         updateGUI();
                     }
                 }
-            }catch (Exception x){
+            } catch (Exception x) {
                 System.out.println("lost connection!");
             }
         }
@@ -212,12 +215,13 @@ public class NetworkPlayer implements Runnable{
     /**
      * updates the gui
      */
-    private void updateGUI(){
-        if(gui != null) gui.computerOrNetworkIsFinish();
+    private void updateGUI() {
+        if (gui != null) gui.computerOrNetworkIsFinish();
     }
 
     /**
      * Test if str is a number
+     *
      * @param str the string you want to test
      * @return true, if str is a number
      */
@@ -225,78 +229,84 @@ public class NetworkPlayer implements Runnable{
         try {
             Integer.parseInt(str);
             return true;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }
 
     /**
      * sends a move
+     *
      * @param move the move you want to send
      */
-    public void sendMove(Move move){
+    public void sendMove(Move move) {
         out.println(move.toString());
     }
 
     /**
      * send undo/redo
+     *
      * @param pointer the index of the move you want to go back
      */
-    public void sendUndoRedo(int pointer){
+    public void sendUndoRedo(int pointer) {
         out.println(pointer);
-        if(pointer%2 == 0 && !isBlack || pointer%2 != 0 && isBlack){
-            if(gui != null) gui.setNotification(true, LanguageManager.getText("network_player_waiting_label"));
-        }else{
-            if(gui != null) gui.setNotification(false, "");
+        if (pointer % 2 == 0 && !isBlack || pointer % 2 != 0 && isBlack) {
+            if (gui != null) gui.setNotification(true, LanguageManager.getText("network_player_waiting_label"));
+        } else {
+            if (gui != null) gui.setNotification(false, "");
         }
-        if(gui != null) gui.getController().getScene().updateScene();
+        if (gui != null) gui.getController().getScene().updateScene();
     }
 
     /**
      * the output of the network
+     *
      * @return network output
      */
-    public Object getNetworkOutput(){
+    public Object getNetworkOutput() {
         return networkOutput;
     }
 
     /**
      * returns the network flag
+     *
      * @return flag
      */
-    public NetworkFlags getFlag(){
+    public NetworkFlags getFlag() {
         return flag;
     }
 
     /**
      * sets the network flag
+     *
      * @param flag the flag you want to set
      */
-    public void setFlag(NetworkFlags flag){
+    public void setFlag(NetworkFlags flag) {
         this.flag = flag;
     }
 
     /**
      * returns, if the networkplayer is black
+     *
      * @return true, if the networkplayer is black
      */
-    public boolean isNetworkPlayerBlack(){
+    public boolean isNetworkPlayerBlack() {
         return isBlack;
     }
 
     /**
      * terminates the network
      */
-    public void killNetwork(){
-        try{
-            if(out != null) out.println("exit");
+    public void killNetwork() {
+        try {
+            if (out != null) out.println("exit");
             thread.interrupt();
             Thread.sleep(30);
-            if(CONNECTION.getClientSocket() != null) CONNECTION.getClientSocket().close();
-            if(CONNECTION.getServerSocket() != null) CONNECTION.getServerSocket().close();
-            if(in != null) in.close();
-            if(out != null) out.close();
-        }catch (Exception x){
+            if (CONNECTION.getClientSocket() != null) CONNECTION.getClientSocket().close();
+            if (CONNECTION.getServerSocket() != null) CONNECTION.getServerSocket().close();
+            if (in != null) in.close();
+            if (out != null) out.close();
+        } catch (Exception x) {
             x.printStackTrace();
         }
     }

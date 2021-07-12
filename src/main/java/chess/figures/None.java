@@ -24,7 +24,7 @@ public class None extends Figure {
      *
      * @param sourceClass the None you want to clone
      */
-    public None(None sourceClass){
+    public None(None sourceClass) {
         super(sourceClass.blackTeam);
         super.setAlreadyMoved(sourceClass.isAlreadyMoved());
         super.figureID = 0;

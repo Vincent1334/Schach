@@ -13,7 +13,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import static javafx.scene.paint.Color.*;
+import static javafx.scene.paint.Color.BLACK;
+import static javafx.scene.paint.Color.valueOf;
 
 /**
  * This class contains information about the network menu, it´s structure and functions
@@ -69,6 +70,7 @@ public class NetworkMenu {
 
     /**
      * marks the clicked player color
+     *
      * @param event the mouseEvent
      */
     @FXML
@@ -119,6 +121,7 @@ public class NetworkMenu {
 
     /**
      * switches the language of the gui elements
+     *
      * @param event the mouse event, used to know which flag was clicked
      */
     @FXML
@@ -126,8 +129,9 @@ public class NetworkMenu {
         //the url of the clicked image
         String url = ((ImageView) event.getTarget()).getImage().getUrl();
         //sets the language after the name of the image
-        LanguageManager.setLanguage(url.substring(url.length()-6,url.length()-4));
+        LanguageManager.setLanguage(url.substring(url.length() - 6, url.length() - 4));
     }
+
     private Text getTextColor() {
         return (Text) menu.getChildren().get(7);
     }

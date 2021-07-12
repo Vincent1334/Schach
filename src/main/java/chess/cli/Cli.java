@@ -1,8 +1,8 @@
 package chess.cli;
 
-import chess.enums.GameMode;
-import chess.controller.CoreGame;
 import chess.ai.Computer;
+import chess.controller.CoreGame;
+import chess.enums.GameMode;
 import chess.managers.LanguageManager;
 import chess.model.Board;
 import chess.model.Parser;
@@ -61,7 +61,7 @@ public class Cli {
      * the start loop
      * (main menu with options to choose the gamemode and language)
      */
-    public static void startLoop(){
+    public static void startLoop() {
         do {
             System.out.println(" ");
             System.out.println(" ██████╗██╗  ██╗███████╗███████╗███████╗");
@@ -82,7 +82,7 @@ public class Cli {
                 gameMode2 = input.charAt(0) == 49 ? GameMode.NORMAL : GameMode.COMPUTER;
                 coreGame = new CoreGame();
                 break;
-            }else if (input.equals("de")||input.equals("fr")||input.equals("en")){
+            } else if (input.equals("de") || input.equals("fr") || input.equals("en")) {
                 LanguageManager.setLanguage(input);
             }
         } while (true);
@@ -135,7 +135,7 @@ public class Cli {
             }
             return true;
         }
-        if (input.equals("de")||input.equals("fr")||input.equals("en")){
+        if (input.equals("de") || input.equals("fr") || input.equals("en")) {
             LanguageManager.setLanguage(input);
         }
 

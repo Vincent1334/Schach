@@ -29,9 +29,9 @@ public class Promotion {
     /**
      * initializes the promotion
      *
-     * @param startPosition the start position
+     * @param startPosition  the start position
      * @param targetPosition the target position
-     * @param logic the logic
+     * @param logic          the logic
      */
     protected void init(Position startPosition, Position targetPosition, Logic logic) {
         this.startPosition = startPosition;
@@ -66,6 +66,7 @@ public class Promotion {
 
     /**
      * switches the language of the gui elements
+     *
      * @param event the mouse event, used to know which flag was clicked
      */
     @FXML
@@ -73,6 +74,6 @@ public class Promotion {
         //the url of the clicked image
         String url = ((ImageView) event.getTarget()).getImage().getUrl();
         //sets the language after the name of the image
-        LanguageManager.setLanguage(url.substring(url.length()-6,url.length()-4));
+        LanguageManager.setLanguage(url.substring(url.length() - 6, url.length() - 4));
     }
 }

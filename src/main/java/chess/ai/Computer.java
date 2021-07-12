@@ -6,6 +6,7 @@ import chess.model.Board;
 import chess.model.Move;
 import chess.model.Position;
 import chess.model.Rules;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * 2021-06-01
  */
 
-public class Computer implements Runnable{
+public class Computer implements Runnable {
 
     //System
     private Thread thread;
@@ -32,7 +33,7 @@ public class Computer implements Runnable{
     private Move bestMove, lastMove;
 
     /**
-     *the constructor of the computer for the CLI game
+     * the constructor of the computer for the CLI game
      *
      * @param isBlack color of the player
      */
@@ -53,9 +54,9 @@ public class Computer implements Runnable{
      * The constructor of the computer for the GUI game
      *
      * @param isBlack color of the player
-     * @param gui the graphical user interface
+     * @param gui     the graphical user interface
      */
-    public Computer(boolean isBlack, Logic gui){
+    public Computer(boolean isBlack, Logic gui) {
         //setup Player
         this.PLAYER_MAX = isBlack;
         this.PLAYER_MIN = !isBlack;
@@ -88,7 +89,7 @@ public class Computer implements Runnable{
      *
      * @return the best move
      */
-    public Move getMove(){
+    public Move getMove() {
         lastMove = new Move(bestMove.getACTUAL_POSITION(), bestMove.getTARGET_POSITION());
         lastMove.setActualFigure(bestMove.getActualFigure());
         lastMove.setTargetFigure(bestMove.getTargetFigure());
@@ -96,9 +97,10 @@ public class Computer implements Runnable{
     }
 
     @Override
-    public void run(){
-        if(!thread.isInterrupted()) max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new CutOff(new ArrayList<>(), null));
-        if(gui != null && !thread.isInterrupted()) gui.computerOrNetworkIsFinish();
+    public void run() {
+        if (!thread.isInterrupted())
+            max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new CutOff(new ArrayList<>(), null));
+        if (gui != null && !thread.isInterrupted()) gui.computerOrNetworkIsFinish();
     }
 
     /*
@@ -109,15 +111,15 @@ public class Computer implements Runnable{
     /**
      * calculates the max values of the search tree
      *
-     * @param depth depth of the search tree
-     * @param alpha alpha value
-     * @param beta beta value
+     * @param depth        depth of the search tree
+     * @param alpha        alpha value
+     * @param beta         beta value
      * @param ParentCutOff the parent cut off
      * @return maxValue
      */
-    private float max(int depth, float alpha, float beta, CutOff ParentCutOff){
-        if(thread.isInterrupted()) return 0;
-        if(depth == 0) return heuristic(board, ParentCutOff.getLASTMOVE());
+    private float max(int depth, float alpha, float beta, CutOff ParentCutOff) {
+        if (thread.isInterrupted()) return 0;
+        if (depth == 0) return heuristic(board, ParentCutOff.getLASTMOVE());
         float maxValue = alpha;
 
         //generate possible moves
@@ -153,15 +155,15 @@ public class Computer implements Runnable{
     /**
      * calculates the min values of the search tree
      *
-     * @param depth depth of the search tree
-     * @param alpha alpha value
-     * @param beta beta value
+     * @param depth        depth of the search tree
+     * @param alpha        alpha value
+     * @param beta         beta value
      * @param ParentCutOff the parent cut off
      * @return minValue
      */
-    private float min(int depth, float alpha, float beta, CutOff ParentCutOff){
-        if(thread.isInterrupted()) return 0;
-        if(depth == 0) return heuristic(board, ParentCutOff.getLASTMOVE());
+    private float min(int depth, float alpha, float beta, CutOff ParentCutOff) {
+        if (thread.isInterrupted()) return 0;
+        if (depth == 0) return heuristic(board, ParentCutOff.getLASTMOVE());
         float minValue = beta;
 
         //create Possible Moves
@@ -169,8 +171,8 @@ public class Computer implements Runnable{
         sortMove(possibleMove, ParentCutOff.getPARENT_CUT_OFF());
 
         //Game over?
-        if (possibleMove.size() == 0){
-            if(board.isCheckMateFlag(PLAYER_MIN)){
+        if (possibleMove.size() == 0) {
+            if (board.isCheckMateFlag(PLAYER_MIN)) {
                 return Float.POSITIVE_INFINITY;
             }
             return Float.NEGATIVE_INFINITY;
@@ -200,16 +202,17 @@ public class Computer implements Runnable{
     /**
      * Interrupt the computer thread
      */
-    public void killComputer(){
+    public void killComputer() {
         thread.interrupt();
         gui.setNotification(false, "");
     }
 
     /**
      * Check if the computer is calculationg
+     *
      * @return true when the computer is calculating
      */
-    public boolean isAlive(){
+    public boolean isAlive() {
         return thread.isAlive();
     }
 
@@ -235,11 +238,11 @@ public class Computer implements Runnable{
 
         float score = 0;
 
-        for(int y = 0; y < 8; y++){
-            for(int x = 0; x < 8; x++){
-                if(!(board.getFigure(x, y) instanceof None)){
-                    material[board.getFigure(x, y).isBlack() ? 1 : 0][board.getFigure(x, y).getFigureID()-1] ++;
-                    fieldScore[board.getFigure(x, y).isBlack() ? 1 : 0][board.getFigure(x, y).getFigureID()-1] += PieceSquareTable.getTable(board.getFigure(x, y).getFigureID(), isEndGame)[board.getFigure(x, y).isBlack() ?  7-x : x][board.getFigure(x, y).isBlack() ? 7-y : y];
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if (!(board.getFigure(x, y) instanceof None)) {
+                    material[board.getFigure(x, y).isBlack() ? 1 : 0][board.getFigure(x, y).getFigureID() - 1]++;
+                    fieldScore[board.getFigure(x, y).isBlack() ? 1 : 0][board.getFigure(x, y).getFigureID() - 1] += PieceSquareTable.getTable(board.getFigure(x, y).getFigureID(), isEndGame)[board.getFigure(x, y).isBlack() ? 7 - x : x][board.getFigure(x, y).isBlack() ? 7 - y : y];
                 }
             }
         }
@@ -264,8 +267,8 @@ public class Computer implements Runnable{
     /**
      * increases the search depth
      */
-    private void changeDepth(){
-        if(board.getBeatenFigures().size() % 15 == 0 && board.getBeatenFigures().size() != 0){
+    private void changeDepth() {
+        if (board.getBeatenFigures().size() % 15 == 0 && board.getBeatenFigures().size() != 0) {
             targetDepth = targetDepth + targetDepth / 4;
         }
     }
@@ -277,10 +280,10 @@ public class Computer implements Runnable{
     /**
      * pre-sorts the moves
      *
-     * @param moves list of possible moves
+     * @param moves  list of possible moves
      * @param cutOff list of cutoff moves
      */
-    private void sortMove(List<Move> moves, List<Move> cutOff){
+    private void sortMove(List<Move> moves, List<Move> cutOff) {
         for (Move move : cutOff) {
             if (moves.contains(move)) {
                 moves.remove(move);
@@ -299,24 +302,24 @@ public class Computer implements Runnable{
      * @param player the checked team
      * @return list of possible moves
      */
-     private List<Move> generatePossibleMove(boolean player){
-         //generate possible moves
-         List<Move> possibleMove = new ArrayList<>();
-         for(int y = 0; y < 8; y++){
-             for(int x = 0; x < 8; x++){
-                 if(board.getFigure(x, y).isBlack() == player && !(board.getFigure(x, y) instanceof None)){
-                     List<Position> tmpPos = Rules.possibleTargetFields(new Position(x, y), board);
-                     for (Position tmpPo : tmpPos) {
-                         Move move = new Move(new Position(x, y), tmpPo);
-                         move.setActualFigure(board.getFigure(x, y));
-                         move.setTargetFigure(board.getFigure(tmpPo));
-                         possibleMove.add(move);
-                     }
-                 }
-             }
-         }
-         return possibleMove;
-     }
+    private List<Move> generatePossibleMove(boolean player) {
+        //generate possible moves
+        List<Move> possibleMove = new ArrayList<>();
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if (board.getFigure(x, y).isBlack() == player && !(board.getFigure(x, y) instanceof None)) {
+                    List<Position> tmpPos = Rules.possibleTargetFields(new Position(x, y), board);
+                    for (Position tmpPo : tmpPos) {
+                        Move move = new Move(new Position(x, y), tmpPo);
+                        move.setActualFigure(board.getFigure(x, y));
+                        move.setTargetFigure(board.getFigure(tmpPo));
+                        possibleMove.add(move);
+                    }
+                }
+            }
+        }
+        return possibleMove;
+    }
 
 
     /**
@@ -324,9 +327,9 @@ public class Computer implements Runnable{
      *
      * @param actualPos the actual position
      * @param targetPos the target position
-     * @param tmpBoard copy-board
+     * @param tmpBoard  copy-board
      */
-    private void performMove(Position actualPos, Position targetPos, Board tmpBoard){
+    private void performMove(Position actualPos, Position targetPos, Board tmpBoard) {
         if (Rules.checkEnPassant(actualPos, targetPos, tmpBoard)) {
             Rules.performEnPassantMove(actualPos, targetPos, tmpBoard);
             updateCheckFlags(tmpBoard);
@@ -354,7 +357,7 @@ public class Computer implements Runnable{
      *
      * @param tmpBoard the temporary board
      */
-    private void updateCheckFlags(Board tmpBoard){
+    private void updateCheckFlags(Board tmpBoard) {
         //Check check and set Flags
         Board.kingInCheck(tmpBoard, PLAYER_MAX);
         Board.kingInCheck(tmpBoard, PLAYER_MIN);
@@ -365,15 +368,16 @@ public class Computer implements Runnable{
      *
      * @return thread
      */
-    public Thread getThread(){
+    public Thread getThread() {
         return this.thread;
     }
 
     /**
      * Computer team
+     *
      * @return true when computer is black
      */
-    public boolean isBlack(){
+    public boolean isBlack() {
         return PLAYER_MAX;
     }
 }

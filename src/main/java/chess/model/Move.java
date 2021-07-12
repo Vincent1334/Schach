@@ -80,33 +80,37 @@ public class Move {
 
     /**
      * Set the used figure
+     *
      * @param figure the figure
      */
-    public void setActualFigure(Figure figure){
+    public void setActualFigure(Figure figure) {
         this.actualFigure = figure;
     }
 
     /**
      * Set the target figure
+     *
      * @param figure the figure
      */
-    public void setTargetFigure(Figure figure){
+    public void setTargetFigure(Figure figure) {
         this.targetFigure = figure;
     }
 
     /**
      * returns the used figure
+     *
      * @return the figure
      */
-    public Figure getActualFigure(){
+    public Figure getActualFigure() {
         return this.actualFigure;
     }
 
     /**
      * returns the target figure
+     *
      * @return the figure
      */
-    public Figure getTargetFigure(){
+    public Figure getTargetFigure() {
         return this.targetFigure;
     }
 
@@ -141,7 +145,7 @@ public class Move {
      * @return Letter of the figure you want the pawn to convert to
      */
     public String getConversionLetter(int pawnConversion) {
-        if(TARGET_POSITION.getPOS_Y() == 0 || TARGET_POSITION.getPOS_Y() == 7){
+        if (TARGET_POSITION.getPOS_Y() == 0 || TARGET_POSITION.getPOS_Y() == 7) {
             switch (pawnConversion) {
                 case 1:
                     return "P";

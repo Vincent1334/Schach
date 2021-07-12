@@ -13,7 +13,7 @@ public class Connection {
 
 
     private int port;
-    private  String ip;
+    private String ip;
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private boolean server;
@@ -21,12 +21,13 @@ public class Connection {
     /**
      * constructor of connection
      */
-    public Connection(){
+    public Connection() {
 
     }
 
     /**
      * returns port
+     *
      * @return port
      */
     public int getPort() {
@@ -35,6 +36,7 @@ public class Connection {
 
     /**
      * sets port
+     *
      * @param port port, you want to set
      */
     public void setPort(int port) {
@@ -43,6 +45,7 @@ public class Connection {
 
     /**
      * returns clientSocket
+     *
      * @return clientSocket
      */
     public Socket getClientSocket() {
@@ -51,6 +54,7 @@ public class Connection {
 
     /**
      * sets clientSocket
+     *
      * @param clientSocket clientSocket, you want to set
      */
     public void setClientSocket(Socket clientSocket) {
@@ -59,6 +63,7 @@ public class Connection {
 
     /**
      * returns server socket
+     *
      * @return server socket
      */
     public ServerSocket getServerSocket() {
@@ -67,6 +72,7 @@ public class Connection {
 
     /**
      * sets server socket
+     *
      * @param serverSocket server socket, you want to set
      */
     public void setServerSocket(ServerSocket serverSocket) {
@@ -75,6 +81,7 @@ public class Connection {
 
     /**
      * returns the ip
+     *
      * @return ip
      */
     public String getIp() {
@@ -83,6 +90,7 @@ public class Connection {
 
     /**
      * sets the ip
+     *
      * @param ip ip, you want to set
      */
     public void setIp(String ip) {
@@ -91,6 +99,7 @@ public class Connection {
 
     /**
      * returns isServer
+     *
      * @return isServer
      */
     public boolean isServer() {
@@ -99,6 +108,7 @@ public class Connection {
 
     /**
      * sets isServer
+     *
      * @param isServer the boolean you want to set
      */
     public void setIsServer(boolean isServer) {

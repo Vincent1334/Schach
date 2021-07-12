@@ -1,10 +1,10 @@
 package chess.managers;
 
+import javafx.scene.image.Image;
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
-import javafx.scene.image.Image;
 
 /**
  * handles the images for the gui

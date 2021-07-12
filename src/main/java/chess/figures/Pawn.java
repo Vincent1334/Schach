@@ -95,7 +95,7 @@ public class Pawn extends Figure {
     private boolean firstMove(Position actualPos, Position targetPos, Board board) {
 
         if (!alreadyMoved && Math.abs(actualPos.getPOS_Y() - targetPos.getPOS_Y()) == 2 && actualPos.getPOS_X() == targetPos.getPOS_X() && board.getFigure(targetPos) instanceof None
-            && board.getFigure(new Position(targetPos.getPOS_X(), targetPos.getPOS_Y()  + (blackTeam ? 1 : -1))) instanceof None) {
+                && board.getFigure(new Position(targetPos.getPOS_X(), targetPos.getPOS_Y() + (blackTeam ? 1 : -1))) instanceof None) {
             enPassant = true;
             return true;
         }

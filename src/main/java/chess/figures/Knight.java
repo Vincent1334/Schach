@@ -28,7 +28,7 @@ public class Knight extends Figure {
      *
      * @param sourceClass Knight you want to clone
      */
-    public Knight(Knight sourceClass){
+    public Knight(Knight sourceClass) {
         super(sourceClass.blackTeam);
         super.setAlreadyMoved(sourceClass.isAlreadyMoved());
         super.figureID = 3;
@@ -44,8 +44,8 @@ public class Knight extends Figure {
      */
     @Override
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
-        return Math.abs(actualPos.getPOS_X()-targetPos.getPOS_X()) == 2 && Math.abs(actualPos.getPOS_Y()-targetPos.getPOS_Y()) == 1
-                || Math.abs(actualPos.getPOS_X()-targetPos.getPOS_X()) == 1 && Math.abs(actualPos.getPOS_Y()-targetPos.getPOS_Y()) == 2;
+        return Math.abs(actualPos.getPOS_X() - targetPos.getPOS_X()) == 2 && Math.abs(actualPos.getPOS_Y() - targetPos.getPOS_Y()) == 1
+                || Math.abs(actualPos.getPOS_X() - targetPos.getPOS_X()) == 1 && Math.abs(actualPos.getPOS_Y() - targetPos.getPOS_Y()) == 2;
     }
 
     /**

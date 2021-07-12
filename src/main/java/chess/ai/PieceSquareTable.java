@@ -113,7 +113,7 @@ public class PieceSquareTable {
     /**
      * returns the correct table for each figure ID
      *
-     * @param figureID the figure ID
+     * @param figureID  the figure ID
      * @param isEndGame endgame, different table for the king
      * @return the table for the figure ID
      */

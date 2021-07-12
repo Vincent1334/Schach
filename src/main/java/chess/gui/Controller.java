@@ -4,13 +4,19 @@ import chess.enums.GameMode;
 import chess.managers.ImageManager;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
-import chess.model.*;
+import chess.model.Board;
+import chess.model.Position;
+import chess.model.Rules;
 import chess.network.NetworkPlayer;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.effect.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.InnerShadow;
+import javafx.scene.effect.MotionBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -19,9 +25,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static javafx.scene.paint.Color.*;
+import static javafx.scene.paint.Color.valueOf;
 
 /**
  * This class connects the internal game logic to the graphical user interface.
@@ -98,7 +105,7 @@ public class Controller {
     @FXML
     private void undo() {
         undoRedo.undo(getHistory(), logic);
-        if(logic.getGameMode()==GameMode.NETWORK){
+        if (logic.getGameMode() == GameMode.NETWORK) {
             logic.getNetwork().sendUndoRedo(undoRedo.getPointer());
         }
     }
@@ -109,7 +116,7 @@ public class Controller {
     @FXML
     private void redo() {
         undoRedo.redo(getHistory(), logic);
-        if(logic.getGameMode()==GameMode.NETWORK){
+        if (logic.getGameMode() == GameMode.NETWORK) {
             logic.getNetwork().sendUndoRedo(undoRedo.getPointer());
         }
     }
@@ -117,6 +124,7 @@ public class Controller {
     /**
      * is triggered if the user clicks on a move in the history-panel
      * undoes/redoes to the clicked move
+     *
      * @param mouseEvent the mouseEvent
      */
     @FXML
@@ -129,7 +137,7 @@ public class Controller {
                     index = i;
                 }
             }
-            if(logic.getGameMode()==GameMode.NETWORK){
+            if (logic.getGameMode() == GameMode.NETWORK) {
                 logic.getNetwork().sendUndoRedo(index);
             }
             undoRedo.undoRedoClicked(getHistory(), logic, index);
@@ -188,6 +196,7 @@ public class Controller {
 
     /**
      * switches the language of the gui elements
+     *
      * @param event the mouse event, used to know which flag was clicked
      */
     @FXML
@@ -195,7 +204,7 @@ public class Controller {
         //the url of the clicked image
         String url = ((ImageView) event.getTarget()).getImage().getUrl();
         //sets the language after the name of the image
-        LanguageManager.setLanguage(url.substring(url.length()-6,url.length()-4));
+        LanguageManager.setLanguage(url.substring(url.length() - 6, url.length() - 4));
     }
 
     /**
@@ -456,17 +465,18 @@ public class Controller {
 
     /**
      * returns the UndoRedo class
+     *
      * @return the UndoRedo class
      */
     protected UndoRedo getUndoRedo() {
         return undoRedo;
     }
 
-    protected Logic getLogic(){
+    protected Logic getLogic() {
         return logic;
     }
 
-    public Scene getScene(){
+    public Scene getScene() {
         return scene;
     }
 }

@@ -1,7 +1,10 @@
 package chess.controller;
 
 import chess.figures.Pawn;
-import chess.model.*;
+import chess.model.Board;
+import chess.model.Move;
+import chess.model.Position;
+import chess.model.Rules;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,13 +166,13 @@ public class CoreGame {
         Board.kingInCheck(currentBoard, activePlayerBlack);
         Board.kingInCheck(currentBoard, !activePlayerBlack);
         if (Board.checkChessAndStaleMate(currentBoard, activePlayerBlack)) {
-            if(currentBoard.isCheckMateFlag(false)) System.out.println("Player white is checkmate!");
-            if(currentBoard.isCheckMateFlag(true)) System.out.println("Player black is checkmate!");
-            if(currentBoard.isStaleMateFlag()) System.out.println("Game ends because stalemate!");
+            if (currentBoard.isCheckMateFlag(false)) System.out.println("Player white is checkmate!");
+            if (currentBoard.isCheckMateFlag(true)) System.out.println("Player black is checkmate!");
+            if (currentBoard.isStaleMateFlag()) System.out.println("Game ends because stalemate!");
             gameOver = true;
         }
-        if(currentBoard.isCheckFlag(false)) System.out.println("Player white is in check!");
-        if(currentBoard.isCheckFlag(true)) System.out.println("Player black is in check!");
+        if (currentBoard.isCheckFlag(false)) System.out.println("Player white is in check!");
+        if (currentBoard.isCheckFlag(true)) System.out.println("Player black is in check!");
         MOVE_HISTORY.add(new Board(currentBoard));
     }
 
@@ -177,6 +180,7 @@ public class CoreGame {
 
     /**
      * Check GameOver
+     *
      * @return gameover
      */
     public boolean isGameOver() {
@@ -185,6 +189,7 @@ public class CoreGame {
 
     /**
      * Set active player manual. Important for JUnit test
+     *
      * @param activePlayer the active player, true if its blacks turn
      */
     public void setActivePlayerBlack(boolean activePlayer) {
@@ -193,14 +198,16 @@ public class CoreGame {
 
     /**
      * return the active player
+     *
      * @return activePlayer, true if its blacks turn
      */
-    public boolean isActivePlayerBlack(){
+    public boolean isActivePlayerBlack() {
         return activePlayerBlack;
     }
 
     /**
      * returns the MOVE_HISTORY
+     *
      * @return MOVE_HISTORY
      */
     public List<Board> getMoveHistory() {

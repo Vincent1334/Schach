@@ -43,21 +43,21 @@ public class UndoRedo {
      */
     public void undo(GridPane history, Logic logic) {
         int loopIndex = 0;
-        if(logic.getGameMode() == GameMode.NORMAL || logic.getGameMode() == GameMode.NETWORK){
+        if (logic.getGameMode() == GameMode.NORMAL || logic.getGameMode() == GameMode.NETWORK) {
             loopIndex = 1;
-        }else if(logic.getGameMode() == GameMode.COMPUTER){
-            if(logic.getComputer().isAlive()){
+        } else if (logic.getGameMode() == GameMode.COMPUTER) {
+            if (logic.getComputer().isAlive()) {
                 logic.getComputer().killComputer();
                 loopIndex = 1;
-            }else{
+            } else {
                 loopIndex = 2;
             }
-            if(!logic.getComputer().isBlack() && pointer-loopIndex < 0){
+            if (!logic.getComputer().isBlack() && pointer - loopIndex < 0) {
                 loopIndex = 0;
             }
         }
-        if(pointer-loopIndex >= -1){
-            for(int i = 0; i < loopIndex; i++){
+        if (pointer - loopIndex >= -1) {
+            for (int i = 0; i < loopIndex; i++) {
                 performUndo(history, logic);
             }
         }
@@ -82,13 +82,13 @@ public class UndoRedo {
      */
     public void redo(GridPane history, Logic logic) {
         int loopIndex = 0;
-        if(logic.getGameMode() == GameMode.NORMAL || logic.getGameMode() == GameMode.NETWORK){
+        if (logic.getGameMode() == GameMode.NORMAL || logic.getGameMode() == GameMode.NETWORK) {
             loopIndex = 1;
-        }else if(logic.getGameMode() == GameMode.COMPUTER){
+        } else if (logic.getGameMode() == GameMode.COMPUTER) {
             loopIndex = 2;
         }
-        if(pointer+loopIndex < history.getChildren().size()){
-            for(int i = 0; i < loopIndex; i++){
+        if (pointer + loopIndex < history.getChildren().size()) {
+            for (int i = 0; i < loopIndex; i++) {
                 performRedo(history, logic);
             }
         }
@@ -118,14 +118,14 @@ public class UndoRedo {
     /**
      * undo / redo a move when the user clicks on a move in the history-panel
      *
-     * @param history     the gui element history as gridPane which contains all made moves
-     * @param logic       the logic
-     * @param pointer     the pointer
+     * @param history the gui element history as gridPane which contains all made moves
+     * @param logic   the logic
+     * @param pointer the pointer
      */
     public void undoRedoClicked(GridPane history, Logic logic, int pointer) {
         // In the game against the computer, only every second move can be clicked
-        if (logic.getGameMode() == GameMode.COMPUTER){
-            if(pointer % 2 == 0 && logic.getComputer().isBlack() || pointer % 2 != 0 && !logic.getComputer().isBlack()){
+        if (logic.getGameMode() == GameMode.COMPUTER) {
+            if (pointer % 2 == 0 && logic.getComputer().isBlack() || pointer % 2 != 0 && !logic.getComputer().isBlack()) {
                 return;
             }
             logic.getComputer().killComputer();
@@ -191,10 +191,11 @@ public class UndoRedo {
 
     /**
      * Perform the undo action
+     *
      * @param history list of all moves
-     * @param logic gui
+     * @param logic   gui
      */
-    private void performUndo(GridPane history, Logic logic){
+    private void performUndo(GridPane history, Logic logic) {
         Text undoMove = (Text) history.getChildren().get(pointer);
         undoMove.setOpacity(0.5);
         UNDO_REDO_MOVES_AS_TEXT.add(undoMove);
@@ -219,10 +220,11 @@ public class UndoRedo {
 
     /**
      * Perform the redo action
+     *
      * @param history list of all moves
-     * @param logic gui
+     * @param logic   gui
      */
-    private void performRedo(GridPane history, Logic logic){
+    private void performRedo(GridPane history, Logic logic) {
         pointer++;
         Text undoMove = (Text) history.getChildren().get(pointer);
         undoMove.setOpacity(1);
@@ -254,7 +256,7 @@ public class UndoRedo {
         return UNDO_REDO_MOVES_AS_TEXT;
     }
 
-    public int getPointer(){
+    public int getPointer() {
         return pointer;
     }
 }

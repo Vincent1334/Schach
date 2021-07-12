@@ -53,6 +53,7 @@ public class MainMenu {
 
     /**
      * switches the language of the gui elements
+     *
      * @param event the mouse event, used to know which flag was clicked
      */
     @FXML
@@ -60,16 +61,17 @@ public class MainMenu {
         //the url of the clicked image
         String url = ((ImageView) event.getTarget()).getImage().getUrl();
         //sets the language after the name of the image
-        LanguageManager.setLanguage(url.substring(url.length()-6,url.length()-4));
+        LanguageManager.setLanguage(url.substring(url.length() - 6, url.length() - 4));
     }
 
     /**
      * disables or enables color choice option
+     *
      * @param disable if the option should be disabled or enabled
      */
-    private void setColorChoice(boolean disable){
-         pane.getChildren().get(7).setDisable(disable);
-         pane.getChildren().get(8).setDisable(disable);
+    private void setColorChoice(boolean disable) {
+        pane.getChildren().get(7).setDisable(disable);
+        pane.getChildren().get(8).setDisable(disable);
     }
 
     /**

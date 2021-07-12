@@ -1,4 +1,5 @@
 package chess.model;
+
 /**
  * This class contains the parser logic
  *
@@ -25,6 +26,7 @@ public class Parser {
 
     /**
      * checks if the input has the correct length (5 or 6)
+     *
      * @param input User input
      * @return true, if the input has the correct length
      */
@@ -34,6 +36,7 @@ public class Parser {
 
     /**
      * checks, if on the index 2 of the input is an hyphen
+     *
      * @param input User input
      * @return true, if on the index 2 of the input is an hyphen
      */
@@ -43,6 +46,7 @@ public class Parser {
 
     /**
      * checks, if on the index 0 and 3 of the input are figure letters
+     *
      * @param input user input
      * @return true, if on the index 0 and 3 of the input are figure letters
      */
@@ -52,6 +56,7 @@ public class Parser {
 
     /**
      * checks, if on the index 1 and 4 of the input are numbers between 1 and 8
+     *
      * @param input user input
      * @return true, if on the index 1 and 4 of the input are numbers between 1 and 8
      */
@@ -61,6 +66,7 @@ public class Parser {
 
     /**
      * checks, if on the index 5 of the input is a promotion figure letter
+     *
      * @param input user input
      * @return true, if on the index 5 of the input is a promotion figure letter
      */

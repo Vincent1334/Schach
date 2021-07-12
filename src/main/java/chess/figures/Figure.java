@@ -2,6 +2,7 @@ package chess.figures;
 
 import chess.model.Board;
 import chess.model.Position;
+
 import java.util.Objects;
 
 /**

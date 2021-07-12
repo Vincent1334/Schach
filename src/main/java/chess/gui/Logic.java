@@ -1,14 +1,16 @@
 package chess.gui;
 
-import chess.enums.GameMode;
-import chess.controller.*;
 import chess.ai.Computer;
+import chess.controller.CoreGame;
+import chess.enums.GameMode;
 import chess.enums.NetworkFlags;
+import chess.figures.Pawn;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
+import chess.model.Move;
+import chess.model.Position;
+import chess.model.Rules;
 import chess.network.NetworkPlayer;
-import chess.figures.Pawn;
-import chess.model.*;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
@@ -35,14 +37,14 @@ public class Logic implements Runnable {
     /**
      * initializes gameMode, coreGame, computer, beatenFigureList and conversion
      *
-     * @param GAME_MODE         against a local friend (NORMAL) or a network game (NETWORK) or against the computer (COMPUTER)
+     * @param GAME_MODE        against a local friend (NORMAL) or a network game (NETWORK) or against the computer (COMPUTER)
      * @param playerColorBlack the color you want to play (true if you want to play black)
      * @param networkPlayer    the networkPlayer
      */
     public Logic(GameMode GAME_MODE, boolean playerColorBlack, NetworkPlayer networkPlayer) {
         this.GAME_MODE = GAME_MODE;
         coreGame = new CoreGame();
-        this.CONTROLLER = (Controller)WindowManager.getController("GameStage");
+        this.CONTROLLER = (Controller) WindowManager.getController("GameStage");
 
         if (GAME_MODE == GameMode.COMPUTER) {
             computer = new Computer(!playerColorBlack, this);
@@ -166,15 +168,15 @@ public class Logic implements Runnable {
             CONTROLLER.getScene().updateScene();
         }
         if (GAME_MODE == GameMode.NETWORK) {
-            if(network.getFlag() == NetworkFlags.Connecting){
+            if (network.getFlag() == NetworkFlags.Connecting) {
                 setNotification(true, LanguageManager.getText("network_waiting_label"));
-            }else if(network.getFlag() == NetworkFlags.SetupTeams){
+            } else if (network.getFlag() == NetworkFlags.SetupTeams) {
                 networkSetupTeams();
-            }else if(network.getFlag() == NetworkFlags.Move){
+            } else if (network.getFlag() == NetworkFlags.Move) {
                 networkPerformMove();
-            }else if(network.getFlag() == NetworkFlags.UndoRedo){
+            } else if (network.getFlag() == NetworkFlags.UndoRedo) {
                 networkUndoRedo();
-            }else if(network.getFlag() == NetworkFlags.Exit){
+            } else if (network.getFlag() == NetworkFlags.Exit) {
                 exit();
             }
         }
@@ -183,13 +185,13 @@ public class Logic implements Runnable {
     /**
      * setups the teams in a networkgame
      */
-    private void networkSetupTeams(){
+    private void networkSetupTeams() {
         playerBlack = network.isNetworkPlayerBlack();
-        if(network.isNetworkPlayerBlack()){
+        if (network.isNetworkPlayerBlack()) {
             setNotification(true, LanguageManager.getText(WAITING_NETWORK));
             CONTROLLER.getBoard().setRotate(180);
             turnFigures(180);
-        }else{
+        } else {
             setNotification(false, "");
         }
         network.setFlag(NetworkFlags.InGame);
@@ -198,7 +200,7 @@ public class Logic implements Runnable {
     /**
      * performs a network move
      */
-    private void networkPerformMove(){
+    private void networkPerformMove() {
         Move networkMove = (Move) network.getNetworkOutput();
         coreGame.chessMove(networkMove);
         setNotification(false, "");
@@ -207,16 +209,17 @@ public class Logic implements Runnable {
         CONTROLLER.getScene().updateScene();
         network.setFlag(NetworkFlags.InGame);
     }
+
     /**
      * performs undo redo
      */
-    private void networkUndoRedo(){
-        CONTROLLER.getUndoRedo().undoRedoClicked(CONTROLLER.getHistory(),this,(Integer) network.getNetworkOutput());
-        if((Integer) network.getNetworkOutput() == -1) CONTROLLER.getUndoRedo().undo(CONTROLLER.getHistory(), this);
+    private void networkUndoRedo() {
+        CONTROLLER.getUndoRedo().undoRedoClicked(CONTROLLER.getHistory(), this, (Integer) network.getNetworkOutput());
+        if ((Integer) network.getNetworkOutput() == -1) CONTROLLER.getUndoRedo().undo(CONTROLLER.getHistory(), this);
 
-        if(coreGame.isActivePlayerBlack() && network.isNetworkPlayerBlack()){
+        if (coreGame.isActivePlayerBlack() && network.isNetworkPlayerBlack()) {
             setNotification(false, "");
-        }else{
+        } else {
             setNotification(true, LanguageManager.getText(WAITING_NETWORK));
         }
         CONTROLLER.getScene().updateScene();
@@ -226,7 +229,7 @@ public class Logic implements Runnable {
     /**
      * disables board and undo redo and sets notification
      */
-    private void exit(){
+    private void exit() {
         CONTROLLER.getBoard().setMouseTransparent(true);
         CONTROLLER.getHistory().setMouseTransparent(true);
         CONTROLLER.getButtonRedo().setMouseTransparent(true);
@@ -237,7 +240,7 @@ public class Logic implements Runnable {
     /**
      * disables undo redo function
      */
-    public void disableUndoRedo(){
+    public void disableUndoRedo() {
         CONTROLLER.getHistory().setMouseTransparent(true);
         CONTROLLER.getButtonRedo().setOpacity(0);
         CONTROLLER.getButtonRedo().setDisable(true);
@@ -277,11 +280,12 @@ public class Logic implements Runnable {
     }
 
     // -------------setter---------------------------------------------------------------------------------------------------------------
+
     /**
      * sets the notification message and ist visibility
      *
      * @param notificationVisible whether the notification is visible
-     * @param message the notification message
+     * @param message             the notification message
      */
     public void setNotification(boolean notificationVisible, String message) {
         if (notificationVisible) {
@@ -298,6 +302,7 @@ public class Logic implements Runnable {
 
     /**
      * returns the coreGame
+     *
      * @return coreGame
      */
     public CoreGame getCoreGame() {
@@ -307,6 +312,7 @@ public class Logic implements Runnable {
 
     /**
      * returns the startField
+     *
      * @return startField
      */
     public Rectangle getStartField() {
@@ -315,6 +321,7 @@ public class Logic implements Runnable {
 
     /**
      * returns the GAME_MODE
+     *
      * @return GAME_MODE
      */
     public GameMode getGameMode() {
@@ -324,6 +331,7 @@ public class Logic implements Runnable {
 
     /**
      * returns true when we play black. For network use only
+     *
      * @return playerBlack
      */
     public boolean isPlayerBlack() {
@@ -332,18 +340,24 @@ public class Logic implements Runnable {
 
     /**
      * returns the CONTROLLER
+     *
      * @return CONTROLLER
      */
-    public Controller getController(){return CONTROLLER;}
+    public Controller getController() {
+        return CONTROLLER;
+    }
 
 
     /**
      * returns the network
+     *
      * @return network
      */
-    public NetworkPlayer getNetwork(){return network;}
+    public NetworkPlayer getNetwork() {
+        return network;
+    }
 
-    public Computer getComputer(){
+    public Computer getComputer() {
         return computer;
     }
 }

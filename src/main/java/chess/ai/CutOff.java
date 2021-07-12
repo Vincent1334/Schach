@@ -19,9 +19,9 @@ public class CutOff {
      * The cutOff constructor
      *
      * @param PARENT_CUT_OFF parent cutoff
-     * @param LASTMOVE the last move
+     * @param LASTMOVE       the last move
      */
-    public CutOff(List<Move> PARENT_CUT_OFF, Move LASTMOVE){
+    public CutOff(List<Move> PARENT_CUT_OFF, Move LASTMOVE) {
         this.PARENT_CUT_OFF = PARENT_CUT_OFF;
         this.LASTMOVE = LASTMOVE;
     }
