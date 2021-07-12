@@ -116,40 +116,39 @@ public class Computer implements Runnable{
      * @return maxValue
      */
     private float max(int depth, float alpha, float beta, CutOff ParentCutOff){
-        if(!thread.isInterrupted()){
-            if(depth == 0) return heuristic(board, ParentCutOff.getLastMove());
-            float maxValue = alpha;
+        if(thread.isInterrupted()) return 0;
+        if(depth == 0) return heuristic(board, ParentCutOff.getLastMove());
+        float maxValue = alpha;
 
-            //generate possible moves
-            List<Move> possibleMove = generatePossibleMove(PLAYER_MAX);
-            sortMove(possibleMove, ParentCutOff.getParentCutOff());
+        //generate possible moves
+        List<Move> possibleMove = generatePossibleMove(PLAYER_MAX);
+        sortMove(possibleMove, ParentCutOff.getParentCutOff());
 
-            //Game over?
-            if (possibleMove.size() == 0) return Float.NEGATIVE_INFINITY;
+        //Game over?
+        if (possibleMove.size() == 0) return Float.NEGATIVE_INFINITY;
 
-            //create CutOff
-            ArrayList<Move> cutOff = new ArrayList<Move>();
+        //create CutOff
+        ArrayList<Move> cutOff = new ArrayList<Move>();
 
-            Board tmpBoard = new Board(board);
-            for (Move move : possibleMove) {
-                performMove(move.getACTUAL_POSITION(), move.getTARGET_POSITION(), board);
-                float value = min(depth - 1, maxValue, beta, new CutOff(cutOff, move));
-                board = new Board(tmpBoard);
-                if (value > maxValue) {
-                    maxValue = value;
-                    if (depth == targetDepth) {
-                        bestMove = move;
-                    }
-                    if (maxValue >= beta) {
-                        ParentCutOff.getParentCutOff().add(move);
-                        break;
-                    }
+        Board tmpBoard = new Board(board);
+        for (Move move : possibleMove) {
+            performMove(move.getACTUAL_POSITION(), move.getTARGET_POSITION(), board);
+            float value = min(depth - 1, maxValue, beta, new CutOff(cutOff, move));
+            board = new Board(tmpBoard);
+            if (value > maxValue) {
+                maxValue = value;
+                if (depth == targetDepth) {
+                    bestMove = move;
+                }
+                if (maxValue >= beta) {
+                    ParentCutOff.getParentCutOff().add(move);
+                    break;
                 }
             }
-            return maxValue;
         }
-        return 0;
+        return maxValue;
     }
+
 
     /**
      * calculates the min values of the search tree
@@ -161,48 +160,55 @@ public class Computer implements Runnable{
      * @return minValue
      */
     private float min(int depth, float alpha, float beta, CutOff ParentCutOff){
-        if(!thread.isInterrupted()){
-            if(depth == 0) return heuristic(board, ParentCutOff.getLastMove());
-            float minValue = beta;
+        if(thread.isInterrupted()) return 0;
+        if(depth == 0) return heuristic(board, ParentCutOff.getLastMove());
+        float minValue = beta;
 
-            //create Possible Moves
-            List<Move> possibleMove = generatePossibleMove(PLAYER_MIN);
-            sortMove(possibleMove, ParentCutOff.getParentCutOff());
+        //create Possible Moves
+        List<Move> possibleMove = generatePossibleMove(PLAYER_MIN);
+        sortMove(possibleMove, ParentCutOff.getParentCutOff());
 
-            //Game over?
-            if (possibleMove.size() == 0){
-                if(board.isCheckMateFlag(true)){
-                    return Float.POSITIVE_INFINITY;
-                }
-                return Float.NEGATIVE_INFINITY;
+        //Game over?
+        if (possibleMove.size() == 0){
+            if(board.isCheckMateFlag(true)){
+                return Float.POSITIVE_INFINITY;
             }
-
-            //create CutOff
-            List<Move> cutOff = new ArrayList<Move>();
-
-            Board tmpBoard = new Board(board);
-            for (Move move : possibleMove) {
-                performMove(move.getACTUAL_POSITION(), move.getTARGET_POSITION(), board);
-                float value = max(depth - 1, alpha, minValue, new CutOff(cutOff, move));
-                board = new Board(tmpBoard);
-                if (value < minValue) {
-                    minValue = value;
-                    if (minValue <= alpha) {
-                        ParentCutOff.getParentCutOff().add(move);
-                        break;
-                    }
-                }
-            }
-            return minValue;
+            return Float.NEGATIVE_INFINITY;
         }
-       return 0;
+
+        //create CutOff
+        List<Move> cutOff = new ArrayList<Move>();
+
+        Board tmpBoard = new Board(board);
+        for (Move move : possibleMove) {
+            performMove(move.getACTUAL_POSITION(), move.getTARGET_POSITION(), board);
+            float value = max(depth - 1, alpha, minValue, new CutOff(cutOff, move));
+            board = new Board(tmpBoard);
+            if (value < minValue) {
+                minValue = value;
+                if (minValue <= alpha) {
+                    ParentCutOff.getParentCutOff().add(move);
+                    break;
+                }
+            }
+        }
+        return minValue;
+
+
     }
 
+    /**
+     * Interrupt the computer thread
+     */
     public void killComputer(){
         thread.interrupt();
         gui.setNotification(false, "");
     }
 
+    /**
+     * Check if the computer is calculationg
+     * @return true when the computer is calculating
+     */
     public boolean isAlive(){
         return thread.isAlive();
     }
@@ -363,6 +369,10 @@ public class Computer implements Runnable{
         return this.thread;
     }
 
+    /**
+     * Computer team
+     * @return true when computer is black
+     */
     public boolean isBlack(){
         return PLAYER_MAX;
     }

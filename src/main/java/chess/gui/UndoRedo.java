@@ -125,7 +125,7 @@ public class UndoRedo {
     public void undoRedoClicked(GridPane history, Logic logic, int pointer) {
         // In the game against the computer, only every second move can be clicked
         if (logic.getGameMode() == GameMode.COMPUTER){
-            if((pointer % 2 == 0 && logic.getComputer().isBlack()) || (pointer % 2 != 0 && !logic.getComputer().isBlack())){
+            if(pointer % 2 == 0 && logic.getComputer().isBlack() || pointer % 2 != 0 && !logic.getComputer().isBlack()){
                 return;
             }
             logic.getComputer().killComputer();
@@ -189,6 +189,11 @@ public class UndoRedo {
 
     //--------------Undo / Redo---------------------------------------------------------------------------------------------------------------
 
+    /**
+     * Perform the undo action
+     * @param history list of all moves
+     * @param logic gui
+     */
     private void performUndo(GridPane history, Logic logic){
         Text undoMove = (Text) history.getChildren().get(pointer);
         undoMove.setOpacity(0.5);
@@ -212,6 +217,11 @@ public class UndoRedo {
         unmark();
     }
 
+    /**
+     * Perform the redo action
+     * @param history list of all moves
+     * @param logic gui
+     */
     private void performRedo(GridPane history, Logic logic){
         pointer++;
         Text undoMove = (Text) history.getChildren().get(pointer);
