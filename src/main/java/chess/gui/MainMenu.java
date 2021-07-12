@@ -4,6 +4,7 @@ import chess.enums.GameMode;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import javafx.fxml.FXML;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -64,11 +65,21 @@ public class MainMenu {
     }
 
     /**
+     * disables or enables color choice option
+     * @param disable if the option should be disabled or enabled
+     */
+    private void setColorChoice(boolean disable){
+         pane.getChildren().get(7).setDisable(disable);
+         pane.getChildren().get(8).setDisable(disable);
+    }
+
+    /**
      * sets the game mode for a local game against a friend
      */
     @FXML
     private void setMode01() {
         gameMode = GameMode.NORMAL;
+        setColorChoice(true);
     }
 
     /**
@@ -77,6 +88,7 @@ public class MainMenu {
     @FXML
     private void setMode02() {
         gameMode = GameMode.COMPUTER;
+        setColorChoice(false);
     }
 
     /**
@@ -85,6 +97,7 @@ public class MainMenu {
     @FXML
     private void setMode03() {
         gameMode = GameMode.NETWORK;
+        setColorChoice(true);
     }
 
     /**

@@ -56,7 +56,7 @@
          <font>
             <Font name="Calibri Light" size="15.0" />
          </font></Label>
-      <RadioButton fx:id="modeBlack" layoutX="182.0" layoutY="229.0" mnemonicParsing="false" onMouseClicked="#setBlack" text="%black_label">
+      <RadioButton fx:id="modeBlack" disable="true" layoutX="182.0" layoutY="229.0" mnemonicParsing="false" onMouseClicked="#setBlack" text="%black_label">
          <toggleGroup>
             <ToggleGroup fx:id="menu1" />
          </toggleGroup>
@@ -67,7 +67,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </RadioButton>
-      <RadioButton fx:id="modeWhite" layoutX="113.0" layoutY="229.0" mnemonicParsing="false" onMouseClicked="#setWhite" selected="true" text="%white_label" toggleGroup="$menu1">
+      <RadioButton fx:id="modeWhite" disable="true" layoutX="113.0" layoutY="229.0" mnemonicParsing="false" onMouseClicked="#setWhite" selected="true" text="%white_label" toggleGroup="$menu1">
          <font>
             <Font name="Calibri Light" size="15.0" />
          </font>
