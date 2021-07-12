@@ -208,7 +208,7 @@ public class Computer implements Runnable {
     }
 
     /**
-     * Check if the computer is calculationg
+     * Check if the computer is calculating
      *
      * @return true when the computer is calculating
      */
