@@ -322,7 +322,7 @@ public class Logic implements Runnable {
 
 
     /**
-     * returns the playerBlack
+     * returns true when we play black. For network use only
      * @return playerBlack
      */
     public boolean isPlayerBlack() {

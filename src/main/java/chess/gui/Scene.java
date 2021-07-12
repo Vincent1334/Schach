@@ -97,7 +97,7 @@ public class Scene {
         t.setFill(valueOf("#515151"));
         t.setFont(new Font("Calibri", 15.0));
 
-        if (CONTROLLER.getLogic().getGameMode() != GameMode.COMPUTER || row % 2 == 0) {
+        if (CONTROLLER.getLogic().getGameMode() != GameMode.COMPUTER || CONTROLLER.getLogic().getComputer().isBlack() && row % 2 == 0  || !CONTROLLER.getLogic().getComputer().isBlack() && row % 2 != 0) {
             t.setCursor(Cursor.HAND);
             t.setOnMouseEntered((event) -> {
                 t.setFill(valueOf("#8fbe00"));

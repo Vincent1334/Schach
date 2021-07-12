@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
 @SuppressWarnings({"PMD.UnusedPrivateMethod"})
 // the methods setMode, ... and startGame are used by the gui but PMD does not recognize this
 public class MainMenu {
-    private GameMode gameMode;
+    private GameMode gameMode = GameMode.NORMAL;
     private boolean playerColorBlack;
     @FXML
     public Pane pane;

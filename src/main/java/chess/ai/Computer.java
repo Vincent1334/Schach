@@ -203,6 +203,10 @@ public class Computer implements Runnable{
         gui.setNotification(false, "");
     }
 
+    public boolean isAlive(){
+        return thread.isAlive();
+    }
+
     /*
     <---Heuristic------------------------------------------------------------------------------------------------------>
      */
@@ -357,6 +361,10 @@ public class Computer implements Runnable{
      */
     public Thread getThread(){
         return this.thread;
+    }
+
+    public boolean isBlack(){
+        return PLAYER_MAX;
     }
 }
 
