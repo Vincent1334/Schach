@@ -51,6 +51,7 @@ public class UndoRedo {
 
             // in computermode always go back two moves
             if (logic.getGameMode() == GameMode.COMPUTER && pointer > 0) {
+                logic.getComputer().killComputer();
                 Text undoMove2 = (Text) history.getChildren().get(pointer - 1);
                 undoMove2.setOpacity(0.5);
                 UNDO_REDO_MOVES_AS_TEXT.add(undoMove2);
@@ -103,6 +104,7 @@ public class UndoRedo {
 
                 // in computermode always two moves are restored
                 if (logic.getGameMode() == GameMode.COMPUTER) {
+                    logic.getComputer().killComputer();
                     Text undoMove2 = (Text) history.getChildren().get(pointer + 1);
                     undoMove2.setOpacity(1);
                     UNDO_REDO_MOVES_AS_TEXT.remove(UNDO_REDO_MOVES_AS_TEXT.size() - 1);
@@ -163,9 +165,13 @@ public class UndoRedo {
         this.pointer = pointer;
 
         // In the game against the computer, only every second move can be clicked
-        if (logic.getGameMode() == GameMode.COMPUTER && pointer % 2 == 0) {
-            return;
+        if (logic.getGameMode() == GameMode.COMPUTER){
+            if(pointer % 2 == 0){
+                return;
+            }
+            logic.getComputer().killComputer();
         }
+
         // Select the appropriate board condition
         Board newBoard = pointer >= 0 ? logic.getCoreGame().getMoveHistory().get(pointer) : new Board();
 

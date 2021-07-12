@@ -341,4 +341,8 @@ public class Logic implements Runnable {
      * @return network
      */
     public NetworkPlayer getNetwork(){return network;}
+
+    public Computer getComputer(){
+        return computer;
+    }
 }
