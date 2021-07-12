@@ -8,4 +8,6 @@ module chess {
 
     exports chess.gui;
     opens chess.gui;
+    exports chess.managers;
+    opens chess.managers;
 }

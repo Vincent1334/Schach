@@ -2,6 +2,7 @@ package chess.gui;
 
 import chess.enums.GameMode;
 import chess.figures.Figure;
+import chess.managers.ImageManager;
 import chess.managers.LanguageManager;
 import chess.model.Board;
 import chess.model.Move;
@@ -128,7 +129,7 @@ public class Scene {
         CONTROLLER.getBeatenFiguresWhite().getChildren().clear();
 
         for (Figure figure : CONTROLLER.getLogic().getCoreGame().getCurrentBoard().getBeatenFigures()) {
-            ImageView iv = new ImageView(ImageHandler.getImageBySymbol(figure.getSymbol()));
+            ImageView iv = new ImageView(ImageManager.getImageBySymbol(figure.getSymbol()));
             iv.setEffect(new DropShadow(2.0, 2.0, 2.0, valueOf("#777777")));
             iv.preserveRatioProperty().setValue(true);
             iv.setFitHeight(50.0);
@@ -161,8 +162,8 @@ public class Scene {
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 CONTROLLER.getBoard().getChildren().remove(CONTROLLER.getImageViewByIndex(x + 1, 8 - y));
-                if (ImageHandler.getImageBySymbol(CONTROLLER.getLogic().getCoreGame().getCurrentBoard().getFigure(x, y).getSymbol()) != null) {
-                    ImageView iv = new ImageView(ImageHandler.getImageBySymbol(CONTROLLER.getLogic().getCoreGame().getCurrentBoard().getFigure(x, y).getSymbol()));
+                if (ImageManager.getImageBySymbol(CONTROLLER.getLogic().getCoreGame().getCurrentBoard().getFigure(x, y).getSymbol()) != null) {
+                    ImageView iv = new ImageView(ImageManager.getImageBySymbol(CONTROLLER.getLogic().getCoreGame().getCurrentBoard().getFigure(x, y).getSymbol()));
                     iv.preserveRatioProperty().setValue(true);
                     iv.setFitHeight(50.0);
                     iv.setMouseTransparent(true);

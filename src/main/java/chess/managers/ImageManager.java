@@ -1,4 +1,4 @@
-package chess.gui;
+package chess.managers;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -12,9 +12,9 @@ import javafx.scene.image.Image;
  * @author Lydia Engelhardt, Sophia Kuhlmann, Vincent Schiller, Friederike Weilbeer
  * 2021-06-09
  */
-public class ImageHandler {
+public class ImageManager {
 
-    private static ImageHandler instance;
+    private static ImageManager instance;
     private final Map<String, Image> IMGS = new HashMap<>();
 
     /**
@@ -22,9 +22,9 @@ public class ImageHandler {
      *
      * @return the instance
      */
-    public static ImageHandler getInstance() {
+    public static ImageManager getInstance() {
         if (instance == null) {
-            instance = new ImageHandler();
+            instance = new ImageManager();
         }
         return instance;
     }
@@ -38,7 +38,7 @@ public class ImageHandler {
     private void loadImage(String name, String... extensions) {
         URL url = null;
         for (String ext : extensions) {
-            url = ImageHandler.class.getResource(name + "." + ext);
+            url = ImageManager.class.getResource(name + "." + ext);
             if (url != null) {
                 break;
             }

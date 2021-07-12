@@ -1,6 +1,7 @@
 package chess.gui;
 
 import chess.enums.GameMode;
+import chess.managers.ImageManager;
 import chess.managers.LanguageManager;
 import chess.managers.WindowManager;
 import chess.model.*;
@@ -239,12 +240,12 @@ public class Controller {
      * @return whether the imageView contains an image of a black figure
      */
     protected boolean isImageBlack(ImageView iv) {
-        return iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("RookBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KnightBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("BishopBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("KingBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("QueenBlack").getUrl()) ||
-                iv.getImage().getUrl().equals(ImageHandler.getInstance().getImage("PawnBlack").getUrl());
+        return iv.getImage().getUrl().equals(ImageManager.getInstance().getImage("RookBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageManager.getInstance().getImage("KnightBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageManager.getInstance().getImage("BishopBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageManager.getInstance().getImage("KingBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageManager.getInstance().getImage("QueenBlack").getUrl()) ||
+                iv.getImage().getUrl().equals(ImageManager.getInstance().getImage("PawnBlack").getUrl());
     }
 
     //--------------getter---------------------------------------------------------------------------------------------------------------
