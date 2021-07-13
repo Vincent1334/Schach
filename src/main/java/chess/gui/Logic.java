@@ -217,7 +217,7 @@ public class Logic implements Runnable {
         CHESSBOARD.getUndoRedo().undoRedoClicked(CHESSBOARD.getHistory(), this, (Integer) network.getNetworkOutput());
         if ((Integer) network.getNetworkOutput() == -1) CHESSBOARD.getUndoRedo().undo(CHESSBOARD.getHistory(), this);
 
-        if (coreGame.isActivePlayerBlack() && network.isNetworkPlayerBlack()) {
+        if (network.isNetworkPlayerBlack() && ((Integer) network.getNetworkOutput())%2 == 0 || !network.isNetworkPlayerBlack() && ((Integer) network.getNetworkOutput())%2 != 0) {
             setNotification(false, "");
         } else {
             setNotification(true, LanguageManager.getText(WAITING_NETWORK));
