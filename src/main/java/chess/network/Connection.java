@@ -21,7 +21,7 @@ public class Connection {
     /**
      * constructor of connection
      */
-    public Connection() {
+    protected Connection() {
 
     }
 
@@ -30,7 +30,7 @@ public class Connection {
      *
      * @return port
      */
-    public int getPort() {
+    protected int getPort() {
         return port;
     }
 
@@ -39,7 +39,7 @@ public class Connection {
      *
      * @param port port, you want to set
      */
-    public void setPort(int port) {
+    protected void setPort(int port) {
         this.port = port;
     }
 
@@ -48,7 +48,7 @@ public class Connection {
      *
      * @return clientSocket
      */
-    public Socket getClientSocket() {
+    protected Socket getClientSocket() {
         return clientSocket;
     }
 
@@ -57,7 +57,7 @@ public class Connection {
      *
      * @param clientSocket clientSocket, you want to set
      */
-    public void setClientSocket(Socket clientSocket) {
+    protected void setClientSocket(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
 
@@ -66,7 +66,7 @@ public class Connection {
      *
      * @return server socket
      */
-    public ServerSocket getServerSocket() {
+    protected ServerSocket getServerSocket() {
         return serverSocket;
     }
 
@@ -75,7 +75,7 @@ public class Connection {
      *
      * @param serverSocket server socket, you want to set
      */
-    public void setServerSocket(ServerSocket serverSocket) {
+    protected void setServerSocket(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }
 
@@ -84,7 +84,7 @@ public class Connection {
      *
      * @return ip
      */
-    public String getIp() {
+    protected String getIp() {
         return ip;
     }
 
@@ -93,7 +93,7 @@ public class Connection {
      *
      * @param ip ip, you want to set
      */
-    public void setIp(String ip) {
+    protected void setIp(String ip) {
         this.ip = ip;
     }
 
@@ -102,7 +102,7 @@ public class Connection {
      *
      * @return isServer
      */
-    public boolean isServer() {
+    protected boolean isServer() {
         return server;
     }
 
@@ -111,7 +111,7 @@ public class Connection {
      *
      * @param isServer the boolean you want to set
      */
-    public void setIsServer(boolean isServer) {
+    protected void setIsServer(boolean isServer) {
         this.server = isServer;
     }
 

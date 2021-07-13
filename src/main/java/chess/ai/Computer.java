@@ -119,7 +119,7 @@ public class Computer implements Runnable {
      */
     private float max(int depth, float alpha, float beta, CutOff ParentCutOff) {
         if (thread.isInterrupted()) return 0;
-        if (depth == 0) return heuristic(board, ParentCutOff.getLASTMOVE());
+        if (depth == 0) return moveValue(board, ParentCutOff.getLASTMOVE());
         float maxValue = alpha;
 
         //generate possible moves
@@ -163,7 +163,7 @@ public class Computer implements Runnable {
      */
     private float min(int depth, float alpha, float beta, CutOff ParentCutOff) {
         if (thread.isInterrupted()) return 0;
-        if (depth == 0) return heuristic(board, ParentCutOff.getLASTMOVE());
+        if (depth == 0) return moveValue(board, ParentCutOff.getLASTMOVE());
         float minValue = beta;
 
         //create Possible Moves
@@ -226,7 +226,7 @@ public class Computer implements Runnable {
      * @param board the current board
      * @return the value of the searched move
      */
-    private float heuristic(Board board, Move move) {
+    private float moveValue(Board board, Move move) {
         boolean isEndGame;
 
         //setEndGame

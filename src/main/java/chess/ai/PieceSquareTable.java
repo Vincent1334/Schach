@@ -14,7 +14,7 @@ public class PieceSquareTable {
      * piece square table for a white pawn
      * contains information about clever positions for a pawn
      */
-    public final static short[][] PAWN_TABLE = new short[][]
+    protected final static short[][] PAWN_TABLE = new short[][]
             {
                     {0, 0, 0, 0, 0, 0, 0, 0},
                     {50, 50, 50, 50, 50, 50, 50, 50},
@@ -31,7 +31,7 @@ public class PieceSquareTable {
      * piece square table for a white knight
      * contains information about clever positions for a knight
      */
-    public final static short[][] KNIGHT_TABLE = new short[][]
+    protected final static short[][] KNIGHT_TABLE = new short[][]
             {
                     {-50, -40, -30, -30, -30, -30, -40, -50},
                     {-40, -20, 0, 0, 0, 0, -20, -40},
@@ -48,7 +48,7 @@ public class PieceSquareTable {
      * piece square table for a white bishop
      * contains information about clever positions for a bishop
      */
-    public final static short[][] BISHOP_TABLE = new short[][]
+    protected final static short[][] BISHOP_TABLE = new short[][]
             {
                     {-20, -10, -10, -10, -10, -10, -10, -20},
                     {-10, 0, 0, 0, 0, 0, 0, -10},
@@ -65,7 +65,7 @@ public class PieceSquareTable {
      * piece square table for a white king
      * contains information about clever positions for a king
      */
-    public final static short[][] KING_TABLE = new short[][]
+    protected final static short[][] KING_TABLE = new short[][]
             {
                     {-30, -40, -40, -50, -50, -40, -40, -30},
                     {-30, -40, -40, -50, -50, -40, -40, -30},
@@ -82,7 +82,7 @@ public class PieceSquareTable {
      * piece square table for a white king in the endgame
      * contains information about clever positions for a king in the end game
      */
-    public final static short[][] King_ENDGAME_TABLE = new short[][]
+    protected final static short[][] King_ENDGAME_TABLE = new short[][]
             {
                     {-50, -40, -30, -20, -20, -30, -40, -50},
                     {-30, -20, -10, 0, 0, -10, -20, -30},
@@ -98,7 +98,7 @@ public class PieceSquareTable {
      * piece square table for a queen or rook
      * contains information about clever positions for a queen or rook
      */
-    public final static short[][] NULL_TABLE = new short[][]
+    protected final static short[][] NULL_TABLE = new short[][]
             {
                     {0, 0, 0, 0, 0, 0, 0, 0},
                     {0, 0, 0, 0, 0, 0, 0, 0},
@@ -117,7 +117,7 @@ public class PieceSquareTable {
      * @param isEndGame endgame, different table for the king
      * @return the table for the figure ID
      */
-    public static short[][] getTable(int figureID, boolean isEndGame) {
+    protected static short[][] getTable(int figureID, boolean isEndGame) {
         switch (figureID) {
             case 1:
                 return Arrays.copyOf(PAWN_TABLE, PAWN_TABLE.length);

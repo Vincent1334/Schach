@@ -28,11 +28,11 @@ public class CutOff {
 
     //--------------getter / setter---------------------------------------------------------------------------------------------------------------
 
-    public List<Move> getPARENT_CUT_OFF() {
+    protected List<Move> getPARENT_CUT_OFF() {
         return PARENT_CUT_OFF;
     }
 
-    public Move getLASTMOVE() {
+    protected Move getLASTMOVE() {
         return LASTMOVE;
     }
 

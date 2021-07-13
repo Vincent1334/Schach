@@ -255,7 +255,6 @@ public class NetworkPlayer implements Runnable {
         } else {
             if (gui != null) gui.setNotification(false, "");
         }
-        if (gui != null) gui.getController().getScene().updateScene();
     }
 
     /**

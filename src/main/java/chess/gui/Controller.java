@@ -46,7 +46,7 @@ public class Controller {
     private Scene scene;
 
     @FXML
-    public Pane menu;
+    public Pane graphicElements;
 
     /**
      * initiates the controller and the logic
@@ -87,7 +87,8 @@ public class Controller {
     /**
      * closes the actual window and opens the menu-window
      */
-    public void backToMenu() {
+    @FXML
+    private void backToMenu() {
         logic.killNetworkPlayer();
 
         WindowManager.initialWindow("MenuStage", "menu_title");
@@ -333,7 +334,7 @@ public class Controller {
      * @return the gui element gridPane which shows white's beaten figures
      */
     protected GridPane getBeatenFiguresWhite() {
-        return (GridPane) menu.getChildren().get(0);
+        return (GridPane) graphicElements.getChildren().get(0);
     }
 
     /**
@@ -342,7 +343,7 @@ public class Controller {
      * @return the gui element "chessboard" as a gridPane
      */
     protected GridPane getBoard() {
-        return (GridPane) menu.getChildren().get(1);
+        return (GridPane) graphicElements.getChildren().get(1);
     }
 
     /**
@@ -351,7 +352,7 @@ public class Controller {
      * @return the gui element "History" as a scrollPane
      */
     protected ScrollPane getScrollPaneHistory() {
-        return (ScrollPane) menu.getChildren().get(3);
+        return (ScrollPane) graphicElements.getChildren().get(3);
     }
 
     /**
@@ -369,7 +370,7 @@ public class Controller {
      * @return the gui label which shows whether one team is in check
      */
     protected Label getLabelCheck() {
-        return (Label) menu.getChildren().get(4);
+        return (Label) graphicElements.getChildren().get(4);
     }
 
     /**
@@ -378,7 +379,7 @@ public class Controller {
      * @return the gui label which shows whether the computer is still calculating
      */
     protected Label getLabelCalculating() {
-        return (Label) menu.getChildren().get(5);
+        return (Label) graphicElements.getChildren().get(5);
     }
 
     /**
@@ -387,7 +388,7 @@ public class Controller {
      * @return the gui checkBox which shows whether the "touch-move"-rule is activated or not
      */
     protected CheckBox getTouchMove() {
-        return (CheckBox) menu.getChildren().get(6);
+        return (CheckBox) graphicElements.getChildren().get(6);
     }
 
     /**
@@ -396,7 +397,7 @@ public class Controller {
      * @return the gui checkBox which shows whether the "show-possible-moves"-rule is activated or not
      */
     protected CheckBox getPossibleMove() {
-        return (CheckBox) menu.getChildren().get(7);
+        return (CheckBox) graphicElements.getChildren().get(7);
     }
 
     /**
@@ -405,7 +406,7 @@ public class Controller {
      * @return the gui checkBox which shows whether the "rotate"-rule is activated or not
      */
     protected CheckBox getRotate() {
-        return (CheckBox) menu.getChildren().get(8);
+        return (CheckBox) graphicElements.getChildren().get(8);
     }
 
     /**
@@ -414,7 +415,7 @@ public class Controller {
      * @return the gui checkBox which shows whether the "show-flag"-rule is activated or not
      */
     protected CheckBox getShowFlags() {
-        return (CheckBox) menu.getChildren().get(9);
+        return (CheckBox) graphicElements.getChildren().get(9);
     }
 
     /**
@@ -423,7 +424,7 @@ public class Controller {
      * @return the gui element "white rectangle" which shows whether it is white's turn
      */
     protected Rectangle getRectangleWhite() {
-        return (Rectangle) menu.getChildren().get(11);
+        return (Rectangle) graphicElements.getChildren().get(11);
     }
 
     /**
@@ -432,7 +433,7 @@ public class Controller {
      * @return the gui element "black rectangle" which shows whether it is black's turn
      */
     protected Rectangle getRectangleBlack() {
-        return (Rectangle) menu.getChildren().get(12);
+        return (Rectangle) graphicElements.getChildren().get(12);
     }
 
     /**
@@ -441,7 +442,7 @@ public class Controller {
      * @return the gui element gridPane which shows black's beaten figures
      */
     protected GridPane getBeatenFiguresBlack() {
-        return (GridPane) menu.getChildren().get(13);
+        return (GridPane) graphicElements.getChildren().get(13);
     }
 
     /**
@@ -450,7 +451,7 @@ public class Controller {
      * @return undo button
      */
     protected Button getButtonUndo() {
-        return (Button) menu.getChildren().get(14);
+        return (Button) graphicElements.getChildren().get(14);
     }
 
     /**
@@ -459,7 +460,7 @@ public class Controller {
      * @return redo button
      */
     protected Button getButtonRedo() {
-        return (Button) menu.getChildren().get(15);
+        return (Button) graphicElements.getChildren().get(15);
     }
 
 
@@ -476,7 +477,7 @@ public class Controller {
         return logic;
     }
 
-    public Scene getScene() {
+    protected Scene getScene() {
         return scene;
     }
 }

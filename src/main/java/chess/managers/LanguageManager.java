@@ -143,7 +143,7 @@ public class LanguageManager {
      */
     private static void updateLanguageGameStage() {
         if (WindowManager.getStage("GameStage") != null) {
-            Pane menu = ((Controller) WindowManager.getController("GameStage")).menu;
+            Pane menu = ((Controller) WindowManager.getController("GameStage")).graphicElements;
 
             switchFlagLanguage(oldLanguage, "blackCheck_label", menu);
             switchFlagLanguage(oldLanguage, "whiteCheck_label", menu);

@@ -34,14 +34,14 @@ public class Scene {
      *
      * @param controller the controller with all FXML Objects
      */
-    public Scene(Controller controller) {
+    protected Scene(Controller controller) {
         this.CONTROLLER = controller;
     }
 
     /**
      * updates the scene (the board, the history, the beaten-figure-list, possible notifications, possible board turns)
      */
-    public void updateScene() {
+    protected void updateScene() {
         drawBoard();
         updateNotifications();
         updateBeatenFigures();
@@ -87,7 +87,7 @@ public class Scene {
      *
      * @param move the move that should be added to the history
      */
-    public void updateHistory(Move move) {
+    protected void updateHistory(Move move) {
         int row = CONTROLLER.getHistory().getRowCount();
         String space = "   ";
         if (row < 10) {
@@ -120,7 +120,7 @@ public class Scene {
     /**
      * updates the beaten figure list in the gui
      */
-    public void updateBeatenFigures() {
+    protected void updateBeatenFigures() {
         int whiteIndex = 0;
         int blackIndex = 0;
         int whiteCol = 0;

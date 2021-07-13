@@ -43,7 +43,7 @@ public class MainMenu {
      * quits the game
      */
     @FXML
-    void quitGame() {
+    private void quitGame() {
         System.exit(0);
     }
 
@@ -104,14 +104,16 @@ public class MainMenu {
     /**
      * sets the playerColor to black
      */
-    public void setBlack() {
+    @FXML
+    private void setBlack() {
         playerColorBlack = true;
     }
 
     /**
      * sets the playerColor to white
      */
-    public void setWhite() {
+    @FXML
+    private void setWhite() {
         playerColorBlack = false;
     }
 }

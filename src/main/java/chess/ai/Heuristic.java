@@ -47,7 +47,7 @@ public class Heuristic {
      * @param playerMax zero when current and last move are the same
      * @return negative repeat points when move is repeated and zero if it is not
      */
-    public static float checkRepeat(Move move, Move lastMove, boolean playerMax) {
+    protected static float checkRepeat(Move move, Move lastMove, boolean playerMax) {
         if (lastMove != null &&
                 move.getActualFigure() == lastMove.getActualFigure() &&
                 move.getActualFigure().isBlack() == playerMax) {
@@ -63,7 +63,7 @@ public class Heuristic {
      * @param playerMax maximizing player
      * @return figure score
      */
-    public static float checkFigureScore(Move move, boolean playerMax) {
+    protected static float checkFigureScore(Move move, boolean playerMax) {
         float figureScore = 0;
         switch (move.getActualFigure().getFigureID()) {
             case 1:
@@ -96,7 +96,7 @@ public class Heuristic {
      * @param playerMax maximizing player
      * @return the determined value of the pawn chain score
      */
-    public static float checkPawnChain(Board board, Move move, boolean playerMax) {
+    protected static float checkPawnChain(Board board, Move move, boolean playerMax) {
         float score = 0;
         if (move.getActualFigure() instanceof Pawn) {
             for (int i = 0; i < 4; i++) {
@@ -125,7 +125,7 @@ public class Heuristic {
      * @param i     left, right, up or down from actual pawn
      * @return the neighbor pawn
      */
-    private static Figure getNeighbourPawn(Board board, Move move, int i) {
+    protected static Figure getNeighbourPawn(Board board, Move move, int i) {
         Figure tmpFigure = null;
         switch (i) {
             case 0:
@@ -152,7 +152,7 @@ public class Heuristic {
      * @param playerMax maximizing player
      * @return the determined value for the material score
      */
-    public static float checkMaterial(int[][] material, boolean playerMax) {
+    protected static float checkMaterial(int[][] material, boolean playerMax) {
         float score = 0;
         int playerMaxID = playerMax ? 1 : 0;
         int playerMinID = !playerMax ? 1 : 0;
@@ -172,7 +172,7 @@ public class Heuristic {
      * @param playerMax  maximizing player
      * @return the determined value of the field score
      */
-    public static float checkFieldScore(int[][] fieldScore, boolean playerMax) {
+    protected static float checkFieldScore(int[][] fieldScore, boolean playerMax) {
         float score = 0;
         int playerMaxID = playerMax ? 1 : 0;
         int playerMinID = !playerMax ? 1 : 0;
@@ -192,7 +192,7 @@ public class Heuristic {
      * @param isEndGame whether it is the endgame
      * @return the determined value of the endgame score
      */
-    public static float checkEndGame(Board board, boolean playerMax, boolean isEndGame) {
+    protected static float checkEndGame(Board board, boolean playerMax, boolean isEndGame) {
         float score = 0;
         if (isEndGame) {
             for (int y = 0; y < 8; y++) {
@@ -216,7 +216,7 @@ public class Heuristic {
      * @param playerMax maximizing player
      * @return castling points
      */
-    public static float checkCastling(Board board, boolean playerMax) {
+    protected static float checkCastling(Board board, boolean playerMax) {
         return (board.isCastlingFlag(playerMax) ? CASTLING_POINTS : 0) - (board.isCastlingFlag(!playerMax) ? CASTLING_POINTS : 0);
     }
 
@@ -227,7 +227,7 @@ public class Heuristic {
      * @param playerMax maximizing player
      * @return chess mate points
      */
-    public static float checkChessMate(Board board, boolean playerMax) {
+    protected static float checkChessMate(Board board, boolean playerMax) {
         return (board.isCheckMateFlag(!playerMax) ? CHECK_MATE_POINTS : 0) - (board.isCheckMateFlag(playerMax) ? CHECK_MATE_POINTS : 0);
     }
 
@@ -238,7 +238,7 @@ public class Heuristic {
      * @param playerMax maximizing player
      * @return check points
      */
-    public static float checkChess(Board board, boolean playerMax) {
+    protected static float checkChess(Board board, boolean playerMax) {
         return (board.isCheckFlag(!playerMax) ? CHECK_POINTS : 0) - (board.isCheckFlag(playerMax) ? CHECK_POINTS : 0);
     }
 }

@@ -28,7 +28,7 @@ public class UndoRedo {
      * @param pointer    pointer in coreGame's moveHistory to the current board
      * @param CONTROLLER the controller
      */
-    public UndoRedo(int pointer, Controller CONTROLLER) {
+    protected UndoRedo(int pointer, Controller CONTROLLER) {
         this.CONTROLLER = CONTROLLER;
         this.pointer = pointer;
         UNDO_REDO_MOVES_AS_TEXT = new ArrayList<>();
@@ -41,7 +41,7 @@ public class UndoRedo {
      * @param history the gui element history as gridPane which contains all made moves
      * @param logic   the logic
      */
-    public void undo(GridPane history, Logic logic) {
+    protected void undo(GridPane history, Logic logic) {
         int loopIndex = 0;
         if (logic.getGameMode() == GameMode.NORMAL || logic.getGameMode() == GameMode.NETWORK) {
             loopIndex = 1;
@@ -80,7 +80,7 @@ public class UndoRedo {
      * @param history the gui element history as gridPane which contains all made moves
      * @param logic   the logic
      */
-    public void redo(GridPane history, Logic logic) {
+    protected void redo(GridPane history, Logic logic) {
         int loopIndex = 0;
         if (logic.getGameMode() == GameMode.NORMAL || logic.getGameMode() == GameMode.NETWORK) {
             loopIndex = 1;
@@ -100,7 +100,7 @@ public class UndoRedo {
      * @param history the gui element history as gridPane which contains all made moves
      * @param logic   the logic
      */
-    public void resetUndoRedo(GridPane history, Logic logic) {
+    protected void resetUndoRedo(GridPane history, Logic logic) {
         // Texts (for display)
         for (Text move : UNDO_REDO_MOVES_AS_TEXT) {
             history.getChildren().removeIf(node -> node.equals(move));
@@ -122,7 +122,7 @@ public class UndoRedo {
      * @param logic   the logic
      * @param pointer the pointer
      */
-    public void undoRedoClicked(GridPane history, Logic logic, int pointer) {
+    protected void undoRedoClicked(GridPane history, Logic logic, int pointer) {
         // In the game against the computer, only every second move can be clicked
         if (logic.getGameMode() == GameMode.COMPUTER) {
             if (pointer % 2 == 0 && logic.getComputer().isBlack() || pointer % 2 != 0 && !logic.getComputer().isBlack()) {
@@ -248,15 +248,15 @@ public class UndoRedo {
 
     //--------------getter / setter---------------------------------------------------------------------------------------------------------------
 
-    public void setPointer(int pointer) {
+    protected void setPointer(int pointer) {
         this.pointer = pointer;
     }
 
-    public List<Text> getUNDO_REDO_MOVES_AS_TEXT() {
+    protected List<Text> getUNDO_REDO_MOVES_AS_TEXT() {
         return UNDO_REDO_MOVES_AS_TEXT;
     }
 
-    public int getPointer() {
+    protected int getPointer() {
         return pointer;
     }
 }

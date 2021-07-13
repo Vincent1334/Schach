@@ -67,7 +67,7 @@ public class Logic implements Runnable {
      * @param clickedField the clicked field
      * @param blacksTurn   is black on turn?
      */
-    public void handleFieldClick(Rectangle clickedField, boolean blacksTurn) {
+    protected void handleFieldClick(Rectangle clickedField, boolean blacksTurn) {
         if (startField == null && CONTROLLER.getFigure(clickedField) != null && CONTROLLER.isImageBlack(CONTROLLER.getFigure(clickedField)) == blacksTurn) {
             startField = clickedField;
             CONTROLLER.setMark(startField, true, coreGame.getCurrentBoard());
@@ -133,7 +133,7 @@ public class Logic implements Runnable {
     /**
      * starts a computer move
      */
-    public void computerMove() {
+    private void computerMove() {
         computer.makeMove(coreGame.getCurrentBoard());
         setNotification(true, LanguageManager.getText("calculating_label"));
     }
@@ -253,7 +253,7 @@ public class Logic implements Runnable {
      *
      * @param reset reset the boardTurning
      */
-    public void turnBoard(boolean reset) {
+    protected void turnBoard(boolean reset) {
         if (reset) {
             CONTROLLER.getBoard().setRotate(0);
             turnFigures(0);
@@ -273,7 +273,7 @@ public class Logic implements Runnable {
      *
      * @param angle the angle around which the figures are rotated
      */
-    public void turnFigures(int angle) {
+    protected void turnFigures(int angle) {
         for (Node node : CONTROLLER.getBoard().getChildren()) {
             node.setRotate(angle);
         }
@@ -305,7 +305,7 @@ public class Logic implements Runnable {
      *
      * @return coreGame
      */
-    public CoreGame getCoreGame() {
+    protected CoreGame getCoreGame() {
         return coreGame;
     }
 
@@ -315,7 +315,7 @@ public class Logic implements Runnable {
      *
      * @return startField
      */
-    public Rectangle getStartField() {
+    protected Rectangle getStartField() {
         return startField;
     }
 
@@ -324,7 +324,7 @@ public class Logic implements Runnable {
      *
      * @return GAME_MODE
      */
-    public GameMode getGameMode() {
+    protected GameMode getGameMode() {
         return GAME_MODE;
     }
 
@@ -334,30 +334,20 @@ public class Logic implements Runnable {
      *
      * @return playerBlack
      */
-    public boolean isPlayerBlack() {
+    protected boolean isPlayerBlack() {
         return playerBlack;
     }
-
-    /**
-     * returns the CONTROLLER
-     *
-     * @return CONTROLLER
-     */
-    public Controller getController() {
-        return CONTROLLER;
-    }
-
 
     /**
      * returns the network
      *
      * @return network
      */
-    public NetworkPlayer getNetwork() {
+    protected NetworkPlayer getNetwork() {
         return network;
     }
 
-    public Computer getComputer() {
+    protected Computer getComputer() {
         return computer;
     }
 }

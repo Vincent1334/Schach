@@ -61,7 +61,7 @@ public class Cli {
      * the start loop
      * (main menu with options to choose the gamemode and language)
      */
-    public static void startLoop() {
+    private static void startLoop() {
         do {
             System.out.println(" ");
             System.out.println(" ██████╗██╗  ██╗███████╗███████╗███████╗");
@@ -93,7 +93,7 @@ public class Cli {
      * Clear Windows, drawBoard and wait for user input
      * After game the loop ends
      */
-    public static void enterGame() {
+    private static void enterGame() {
         do {
             drawBoard();
             String input = scan.nextLine();
@@ -154,7 +154,7 @@ public class Cli {
     /**
      * checks and performs the computer move
      */
-    public static void checkComputerMove() {
+    private static void checkComputerMove() {
         //check computer move
         if (gameMode2 == GameMode.COMPUTER) {
             //draw human input
@@ -176,7 +176,7 @@ public class Cli {
     /**
      * undo one move for games against a friend and two for a game against the computer
      */
-    public static void undo() {
+    private static void undo() {
         if (pointer >= 0) {
             UNDO_REDO_MOVES_AS_BOARD.add(coreGame.getMoveHistory().get(pointer));
 
@@ -201,7 +201,7 @@ public class Cli {
     /**
      * redo one move for games against a friend and two for a game against the computer
      */
-    public static void redo() {
+    private static void redo() {
         if (UNDO_REDO_MOVES_AS_BOARD.size() > 0) {
             pointer++;
 
@@ -226,7 +226,7 @@ public class Cli {
     /**
      * updates the moveHistory, pointer and clears the undoRedoMovesAsBoard
      */
-    public static void resetUndoRedo() {
+    private static void resetUndoRedo() {
         // MoveHistory of CoreGame and corresponding Pointer
         for (Board board : UNDO_REDO_MOVES_AS_BOARD) {
             coreGame.getMoveHistory().remove(board);
@@ -238,14 +238,14 @@ public class Cli {
     /**
      * Screen for credits
      */
-    public static void endGame() {
+    private static void endGame() {
         System.out.println(LanguageManager.getText("gameover_label"));
     }
 
     /**
      * Draw the board into the commandline
      */
-    public static void drawBoard() {
+    private static void drawBoard() {
         for (int y = 0; y < 8; y++) {
             System.out.print(8 - y + " ");
             for (int x = 0; x < 8; x++) {

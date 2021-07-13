@@ -17,6 +17,8 @@ public class ImageManager {
     private static ImageManager instance;
     private final Map<String, Image> IMGS = new HashMap<>();
 
+    private ImageManager(){}
+
     /**
      * returns the ImageHandler
      *
