@@ -1,6 +1,6 @@
 package chess.managers;
 
-import chess.gui.Controller;
+import chess.gui.ChessBoard;
 import chess.gui.MainMenu;
 import chess.gui.NetworkMenu;
 import chess.gui.Promotion;
@@ -143,7 +143,7 @@ public class LanguageManager {
      */
     private static void updateLanguageGameStage() {
         if (WindowManager.getStage("GameStage") != null) {
-            Pane menu = ((Controller) WindowManager.getController("GameStage")).graphicElements;
+            Pane menu = ((ChessBoard) WindowManager.getController("GameStage")).graphicElements;
 
             switchFlagLanguage(oldLanguage, "blackCheck_label", menu);
             switchFlagLanguage(oldLanguage, "whiteCheck_label", menu);

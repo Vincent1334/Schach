@@ -39,7 +39,7 @@ import static javafx.scene.paint.Color.valueOf;
  */
 @SuppressWarnings({"PMD.UnusedPrivateMethod"})
 // the methods updateFlagButton(), updatePossibleMovesButton() and updateRotateButton() are used by the gui but PMD does not recognize this
-public class Controller {
+public class ChessBoard {
 
     private Logic logic;
     private UndoRedo undoRedo;

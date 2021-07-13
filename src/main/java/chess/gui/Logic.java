@@ -27,7 +27,7 @@ public class Logic implements Runnable {
     private static CoreGame coreGame;
     private Computer computer;
     private Rectangle startField;
-    private final Controller CONTROLLER;
+    private final ChessBoard CHESSBOARD;
     private final GameMode GAME_MODE;
     private NetworkPlayer network;
     private boolean playerBlack;
@@ -44,11 +44,11 @@ public class Logic implements Runnable {
     public Logic(GameMode GAME_MODE, boolean playerColorBlack, NetworkPlayer networkPlayer) {
         this.GAME_MODE = GAME_MODE;
         coreGame = new CoreGame();
-        this.CONTROLLER = (Controller) WindowManager.getController("GameStage");
+        this.CHESSBOARD = (ChessBoard) WindowManager.getController("GameStage");
 
         if (GAME_MODE == GameMode.COMPUTER) {
             computer = new Computer(!playerColorBlack, this);
-            CONTROLLER.getRotate().setDisable(true);
+            CHESSBOARD.getRotate().setDisable(true);
             if (playerColorBlack) {
                 computerMove();
             }
@@ -57,7 +57,7 @@ public class Logic implements Runnable {
             setNotification(true, LanguageManager.getText("network_waiting_label"));
             this.network = networkPlayer;
             this.network.initNetworkPlayer(this);
-            CONTROLLER.getRotate().setDisable(true);
+            CHESSBOARD.getRotate().setDisable(true);
         }
     }
 
@@ -68,10 +68,10 @@ public class Logic implements Runnable {
      * @param blacksTurn   is black on turn?
      */
     protected void handleFieldClick(Rectangle clickedField, boolean blacksTurn) {
-        if (startField == null && CONTROLLER.getFigure(clickedField) != null && CONTROLLER.isImageBlack(CONTROLLER.getFigure(clickedField)) == blacksTurn) {
+        if (startField == null && CHESSBOARD.getFigure(clickedField) != null && CHESSBOARD.isImageBlack(CHESSBOARD.getFigure(clickedField)) == blacksTurn) {
             startField = clickedField;
-            CONTROLLER.setMark(startField, true, coreGame.getCurrentBoard());
-        } else if (startField != null && CONTROLLER.getFigure(startField) != null) {
+            CHESSBOARD.setMark(startField, true, coreGame.getCurrentBoard());
+        } else if (startField != null && CHESSBOARD.getFigure(startField) != null) {
             move(startField, clickedField);
         }
     }
@@ -91,7 +91,7 @@ public class Logic implements Runnable {
                 (targetPosition.getPOS_Y() == 0 || targetPosition.getPOS_Y() == 7) &&
                 Rules.possibleTargetFields(startPosition, coreGame.getCurrentBoard()).contains(targetPosition)) {
 
-            CONTROLLER.getBoard().setMouseTransparent(true);
+            CHESSBOARD.getBoard().setMouseTransparent(true);
 
             WindowManager.initialWindow("PromotionStage", "promotion_title");
             ((Promotion) WindowManager.getController("PromotionStage")).init(startPosition, targetPosition, this);
@@ -107,14 +107,14 @@ public class Logic implements Runnable {
      * @param move the move which should be performed
      */
     protected void performMove(Move move) {
-        CONTROLLER.getBoard().setMouseTransparent(false);
-        CONTROLLER.setMark(startField, false, coreGame.getCurrentBoard());
+        CHESSBOARD.getBoard().setMouseTransparent(false);
+        CHESSBOARD.setMark(startField, false, coreGame.getCurrentBoard());
         if (coreGame.chessMove(move)) {
-            if (!CONTROLLER.getUndoRedo().getUNDO_REDO_MOVES_AS_TEXT().isEmpty()) {
-                CONTROLLER.getUndoRedo().resetUndoRedo(CONTROLLER.getHistory(), this);
+            if (!CHESSBOARD.getUndoRedo().getUNDO_REDO_MOVES_AS_TEXT().isEmpty()) {
+                CHESSBOARD.getUndoRedo().resetUndoRedo(CHESSBOARD.getHistory(), this);
             }
-            CONTROLLER.getScene().updateHistory(move);
-            CONTROLLER.getScene().updateScene();
+            CHESSBOARD.getScene().updateHistory(move);
+            CHESSBOARD.getScene().updateScene();
             startField = null;
             if (GAME_MODE == GameMode.COMPUTER) {
                 computerMove();
@@ -123,8 +123,8 @@ public class Logic implements Runnable {
                 network.sendMove(move);
                 setNotification(true, LanguageManager.getText(WAITING_NETWORK));
             }
-        } else if (CONTROLLER.getTouchMove().isSelected() && !CONTROLLER.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
-            CONTROLLER.setMark(startField, true, coreGame.getCurrentBoard());
+        } else if (CHESSBOARD.getTouchMove().isSelected() && !CHESSBOARD.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
+            CHESSBOARD.setMark(startField, true, coreGame.getCurrentBoard());
         } else {
             startField = null;
         }
@@ -164,8 +164,8 @@ public class Logic implements Runnable {
             Move computerMove = computer.getMove();
             System.out.println("Computer: " + computerMove.toString());
             coreGame.chessMove(computerMove);
-            CONTROLLER.getScene().updateHistory(computerMove);
-            CONTROLLER.getScene().updateScene();
+            CHESSBOARD.getScene().updateHistory(computerMove);
+            CHESSBOARD.getScene().updateScene();
         }
         if (GAME_MODE == GameMode.NETWORK) {
             if (network.getFlag() == NetworkFlags.Connecting) {
@@ -189,7 +189,7 @@ public class Logic implements Runnable {
         playerBlack = network.isNetworkPlayerBlack();
         if (network.isNetworkPlayerBlack()) {
             setNotification(true, LanguageManager.getText(WAITING_NETWORK));
-            CONTROLLER.getBoard().setRotate(180);
+            CHESSBOARD.getBoard().setRotate(180);
             turnFigures(180);
         } else {
             setNotification(false, "");
@@ -204,9 +204,9 @@ public class Logic implements Runnable {
         Move networkMove = (Move) network.getNetworkOutput();
         coreGame.chessMove(networkMove);
         setNotification(false, "");
-        CONTROLLER.getUndoRedo().resetUndoRedo(CONTROLLER.getHistory(), this);
-        CONTROLLER.getScene().updateHistory(networkMove);
-        CONTROLLER.getScene().updateScene();
+        CHESSBOARD.getUndoRedo().resetUndoRedo(CHESSBOARD.getHistory(), this);
+        CHESSBOARD.getScene().updateHistory(networkMove);
+        CHESSBOARD.getScene().updateScene();
         network.setFlag(NetworkFlags.InGame);
     }
 
@@ -214,15 +214,15 @@ public class Logic implements Runnable {
      * performs undo redo
      */
     private void networkUndoRedo() {
-        CONTROLLER.getUndoRedo().undoRedoClicked(CONTROLLER.getHistory(), this, (Integer) network.getNetworkOutput());
-        if ((Integer) network.getNetworkOutput() == -1) CONTROLLER.getUndoRedo().undo(CONTROLLER.getHistory(), this);
+        CHESSBOARD.getUndoRedo().undoRedoClicked(CHESSBOARD.getHistory(), this, (Integer) network.getNetworkOutput());
+        if ((Integer) network.getNetworkOutput() == -1) CHESSBOARD.getUndoRedo().undo(CHESSBOARD.getHistory(), this);
 
         if (coreGame.isActivePlayerBlack() && network.isNetworkPlayerBlack()) {
             setNotification(false, "");
         } else {
             setNotification(true, LanguageManager.getText(WAITING_NETWORK));
         }
-        CONTROLLER.getScene().updateScene();
+        CHESSBOARD.getScene().updateScene();
         network.setFlag(NetworkFlags.InGame);
     }
 
@@ -230,10 +230,10 @@ public class Logic implements Runnable {
      * disables board and undo redo and sets notification
      */
     private void exit() {
-        CONTROLLER.getBoard().setMouseTransparent(true);
-        CONTROLLER.getHistory().setMouseTransparent(true);
-        CONTROLLER.getButtonRedo().setMouseTransparent(true);
-        CONTROLLER.getButtonUndo().setMouseTransparent(true);
+        CHESSBOARD.getBoard().setMouseTransparent(true);
+        CHESSBOARD.getHistory().setMouseTransparent(true);
+        CHESSBOARD.getButtonRedo().setMouseTransparent(true);
+        CHESSBOARD.getButtonUndo().setMouseTransparent(true);
         setNotification(true, LanguageManager.getText("network_exit"));
     }
 
@@ -241,11 +241,11 @@ public class Logic implements Runnable {
      * disables undo redo function
      */
     public void disableUndoRedo() {
-        CONTROLLER.getHistory().setMouseTransparent(true);
-        CONTROLLER.getButtonRedo().setOpacity(0);
-        CONTROLLER.getButtonRedo().setDisable(true);
-        CONTROLLER.getButtonUndo().setOpacity(0);
-        CONTROLLER.getButtonUndo().setDisable(true);
+        CHESSBOARD.getHistory().setMouseTransparent(true);
+        CHESSBOARD.getButtonRedo().setOpacity(0);
+        CHESSBOARD.getButtonRedo().setDisable(true);
+        CHESSBOARD.getButtonUndo().setOpacity(0);
+        CHESSBOARD.getButtonUndo().setDisable(true);
     }
 
     /**
@@ -255,14 +255,14 @@ public class Logic implements Runnable {
      */
     protected void turnBoard(boolean reset) {
         if (reset) {
-            CONTROLLER.getBoard().setRotate(0);
+            CHESSBOARD.getBoard().setRotate(0);
             turnFigures(0);
         } else {
             if (coreGame.isActivePlayerBlack()) {
-                CONTROLLER.getBoard().setRotate(180);
+                CHESSBOARD.getBoard().setRotate(180);
                 turnFigures(180);
             } else {
-                CONTROLLER.getBoard().setRotate(0);
+                CHESSBOARD.getBoard().setRotate(0);
                 turnFigures(0);
             }
         }
@@ -274,7 +274,7 @@ public class Logic implements Runnable {
      * @param angle the angle around which the figures are rotated
      */
     protected void turnFigures(int angle) {
-        for (Node node : CONTROLLER.getBoard().getChildren()) {
+        for (Node node : CHESSBOARD.getBoard().getChildren()) {
             node.setRotate(angle);
         }
     }
@@ -289,12 +289,12 @@ public class Logic implements Runnable {
      */
     public void setNotification(boolean notificationVisible, String message) {
         if (notificationVisible) {
-            CONTROLLER.getLabelCalculating().setText(message);
-            CONTROLLER.getLabelCalculating().setVisible(true);
-            CONTROLLER.getBoard().setMouseTransparent(true);
+            CHESSBOARD.getLabelCalculating().setText(message);
+            CHESSBOARD.getLabelCalculating().setVisible(true);
+            CHESSBOARD.getBoard().setMouseTransparent(true);
         } else {
-            CONTROLLER.getLabelCalculating().setVisible(false);
-            CONTROLLER.getBoard().setMouseTransparent(false);
+            CHESSBOARD.getLabelCalculating().setVisible(false);
+            CHESSBOARD.getBoard().setMouseTransparent(false);
         }
     }
 

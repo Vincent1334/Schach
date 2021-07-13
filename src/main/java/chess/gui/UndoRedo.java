@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class UndoRedo {
 
-    private final Controller CONTROLLER;
+    private final ChessBoard CHESSBOARD;
     private int pointer;
     private final List<Text> UNDO_REDO_MOVES_AS_TEXT;
     private final List<Board> UNDO_REDO_MOVES_AS_BOARD;
@@ -26,10 +26,10 @@ public class UndoRedo {
      * undo/redo constructor
      *
      * @param pointer    pointer in coreGame's moveHistory to the current board
-     * @param CONTROLLER the controller
+     * @param CHESSBOARD the controller
      */
-    protected UndoRedo(int pointer, Controller CONTROLLER) {
-        this.CONTROLLER = CONTROLLER;
+    protected UndoRedo(int pointer, ChessBoard CHESSBOARD) {
+        this.CHESSBOARD = CHESSBOARD;
         this.pointer = pointer;
         UNDO_REDO_MOVES_AS_TEXT = new ArrayList<>();
         UNDO_REDO_MOVES_AS_BOARD = new ArrayList<>();
@@ -68,8 +68,8 @@ public class UndoRedo {
      */
     private void unmark() {
         for (int i = 0; i < 96; i++) {
-            if (CONTROLLER.getBoard().getChildren().get(i) instanceof Rectangle) {
-                ((Rectangle) CONTROLLER.getBoard().getChildren().get(i)).setStrokeWidth(0);
+            if (CHESSBOARD.getBoard().getChildren().get(i) instanceof Rectangle) {
+                ((Rectangle) CHESSBOARD.getBoard().getChildren().get(i)).setStrokeWidth(0);
             }
         }
     }
@@ -148,7 +148,7 @@ public class UndoRedo {
         // possibly change of players
         logic.getCoreGame().setActivePlayerBlack(pointer % 2 == 0);
 
-        CONTROLLER.getScene().updateScene();
+        CHESSBOARD.getScene().updateScene();
         unmark();
     }
 
@@ -214,7 +214,7 @@ public class UndoRedo {
         // possibly change of players
         logic.getCoreGame().setActivePlayerBlack(pointer % 2 == 0);
 
-        CONTROLLER.getScene().updateScene();
+        CHESSBOARD.getScene().updateScene();
         unmark();
     }
 
@@ -242,7 +242,7 @@ public class UndoRedo {
         // possibly change of players
         logic.getCoreGame().setActivePlayerBlack(pointer % 2 == 0);
 
-        CONTROLLER.getScene().updateScene();
+        CHESSBOARD.getScene().updateScene();
 
     }
 

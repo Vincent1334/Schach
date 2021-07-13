@@ -32,7 +32,7 @@ public class MainMenu {
             WindowManager.getStage("NetworkStage").show();
         } else {
             WindowManager.initialWindow("GameStage", "game_title");
-            ((Controller) WindowManager.getController("GameStage")).init(gameMode, playerColorBlack, null);
+            ((ChessBoard) WindowManager.getController("GameStage")).init(gameMode, playerColorBlack, null);
             WindowManager.getStage("GameStage").show();
         }
         // Hide this current window
