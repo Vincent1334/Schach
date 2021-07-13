@@ -278,7 +278,7 @@ public class Computer implements Runnable {
      */
 
     /**
-     * pre-sorts the moves
+     * pre-sorts the moves for identical ones to create more cutoffs
      *
      * @param moves  list of possible moves
      * @param cutOff list of cutoff moves
