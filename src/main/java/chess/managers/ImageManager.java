@@ -45,6 +45,7 @@ public class ImageManager {
                 break;
             }
         }
+        assert url != null;
         Image image = new Image(url.toExternalForm(), true);
         IMGS.put(name, image);
     }
