@@ -28,7 +28,6 @@ public class LanguageManager {
 
     private static ResourceBundle messages = ResourceBundle.getBundle("/languages/MessagesBundle", LOCALE.get(index));
     private static ResourceBundle oldLanguage;
-    private final static String LANGUAGE = "language";
     private final static String NETWORKSTAGE = "NetworkStage";
 
     /**
@@ -132,7 +131,6 @@ public class LanguageManager {
             ((Button) promotion.getChildren().get(3)).setText(LanguageManager.getText("bishop_label"));
             ((Button) promotion.getChildren().get(4)).setText(LanguageManager.getText("rook_label"));
             ((Button) promotion.getChildren().get(5)).setText(LanguageManager.getText("knight_label"));
-            ((Button) promotion.getChildren().get(6)).setText(LanguageManager.getText(LANGUAGE));
 
             WindowManager.getStage("PromotionStage").setTitle(getText("promotion_title"));
         }
