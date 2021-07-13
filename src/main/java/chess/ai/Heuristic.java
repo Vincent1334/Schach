@@ -146,7 +146,7 @@ public class Heuristic {
 
 
     /**
-     * checks material worth and adds that to the score
+     * checks material worth of figures and adds that to the score
      *
      * @param material  material for each figure
      * @param playerMax maximizing player
@@ -166,7 +166,7 @@ public class Heuristic {
     }
 
     /**
-     * determines field score
+     * determines field score of the whole board
      *
      * @param fieldScore the fields score
      * @param playerMax  maximizing player
