@@ -102,7 +102,7 @@ public class Heuristic {
             for (int i = 0; i < 4; i++) {
                 Figure tmpFigure;
                 try {
-                    tmpFigure = getNeighborPawn(board, move, i);
+                    tmpFigure = getNeighbourPawn(board, move, i);
                 } catch (Exception x) {
                     continue;
                 }
@@ -118,14 +118,14 @@ public class Heuristic {
     }
 
     /**
-     * looks if there is any neighbor pawn
+     * looks if there is any neighbour pawn
      *
      * @param board the current board
      * @param move  the current move
      * @param i     left, right, up or down from actual pawn
      * @return the neighbor pawn
      */
-    private static Figure getNeighborPawn(Board board, Move move, int i) {
+    private static Figure getNeighbourPawn(Board board, Move move, int i) {
         Figure tmpFigure = null;
         switch (i) {
             case 0:
