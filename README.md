@@ -6,29 +6,19 @@ Dokumentation Überblick
 
 ## Vorgehensplan
 
-Der [Vorgehensplan](documentation/Vorgehensplan.pdf) beinhaltet aktuelle To-dos und einen Überblick der geplanten Features.
+Der [Vorgehensplan](documentation/4_Vorgehensplan.pdf) beinhaltet aktuelle To-dos und einen Überblick der geplanten Features.
 
 ## Anleitung
 
-Die [Anleitung](documentation/Bedienungsanleitung.pdf) beinhaltet einen einfachen Einstieg für die Verwendung unseres Programmes.
+Die [Anleitung](documentation/2_Bedienungsanleitung.pdf) beinhaltet einen einfachen Einstieg für die Verwendung unseres Programmes.
 
 ## Architektur
 
-Das [Architektur-Dokument](documentation/Architekturdokumentation.pdf) stellt die Architektur des Systems aus Nutzersicht sowie aus statischer und dynamischer Sicht dar.
+Das [Architektur-Dokument](documentation/3_Architekturdokumentation.pdf) stellt die Architektur des Systems aus Nutzersicht sowie aus statischer und dynamischer Sicht dar.
 
-## StoryCards
+## Anforderungsdokumentation
 
-Die [Storycards](documentation/Anforderungsdokumentation/Story%20Cards) zeigen die Anwendungsfälle bzw. Funktionen des Projekts auf.
-
-## Diagramme
-
-Das [UML-Klassen-Diagramm](documentation/Diagramme/Klassendiagramm.png) bietet eine Übersicht über das Zusammenspiel der einzelnen Klassen.
-
-Das [Use-Case-Diagramm](documentation/Anforderungsdokumentation/Use_Case_Diagramm.png) stellt die Leistungen des Systems aus Benutzersicht dar.
-
-Der [Programmablaufplan CLI](documentation/Diagramme/Programmablaufplan_CLI.png) stellt den grundlegenden Ablauf des Programms (CLI) dar.
-
-Der [Programmablaufplan GUI](documentation/Diagramme/Programmablaufplan_GUI.png) stellt den grundlegenden Ablauf des Programms (GUI) dar.
+Die [Anforderungsdokumentation](documentation/1_Anforderungsdokumentation.pdf) zeigen die Anwendungsfälle bzw. Funktionen des Projekts auf.
 
 ## Statische Variablen
 
