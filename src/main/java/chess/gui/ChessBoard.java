@@ -55,9 +55,9 @@ public class ChessBoard {
      * @param isBlack       the current player
      * @param networkPlayer the network player
      */
-    public void init(GameMode gameMode, boolean isBlack, NetworkPlayer networkPlayer) {
+    public void init(GameMode gameMode, int targetDepth,boolean isBlack, NetworkPlayer networkPlayer) {
         scene = new Scene(this);
-        logic = new Logic(gameMode, isBlack, networkPlayer);
+        logic = new Logic(gameMode, targetDepth,isBlack, networkPlayer);
         undoRedo = new UndoRedo(logic.getCoreGame().getMoveHistory().size() - 1, this);
 
         // style fields (hover effect)

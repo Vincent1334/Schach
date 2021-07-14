@@ -29,19 +29,26 @@ public class Computer implements Runnable {
     private final boolean PLAYER_MIN;
 
     private Board board;
-    private int targetDepth = 5;
+    private int targetDepth;
+    private boolean depthDynamic = false;
     private Move bestMove, lastMove;
 
     /**
      * the constructor of the computer for the CLI game
      *
      * @param isBlack color of the player
+     * @param targetDepth the search depth
      */
-    public Computer(boolean isBlack) {
+    public Computer(boolean isBlack, int targetDepth) {
 
         //setup Player
         this.PLAYER_MAX = isBlack;
         this.PLAYER_MIN = !isBlack;
+
+        this.targetDepth = targetDepth;
+        if(targetDepth == 5){
+            depthDynamic = true;
+        }
 
         //define default best move
         bestMove = new Move(new Position(0, 0), new Position(0, 0));
@@ -55,11 +62,17 @@ public class Computer implements Runnable {
      *
      * @param isBlack color of the player
      * @param gui     the graphical user interface
+     * @param targetDepth the search depth
      */
-    public Computer(boolean isBlack, Logic gui) {
+    public Computer(boolean isBlack, Logic gui, int targetDepth) {
         //setup Player
         this.PLAYER_MAX = isBlack;
         this.PLAYER_MIN = !isBlack;
+
+        this.targetDepth = targetDepth;
+        if(targetDepth == 5){
+            depthDynamic = true;
+        }
 
         //set GUI controller
         this.gui = gui;
@@ -268,7 +281,7 @@ public class Computer implements Runnable {
      * increases the search depth
      */
     private void changeDepth() {
-        if (board.getBeatenFigures().size() % 15 == 0 && board.getBeatenFigures().size() != 0) {
+        if (board.getBeatenFigures().size() % 15 == 0 && board.getBeatenFigures().size() != 0 && depthDynamic) {
             targetDepth = targetDepth + targetDepth / 4;
         }
     }

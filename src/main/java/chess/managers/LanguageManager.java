@@ -93,6 +93,10 @@ public class LanguageManager {
             ((RadioButton) pane.getChildren().get(9)).setText(getText("gamemode03"));
             ((Button) pane.getChildren().get(10)).setText(getText("start_button"));
             ((Button) pane.getChildren().get(11)).setText(getText("quit_button"));
+            ((RadioButton) pane.getChildren().get(16)).setText(getText("easy_label"));
+            ((RadioButton) pane.getChildren().get(17)).setText(getText("medium_label"));
+            ((RadioButton) pane.getChildren().get(18)).setText(getText("hard_label"));
+            ((Label) pane.getChildren().get(19)).setText(getText("difficulty_label"));
 
             WindowManager.getStage("MenuStage").setTitle(getText("menu_title"));
         }

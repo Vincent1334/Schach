@@ -19,8 +19,8 @@ public class ComputerTest {
     public void testKI(){
         try {
             CoreGame testGame = new CoreGame();
-            Computer testPlayerWhite = new Computer(false);
-            Computer testPlayerBlack = new Computer(true);
+            Computer testPlayerWhite = new Computer(false,5);
+            Computer testPlayerBlack = new Computer(true,5);
 
             testPlayerWhite.makeMove(testGame.getCurrentBoard());
             testPlayerWhite.getThread().join();

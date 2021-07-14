@@ -45,7 +45,7 @@ public class NetworkMenu {
 
             String stage = "GameStage";
             WindowManager.initialWindow(stage, "game_title");
-            ((ChessBoard) WindowManager.getController(stage)).init(GameMode.NETWORK, isBlack, network);
+            ((ChessBoard) WindowManager.getController(stage)).init(GameMode.NETWORK,0 ,false,network);
             WindowManager.showStage(stage);
 
             // Hide this current window

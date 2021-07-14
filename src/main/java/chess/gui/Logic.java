@@ -41,13 +41,13 @@ public class Logic implements Runnable {
      * @param playerColorBlack the color you want to play (true if you want to play black)
      * @param networkPlayer    the networkPlayer
      */
-    public Logic(GameMode GAME_MODE, boolean playerColorBlack, NetworkPlayer networkPlayer) {
+    public Logic(GameMode GAME_MODE,int targetDepth, boolean playerColorBlack, NetworkPlayer networkPlayer) {
         this.GAME_MODE = GAME_MODE;
         coreGame = new CoreGame();
         this.CHESSBOARD = (ChessBoard) WindowManager.getController("GameStage");
 
         if (GAME_MODE == GameMode.COMPUTER) {
-            computer = new Computer(!playerColorBlack, this);
+            computer = new Computer(!playerColorBlack, this, targetDepth);
             CHESSBOARD.getRotate().setDisable(true);
             if (playerColorBlack) {
                 computerMove();

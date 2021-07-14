@@ -22,6 +22,7 @@ public class Cli {
     private static GameMode gameMode2;
     private static Computer computer;
     private static int pointer;
+    private static int difficulty;
 
     private static final List<Board> UNDO_REDO_MOVES_AS_BOARD = new ArrayList<>();
 
@@ -45,15 +46,15 @@ public class Cli {
     public static void init(String[] args) {
         if (!Arrays.asList(args).contains("--simple")) {
             startLoop();
-            //Enter simpleMode
+            // Enter simpleMode
         } else {
             coreGame = new CoreGame();
         }
-        //create Computer
+        // create Computer
         if (gameMode2 == GameMode.COMPUTER) {
-            computer = new Computer(true);
+            initDifficulty();
         }
-        //initialize pointer
+        // initialize pointer
         pointer = coreGame.getMoveHistory().size() - 1;
     }
 
@@ -80,7 +81,38 @@ public class Cli {
             String input = scan.nextLine();
             if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 50) {
                 gameMode2 = input.charAt(0) == 49 ? GameMode.NORMAL : GameMode.COMPUTER;
+
                 coreGame = new CoreGame();
+                break;
+            } else if (input.equals("de") || input.equals("fr") || input.equals("en")) {
+                LanguageManager.setLanguage(input);
+            }
+        } while (true);
+    }
+
+    /**
+     * initiates the difficulty of the computer, based on the targetDepth
+     */
+    private static void initDifficulty() {        
+        do {
+            System.out.println(LanguageManager.getText("difficulty_title"));
+            System.out.println("1. " + LanguageManager.getText("easy_label"));
+            System.out.println("2. " + LanguageManager.getText("medium_label"));
+            System.out.println("3. " + LanguageManager.getText("hard_label"));
+            System.out.print(LanguageManager.getText("input_label"));
+            String input = scan.nextLine();
+            if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 51) {
+                switch (input.charAt(0)) {
+                    case 49:
+                        computer = new Computer(true, 2);
+                        break;
+                    case 50:
+                        computer = new Computer(true, 4);
+                        break;
+                    default:
+                        computer = new Computer(true, 5);
+                        break;
+                }
                 break;
             } else if (input.equals("de") || input.equals("fr") || input.equals("en")) {
                 LanguageManager.setLanguage(input);
