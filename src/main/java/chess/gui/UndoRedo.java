@@ -215,6 +215,12 @@ public class UndoRedo {
         logic.getCoreGame().setActivePlayerBlack(pointer % 2 == 0);
 
         CHESSBOARD.getScene().updateScene();
+        if(CHESSBOARD.getLogic().getGameMode() == GameMode.NETWORK && CHESSBOARD.getLogic().getNetwork().isNetworkPlayerBlack()){
+            CHESSBOARD.getLogic().turnFigures(180);
+        }
+        if(CHESSBOARD.getLogic().getGameMode() == GameMode.COMPUTER && !CHESSBOARD.getLogic().getComputer().isBlack()){
+            CHESSBOARD.getLogic().turnFigures(180);
+        }
         unmark();
     }
 
@@ -243,6 +249,9 @@ public class UndoRedo {
         logic.getCoreGame().setActivePlayerBlack(pointer % 2 == 0);
 
         CHESSBOARD.getScene().updateScene();
+        if(CHESSBOARD.getLogic().getGameMode() == GameMode.NETWORK && CHESSBOARD.getLogic().getNetwork().isNetworkPlayerBlack()){
+            CHESSBOARD.getLogic().turnFigures(180);
+        }
 
     }
 

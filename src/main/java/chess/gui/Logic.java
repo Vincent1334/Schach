@@ -233,6 +233,9 @@ public class Logic implements Runnable {
             setNotification(true, LanguageManager.getText(WAITING_NETWORK));
         }
         CHESSBOARD.getScene().updateScene();
+        if(network.isNetworkPlayerBlack()){
+            CHESSBOARD.getLogic().turnFigures(180);
+        }
         network.setFlag(NetworkFlags.InGame);
     }
 
