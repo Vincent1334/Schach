@@ -22,7 +22,6 @@ public class Cli {
     private static GameMode gameMode2;
     private static Computer computer;
     private static int pointer;
-    private static int difficulty;
 
     private static final List<Board> UNDO_REDO_MOVES_AS_BOARD = new ArrayList<>();
 
@@ -91,7 +90,7 @@ public class Cli {
     }
 
     /**
-     * initiates the difficulty of the computer, based on the targetDepth
+     * read the user input for computer difficulty
      */
     private static void initDifficulty() {        
         do {
@@ -102,22 +101,33 @@ public class Cli {
             System.out.print(LanguageManager.getText("input_label"));
             String input = scan.nextLine();
             if (input.length() == 1 && input.charAt(0) >= 49 && input.charAt(0) <= 51) {
-                switch (input.charAt(0)) {
-                    case 49:
-                        computer = new Computer(true, 2);
-                        break;
-                    case 50:
-                        computer = new Computer(true, 4);
-                        break;
-                    default:
-                        computer = new Computer(true, 5);
-                        break;
-                }
+                initComputer(input);
                 break;
             } else if (input.equals("de") || input.equals("fr") || input.equals("en")) {
                 LanguageManager.setLanguage(input);
             }
         } while (true);
+    }
+
+    /**
+     * init computer with selected difficulty
+     * @param input
+     */
+    private static void initComputer(String input){
+        switch (input.charAt(0)) {
+            case 49:{
+                computer = new Computer(true, 2);
+                break;
+            }
+            case 50:{
+                computer = new Computer(true, 4);
+                break;
+            }
+            default:{
+                computer = new Computer(true, 5);
+                break;
+            }
+        }
     }
 
     /**
