@@ -45,7 +45,11 @@ public class Scene {
         drawBoard();
         updateNotifications();
         updateBeatenFigures();
-        if (CHESSBOARD.getRotate().isSelected()) {
+        if(CHESSBOARD.getLogic().getGameMode() == GameMode.COMPUTER && !CHESSBOARD.getLogic().getComputer().isBlack()){
+            CHESSBOARD.getBoard().setRotate(180);
+            CHESSBOARD.getLogic().turnFigures(180);
+        }
+        if (CHESSBOARD.getRotate().isSelected() && !CHESSBOARD.getRotate().isDisabled()) {
             CHESSBOARD.getLogic().turnBoard(false);
         }
         setPlayerLabel(CHESSBOARD.getLogic().getCoreGame().isActivePlayerBlack());
@@ -172,9 +176,6 @@ public class Scene {
                     CHESSBOARD.getBoard().add(iv, x + 1, 8 - y);
                 }
             }
-        }
-        if (CHESSBOARD.getLogic().getGameMode() != GameMode.NORMAL && CHESSBOARD.getLogic().isPlayerBlack()) {
-            CHESSBOARD.getLogic().turnFigures(180);
         }
     }
 

@@ -113,6 +113,7 @@ public class Logic implements Runnable {
             if (!CHESSBOARD.getUndoRedo().getUNDO_REDO_MOVES_AS_TEXT().isEmpty()) {
                 CHESSBOARD.getUndoRedo().resetUndoRedo(CHESSBOARD.getHistory(), this);
             }
+
             CHESSBOARD.getScene().updateHistory(move);
             CHESSBOARD.getScene().updateScene();
             startField = null;
@@ -122,6 +123,9 @@ public class Logic implements Runnable {
             if (GAME_MODE == GameMode.NETWORK) {
                 network.sendMove(move);
                 setNotification(true, LanguageManager.getText(WAITING_NETWORK));
+                if(network.isNetworkPlayerBlack()){
+                    turnFigures(180);
+                }
             }
         } else if (CHESSBOARD.getTouchMove().isSelected() && !CHESSBOARD.getPossibleFields(startField, coreGame.getCurrentBoard()).isEmpty()) {
             CHESSBOARD.setMark(startField, true, coreGame.getCurrentBoard());
@@ -207,6 +211,9 @@ public class Logic implements Runnable {
         CHESSBOARD.getUndoRedo().resetUndoRedo(CHESSBOARD.getHistory(), this);
         CHESSBOARD.getScene().updateHistory(networkMove);
         CHESSBOARD.getScene().updateScene();
+        if(network.isNetworkPlayerBlack()){
+            turnFigures(180);
+        }
         network.setFlag(NetworkFlags.InGame);
     }
 
