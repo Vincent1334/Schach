@@ -216,7 +216,9 @@ public class NetworkPlayer implements Runnable {
      * updates the gui
      */
     private void updateGUI() {
-        if (gui != null) gui.computerOrNetworkIsFinish();
+        if (gui != null) {
+            gui.computerOrNetworkIsFinish();
+        }
     }
 
     /**
@@ -251,9 +253,13 @@ public class NetworkPlayer implements Runnable {
     public void sendUndoRedo(int pointer) {
         out.println(pointer);
         if (pointer % 2 == 0 && !isBlack || pointer % 2 != 0 && isBlack) {
-            if (gui != null) gui.setNotification(true, LanguageManager.getText("network_player_waiting_label"));
+            if (gui != null) {
+                gui.setNotification(true, LanguageManager.getText("network_player_waiting_label"));
+            }
         } else {
-            if (gui != null) gui.setNotification(false, "");
+            if (gui != null) {
+                gui.setNotification(false, "");
+            }
         }
     }
 
@@ -298,13 +304,23 @@ public class NetworkPlayer implements Runnable {
      */
     public void killNetwork() {
         try {
-            if (out != null) out.println("exit");
+            if (out != null) {
+                out.println("exit");
+            }
             thread.interrupt();
             Thread.sleep(30);
-            if (CONNECTION.getClientSocket() != null) CONNECTION.getClientSocket().close();
-            if (CONNECTION.getServerSocket() != null) CONNECTION.getServerSocket().close();
-            if (in != null) in.close();
-            if (out != null) out.close();
+            if (CONNECTION.getClientSocket() != null) {
+                CONNECTION.getClientSocket().close();
+            }
+            if (CONNECTION.getServerSocket() != null) {
+                CONNECTION.getServerSocket().close();
+            }
+            if (in != null) {
+                in.close();
+            }
+            if (out != null) {
+                out.close();
+            }
         } catch (Exception x) {
             x.printStackTrace();
         }

@@ -58,7 +58,9 @@ public class Pawn extends Figure {
     public boolean validMove(Position actualPos, Position targetPos, Board board) {
 
         // check direction
-        if (!checkRightDirection(actualPos, targetPos)) return false;
+        if (!checkRightDirection(actualPos, targetPos)) {
+            return false;
+        }
         //is move legal?
         return normalMove(actualPos, targetPos, board) || normalAttack(actualPos, targetPos, board) || firstMove(actualPos, targetPos, board);
     }
