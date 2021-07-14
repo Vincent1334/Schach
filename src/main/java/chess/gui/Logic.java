@@ -30,7 +30,6 @@ public class Logic implements Runnable {
     private final ChessBoard CHESSBOARD;
     private final GameMode GAME_MODE;
     private NetworkPlayer network;
-    private boolean playerBlack;
     private final String WAITING_NETWORK = "network_player_waiting_label";
 
 
@@ -191,7 +190,6 @@ public class Logic implements Runnable {
      * setups the teams in a networkgame
      */
     private void networkSetupTeams() {
-        playerBlack = network.isNetworkPlayerBlack();
         if (network.isNetworkPlayerBlack()) {
             setNotification(true, LanguageManager.getText(WAITING_NETWORK));
             CHESSBOARD.getBoard().setRotate(180);
@@ -341,15 +339,6 @@ public class Logic implements Runnable {
         return GAME_MODE;
     }
 
-
-    /**
-     * returns true when we play black. For network use only
-     *
-     * @return playerBlack
-     */
-    protected boolean isPlayerBlack() {
-        return playerBlack;
-    }
 
     /**
      * returns the network
