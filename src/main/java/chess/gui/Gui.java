@@ -1,5 +1,6 @@
 package chess.gui;
 
+import chess.enums.GameMode;
 import chess.managers.WindowManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -35,6 +36,9 @@ public class Gui extends Application {
 
     @Override
     public void stop() {
+        if(((ChessBoard)WindowManager.getController("GameStage")).getLogic().getGameMode() == GameMode.NETWORK){
+            ((ChessBoard)WindowManager.getController("GameStage")).getLogic().getNetwork().killNetwork();
+        }
         System.exit(0);
     }
 }
