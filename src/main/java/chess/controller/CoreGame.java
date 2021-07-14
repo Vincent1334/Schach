@@ -166,13 +166,23 @@ public class CoreGame {
         Board.kingInCheck(currentBoard, activePlayerBlack);
         Board.kingInCheck(currentBoard, !activePlayerBlack);
         if (Board.checkChessAndStaleMate(currentBoard, activePlayerBlack)) {
-            if (currentBoard.isCheckMateFlag(false)) System.out.println("Player white is checkmate!");
-            if (currentBoard.isCheckMateFlag(true)) System.out.println("Player black is checkmate!");
-            if (currentBoard.isStaleMateFlag()) System.out.println("Game ends because stalemate!");
+            if (currentBoard.isCheckMateFlag(false)) {
+                System.out.println("Player white is checkmate!");
+            }
+            if (currentBoard.isCheckMateFlag(true)) {
+                System.out.println("Player black is checkmate!");
+            }
+            if (currentBoard.isStaleMateFlag()) {
+                System.out.println("Game ends because stalemate!");
+            }
             gameOver = true;
         }
-        if (currentBoard.isCheckFlag(false)) System.out.println("Player white is in check!");
-        if (currentBoard.isCheckFlag(true)) System.out.println("Player black is in check!");
+        if (currentBoard.isCheckFlag(false)) {
+            System.out.println("Player white is in check!");
+        }
+        if (currentBoard.isCheckFlag(true)) {
+            System.out.println("Player black is in check!");
+        }
         MOVE_HISTORY.add(new Board(currentBoard));
     }
 

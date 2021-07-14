@@ -88,7 +88,9 @@ public class Rules {
         Figure targetFigure = board.getFigure(targetPos.getPOS_X(), actualPos.getPOS_Y());
 
         //check target field is valid
-        if (!(board.getFigure(targetPos) instanceof None)) return false;
+        if (!(board.getFigure(targetPos) instanceof None)) {
+            return false;
+        }
 
         //check EnPassant is possible
         if (actualFigure instanceof Pawn && targetFigure instanceof Pawn
@@ -147,11 +149,14 @@ public class Rules {
         Figure actualFigure = board.getFigure(actualPos);
 
         //check chess or wrong input
-        if (actualPos.getPOS_Y() != targetPos.getPOS_Y() || Board.kingInCheck(board, actualFigure.isBlack()))
+        if (actualPos.getPOS_Y() != targetPos.getPOS_Y() || Board.kingInCheck(board, actualFigure.isBlack())) {
             return false;
+        }
 
         if (actualFigure instanceof King && !(actualFigure.isAlreadyMoved())) {
-            if (checkShortCastling(board, actualPos, targetPos)) return true;
+            if (checkShortCastling(board, actualPos, targetPos)) {
+                return true;
+            }
             return checkLongCastling(board, actualPos, targetPos);
         }
         return false;

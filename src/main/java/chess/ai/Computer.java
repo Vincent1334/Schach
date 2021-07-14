@@ -98,9 +98,12 @@ public class Computer implements Runnable {
 
     @Override
     public void run() {
-        if (!thread.isInterrupted())
+        if (!thread.isInterrupted()) {
             max(targetDepth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, new CutOff(new ArrayList<>(), null));
-        if (gui != null && !thread.isInterrupted()) gui.computerOrNetworkIsFinish();
+        }
+        if (gui != null && !thread.isInterrupted()) {
+            gui.computerOrNetworkIsFinish();
+        }
     }
 
     /*
@@ -118,8 +121,12 @@ public class Computer implements Runnable {
      * @return maxValue
      */
     private float max(int depth, float alpha, float beta, CutOff ParentCutOff) {
-        if (thread.isInterrupted()) return 0;
-        if (depth == 0) return moveValue(board, ParentCutOff.getLASTMOVE());
+        if (thread.isInterrupted()) {
+            return 0;
+        }
+        if (depth == 0) {
+            return moveValue(board, ParentCutOff.getLASTMOVE());
+        }
         float maxValue = alpha;
 
         //generate possible moves
@@ -127,7 +134,9 @@ public class Computer implements Runnable {
         sortMove(possibleMove, ParentCutOff.getPARENT_CUT_OFF());
 
         //Game over?
-        if (possibleMove.size() == 0) return Float.NEGATIVE_INFINITY;
+        if (possibleMove.size() == 0) {
+            return Float.NEGATIVE_INFINITY;
+        }
 
         //create CutOff
         ArrayList<Move> cutOff = new ArrayList<>();
@@ -162,8 +171,12 @@ public class Computer implements Runnable {
      * @return minValue
      */
     private float min(int depth, float alpha, float beta, CutOff ParentCutOff) {
-        if (thread.isInterrupted()) return 0;
-        if (depth == 0) return moveValue(board, ParentCutOff.getLASTMOVE());
+        if (thread.isInterrupted()) {
+            return 0;
+        }
+        if (depth == 0) {
+            return moveValue(board, ParentCutOff.getLASTMOVE());
+        }
         float minValue = beta;
 
         //create Possible Moves

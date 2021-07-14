@@ -122,8 +122,12 @@ public class Move {
      */
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (this == other) {
+            return true;
+        }
+        if (other == null || getClass() != other.getClass()) {
+            return false;
+        }
         Move move = (Move) other;
         return pawnConversionTo == move.pawnConversionTo && Objects.equals(ACTUAL_POSITION, move.ACTUAL_POSITION) && Objects.equals(TARGET_POSITION, move.TARGET_POSITION);
     }

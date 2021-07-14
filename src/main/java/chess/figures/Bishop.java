@@ -52,11 +52,16 @@ public class Bishop extends Figure {
         //is between the old position and the new position a figure
         int directionX = 1;
         int directionY = 1;
-        if (actualPos.getPOS_X() > targetPos.getPOS_X()) directionX = -1;
-        if (actualPos.getPOS_Y() > targetPos.getPOS_Y()) directionY = -1;
+        if (actualPos.getPOS_X() > targetPos.getPOS_X()) {
+            directionX = -1;
+        }
+        if (actualPos.getPOS_Y() > targetPos.getPOS_Y()) {
+            directionY = -1;
+        }
         for (int i = 1; i < Math.abs(actualPos.getPOS_X() - targetPos.getPOS_X()); i++) {
-            if (!(board.getFigure(actualPos.getPOS_X() + i * directionX, actualPos.getPOS_Y() + i * directionY) instanceof None))
+            if (!(board.getFigure(actualPos.getPOS_X() + i * directionX, actualPos.getPOS_Y() + i * directionY) instanceof None)) {
                 return false;
+            }
         }
         return true;
     }
