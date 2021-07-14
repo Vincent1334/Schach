@@ -89,18 +89,6 @@ public class HeuristicTest {
     }
 
     /**
-     * tests whether the check chess mate flag is noticed correctly
-     */
-    @Test
-    public void testCheckChessMate() {
-        Board testBoard = new Board();
-        testBoard.setCheckMateFlag(true, false);
-
-        assertEquals(Float.POSITIVE_INFINITY, Heuristic.checkChessMate(testBoard, true), "check chess mate test fail");
-        assertEquals(Float.NEGATIVE_INFINITY, Heuristic.checkChessMate(testBoard, false), "check chess mate test fail");
-    }
-
-    /**
      * tests whether the check chess flag is noticed correctly
      */
     @Test

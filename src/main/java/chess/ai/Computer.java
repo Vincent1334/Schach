@@ -198,10 +198,7 @@ public class Computer implements Runnable {
 
         //Game over?
         if (possibleMove.size() == 0) {
-            if (board.isCheckMateFlag(PLAYER_MIN)) {
-                return Float.POSITIVE_INFINITY;
-            }
-            return Float.NEGATIVE_INFINITY;
+            return Float.POSITIVE_INFINITY;
         }
 
         //create CutOff
@@ -278,7 +275,6 @@ public class Computer implements Runnable {
         score += Heuristic.checkMaterial(material, PLAYER_MAX);
         score += Heuristic.checkFieldScore(fieldScore, PLAYER_MAX);
         score += Heuristic.checkCastling(board, PLAYER_MAX);
-        score += Heuristic.checkChessMate(board, PLAYER_MAX);
         score += Heuristic.checkChess(board, PLAYER_MAX);
         score += Heuristic.checkPawnChain(board, move, PLAYER_MAX);
         score += Heuristic.checkEndGame(board, PLAYER_MAX, isEndGame);

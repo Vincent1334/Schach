@@ -31,7 +31,6 @@ public class Heuristic {
     private static final float QUEEN_BONUS = 4;
 
     private static final float CASTLING_POINTS = 1000;
-    private static final float CHECK_MATE_POINTS = Float.POSITIVE_INFINITY;
     private static final float CHECK_POINTS = 10;
 
     private static final float REPEAT_POINTS = 100;
@@ -218,17 +217,6 @@ public class Heuristic {
      */
     protected static float checkCastling(Board board, boolean playerMax) {
         return (board.isCastlingFlag(playerMax) ? CASTLING_POINTS : 0) - (board.isCastlingFlag(!playerMax) ? CASTLING_POINTS : 0);
-    }
-
-    /**
-     * checks for checkmate and adds checkmate points to score
-     *
-     * @param board     the current board
-     * @param playerMax maximizing player
-     * @return chess mate points
-     */
-    protected static float checkChessMate(Board board, boolean playerMax) {
-        return (board.isCheckMateFlag(!playerMax) ? CHECK_MATE_POINTS : 0) - (board.isCheckMateFlag(playerMax) ? CHECK_MATE_POINTS : 0);
     }
 
     /**
