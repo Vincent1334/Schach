@@ -111,7 +111,7 @@ public class Cli {
 
     /**
      * init computer with selected difficulty
-     * @param input
+     * @param input the given input
      */
     private static void initComputer(String input){
         switch (input.charAt(0)) {
