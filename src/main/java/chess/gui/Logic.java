@@ -40,6 +40,7 @@ public class Logic implements Runnable {
      * @param GAME_MODE        against a local friend (NORMAL) or a network game (NETWORK) or against the computer (COMPUTER)
      * @param playerColorBlack the color you want to play (true if you want to play black)
      * @param networkPlayer    the networkPlayer
+     * @param targetDepth      the target search depth
      */
     public Logic(GameMode GAME_MODE,int targetDepth, boolean playerColorBlack, NetworkPlayer networkPlayer) {
         this.GAME_MODE = GAME_MODE;

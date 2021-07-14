@@ -54,6 +54,7 @@ public class ChessBoard {
      * @param gameMode      against a local friend (0) or a network game (1) or against the computer (2)
      * @param isBlack       the current player
      * @param networkPlayer the network player
+     * @param targetDepth   the target search depth
      */
     public void init(GameMode gameMode, int targetDepth,boolean isBlack, NetworkPlayer networkPlayer) {
         scene = new Scene(this);
