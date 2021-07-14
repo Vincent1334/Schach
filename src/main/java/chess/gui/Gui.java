@@ -36,8 +36,12 @@ public class Gui extends Application {
 
     @Override
     public void stop() {
-        if(((ChessBoard)WindowManager.getController("GameStage")).getLogic().getGameMode() == GameMode.NETWORK){
-            ((ChessBoard)WindowManager.getController("GameStage")).getLogic().getNetwork().killNetwork();
+        try{
+            if(((ChessBoard)WindowManager.getController("GameStage")).getLogic().getGameMode() == GameMode.NETWORK){
+                ((ChessBoard)WindowManager.getController("GameStage")).getLogic().getNetwork().killNetwork();
+            }
+        }catch (Exception x){
+            System.out.println("Network close!");
         }
         System.exit(0);
     }
